@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Chat</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+  color:white;
+  min-height:100vh;
+}
+
+button,input{
+  font-family:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* LOGIN */
+
+.screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.auth-box{
+  width:100%;
+  max-width:390px;
+  padding:32px 22px;
+  border-radius:26px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 25px 60px rgba(0,0,0,.35);
+  text-align:center;
+}
+
+.logo{
+  width:78px;
+  height:78px;
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:24px;
+  background:linear-gradient(135deg,#38bdf8,#6366f1);
+  font-size:40px;
+}
+
+.auth-box h1{
+  font-size:32px;
+  margin-bottom:7px;
+}
+
+.subtitle{
+  color:rgba(255,255,255,.75);
+  margin-bottom:25px;
+  font-size:14px;
+}
+
+.auth-box input{
+  width:100%;
+  height:52px;
+  margin-bottom:13px;
+  padding:0 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.25);
+  outline:none;
+  background:rgba(255,255,255,.13);
+  color:white;
+  font-size:16px;
+}
+
+.auth-box input::placeholder{
+  color:rgba(255,255,255,.65);
+}
+
+.auth-box input:focus{
+  border-color:#60a5fa;
+  background:rgba(255,255,255,.2);
+}
+
+.auth-box button{
+  width:100%;
+  height:52px;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.primary-btn{
+  color:white;
+  background:linear-gradient(135deg,#38bdf8,#2563eb);
+}
+
+.secondary-btn{
+  margin-top:11px;
+  color:white;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+#authMessage{
+  min-height:22px;
+  margin-top:15px;
+  font-size:13px;
+}
+
+/* CHAT */
+
+.chat-app{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:#f1f5f9;
+  color:#111827;
+}
+
+.top-bar{
+  min-height:65px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:white;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.top-bar strong{
+  display:block;
+  font-size:19px;
+}
+
+.top-bar small{
+  display:block;
+  margin-top:3px;
+  opacity:.8;
+}
+
+#logoutBtn{
+  padding:9px 13px;
+  border-radius:10px;
+  color:white;
+  background:rgba(255,255,255,.18);
+}
+
+.search-area{
+  padding:10px;
+  background:white;
+}
+
+#userSearch{
+  width:100%;
+  height:45px;
+  padding:0 15px;
+  border:1px solid #e2e8f0;
+  border-radius:13px;
+  outline:none;
+  background:#f8fafc;
+  font-size:15px;
+}
+
+.user-list{
+  max-height:155px;
+  overflow-y:auto;
+  background:white;
+}
+
+.user-item{
+  padding:12px 15px;
+  border-bottom:1px solid #edf2f7;
+  cursor:pointer;
+}
+
+.user-item:active{
+  background:#eff6ff;
+}
+
+.user-item strong{
+  display:block;
+  color:#111827;
+}
+
+.user-item small{
+  color:#64748b;
+}
+
+.conversation{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.conversation-header{
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  background:white;
+  border-top:1px solid #e5e7eb;
+  border-bottom:1px solid #e5e7eb;
+}
+
+#backBtn{
+  background:transparent;
+  font-size:27px;
+  color:#2563eb;
+}
+
+.conversation-header strong{
+  display:block;
+}
+
+.conversation-header small{
+  color:#64748b;
+}
+
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:15px;
+  background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+.empty-chat{
+  text-align:center;
+  margin-top:40px;
+  color:#64748b;
+}
+
+.message{
+  max-width:78%;
+  padding:10px 13px;
+  margin-bottom:9px;
+  border-radius:17px;
+  word-wrap:break-word;
+  box-shadow:0 2px 5px rgba(0,0,0,.06);
+}
+
+.message.mine{
+  margin-left:auto;
+  color:white;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);
+  border-bottom-right-radius:4px;
+}
+
+.message.theirs{
+  margin-right:auto;
+  color:#1e293b;
+  background:white;
+  border-bottom-left-radius:4px;
+}
+
+.message-time{
+  display:block;
+  margin-top:5px;
+  font-size:10px;
+  opacity:.65;
+}
+
+.message-area{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:9px;
+  background:white;
+  border-top:1px solid #e2e8f0;
+}
+
+#messageInput{
+  flex:1;
+  min-width:0;
+  height:44px;
+  padding:0 15px;
+  border:1px solid #e2e8f0;
+  border-radius:22px;
+  outline:none;
+  background:#f8fafc;
+}
+
+#sendBtn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  color:white;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);
+  font-size:20px;
+}
+
+@media(max-width:500px){
+  .message{
+    max-width:86%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="authView" class="screen">
+
+  <div class="auth-box">
+
+    <div class="logo">💬</div>
+
+    <h1>Your Chat</h1>
+
+    <p class="subtitle">
+      Chat • Connect • Enjoy
+    </p>
+
+    <input
+      id="nameInput"
+      type="text"
+      placeholder="👤 Username"
+      autocomplete="username"
+    >
+
+    <input
+      id="passwordInput"
+      type="password"
+      placeholder="🔐 Password"
+      autocomplete="current-password"
+    >
+
+    <button id="signupBtn" class="primary-btn">
+      Create Account
+    </button>
+
+    <button id="loginBtn" class="secondary-btn">
+      Login
+    </button>
+
+    <p id="authMessage"></p>
+
+  </div>
+</div>
+
+
+<!-- CHAT -->
+<div id="chatView" class="chat-app hidden">
+
+  <header class="top-bar">
+
+    <div>
+      <strong>💬 Your Chat</strong>
+      <small id="myName"></small>
+    </div>
+
+    <button id="logoutBtn">
+      Logout
+    </button>
+
+  </header>
+
+
+  <div class="search-area">
+
+    <input
+      id="userSearch"
+      type="text"
+      placeholder="🔎 Search username..."
+    >
+
+  </div>
+
+
+  <div id="userList" class="user-list"></div>
+
+
+  <section class="conversation">
+
+    <div class="conversation-header">
+
+      <button id="backBtn">←</button>
+
+      <div>
+        <strong id="chatUserName">
+          Select a user
+        </strong>
+
+        <small id="chatUserEmail"></small>
+      </div>
+
+    </div>
+
+
+    <div id="messages" class="messages">
+
+      <div class="empty-chat">
+        Kisi user ko search karke select karein 👤
+      </div>
+
+    </div>
+
+
+    <div class="message-area">
+
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Message likhein..."
+      >
+
+      <button id="sendBtn">
+        ➤
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script type="module">
+
+/* FIREBASE */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+  getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCvVgz-mghugvBkv0j9j9SytQKFHA30L9w",
+  authDomain: "your-chat-e1ec1.firebaseapp.com",
+  projectId: "your-chat-e1ec1",
+  storageBucket: "your-chat-e1ec1.firebasestorage.app",
+  messagingSenderId: "98625581549",
+  appId: "1:98625581549:web:870a7f17350c85cac877e4",
+  measurementId: "G-N3CKRTR8TQ"
+};
+
+
+/* START */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+/* ELEMENTS */
+
+const authView = document.getElementById("authView");
+const chatView = document.getElementById("chatView");
+
+const nameInput = document.getElementById("nameInput");
+const passwordInput = document.getElementById("passwordInput");
+
+const signupBtn = document.getElementById("signupBtn");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const authMessage = document.getElementById("authMessage");
+
+const myName = document.getElementById("myName");
+
+const userSearch = document.getElementById("userSearch");
+const userList = document.getElementById("userList");
+
+const chatUserName = document.getElementById("chatUserName");
+const chatUserEmail = document.getElementById("chatUserEmail");
+
+const messagesBox = document.getElementById("messages");
+
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+const backBtn = document.getElementById("backBtn");
+
+
+/* VARIABLES */
+
+let currentUser = null;
+let selectedUser = null;
+let currentChatId = null;
+let unsubscribeMessages = null;
+
+
+/* MESSAGE */
+
+function showAuthMessage(text, success=false){
+
+  authMessage.textContent = text;
+
+  authMessage.style.color =
+    success ? "#bbf7d0" : "#fecaca";
+}
+
+
+/* INTERNAL EMAIL */
+
+function makeLoginEmail(username){
+
+  return username.trim().toLowerCase()
+    + "@yourchat.local";
+}
+
+
+/* CHAT ID */
+
+function makeChatId(uid1,uid2){
+
+  return [uid1,uid2].sort().join("_");
+}
+
+
+/* CREATE ACCOUNT */
+
+signupBtn.addEventListener("click",async()=>{
+
+  const username = nameInput.value.trim();
+  const password = passwordInput.value;
+
+  if(!username){
+    showAuthMessage("Username likhein.");
+    return;
+  }
+
+  if(username.length < 3){
+    showAuthMessage("Username kam az kam 3 characters ka ho.");
+    return;
+  }
+
+  if(!/^[a-zA-Z0-9_]+$/.test(username)){
+    showAuthMessage(
+      "Username mein sirf English letters, numbers aur _ use karein."
+    );
+    return;
+  }
+
+  if(!password){
+    showAuthMessage("Password likhein.");
+    return;
+  }
+
+  if(password.length < 6){
+    showAuthMessage("Password kam az kam 6 characters ka ho.");
+    return;
+  }
+
+  try{
+
+    showAuthMessage("⏳ Account ban raha hai...",true);
+
+    const email = makeLoginEmail(username);
+
+    const result =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    const user = result.user;
+
+    await updateProfile(user,{
+      displayName:username
+    });
+
+    await setDoc(
+      doc(db,"users",user.uid),
+      {
+        uid:user.uid,
+        name:username,
+        username:username.toLowerCase(),
+        createdAt:serverTimestamp()
+      }
+    );
+
+    showAuthMessage(
+      "✅ Account successfully ban gaya!",
+      true
+    );
+
+    nameInput.value="";
+    passwordInput.value="";
+
+  }catch(error){
+
+    console.error(error);
+
+    if(error.code==="auth/email-already-in-use"){
+
+      showAuthMessage(
+        "❌ Ye username pehle se use ho raha hai."
+      );
+
+    }else if(error.code==="auth/network-request-failed"){
+
+      showAuthMessage(
+        "❌ Internet connection check karein."
+      );
+
+    }else{
+
+      showAuthMessage(
+        "❌ "+(error.message || "Account nahi bana.")
+      );
+
+    }
+  }
+});
+
+
+/* LOGIN */
+
+loginBtn.addEventListener("click",async()=>{
+
+  const username = nameInput.value.trim();
+  const password = passwordInput.value;
+
+  if(!username || !password){
+
+    showAuthMessage(
+      "Username aur password likhein."
+    );
+
+    return;
+  }
+
+  try{
+
+    showAuthMessage("⏳ Login ho raha hai...",true);
+
+    await signInWithEmailAndPassword(
+      auth,
+      makeLoginEmail(username),
+      password
+    );
+
+    showAuthMessage(
+      "✅ Login successful!",
+      true
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    if(error.code==="auth/network-request-failed"){
+
+      showAuthMessage(
+        "❌ Internet connection check karein."
+      );
+
+    }else{
+
+      showAuthMessage(
+        "❌ Username ya password ghalat hai."
+      );
+
+    }
+  }
+});
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(auth,(user)=>{
+
+  if(user){
+
+    currentUser=user;
+
+    authView.classList.add("hidden");
+    chatView.classList.remove("hidden");
+
+    myName.textContent =
+      "@"+(user.displayName || "User");
+
+  }else{
+
+    currentUser=null;
+
+    authView.classList.remove("hidden");
+    chatView.classList.add("hidden");
+
+  }
+
+});
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener("click",async()=>{
+
+  await signOut(auth);
+
+});
+
+
+/* SEARCH */
+
+userSearch.addEventListener("input",searchUsers);
+
+
+async function searchUsers(){
+
+  if(!currentUser)return;
+
+  const text =
+    userSearch.value.trim().toLowerCase();
+
+  userList.innerHTML="";
+
+  if(!text)return;
+
+  try{
+
+    const snapshot =
+      await getDocs(collection(db,"users"));
+
+    let found=0;
+
+    snapshot.forEach(userDoc=>{
+
+      const user=userDoc.data();
+
+      if(
+        user.uid!==currentUser.uid &&
+        (
+          (user.name||"").toLowerCase().includes(text) ||
+          (user.username||"").toLowerCase().includes(text)
+        )
+      ){
+
+        found++;
+
+        const div=document.createElement("div");
+
+        div.className="user-item";
+
+        const strong=document.createElement("strong");
+
+        strong.textContent =
+          "👤 "+(user.name||"User");
+
+        const small=document.createElement("small");
+
+        small.textContent =
+          "@"+(user.username||"");
+
+        div.appendChild(strong);
+        div.appendChild(small);
+
+        div.addEventListener(
+          "click",
+          ()=>openChat(user)
+        );
+
+        userList.appendChild(div);
+      }
+
+    });
+
+    if(!found){
+
+      userList.innerHTML =
+        '<div class="user-item">User nahi mila.</div>';
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    userList.innerHTML =
+      '<div class="user-item">Search error.</div>';
+
+  }
+}
+
+
+/* OPEN CHAT */
+
+async function openChat(user){
+
+  if(!currentUser)return;
+
+  selectedUser=user;
+
+  currentChatId =
+    makeChatId(
+      currentUser.uid,
+      selectedUser.uid
+    );
+
+  chatUserName.textContent =
+    selectedUser.name || "User";
+
+  chatUserEmail.textContent =
+    "@"+(selectedUser.username||"");
+
+  messagesBox.innerHTML="";
+
+  if(unsubscribeMessages){
+    unsubscribeMessages();
+  }
+
+  const messagesRef =
+    collection(
+      db,
+      "chats",
+      currentChatId,
+      "messages"
+    );
+
+  const messagesQuery =
+    query(
+      messagesRef,
+      orderBy("createdAt","asc")
+    );
+
+  unsubscribeMessages =
+    onSnapshot(
+      messagesQuery,
+      snapshot=>{
+
+        messagesBox.innerHTML="";
+
+        if(snapshot.empty){
+
+          messagesBox.innerHTML =
+            '<div class="empty-chat">Abhi koi message nahi hai 👋</div>';
+
+          return;
+        }
+
+        snapshot.forEach(messageDoc=>{
+
+          showMessage(messageDoc.data());
+
+        });
+
+        messagesBox.scrollTop =
+          messagesBox.scrollHeight;
+
+      },
+      error=>{
+
+        console.error(error);
+
+        messagesBox.innerHTML =
+          '<div class="empty-chat">Messages load nahi ho rahe.</div>';
+
+      }
+    );
+}
+
+
+/* SHOW MESSAGE */
+
+function showMessage(message){
+
+  const div=document.createElement("div");
+
+  const mine =
+    message.senderId===currentUser.uid;
+
+  div.className =
+    mine ? "message mine" : "message theirs";
+
+  div.appendChild(
+    document.createTextNode(
+      message.text || ""
+    )
+  );
+
+  const time=document.createElement("span");
+
+  time.className="message-time";
+
+  time.textContent =
+    mine
+      ? "You"
+      : (selectedUser?.name || "User");
+
+  div.appendChild(time);
+
+  messagesBox.appendChild(div);
+}
+
+
+/* SEND MESSAGE */
+
+sendBtn.addEventListener(
+  "click",
+  sendMessage
+);
+
+messageInput.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key==="Enter"){
+
+      event.preventDefault();
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
+async function sendMessage(){
+
+  const text =
+    messageInput.value.trim();
+
+  if(!text)return;
+
+  if(!currentUser || !selectedUser){
+
+    alert("Pehle kisi user ko select karein.");
+
+    return;
+  }
+
+  try{
+
+    await setDoc(
+      doc(db,"chats",currentChatId),
+      {
+        members:[
+          currentUser.uid,
+          selectedUser.uid
+        ],
+        updatedAt:serverTimestamp()
+      },
+      {merge:true}
+    );
+
+    await addDoc(
+      collection(
+        db,
+        "chats",
+        currentChatId,
+        "messages"
+      ),
+      {
+        senderId:currentUser.uid,
+        receiverId:selectedUser.uid,
+        text:text,
+        type:"text",
+        createdAt:serverTimestamp()
+      }
+    );
+
+    messageInput.value="";
+
+    messageInput.focus();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Message send nahi hua. Firebase rules check karein."
+    );
+  }
+}
+
+
+/* BACK */
+
+backBtn.addEventListener(
+  "click",
+  ()=>{
+
+    selectedUser=null;
+    currentChatId=null;
+
+    chatUserName.textContent="Select a user";
+    chatUserEmail.textContent="";
+
+    messagesBox.innerHTML =
+      '<div class="empty-chat">Kisi user ko select karein 👤</div>';
+
+    if(unsubscribeMessages){
+
+      unsubscribeMessages();
+      unsubscribeMessages=null;
+
+    }
+
+  }
+);
+
+console.log("✅ Your Chat loaded");
+
+</script>
+
+</body>
+</html>
