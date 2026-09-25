@@ -1,25 +1,1142 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your Chat</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#eef3ff;color:#18223a}.app{max-width:760px;margin:auto;height:100vh;background:#f7f9ff;display:flex;flex-direction:column}.top{padding:14px;background:linear-gradient(90deg,#245df5,#6b43e8);color:#fff;display:flex;justify-content:space-between;align-items:center}.top b{font-size:22px}.top button,.btn{border:0;border-radius:13px;padding:10px 14px;background:#edf3ff;color:#245df5}.tabs{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:1px solid #ddd}.tabs button{border:0;background:#fff;padding:12px 4px;color:#536078}.tabs .on{color:#245df5;font-weight:bold;border-bottom:3px solid #245df5}.page{flex:1;overflow:auto}.pad{padding:12px}.card{background:#fff;border:1px solid #e0e6f0;border-radius:17px;padding:12px;margin:9px 0}.world{background:linear-gradient(135deg,#173273,#315eff);color:#fff;border-radius:19px;padding:17px}.chat{height:100%;display:flex;flex-direction:column}.head{background:#fff;padding:10px 12px;border-bottom:1px solid #ddd;display:flex;gap:10px;align-items:center}.msgs{flex:1;overflow:auto;padding:13px;background:#f0f4ff}.msg{max-width:82%;padding:9px 12px;margin:7px 0;background:#fff;border-radius:16px;box-shadow:0 2px 6px #0001}.mine{margin-left:auto;background:linear-gradient(135deg,#2c62ef,#5a48e8);color:#fff}.meta{font-size:10px;opacity:.65;margin-top:4px}.media{max-width:100%;border-radius:12px}.compose{display:flex;gap:7px;padding:9px;background:#fff;border-top:1px solid #ddd}.compose input{flex:1;min-width:0;padding:13px;border:1px solid #d5ddea;border-radius:18px}.circle{width:44px;height:44px;border:0;border-radius:50%;background:#edf3ff;color:#245df5;font-size:18px}.send{background:#245df5;color:#fff}.file{width:44px;height:44px;border-radius:50%;background:#edf3ff;display:flex;align-items:center;justify-content:center;color:#245df5}.file input{display:none}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#22b9ff,#6948ed);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}.grow{flex:1}.small{font-size:12px;opacity:.7}.empty{text-align:center;padding:50px 10px;color:#657188}.auth{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#14264f,#2969ff);padding:18px}.box{width:min(420px,100%);padding:25px;border-radius:25px;background:#ffffff18;color:#fff;text-align:center}.box input{width:100%;padding:14px;margin:6px 0;border:0;border-radius:14px}.box button{width:100%;padding:14px;margin-top:8px;border:0;border-radius:14px;font-weight:bold}.primary{background:#20aef5;color:#fff}.secondary{background:#ffffff22;color:#fff;border:1px solid #fff}.hidden{display:none}.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;z-index:5}.modal>div{width:min(760px,100%);background:#fff;border-radius:22px 22px 0 0;padding:18px;max-height:85vh;overflow:auto}.warn{color:#c6283d}.online{color:#13a85b;font-weight:bold}@media(min-width:700px){.app{box-shadow:0 0 35px #0002}}
-</style></head><body>
-<div id="auth" class="auth"><div class="box"><div style="font-size:50px">💬</div><h1>Your Chat</h1><p>Chat • Connect • World</p><input id="name" placeholder="Username (letters, numbers, _)"><input id="pass" type="password" placeholder="Password"><button class="primary" id="signup">Create Account</button><button class="secondary" id="login">Login</button><p id="err"></p></div></div>
-<div id="app" class="app hidden"><div class="top"><div><b>💬 Your Chat</b><div id="who" class="small"></div></div><button id="logout">Logout</button></div><div class="tabs"><button data-p="home" class="on">🏠 Home</button><button data-p="world">🌍 World</button><button data-p="users">🟢 Users</button><button data-p="profile">👤 Profile</button></div><div id="page" class="page"></div></div>
-<div id="modal" class="modal hidden"><div id="modalBody"></div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Your Chat</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
+body{background:#eef2ff;color:#17213b}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#auth{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;
+ padding:18px;background:linear-gradient(135deg,#10285d,#2864ef,#7040d8)
+}
+.authBox{
+ width:min(420px,100%);padding:28px 22px;text-align:center;color:white;
+ border-radius:28px;background:#ffffff18;border:1px solid #ffffff35;
+ box-shadow:0 20px 60px #0004
+}
+.logo{
+ width:76px;height:76px;margin:auto;border-radius:24px;
+ display:flex;align-items:center;justify-content:center;font-size:40px;
+ background:linear-gradient(135deg,#25cfff,#674df0)
+}
+.authBox h1{margin:15px 0 5px;font-size:34px}
+.sub{opacity:.8;margin-bottom:22px}
+.authBox input{
+ width:100%;padding:15px;margin:6px 0;border:0;border-radius:15px;outline:0
+}
+.authBtn{
+ width:100%;padding:14px;margin-top:9px;border:0;border-radius:15px;font-weight:bold
+}
+.create{background:#20bfff;color:white}
+.login{background:#ffffff20;color:white;border:1px solid #ffffff55}
+#error{min-height:22px;font-size:13px;color:#ffd0d0}
+
+#app{
+ height:100vh;max-width:780px;margin:auto;background:#f7f9ff;
+ display:flex;flex-direction:column
+}
+.top{
+ padding:12px 15px;color:white;background:linear-gradient(90deg,#1e5cf1,#6940df);
+ display:flex;align-items:center;justify-content:space-between
+}
+.brand{font-size:21px;font-weight:bold}
+.topSmall{font-size:12px;opacity:.8}
+.logout{border:0;background:#ffffff20;color:white;padding:9px 12px;border-radius:12px}
+
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);background:white;border-bottom:1px solid #dde3ed}
+.tab{border:0;background:white;padding:12px 3px;color:#65718a;font-size:12px}
+.tab.active{color:#245cf1;font-weight:bold;border-bottom:3px solid #245cf1}
+.page{flex:1;overflow:auto}
+
+.pad{padding:13px}
+.hero{
+ padding:20px;border-radius:22px;color:white;
+ background:linear-gradient(135deg,#142f70,#3162f3);
+ box-shadow:0 10px 30px #153e9b22
+}
+.hero h2{margin:0 0 6px}
+.hero p{margin:0 0 15px;opacity:.85}
+.heroBtn{
+ border:0;border-radius:13px;padding:12px 16px;
+ background:white;color:#245cf1;font-weight:bold
+}
+.section{margin:18px 3px 9px}
+.search{
+ width:100%;padding:13px;border:1px solid #d9e0eb;
+ border-radius:15px;background:white;outline:0
+}
+.card{
+ background:white;border:1px solid #e0e6f0;border-radius:18px;
+ padding:12px;margin:9px 0;box-shadow:0 3px 12px #00000009
+}
+.row{display:flex;align-items:center;gap:10px}
+.grow{flex:1}
+.avatar{
+ width:45px;height:45px;flex:none;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ color:white;font-weight:bold;background:linear-gradient(135deg,#25c9ff,#6849ed)
+}
+.small{font-size:12px;color:#6b7890}
+.online{color:#12a85b}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:#16bc67}
+.offdot{width:9px;height:9px;border-radius:50%;display:inline-block;background:#aab2bf}
+.action{
+ border:0;border-radius:12px;padding:9px 12px;
+ background:#edf3ff;color:#245cf1
+}
+.danger{background:#ffe8ec;color:#ce2947}
+
+.chat{height:100%;display:flex;flex-direction:column}
+.chatHead{
+ padding:10px 12px;background:white;border-bottom:1px solid #dfe4ec;
+ display:flex;align-items:center;gap:10px
+}
+.back{
+ border:0;background:#edf3ff;color:#245cf1;
+ width:40px;height:40px;border-radius:12px;font-size:20px
+}
+.messages{
+ flex:1;overflow:auto;padding:14px;
+ background:linear-gradient(#eef3ff,#fafbff)
+}
+.msg{
+ max-width:82%;margin:7px 0;padding:9px 12px;
+ border-radius:17px;background:white;box-shadow:0 3px 9px #0000000b;
+ overflow-wrap:anywhere
+}
+.msg.mine{margin-left:auto;background:linear-gradient(135deg,#2861f0,#6544dc);color:white}
+.msgName{font-size:12px;font-weight:bold;margin-bottom:4px}
+.meta{font-size:10px;opacity:.65;margin-top:5px}
+.media{display:block;max-width:100%;max-height:300px;border-radius:12px}
+.composer{
+ display:flex;gap:7px;padding:9px;background:white;border-top:1px solid #dce2ed
+}
+.composer input{
+ flex:1;min-width:0;padding:13px;border:1px solid #d5ddea;
+ border-radius:19px;outline:0
+}
+.icon{
+ width:44px;height:44px;flex:none;border:0;border-radius:50%;
+ background:#edf3ff;color:#245cf1;font-size:18px
+}
+.send{background:#245cf1;color:white}
+.file{
+ width:44px;height:44px;flex:none;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ background:#edf3ff;color:#245cf1
+}
+.file input{display:none}
+.empty{text-align:center;color:#71809a;padding:45px 10px}
+
+.modal{
+ position:fixed;inset:0;z-index:9999;background:#0008;
+ display:flex;align-items:flex-end
+}
+.modal.hidden{display:none!important}
+.modalBox{
+ width:min(780px,100%);max-height:85vh;overflow:auto;
+ background:white;border-radius:24px 24px 0 0;padding:18px
+}
+.modalBox input,.modalBox textarea{
+ width:100%;padding:12px;border:1px solid #d6deeb;
+ border-radius:12px;outline:0
+}
+.modalBtn{
+ width:100%;padding:13px;border:0;border-radius:13px;
+ margin-top:8px;background:#245cf1;color:white
+}
+.cancel{background:#edf1f7;color:#26334e}
+
+@media(min-width:700px){
+ #app{box-shadow:0 0 45px #15234a22}
+ .tabs{grid-template-columns:repeat(4,150px);justify-content:center}
+}
+</style>
+</head>
+
+<body>
+
+<div id="auth">
+ <div class="authBox">
+  <div class="logo">💬</div>
+  <h1>Your Chat</h1>
+  <div class="sub">Chat • Connect • World</div>
+
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+
+  <button class="authBtn create" id="createBtn">Create Account</button>
+  <button class="authBtn login" id="loginBtn">Login</button>
+
+  <div id="error"></div>
+ </div>
+</div>
+
+<div id="app" class="hidden">
+
+ <div class="top">
+  <div>
+   <div class="brand">💬 Your Chat</div>
+   <div class="topSmall" id="topUser"></div>
+  </div>
+  <button class="logout" id="logoutBtn">Logout</button>
+ </div>
+
+ <div class="tabs">
+  <button class="tab active" data-page="home">Home</button>
+  <button class="tab" data-page="world">World</button>
+  <button class="tab" data-page="users">Users</button>
+  <button class="tab" data-page="profile">Profile</button>
+ </div>
+
+ <main id="page" class="page"></main>
+</div>
+
+<div id="modal" class="modal hidden">
+ <div id="modalBox" class="modalBox"></div>
+</div>
+
 <script type="module">
-import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';import{getFirestore,collection,doc,setDoc,getDoc,addDoc,updateDoc,getDocs,query,orderBy,onSnapshot,serverTimestamp,limit}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';import{getStorage,ref,uploadBytes,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
-const firebaseConfig={apiKey:'AIzaSyCvVgz-mghugvBkv0j9j9SytQKFHA30L9w',authDomain:'your-chat-e1ec1.firebaseapp.com',projectId:'your-chat-e1ec1',storageBucket:'your-chat-e1ec1.firebasestorage.app',messagingSenderId:'98625581549',appId:'1:98625581549:web:870a7f17350c85cac877e4',measurementId:'G-N3CKRTR8TQ'};const A=initializeApp(firebaseConfig),auth=getAuth(A),db=getFirestore(A),storage=getStorage(A);const OWNER='Malik_Talha';let me=null,chatUser=null,worldStop=null,privateStop=null;const $=x=>document.getElementById(x),email=n=>n.toLowerCase()+'@yourchat.local',safe=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-$('signup').onclick=async()=>{let n=$('name').value.trim(),p=$('pass').value;if(!/^[A-Za-z0-9_]{3,24}$/.test(n))return $('err').textContent='Username mein English letters, numbers aur _ use karein.';if(p.length<6)return $('err').textContent='Password 6 characters ya zyada rakhein.';try{let c=await createUserWithEmailAndPassword(auth,email(n),p);await updateProfile(c.user,{displayName:n});await setDoc(doc(db,'users',c.user.uid),{uid:c.user.uid,username:n,usernameLower:n.toLowerCase(),status:'Hello! I am using Your Chat.',online:true,lastSeen:serverTimestamp(),warnings:0,banUntil:0,createdAt:serverTimestamp()})}catch(e){$('err').textContent=e.message}};
-$('login').onclick=async()=>{try{await signInWithEmailAndPassword(auth,email($('name').value.trim()),$('pass').value)}catch(e){$('err').textContent=e.message}};$('logout').onclick=()=>signOut(auth);document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>page(b.dataset.p));
-async function users(){let s=await getDocs(collection(db,'users'));return s.docs.map(d=>d.data())}function online(u){return u.online&&u.lastSeen?.toDate&&(Date.now()-u.lastSeen.toDate().getTime()<70000)}function cid(a,b){return[a,b].sort().join('_')}function time(t){return t?.toDate?t.toDate().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):''}
-function page(p){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));if(p==='home')home();if(p==='world')world();if(p==='users')userPage();if(p==='profile')profile()}
-async function home(){let us=await users();$('page').innerHTML='<div class="pad"><div class="world"><h2>🌍 World Chat</h2><div>Sab users ke saath public group</div><button class="btn" id="ow">Open World Chat</button></div><h3>🟢 Online Users</h3><div id="list"></div></div>';$('ow').onclick=()=>page('world');let box=$('list');us.filter(u=>u.uid!==me.uid&&online(u)).forEach(u=>{let c=document.createElement('div');c.className='card';c.innerHTML=`<div class="head"><div class="avatar">${safe(u.username?.[0])}</div><div class="grow"><b>${safe(u.username)}</b><div class="small online">● Online</div></div><button class="btn">Private</button></div>`;c.onclick=()=>privateChat(u.uid);box.appendChild(c)})}
-function world(){if(worldStop)worldStop();$('page').innerHTML='<div class="chat"><div class="head"><div class="avatar">🌍</div><div class="grow"><b>World Chat</b><div class="small">Public group • mention with @username</div></div><button class="btn" id="rules">Rules</button></div><div id="msgs" class="msgs"><div class="empty">Loading...</div></div><div class="compose"><label class="file">📎<input id="wf" type="file" accept="image/*,video/*"></label><input id="wi" placeholder="Message likhein... @mention"><button id="ws" class="circle send">➤</button></div></div>';$('rules').onclick=()=>modal('<h3>🌍 World Chat Rules</h3><p>Respect • No spam • No harassment • No threats • No inappropriate content</p><button class="btn" onclick="closeModal()">OK</button>');$('ws').onclick=sendWorld;$('wi').onkeydown=e=>{if(e.key==='Enter')sendWorld()};$('wf').onchange=e=>media(e.target.files[0],true);let q=query(collection(db,'worldMessages'),orderBy('createdAt','asc'),limit(200));worldStop=onSnapshot(q,s=>{let b=$('msgs');if(!b)return;b.innerHTML='';s.forEach(d=>draw(b,{id:d.id,...d.data()}));b.scrollTop=b.scrollHeight})}
-function draw(box,m){let e=document.createElement('div');e.className='msg '+(m.uid===me.uid?'mine':'');let body=m.type==='image'?`<img class="media" src="${safe(m.url)}">`:m.type==='video'?`<video class="media" controls playsinline src="${safe(m.url)}"></video>`:safe(m.text);e.innerHTML=`<b>${m.uid===me.uid?'You':safe(m.username)}</b><div>${body}</div><div class="meta">${time(m.createdAt)} ${m.uid===me.uid?'✓✓':''}</div>`;if(m.uid!==me.uid&&me.displayName?.toLowerCase()===OWNER.toLowerCase())e.onclick=()=>moderate(m.uid,m.username);box.appendChild(e)}
-async function sendWorld(){let i=$('wi'),t=i.value.trim();if(!t)return;let u=(await getDoc(doc(db,'users',me.uid))).data()||{};if(u.banUntil>Date.now())return alert('Aap temporarily banned hain.');await addDoc(collection(db,'worldMessages'),{uid:me.uid,username:me.displayName,text:t,type:'text',createdAt:serverTimestamp()});i.value=''}
-async function media(file,isWorld){if(!file)return;if(file.size>25*1024*1024)return alert('Image/video 25MB se chhoti rakhein.');try{let type=file.type.startsWith('video/')?'video':'image',r=ref(storage,`chatMedia/${me.uid}/${Date.now()}_${file.name}`);await uploadBytes(r,file);let url=await getDownloadURL(r);let data={uid:me.uid,username:me.displayName,type,url,createdAt:serverTimestamp()};if(isWorld)await addDoc(collection(db,'worldMessages'),data);else await addDoc(collection(db,'chats',cid(me.uid,chatUser.uid),'messages'),data)}catch(e){alert('Upload error: '+e.message)}}
-async function userPage(){let us=await users();$('page').innerHTML='<div class="pad"><input id="search" class="search" placeholder="🔎 Search username..."><div id="ul"></div></div>';let b=$('ul');us.filter(u=>u.uid!==me.uid).forEach(u=>{let c=document.createElement('div');c.className='card';c.innerHTML=`<div class="head"><div class="avatar">${safe(u.username?.[0])}</div><div class="grow"><b>${safe(u.username)}</b><div class="small">${online(u)?'🟢 Online':'⚪ Offline'} • ${safe(u.status)}</div></div></div>`;c.onclick=()=>privateChat(u.uid);b.appendChild(c)});$('search').oninput=e=>b.querySelectorAll('.card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(e.target.value.toLowerCase())?'block':'none')}
-async function privateChat(uid){let us=await users();chatUser=us.find(u=>u.uid===uid);if(!chatUser)return;$('page').innerHTML=`<div class="chat"><div class="head"><button class="btn" id="back">←</button><div class="avatar">${safe(chatUser.username?.[0])}</div><div class="grow"><b>${safe(chatUser.username)}</b><div class="small">${online(chatUser)?'🟢 Online':'⚪ Offline'}</div></div></div><div id="pm" class="msgs"></div><div class="compose"><label class="file">📎<input id="pf" type="file" accept="image/*,video/*"></label><input id="pi" placeholder="Message likhein..."><button id="ps" class="circle send">➤</button></div></div>`;$('back').onclick=()=>page('users');$('ps').onclick=sendPrivate;$('pi').onkeydown=e=>{if(e.key==='Enter')sendPrivate()};$('pf').onchange=e=>media(e.target.files[0],false);if(privateStop)privateStop();let q=query(collection(db,'chats',cid(me.uid,uid),'messages'),orderBy('createdAt','asc'),limit(200));privateStop=onSnapshot(q,s=>{let b=$('pm');b.innerHTML='';s.forEach(d=>draw(b,{id:d.id,...d.data()}));b.scrollTop=b.scrollHeight})}
-async function sendPrivate(){let i=$('pi'),t=i.value.trim();if(!t)return;await addDoc(collection(db,'chats',cid(me.uid,chatUser.uid),'messages'),{uid:me.uid,username:me.displayName,text:t,type:'text',createdAt:serverTimestamp()});i.value=''}
-async function profile(){let u=(await getDoc(doc(db,'users',me.uid))).data()||{};$('page').innerHTML=`<div class="pad"><div class="card" style="text-align:center"><div class="avatar" style="margin:auto;width:75px;height:75px">${safe(me.displayName?.[0])}</div><h2>${safe(me.displayName)}</h2><div class="small">@${safe(me.displayName?.toLowerCase())}</div></div><div class="card"><b>📝 Status</b><p>${safe(u.status)}</p><button class="btn" id="es">Edit Status</button></div><div class="card"><b>⚙️ Settings</b><p class="small">Mute, block, notifications aur privacy options.</p><button class="btn" onclick="settings()">Open Settings</button></div>${me.displayName?.toLowerCase()===OWNER.toLowerCase()?'<div class="card"><b>👑 Owner</b><p>World Chat moderation</p><button class="btn" onclick="ownerHelp()">Moderation</button></div>':''}</div>`;$('es').onclick=()=>{modal('<h3>📝 Status</h3><input id="st" maxlength="100" placeholder="Apna status likhein"><button class="btn" id="save">Save</button>');$('save').onclick=async()=>{await updateDoc(doc(db,'users',me.uid),{status:$('st').value.trim()});closeModal();profile()}}}
-function moderate(uid,name){modal(`<h3>🛡️ ${safe(name)}</h3><button class="btn warn" id="w">⚠️ Warning</button><button class="btn" id="b">⛔ 5 Minute Ban</button><button class="btn" onclick="closeModal()">Cancel</button>`);$('w').onclick=async()=>{let d=await getDoc(doc(db,'users',uid)),u=d.data()||{},n=(u.warnings||0)+1;if(n>=3)await updateDoc(doc(db,'users',uid),{warnings:n,banUntil:Date.now()+300000});else await updateDoc(doc(db,'users',uid),{warnings:n});closeModal();alert(n>=3?'3 warnings complete: 5 minute ban.':`Warning ${n}/3`)};$('b').onclick=async()=>{await updateDoc(doc(db,'users',uid),{banUntil:Date.now()+300000});closeModal();alert('5 minute ban applied')}}function settings(){modal('<h3>⚙️ Settings</h3><p>Notifications • Privacy • Mute • Block • Dark/Light mode</p><button class="btn" onclick="closeModal()">Done</button>')}function ownerHelp(){modal('<h3>👑 Owner Moderation</h3><p>World Chat mein kisi user ke message par tap karke warning ya 5-minute ban de sakte ho.</p><button class="btn" onclick="closeModal()">OK</button>')}function modal(x){$('modal').classList.remove('hidden');$('modal').firstElementChild.innerHTML=x}function closeModal(){$('modal').classList.add('hidden')}window.closeModal=closeModal;window.settings=settings;window.ownerHelp=ownerHelp;
-onAuthStateChanged(auth,async u=>{if(!u){$('auth').classList.remove('hidden');$('app').classList.add('hidden');return}me=u;$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('who').textContent='@'+u.displayName;await updateDoc(doc(db,'users',u.uid),{online:true,lastSeen:serverTimestamp()}).catch(()=>{});page('home');setInterval(()=>updateDoc(doc(db,'users',u.uid),{online:true,lastSeen:serverTimestamp()}).catch(()=>{}),30000)});
-</script></body></html>
+
+import{initializeApp}from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import{
+getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
+signInWithEmailAndPassword,signOut,updateProfile
+}from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import{
+getFirestore,collection,doc,setDoc,getDoc,getDocs,
+addDoc,updateDoc,query,orderBy,onSnapshot,
+serverTimestamp,limit
+}from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import{
+getStorage,ref,uploadBytes,getDownloadURL
+}from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCvVgz-mghugvBkv0j9j9SytQKFHA30L9w",
+authDomain:"your-chat-e1ec1.firebaseapp.com",
+projectId:"your-chat-e1ec1",
+storageBucket:"your-chat-e1ec1.firebasestorage.app",
+messagingSenderId:"98625581549",
+appId:"1:98625581549:web:870a7f17350c85cac877e4",
+measurementId:"G-N3CKRTR8TQ"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const storage=getStorage(app);
+
+const OWNER="Malik_Talha";
+
+let me=null;
+let currentChat=null;
+let worldStop=null;
+let privateStop=null;
+
+const $=id=>document.getElementById(id);
+
+function esc(v){
+return String(v??"").replace(/[&<>"']/g,m=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#39;"
+}[m]));
+}
+
+function emailFor(n){
+return n.trim().toLowerCase()+"@yourchat.local";
+}
+
+function chatId(a,b){
+return[a,b].sort().join("_");
+}
+
+function time(t){
+return t?.toDate?t.toDate().toLocaleTimeString([],{
+hour:"2-digit",minute:"2-digit"
+}):"";
+}
+
+function online(u){
+return!!(u?.online&&u?.lastSeen?.toDate&&
+Date.now()-u.lastSeen.toDate().getTime()<90000);
+}
+
+function isOwner(){
+return me?.displayName?.toLowerCase()===OWNER.toLowerCase();
+}
+
+$("createBtn").onclick=async()=>{
+const n=$("username").value.trim();
+const p=$("password").value;
+
+if(!/^[A-Za-z0-9_]{3,24}$/.test(n)){
+$("error").textContent=
+"Username must use 3-24 letters, numbers, or underscore.";
+return;
+}
+
+if(p.length<6){
+$("error").textContent=
+"Password must contain at least 6 characters.";
+return;
+}
+
+$("error").textContent="Creating account...";
+
+try{
+const c=await createUserWithEmailAndPassword(
+auth,emailFor(n),p
+);
+
+await updateProfile(c.user,{displayName:n});
+
+await setDoc(doc(db,"users",c.user.uid),{
+uid:c.user.uid,
+username:n,
+usernameLower:n.toLowerCase(),
+status:"Hello! I am using Your Chat.",
+online:true,
+lastSeen:serverTimestamp(),
+warnings:0,
+banUntil:0,
+createdAt:serverTimestamp()
+});
+
+}catch(e){
+$("error").textContent=e.message;
+}
+};
+
+$("loginBtn").onclick=async()=>{
+const n=$("username").value.trim();
+const p=$("password").value;
+
+if(!n||!p){
+$("error").textContent="Enter username and password.";
+return;
+}
+
+$("error").textContent="Logging in...";
+
+try{
+await signInWithEmailAndPassword(
+auth,emailFor(n),p
+);
+}catch(e){
+$("error").textContent=e.message;
+}
+};
+
+$("logoutBtn").onclick=()=>signOut(auth);
+
+onAuthStateChanged(auth,async user=>{
+
+if(!user){
+me=null;
+$("auth").classList.remove("hidden");
+$("app").classList.add("hidden");
+return;
+}
+
+me=user;
+
+$("auth").classList.add("hidden");
+$("app").classList.remove("hidden");
+
+$("topUser").textContent="@"+user.displayName;
+
+await updateDoc(
+doc(db,"users",user.uid),
+{online:true,lastSeen:serverTimestamp()}
+).catch(()=>{});
+
+showPage("home");
+});
+
+setInterval(()=>{
+if(me){
+updateDoc(
+doc(db,"users",me.uid),
+{online:true,lastSeen:serverTimestamp()}
+).catch(()=>{});
+}
+},30000);
+
+document.querySelectorAll(".tab").forEach(b=>{
+b.onclick=()=>showPage(b.dataset.page);
+});
+
+function showPage(p){
+
+document.querySelectorAll(".tab").forEach(b=>{
+b.classList.toggle("active",b.dataset.page===p);
+});
+
+if(p==="home")renderHome();
+if(p==="world")renderWorld();
+if(p==="users")renderUsers();
+if(p==="profile")renderProfile();
+}
+
+async function getUsers(){
+const s=await getDocs(collection(db,"users"));
+return s.docs.map(d=>d.data());
+}
+
+async function renderHome(){
+
+$("page").innerHTML=`
+<div class="pad">
+
+<div class="hero">
+<h2>🌍 World Chat</h2>
+<p>Chat with everyone in the public room.</p>
+<button class="heroBtn" id="openWorld">
+Open World Chat
+</button>
+</div>
+
+<h3 class="section">Online Users</h3>
+
+<div id="onlineList"></div>
+
+</div>
+`;
+
+$("openWorld").onclick=()=>showPage("world");
+
+const us=await getUsers();
+const box=$("onlineList");
+
+const list=us.filter(
+u=>u.uid!==me.uid&&online(u)
+);
+
+if(!list.length){
+box.innerHTML=
+`<div class="empty">No other users are online.</div>`;
+return;
+}
+
+list.forEach(u=>{
+
+const c=document.createElement("div");
+c.className="card";
+
+c.innerHTML=`
+<div class="row">
+<div class="avatar">${esc((u.username||"?")[0].toUpperCase())}</div>
+<div class="grow">
+<b>${esc(u.username)}</b>
+<div class="small online">
+<span class="dot"></span>Online
+</div>
+</div>
+<button class="action">Chat</button>
+</div>
+`;
+
+c.onclick=()=>openPrivate(u.uid);
+
+box.appendChild(c);
+});
+}
+
+function renderWorld(){
+
+if(worldStop){
+worldStop();
+worldStop=null;
+}
+
+$("page").innerHTML=`
+<div class="chat">
+
+<div class="chatHead">
+<div class="avatar">🌍</div>
+
+<div class="grow">
+<b>World Chat</b>
+<div class="small">Public group chat</div>
+</div>
+
+<button class="action" id="rules">Rules</button>
+</div>
+
+<div id="worldMessages" class="messages">
+<div class="empty">Loading World Chat...</div>
+</div>
+
+<div class="composer">
+
+<label class="file">
+📎
+<input id="worldFile"
+type="file"
+accept="image/*,video/*">
+</label>
+
+<input id="worldInput"
+placeholder="Write a message...">
+
+<button class="icon send" id="worldSend">➤</button>
+
+</div>
+</div>
+`;
+
+$("rules").onclick=showRules;
+$("worldSend").onclick=sendWorld;
+
+$("worldInput").onkeydown=e=>{
+if(e.key==="Enter")sendWorld();
+};
+
+$("worldFile").onchange=e=>{
+uploadMedia(e.target.files[0],true);
+};
+
+const q=query(
+collection(db,"worldMessages"),
+orderBy("createdAt","asc"),
+limit(200)
+);
+
+worldStop=onSnapshot(q,s=>{
+
+const box=$("worldMessages");
+if(!box)return;
+
+box.innerHTML="";
+
+if(s.empty){
+box.innerHTML=
+`<div class="empty">Be the first to send a message.</div>`;
+return;
+}
+
+s.forEach(d=>{
+drawMessage(box,{id:d.id,...d.data()});
+});
+
+box.scrollTop=box.scrollHeight;
+
+},error=>{
+
+const box=$("worldMessages");
+
+if(box){
+box.innerHTML=
+`<div class="empty">Chat error: ${esc(error.message)}</div>`;
+}
+
+});
+}
+
+function drawMessage(box,m){
+
+const mine=m.uid===me.uid;
+
+const el=document.createElement("div");
+
+el.className="msg"+(mine?" mine":"");
+
+let body="";
+
+if(m.type==="image"){
+body=`<img class="media" src="${esc(m.url)}" alt="Image">`;
+}
+else if(m.type==="video"){
+body=`<video class="media" src="${esc(m.url)}" controls playsinline></video>`;
+}
+else{
+body=esc(m.text||"").replace(
+/@([A-Za-z0-9_]+)/g,
+"<b>@$1</b>"
+);
+}
+
+el.innerHTML=`
+<div class="msgName">
+${mine?"You":esc(m.username||"User")}
+</div>
+<div>${body}</div>
+<div class="meta">${time(m.createdAt)} ${mine?"✓✓":""}</div>
+`;
+
+if(!mine&&isOwner()){
+el.onclick=()=>moderate(m.uid,m.username);
+}
+
+box.appendChild(el);
+}
+
+async function sendWorld(){
+
+const input=$("worldInput");
+if(!input)return;
+
+const text=input.value.trim();
+if(!text)return;
+
+const d=await getDoc(doc(db,"users",me.uid));
+const u=d.data()||{};
+
+if(u.banUntil>Date.now()){
+alert("You are temporarily banned.");
+return;
+}
+
+try{
+
+await addDoc(
+collection(db,"worldMessages"),
+{
+uid:me.uid,
+username:me.displayName,
+text:text,
+type:"text",
+createdAt:serverTimestamp()
+}
+);
+
+input.value="";
+
+}catch(e){
+alert("Message error: "+e.message);
+}
+}
+
+async function uploadMedia(file,isWorld){
+
+if(!file)return;
+
+if(file.size>25*1024*1024){
+alert("File must be smaller than 25MB.");
+return;
+}
+
+try{
+
+const type=file.type.startsWith("video/")
+?"video":"image";
+
+const name=file.name.replace(
+/[^A-Za-z0-9._-]/g,"_"
+);
+
+const r=ref(
+storage,
+"chatMedia/"+me.uid+"/"+Date.now()+"_"+name
+);
+
+await uploadBytes(r,file);
+
+const url=await getDownloadURL(r);
+
+const data={
+uid:me.uid,
+username:me.displayName,
+type:type,
+url:url,
+createdAt:serverTimestamp()
+};
+
+if(isWorld){
+await addDoc(collection(db,"worldMessages"),data);
+}
+else if(currentChat){
+await addDoc(
+collection(
+db,
+"chats",
+chatId(me.uid,currentChat.uid),
+"messages"
+),
+data
+);
+}
+
+}catch(e){
+alert("Upload error: "+e.message);
+}
+}
+
+async function renderUsers(){
+
+$("page").innerHTML=`
+<div class="pad">
+
+<input
+class="search"
+id="userSearch"
+placeholder="Search users...">
+
+<div id="userList"></div>
+
+</div>
+`;
+
+const us=await getUsers();
+const box=$("userList");
+
+us.filter(u=>u.uid!==me.uid).forEach(u=>{
+
+const c=document.createElement("div");
+c.className="card";
+
+c.innerHTML=`
+<div class="row">
+<div class="avatar">${esc((u.username||"?")[0].toUpperCase())}</div>
+
+<div class="grow">
+<b>${esc(u.username)}</b>
+
+<div class="small">
+${online(u)?"🟢 Online":"⚪ Offline"}
+</div>
+
+<div class="small">
+${esc(u.status||"")}
+</div>
+</div>
+
+<button class="action">Chat</button>
+</div>
+`;
+
+c.onclick=()=>openPrivate(u.uid);
+
+box.appendChild(c);
+});
+
+$("userSearch").oninput=e=>{
+
+const x=e.target.value.toLowerCase();
+
+box.querySelectorAll(".card").forEach(c=>{
+c.style.display=
+c.innerText.toLowerCase().includes(x)
+?"block":"none";
+});
+};
+}
+
+async function openPrivate(uid){
+
+const us=await getUsers();
+
+currentChat=us.find(u=>u.uid===uid);
+
+if(!currentChat)return;
+
+if(privateStop){
+privateStop();
+privateStop=null;
+}
+
+$("page").innerHTML=`
+<div class="chat">
+
+<div class="chatHead">
+
+<button class="back" id="back">←</button>
+
+<div class="avatar">
+${esc((currentChat.username||"?")[0].toUpperCase())}
+</div>
+
+<div class="grow">
+<b>${esc(currentChat.username)}</b>
+<div class="small">
+${online(currentChat)?"🟢 Online":"⚪ Offline"}
+</div>
+</div>
+
+</div>
+
+<div id="privateMessages" class="messages">
+<div class="empty">Loading chat...</div>
+</div>
+
+<div class="composer">
+
+<label class="file">
+📎
+<input id="privateFile"
+type="file"
+accept="image/*,video/*">
+</label>
+
+<input
+id="privateInput"
+placeholder="Write a message...">
+
+<button
+class="icon send"
+id="privateSend">
+➤
+</button>
+
+</div>
+
+</div>
+`;
+
+$("back").onclick=()=>showPage("users");
+
+$("privateSend").onclick=sendPrivate;
+
+$("privateInput").onkeydown=e=>{
+if(e.key==="Enter")sendPrivate();
+};
+
+$("privateFile").onchange=e=>{
+uploadMedia(e.target.files[0],false);
+};
+
+const q=query(
+collection(
+db,
+"chats",
+chatId(me.uid,currentChat.uid),
+"messages"
+),
+orderBy("createdAt","asc"),
+limit(200)
+);
+
+privateStop=onSnapshot(q,s=>{
+
+const box=$("privateMessages");
+if(!box)return;
+
+box.innerHTML="";
+
+if(s.empty){
+box.innerHTML=
+`<div class="empty">Start your conversation.</div>`;
+return;
+}
+
+s.forEach(d=>{
+drawMessage(box,{id:d.id,...d.data()});
+});
+
+box.scrollTop=box.scrollHeight;
+
+},error=>{
+
+const box=$("privateMessages");
+
+if(box){
+box.innerHTML=
+`<div class="empty">Chat error: ${esc(error.message)}</div>`;
+}
+
+});
+}
+
+async function sendPrivate(){
+
+const input=$("privateInput");
+
+if(!input||!currentChat)return;
+
+const text=input.value.trim();
+
+if(!text)return;
+
+try{
+
+await addDoc(
+collection(
+db,
+"chats",
+chatId(me.uid,currentChat.uid),
+"messages"
+),
+{
+uid:me.uid,
+username:me.displayName,
+text:text,
+type:"text",
+createdAt:serverTimestamp()
+}
+);
+
+input.value="";
+
+}catch(e){
+alert("Message error: "+e.message);
+}
+}
+
+async function renderProfile(){
+
+const s=await getDoc(
+doc(db,"users",me.uid)
+);
+
+const u=s.data()||{};
+
+$("page").innerHTML=`
+<div class="pad">
+
+<div class="card" style="text-align:center">
+
+<div class="avatar"
+style="width:80px;height:80px;margin:auto;font-size:28px">
+${esc((me.displayName||"?")[0].toUpperCase())}
+</div>
+
+<h2>${esc(me.displayName)}</h2>
+
+<div class="small">
+@${esc(me.displayName.toLowerCase())}
+</div>
+
+</div>
+
+<div class="card">
+<b>My Status</b>
+<p>${esc(u.status||"")}</p>
+<button class="action" id="editStatus">Edit Status</button>
+</div>
+
+<div class="card">
+<b>Settings</b>
+<p class="small">
+Notifications, privacy, mute and block settings.
+</p>
+<button class="action" id="settings">Open Settings</button>
+</div>
+
+${isOwner()?`
+<div class="card">
+<b>Owner Panel</b>
+<p class="small">World Chat moderation</p>
+<button class="action danger" id="owner">
+Open Moderation
+</button>
+</div>`:""}
+
+</div>
+`;
+
+$("editStatus").onclick=editStatus;
+$("settings").onclick=showSettings;
+
+if(isOwner()){
+$("owner").onclick=showOwner;
+}
+}
+
+function editStatus(){
+
+openModal(`
+<h3>Edit Status</h3>
+
+<textarea
+id="statusText"
+rows="3"
+maxlength="100"
+placeholder="Write your status..."></textarea>
+
+<button class="modalBtn" id="saveStatus">
+Save
+</button>
+
+<button class="modalBtn cancel" id="cancel">
+Cancel
+</button>
+`);
+
+$("saveStatus").onclick=async()=>{
+
+const text=$("statusText").value.trim();
+
+await updateDoc(
+doc(db,"users",me.uid),
+{
+status:text||"Hello! I am using Your Chat."
+}
+);
+
+closeModal();
+renderProfile();
+};
+
+$("cancel").onclick=closeModal;
+}
+
+function showSettings(){
+
+openModal(`
+<h3>Settings</h3>
+
+<div class="card">
+🔔 Notifications
+<div class="small">Notification preferences.</div>
+</div>
+
+<div class="card">
+🔒 Privacy
+<div class="small">Privacy and chat preferences.</div>
+</div>
+
+<div class="card">
+🚫 Mute and Block
+<div class="small">Manage users in private chats.</div>
+</div>
+
+<button class="modalBtn" id="done">Done</button>
+`);
+
+$("done").onclick=closeModal;
+}
+
+function showRules(){
+
+openModal(`
+<h3>World Chat Rules</h3>
+
+<div class="card">1. Respect everyone.</div>
+<div class="card">2. No spam.</div>
+<div class="card">3. No harassment or threats.</div>
+<div class="card">4. No inappropriate content.</div>
+<div class="card">5. Repeated rule violations may result in a temporary ban.</div>
+
+<button class="modalBtn" id="ok">OK</button>
+`);
+
+$("ok").onclick=closeModal;
+}
+
+function moderate(uid,name){
+
+if(!isOwner())return;
+
+openModal(`
+<h3>Moderate User</h3>
+
+<div class="card">
+User: <b>${esc(name)}</b>
+</div>
+
+<button class="modalBtn" id="warn">
+Give Warning
+</button>
+
+<button class="modalBtn danger" id="ban">
+Ban for 5 Minutes
+</button>
+
+<button class="modalBtn cancel" id="close">
+Cancel
+</button>
+`);
+
+$("warn").onclick=async()=>{
+
+const s=await getDoc(doc(db,"users",uid));
+const u=s.data()||{};
+const warnings=(u.warnings||0)+1;
+
+if(warnings>=3){
+
+await updateDoc(
+doc(db,"users",uid),
+{
+warnings:warnings,
+banUntil:Date.now()+300000
+}
+);
+
+closeModal();
+
+alert("3 warnings reached. 5-minute ban applied.");
+
+}else{
+
+await updateDoc(
+doc(db,"users",uid),
+{warnings:warnings}
+);
+
+closeModal();
+
+alert("Warning "+warnings+"/3 given.");
+}
+};
+
+$("ban").onclick=async()=>{
+
+await updateDoc(
+doc(db,"users",uid),
+{banUntil:Date.now()+300000}
+);
+
+closeModal();
+
+alert("5-minute ban applied.");
+};
+
+$("close").onclick=closeModal;
+}
+
+function showOwner(){
+
+openModal(`
+<h3>Owner Panel</h3>
+
+<div class="card">
+<b>World Chat Moderation</b>
+<p class="small">
+Tap another user's World Chat message to
+give a warning or a 5-minute ban.
+</p>
+</div>
+
+<div class="card">
+<b>Automatic Rule</b>
+<p class="small">
+The third warning automatically applies a
+5-minute ban.
+</p>
+</div>
+
+<button class="modalBtn" id="ownerDone">Done</button>
+`);
+
+$("ownerDone").onclick=closeModal;
+}
+
+function openModal(html){
+$("modalBox").innerHTML=html;
+$("modal").classList.remove("hidden");
+}
+
+function closeModal(){
+$("modal").classList.add("hidden");
+$("modalBox").innerHTML="";
+}
+
+</script>
+</body>
+</html>
