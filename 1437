@@ -1,0 +1,1044 @@
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile
+} from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+  getDocs
+} from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCvVgz-mghugvBkv0j9j9SytQKFHA30L9w",
+  authDomain: "your-chat-e1ec1.firebaseapp.com",
+  projectId: "your-chat-e1ec1",
+  storageBucket: "your-chat-e1ec1.firebasestorage.app",
+  messagingSenderId: "98625581549",
+  appId: "1:98625581549:web:870a7f17350c85cac877e4",
+  measurementId: "G-N3CKRTR8TQ"
+};
+
+
+/* =========================
+   START FIREBASE
+========================= */
+
+let app;
+let auth;
+let db;
+
+try {
+
+  app = initializeApp(firebaseConfig);
+
+  auth = getAuth(app);
+
+  db = getFirestore(app);
+
+} catch (error) {
+
+  console.error(error);
+
+  alert("Firebase start nahi ho saka.");
+
+}
+
+
+/* =========================
+   HTML ELEMENTS
+========================= */
+
+const authView =
+  document.getElementById("authView");
+
+const chatView =
+  document.getElementById("chatView");
+
+const nameInput =
+  document.getElementById("nameInput");
+
+const passwordInput =
+  document.getElementById("passwordInput");
+
+const signupBtn =
+  document.getElementById("signupBtn");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+const authMessage =
+  document.getElementById("authMessage");
+
+const myName =
+  document.getElementById("myName");
+
+const userSearch =
+  document.getElementById("userSearch");
+
+const userList =
+  document.getElementById("userList");
+
+const chatUserName =
+  document.getElementById("chatUserName");
+
+const chatUserEmail =
+  document.getElementById("chatUserEmail");
+
+const messagesBox =
+  document.getElementById("messages");
+
+const messageInput =
+  document.getElementById("messageInput");
+
+const sendBtn =
+  document.getElementById("sendBtn");
+
+const backBtn =
+  document.getElementById("backBtn");
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let currentUser = null;
+
+let selectedUser = null;
+
+let currentChatId = null;
+
+let unsubscribeMessages = null;
+
+let searchTimer = null;
+
+
+/* =========================
+   SHOW MESSAGE
+========================= */
+
+function showAuthMessage(message, success = false) {
+
+  if (!authMessage) return;
+
+  authMessage.textContent = message;
+
+  authMessage.style.color =
+    success ? "#bbf7d0" : "#fecaca";
+
+}
+
+
+/* =========================
+   USERNAME → INTERNAL EMAIL
+========================= */
+
+function makeLoginEmail(username) {
+
+  return username
+    .trim()
+    .toLowerCase() +
+    "@yourchat.local";
+
+}
+
+
+/* =========================
+   CHAT ID
+========================= */
+
+function makeChatId(uid1, uid2) {
+
+  return [uid1, uid2]
+    .sort()
+    .join("_");
+
+}
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+if (signupBtn) {
+
+  signupBtn.addEventListener(
+    "click",
+    async function () {
+
+      const username =
+        nameInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      /* USERNAME CHECK */
+
+      if (!username) {
+
+        showAuthMessage(
+          "Username likhein."
+        );
+
+        nameInput.focus();
+
+        return;
+      }
+
+
+      if (username.length < 3) {
+
+        showAuthMessage(
+          "Username kam az kam 3 characters ka ho."
+        );
+
+        return;
+      }
+
+
+      /* ONLY SAFE USERNAME */
+
+      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+
+        showAuthMessage(
+          "Username mein sirf English letters, numbers aur _ use karein."
+        );
+
+        return;
+      }
+
+
+      /* PASSWORD CHECK */
+
+      if (!password) {
+
+        showAuthMessage(
+          "Password likhein."
+        );
+
+        passwordInput.focus();
+
+        return;
+      }
+
+
+      if (password.length < 6) {
+
+        showAuthMessage(
+          "Password kam az kam 6 characters ka ho."
+        );
+
+        return;
+      }
+
+
+      try {
+
+        showAuthMessage(
+          "⏳ Account ban raha hai..."
+        );
+
+
+        const loginEmail =
+          makeLoginEmail(username);
+
+
+        /* FIREBASE ACCOUNT */
+
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            loginEmail,
+            password
+          );
+
+
+        const user =
+          result.user;
+
+
+        /* PROFILE */
+
+        await updateProfile(
+          user,
+          {
+            displayName: username
+          }
+        );
+
+
+        /* FIRESTORE USER */
+
+        await setDoc(
+          doc(
+            db,
+            "users",
+            user.uid
+          ),
+          {
+            uid: user.uid,
+
+            name: username,
+
+            username:
+              username.toLowerCase(),
+
+            createdAt:
+              serverTimestamp()
+          }
+        );
+
+
+        showAuthMessage(
+          "✅ Account successfully ban gaya!",
+          true
+        );
+
+
+        nameInput.value = "";
+
+        passwordInput.value = "";
+
+
+      } catch (error) {
+
+        console.error(
+          "SIGNUP ERROR:",
+          error
+        );
+
+
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          showAuthMessage(
+            "❌ Ye username pehle se use ho raha hai."
+          );
+
+        }
+
+        else if (
+          error.code ===
+          "auth/network-request-failed"
+        ) {
+
+          showAuthMessage(
+            "❌ Internet connection check karein."
+          );
+
+        }
+
+        else {
+
+          showAuthMessage(
+            "❌ " +
+            (error.message || "Account nahi bana.")
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+if (loginBtn) {
+
+  loginBtn.addEventListener(
+    "click",
+    async function () {
+
+      const username =
+        nameInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!username || !password) {
+
+        showAuthMessage(
+          "Username aur password likhein."
+        );
+
+        return;
+      }
+
+
+      try {
+
+        showAuthMessage(
+          "⏳ Login ho raha hai..."
+        );
+
+
+        const loginEmail =
+          makeLoginEmail(username);
+
+
+        await signInWithEmailAndPassword(
+          auth,
+          loginEmail,
+          password
+        );
+
+
+        showAuthMessage(
+          "✅ Login successful!",
+          true
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "LOGIN ERROR:",
+          error
+        );
+
+
+        if (
+          error.code ===
+          "auth/network-request-failed"
+        ) {
+
+          showAuthMessage(
+            "❌ Internet connection check karein."
+          );
+
+        } else {
+
+          showAuthMessage(
+            "❌ Username ya password ghalat hai."
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+if (auth) {
+
+  onAuthStateChanged(
+    auth,
+    function (user) {
+
+      if (user) {
+
+        currentUser = user;
+
+
+        authView.classList.add(
+          "hidden"
+        );
+
+        chatView.classList.remove(
+          "hidden"
+        );
+
+
+        myName.textContent =
+          user.displayName ||
+          "User";
+
+
+      } else {
+
+        currentUser = null;
+
+
+        authView.classList.remove(
+          "hidden"
+        );
+
+        chatView.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+if (logoutBtn) {
+
+  logoutBtn.addEventListener(
+    "click",
+    async function () {
+
+      try {
+
+        await signOut(auth);
+
+      } catch (error) {
+
+        console.error(error);
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   SEARCH USERS
+========================= */
+
+if (userSearch) {
+
+  userSearch.addEventListener(
+    "input",
+    function () {
+
+      clearTimeout(searchTimer);
+
+      searchTimer =
+        setTimeout(
+          searchUsers,
+          400
+        );
+
+    }
+  );
+
+}
+
+
+async function searchUsers() {
+
+  if (!currentUser) return;
+
+
+  const text =
+    userSearch.value
+      .trim()
+      .toLowerCase();
+
+
+  userList.innerHTML = "";
+
+
+  if (!text) return;
+
+
+  try {
+
+    const usersRef =
+      collection(
+        db,
+        "users"
+      );
+
+
+    const snapshot =
+      await getDocs(
+        usersRef
+      );
+
+
+    let found = 0;
+
+
+    snapshot.forEach(
+      function (userDoc) {
+
+        const user =
+          userDoc.data();
+
+
+        if (
+          user.uid !==
+          currentUser.uid
+          &&
+          (
+            (user.name || "")
+              .toLowerCase()
+              .includes(text)
+            ||
+            (user.username || "")
+              .toLowerCase()
+              .includes(text)
+          )
+        ) {
+
+          found++;
+
+
+          const div =
+            document.createElement(
+              "div"
+            );
+
+
+          div.className =
+            "user-item";
+
+
+          const strong =
+            document.createElement(
+              "strong"
+            );
+
+          strong.textContent =
+            "👤 " +
+            (user.name || "User");
+
+
+          const small =
+            document.createElement(
+              "small"
+            );
+
+          small.textContent =
+            "@" +
+            (user.username || "");
+
+
+          div.appendChild(strong);
+
+          div.appendChild(small);
+
+
+          div.addEventListener(
+            "click",
+            function () {
+
+              openChat(user);
+
+            }
+          );
+
+
+          userList.appendChild(div);
+
+        }
+
+      }
+    );
+
+
+    if (!found) {
+
+      userList.innerHTML =
+        `<div class="user-item">
+          User nahi mila.
+        </div>`;
+
+    }
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    userList.innerHTML =
+      `<div class="user-item">
+        Search error.
+      </div>`;
+
+  }
+
+}
+
+
+/* =========================
+   OPEN CHAT
+========================= */
+
+async function openChat(user) {
+
+  if (!currentUser) return;
+
+
+  selectedUser = user;
+
+
+  currentChatId =
+    makeChatId(
+      currentUser.uid,
+      selectedUser.uid
+    );
+
+
+  chatUserName.textContent =
+    selectedUser.name ||
+    "User";
+
+
+  chatUserEmail.textContent =
+    "@" +
+    (
+      selectedUser.username ||
+      ""
+    );
+
+
+  messagesBox.innerHTML = "";
+
+
+  if (unsubscribeMessages) {
+
+    unsubscribeMessages();
+
+  }
+
+
+  const messagesRef =
+    collection(
+      db,
+      "chats",
+      currentChatId,
+      "messages"
+    );
+
+
+  const messagesQuery =
+    query(
+      messagesRef,
+      orderBy(
+        "createdAt",
+        "asc"
+      )
+    );
+
+
+  unsubscribeMessages =
+    onSnapshot(
+      messagesQuery,
+      function (snapshot) {
+
+        messagesBox.innerHTML = "";
+
+
+        if (snapshot.empty) {
+
+          messagesBox.innerHTML =
+            `<div class="empty-chat">
+              Abhi koi message nahi hai 👋
+            </div>`;
+
+          return;
+
+        }
+
+
+        snapshot.forEach(
+          function (messageDoc) {
+
+            showMessage(
+              messageDoc.data()
+            );
+
+          }
+        );
+
+
+        messagesBox.scrollTop =
+          messagesBox.scrollHeight;
+
+      },
+      function (error) {
+
+        console.error(
+          "MESSAGE ERROR:",
+          error
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================
+   SHOW MESSAGE
+========================= */
+
+function showMessage(message) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  const mine =
+    message.senderId ===
+    currentUser.uid;
+
+
+  div.className =
+    mine
+      ? "message mine"
+      : "message theirs";
+
+
+  const text =
+    document.createTextNode(
+      message.text || ""
+    );
+
+
+  div.appendChild(text);
+
+
+  const time =
+    document.createElement(
+      "span"
+    );
+
+
+  time.className =
+    "message-time";
+
+
+  time.textContent =
+    mine
+      ? "You"
+      : (
+        selectedUser?.name ||
+        "User"
+      );
+
+
+  div.appendChild(time);
+
+
+  messagesBox.appendChild(div);
+
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+if (sendBtn) {
+
+  sendBtn.addEventListener(
+    "click",
+    sendMessage
+  );
+
+}
+
+
+if (messageInput) {
+
+  messageInput.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+
+    }
+  );
+
+}
+
+
+async function sendMessage() {
+
+  const text =
+    messageInput.value.trim();
+
+
+  if (!text) return;
+
+
+  if (
+    !currentUser ||
+    !selectedUser
+  ) {
+
+    alert(
+      "Pehle kisi user ko select karein."
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const chatRef =
+      doc(
+        db,
+        "chats",
+        currentChatId
+      );
+
+
+    await setDoc(
+      chatRef,
+      {
+        members: [
+          currentUser.uid,
+          selectedUser.uid
+        ]
+      },
+      {
+        merge: true
+      }
+    );
+
+
+    const messagesRef =
+      collection(
+        db,
+        "chats",
+        currentChatId,
+        "messages"
+      );
+
+
+    await addDoc(
+      messagesRef,
+      {
+        senderId:
+          currentUser.uid,
+
+        receiverId:
+          selectedUser.uid,
+
+        text:
+          text,
+
+        type:
+          "text",
+
+        createdAt:
+          serverTimestamp()
+      }
+    );
+
+
+    messageInput.value = "";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Message send nahi hua."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+if (backBtn) {
+
+  backBtn.addEventListener(
+    "click",
+    function () {
+
+      selectedUser = null;
+
+      currentChatId = null;
+
+
+      chatUserName.textContent =
+        "Select a user";
+
+
+      chatUserEmail.textContent =
+        "";
+
+
+      messagesBox.innerHTML =
+        `<div class="empty-chat">
+          Kisi user ko select karein 👤
+        </div>`;
+
+
+      if (unsubscribeMessages) {
+
+        unsubscribeMessages();
+
+        unsubscribeMessages =
+          null;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   APP LOADED
+========================= */
+
+console.log(
+  "✅ Your Chat app.js loaded successfully."
+);

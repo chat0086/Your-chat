@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Your Chat</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+
+  <div id="authView" class="screen">
+
+    <div class="auth-box">
+
+      <div class="logo">
+        💬
+      </div>
+
+      <h1>Your Chat</h1>
+
+      <p class="subtitle">
+        Chat • Connect • Enjoy
+      </p>
+
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="👤 Username"
+        autocomplete="username"
+      >
+
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="🔐 Password"
+        autocomplete="current-password"
+      >
+
+      <button
+        id="signupBtn"
+        class="primary-btn"
+        type="button"
+      >
+        Create Account
+      </button>
+
+      <button
+        id="loginBtn"
+        class="secondary-btn"
+        type="button"
+      >
+        Login
+      </button>
+
+      <p id="authMessage"></p>
+
+    </div>
+
+  </div>
+
+
+  <div id="chatView" class="chat-app hidden">
+
+    <header class="top-bar">
+
+      <div>
+
+        <strong>
+          💬 Your Chat
+        </strong>
+
+        <small id="myName"></small>
+
+      </div>
+
+      <button
+        id="logoutBtn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </header>
+
+
+    <div class="search-area">
+
+      <input
+        id="userSearch"
+        type="text"
+        placeholder="🔎 Search user..."
+      >
+
+    </div>
+
+
+    <div
+      id="userList"
+      class="user-list"
+    ></div>
+
+
+    <section class="conversation">
+
+      <div class="conversation-header">
+
+        <button
+          id="backBtn"
+          type="button"
+        >
+          ←
+        </button>
+
+        <div>
+
+          <strong id="chatUserName">
+            Select a user
+          </strong>
+
+          <small id="chatUserEmail"></small>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="messages"
+        class="messages"
+      >
+
+        <div class="empty-chat">
+          Kisi user ko select karein 👤
+        </div>
+
+      </div>
+
+
+      <div class="message-area">
+
+        <input
+          id="messageInput"
+          type="text"
+          placeholder="Message likhein..."
+        >
+
+        <button
+          id="sendBtn"
+          type="button"
+        >
+          ➤
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="app.js"
+  ></script>
+
+</body>
+
+</html>
