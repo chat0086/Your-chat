@@ -2,1029 +2,1238 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>YOUR CHAT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Chat</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#07101f;color:#fff;font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-.screen{
+body{
+  background:#07111f;
+  color:white;
   min-height:100vh;
+}
+
+button,input{
+  font:inherit;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* LOADING */
+#loading{
+  position:fixed;
+  inset:0;
+  background:#020812;
   display:flex;
-  align-items:center;
+  flex-direction:column;
   justify-content:center;
+  align-items:center;
+  z-index:9999;
 }
 
-.card{
-  width:92%;
-  max-width:380px;
-  padding:28px;
-  background:#0c192d;
-  border:1px solid #17345c;
-  border-radius:22px;
+.logo{
+  font-size:30px;
+  font-weight:bold;
+  color:#38a9ff;
+  letter-spacing:3px;
 }
 
-.card h1{text-align:center}
-.card input{
-  width:100%;
-  padding:14px;
-  margin:7px 0;
-  background:#07101f;
-  color:#fff;
-  border:1px solid #29466f;
-  border-radius:12px;
-}
-
-.card button{
-  width:100%;
-  padding:13px;
-  margin-top:9px;
-  border:0;
-  border-radius:12px;
-  background:#1687ff;
-  color:#fff;
-}
-
-.link{
-  background:transparent!important;
-  color:#72b5ff!important;
+.loadingText{
+  margin-top:15px;
+  color:#aaa;
 }
 
 .loader{
-  width:32px;
-  height:32px;
-  margin:15px auto;
-  border:3px solid #17345c;
-  border-top-color:#2d9cff;
+  width:35px;
+  height:35px;
+  border:4px solid #18324c;
+  border-top:4px solid #2196f3;
   border-radius:50%;
   animation:spin 1s linear infinite;
+  margin-top:20px;
 }
 
 @keyframes spin{
   to{transform:rotate(360deg)}
 }
 
-header{
-  height:58px;
-  background:#0b1729;
-  border-bottom:1px solid #17345c;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-header span{
-  color:#55d68a;
-  font-size:12px;
-}
-
-.homegrid{
-  padding:18px;
-  display:grid;
-  gap:12px;
-}
-
-.homegrid button{
-  padding:18px;
-  text-align:left;
-  border:1px solid #19385f;
-  border-radius:16px;
-  background:#0c1c32;
-  color:#fff;
-}
-
-.bottom{
-  display:flex;
-  gap:10px;
-  padding:14px;
-}
-
-.bottom button{
-  flex:1;
-  padding:11px;
-  border:1px solid #234a78;
-  border-radius:10px;
-  background:#0c1c32;
-  color:#fff;
-}
-
-.page{
+/* LOGIN */
+.auth{
   min-height:100vh;
-  background:#07101f;
-}
-
-.back,.subhead button{
-  background:none;
-  border:0;
-  color:#fff;
-  font-size:30px;
-}
-
-.messages{
-  padding:12px;
-  min-height:calc(100vh - 116px);
-  overflow:auto;
-}
-
-.bubble{
-  max-width:82%;
-  padding:10px 12px;
-  margin:7px 0;
-  background:#102641;
-  border-radius:15px;
-}
-
-.mine{
-  margin-left:auto;
-  background:#1266ad;
-}
-
-.meta{
-  font-size:10px;
-  color:#8da4c6;
-  margin-top:4px;
-}
-
-.composer{
-  position:sticky;
-  bottom:0;
   display:flex;
-  gap:7px;
-  padding:9px;
-  background:#0b1729;
-  border-top:1px solid #17345c;
-}
-
-.composer input{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #29466f;
-  background:#07101f;
-  color:#fff;
-}
-
-.composer button,.attach{
-  min-width:42px;
-  border:0;
-  border-radius:11px;
-  background:#1687ff;
-  color:#fff;
-  display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-.list{padding:12px}
+.authBox{
+  width:100%;
+  max-width:390px;
+  background:#0d1b2a;
+  border:1px solid #183957;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 0 30px rgba(0,150,255,.15);
+}
 
-.user,.group{
-  padding:14px;
+.authBox h1{
+  text-align:center;
+  color:#39aaff;
   margin-bottom:8px;
-  border:1px solid #19385f;
-  border-radius:14px;
-  background:#0c1c32;
 }
 
-.notice{
-  margin:12px;
-  padding:12px;
-  border-radius:12px;
-  background:#0c1c32;
-  color:#9db1d1;
+.authBox p{
+  text-align:center;
+  color:#91a2b5;
+  margin-bottom:20px;
+}
+
+.input{
+  width:100%;
+  padding:14px;
+  border:none;
+  outline:none;
+  background:#07111f;
+  color:white;
+  border:1px solid #24425f;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.btn{
+  width:100%;
+  border:none;
+  border-radius:10px;
+  padding:13px;
+  margin-top:7px;
+  background:#168cff;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn.secondary{
+  background:#18324c;
+}
+
+.small{
+  text-align:center;
+  margin-top:15px;
+  color:#8195aa;
   font-size:13px;
 }
 
-.subhead{
-  padding:8px 12px;
-  background:#0b1729;
+/* APP */
+#app{
+  min-height:100vh;
 }
 
-.empty{
-  text-align:center;
-  color:#8da4c6;
-  padding:30px;
+.header{
+  height:62px;
+  background:#0b1928;
+  border-bottom:1px solid #17334d;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
-img,video{
-  max-width:100%;
+.headerTitle{
+  font-size:20px;
+  font-weight:bold;
+  color:#35a9ff;
+}
+
+.onlineDot{
+  width:10px;
+  height:10px;
+  background:#25e878;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:6px;
+}
+
+.content{
+  padding:15px;
+  padding-bottom:85px;
+  max-width:700px;
+  margin:auto;
+}
+
+.card{
+  background:#0d1b2a;
+  border:1px solid #183957;
+  border-radius:15px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.menuItem{
+  padding:17px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  border-bottom:1px solid #17334d;
+  cursor:pointer;
+}
+
+.menuItem:last-child{
+  border-bottom:none;
+}
+
+.menuItem:hover{
+  background:#10263b;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#102c47;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.menuText{
+  flex:1;
+}
+
+.menuText b{
+  display:block;
+  margin-bottom:3px;
+}
+
+.menuText span{
+  color:#8195aa;
+  font-size:12px;
+}
+
+.arrow{
+  color:#64809a;
+}
+
+/* PAGES */
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.pageTitle{
+  font-size:22px;
+  margin-bottom:14px;
+}
+
+.backBtn{
+  background:#12283d;
+  color:white;
+  border:none;
+  border-radius:9px;
+  padding:9px 14px;
+  margin-bottom:14px;
+  cursor:pointer;
+}
+
+/* WORLD */
+.worldLayout{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.onlineBox{
+  background:#0d1b2a;
+  border:1px solid #183957;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.boxTitle{
+  padding:13px;
+  border-bottom:1px solid #183957;
+  font-weight:bold;
+}
+
+.onlineList{
+  max-height:180px;
+  overflow:auto;
+}
+
+.userRow{
+  display:flex;
+  align-items:center;
+  padding:10px 13px;
+  border-bottom:1px solid #122b42;
+  gap:10px;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#1469a5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.userName{
+  flex:1;
+}
+
+.userOnline{
+  color:#25e878;
+  font-size:11px;
+}
+
+.chatBox{
+  background:#0d1b2a;
+  border:1px solid #183957;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.messages{
+  height:430px;
+  overflow-y:auto;
+  padding:12px;
+}
+
+.msg{
+  margin-bottom:10px;
+  max-width:85%;
+}
+
+.msg.mine{
+  margin-left:auto;
+}
+
+.msgBubble{
+  background:#142b42;
+  padding:9px 11px;
   border-radius:12px;
 }
 
-audio{max-width:100%}
+.mine .msgBubble{
+  background:#1268a7;
+}
 
-.settings{padding:14px}
+.msgName{
+  color:#45b3ff;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:3px;
+}
 
-.settings button{
+.mine .msgName{
+  color:#d9f2ff;
+}
+
+.msgTime{
+  color:#7e94a8;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.sendArea{
+  display:flex;
+  gap:8px;
+  padding:10px;
+  border-top:1px solid #183957;
+}
+
+.sendInput{
+  flex:1;
+  background:#07111f;
+  color:white;
+  border:1px solid #234762;
+  outline:none;
+  border-radius:10px;
+  padding:11px;
+}
+
+.sendBtn{
+  border:none;
+  background:#168cff;
+  color:white;
+  border-radius:10px;
+  width:48px;
+}
+
+/* SEARCH */
+.searchBox{
+  position:relative;
+  margin-bottom:12px;
+}
+
+.searchBox input{
   width:100%;
-  padding:14px;
-  margin-bottom:9px;
-  border:1px solid #19385f;
+  padding:13px 15px 13px 42px;
+  background:#0d1b2a;
+  border:1px solid #234762;
   border-radius:12px;
-  background:#0c1c32;
-  color:#fff;
+  color:white;
+  outline:none;
+}
+
+.searchIcon{
+  position:absolute;
+  left:14px;
+  top:12px;
+}
+
+/* SETTINGS */
+.settingRow{
+  padding:16px;
+  border-bottom:1px solid #183957;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.settingRow:last-child{
+  border-bottom:none;
+}
+
+.logout{
+  color:#ff6262;
+}
+
+/* BOTTOM */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:65px;
+  background:#0b1928;
+  border-top:1px solid #183957;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
+
+.bottom button{
+  border:none;
+  background:none;
+  color:#7890a5;
+  font-size:11px;
+}
+
+.bottom button.active{
+  color:#36aaff;
+}
+
+.bottomIcon{
+  font-size:21px;
+  display:block;
+  margin-bottom:2px;
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:80px;
+  transform:translateX(-50%);
+  background:#142b42;
+  border:1px solid #285271;
+  padding:11px 16px;
+  border-radius:10px;
+  display:none;
+  z-index:999;
+  max-width:90%;
+  text-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
-
 <!-- LOADING -->
-<div id="loading" class="screen">
-  <div>
-    <h1>YOUR CHAT</h1>
-    <div class="loader"></div>
-    <p>Connecting to the world...</p>
-  </div>
+<div id="loading">
+  <div class="logo">YOUR CHAT</div>
+  <div class="loadingText">Connecting to the world...</div>
+  <div class="loader"></div>
 </div>
 
-
-<!-- LOGIN -->
-<div id="auth" class="screen hidden">
-  <div class="card">
+<!-- AUTH -->
+<div id="auth" class="auth hidden">
+  <div class="authBox">
 
     <h1>YOUR CHAT</h1>
+    <p>Chat with the world</p>
 
-    <input id="loginUser" placeholder="Username">
-    <input id="loginPass" type="password" placeholder="Password">
+    <input id="username"
+           class="input"
+           placeholder="Username"
+           maxlength="24">
 
-    <button id="loginBtn">Login</button>
-    <button id="showSignup">Create Account</button>
-    <button id="forgotBtn" class="link">Forgot Password</button>
+    <input id="password"
+           class="input"
+           type="password"
+           placeholder="Password">
 
-    <p id="authMsg"></p>
+    <button id="loginBtn" class="btn">
+      Login
+    </button>
 
-  </div>
-</div>
+    <button id="signupBtn" class="btn secondary">
+      Create Account
+    </button>
 
-
-<!-- CREATE ACCOUNT -->
-<div id="signup" class="screen hidden">
-  <div class="card">
-
-    <h1>Create Account</h1>
-
-    <input id="signupUser" placeholder="Username">
-    <input id="signupPass" type="password" placeholder="Password">
-    <input id="signupPass2" type="password" placeholder="Confirm Password">
-
-    <button id="signupBtn">Create Account</button>
-    <button id="backLogin">Back to Login</button>
-
-    <p id="signupMsg"></p>
+    <div class="small">
+      Username: 3–24 letters, numbers or _
+    </div>
 
   </div>
 </div>
 
+<!-- APP -->
+<div id="app" class="hidden">
 
-<!-- HOME -->
-<div id="home" class="hidden">
+  <div class="header">
+    <div class="headerTitle">YOUR CHAT</div>
 
-<header>
-  <b>YOUR CHAT</b>
-  <span>● Online</span>
-</header>
+    <div>
+      <span class="onlineDot"></span>
+      <span id="headerOnline">0 online</span>
+    </div>
+  </div>
 
-<main class="homegrid">
+  <main class="content">
 
-  <button data-page="world">
-    🌎 World Chat
-  </button>
+    <!-- HOME -->
+    <section id="homePage" class="page active">
 
-  <button data-page="users">
-    👥 Online Users
-  </button>
+      <div class="card">
 
-  <button data-page="private">
-    💬 Private Chat
-  </button>
+        <div class="menuItem" onclick="openPage('worldPage')">
+          <div class="icon">🌍</div>
+          <div class="menuText">
+            <b>World Chat</b>
+            <span>Chat with everyone</span>
+          </div>
+          <div class="arrow">›</div>
+        </div>
 
-  <button data-page="groups">
-    👨‍👩‍👧 Group Chat
-  </button>
+        <div class="menuItem" onclick="openPage('usersPage')">
+          <div class="icon">👥</div>
+          <div class="menuText">
+            <b>Online Users</b>
+            <span id="homeOnlineText">0 users online</span>
+          </div>
+          <div class="arrow">›</div>
+        </div>
 
-  <button data-page="users">
-    👤 All Users
-  </button>
+        <div class="menuItem" onclick="showMessage('Private Chat coming next')">
+          <div class="icon">💬</div>
+          <div class="menuText">
+            <b>Private Chat</b>
+            <span>Your private conversations</span>
+          </div>
+          <div class="arrow">›</div>
+        </div>
 
-</main>
+        <div class="menuItem" onclick="showMessage('Group Chat coming next')">
+          <div class="icon">👨‍👩‍👧‍👦</div>
+          <div class="menuText">
+            <b>Group Chat</b>
+            <span>Your groups</span>
+          </div>
+          <div class="arrow">›</div>
+        </div>
 
-<nav class="bottom">
-  <button id="settingsBtn">⚙ Settings</button>
-  <button id="logoutBtn">Logout</button>
-</nav>
+        <div class="menuItem" onclick="openPage('usersPage')">
+          <div class="icon">🔎</div>
+          <div class="menuText">
+            <b>All Users</b>
+            <span>Search users</span>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WORLD CHAT -->
+    <section id="worldPage" class="page">
+
+      <button class="backBtn" onclick="openPage('homePage')">
+        ← Back
+      </button>
+
+      <div class="pageTitle">🌍 World Chat</div>
+
+      <div class="worldLayout">
+
+        <div class="onlineBox">
+
+          <div class="boxTitle">
+            🟢 Online Users
+            (<span id="worldOnlineCount">0</span>)
+          </div>
+
+          <div id="worldOnlineList" class="onlineList">
+          </div>
+
+        </div>
+
+        <div class="chatBox">
+
+          <div id="worldMessages" class="messages">
+          </div>
+
+          <div class="sendArea">
+
+            <input
+              id="worldInput"
+              class="sendInput"
+              placeholder="Write a message..."
+              maxlength="500">
+
+            <button id="worldSend" class="sendBtn">
+              ➤
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- USERS -->
+    <section id="usersPage" class="page">
+
+      <button class="backBtn" onclick="openPage('homePage')">
+        ← Back
+      </button>
+
+      <div class="pageTitle">👥 Users</div>
+
+      <div class="searchBox">
+        <span class="searchIcon">🔎</span>
+        <input
+          id="userSearch"
+          placeholder="Search username..."
+          autocomplete="off">
+      </div>
+
+      <div class="card">
+
+        <div class="boxTitle">
+          Online Users
+          (<span id="usersOnlineCount">0</span>)
+        </div>
+
+        <div id="usersList">
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settingsPage" class="page">
+
+      <button class="backBtn" onclick="openPage('homePage')">
+        ← Back
+      </button>
+
+      <div class="pageTitle">⚙️ Settings</div>
+
+      <div class="card">
+
+        <div class="settingRow">
+          <span>👤 Account</span>
+          <span id="settingsUsername">-</span>
+        </div>
+
+        <div class="settingRow">
+          <span>🔒 Privacy & Security</span>
+          <span>›</span>
+        </div>
+
+        <div class="settingRow">
+          <span>🔔 Notifications</span>
+          <span>›</span>
+        </div>
+
+        <div class="settingRow">
+          <span>💬 Chat Settings</span>
+          <span>›</span>
+        </div>
+
+        <div class="settingRow">
+          <span>💾 Data & Storage</span>
+          <span>›</span>
+        </div>
+
+        <div class="settingRow">
+          <span>❓ Help & Support</span>
+          <span>›</span>
+        </div>
+
+        <div class="settingRow">
+          <span>ℹ️ About</span>
+          <span>YOUR CHAT</span>
+        </div>
+
+        <div
+          class="settingRow logout"
+          onclick="logoutUser()">
+          <span>🚪 Log Out</span>
+          <span>›</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom">
+
+    <button onclick="openPage('homePage')">
+      <span class="bottomIcon">🏠</span>
+      Home
+    </button>
+
+    <button onclick="openPage('worldPage')">
+      <span class="bottomIcon">🌍</span>
+      World
+    </button>
+
+    <button onclick="openPage('usersPage')">
+      <span class="bottomIcon">👥</span>
+      Users
+    </button>
+
+    <button onclick="openPage('settingsPage')">
+      <span class="bottomIcon">⚙️</span>
+      Settings
+    </button>
+
+  </div>
 
 </div>
 
+<div id="toast"></div>
 
-<!-- WORLD CHAT -->
-<section id="world" class="page hidden">
-
-<header>
-  <button class="back">‹</button>
-  <b>World Chat</b>
-  <span>●</span>
-</header>
-
-<div id="worldMessages" class="messages"></div>
-
-<div class="composer">
-  <input id="worldInput" placeholder="Write a message...">
-  <button id="worldSend">➤</button>
-</div>
-
-</section>
-
-
-<!-- PRIVATE CHAT -->
-<section id="private" class="page hidden">
-
-<header>
-  <button class="back">‹</button>
-  <b>Private Chat</b>
-</header>
-
-<div class="notice">
-🔒 Private Chat<br>
-💬 Text • 🖼️ Image • 🎥 Video • 🎙️ Voice<br>
-🛡️ Spam Protection • Message Requests • Block / Report
-</div>
-
-<div id="privateList" class="list">
-
-<div class="empty">
-Select a user to start a private chat.
-</div>
-
-</div>
-
-<div id="privateChat" class="hidden">
-
-<div class="subhead">
-<button id="closePrivate">‹</button>
-<b id="privateTitle">Private Chat</b>
-</div>
-
-<div id="privateMessages" class="messages"></div>
-
-<div class="composer">
-
-<label class="attach">
-📎
-<input
-id="mediaInput"
-type="file"
-accept="image/*,video/*"
-hidden>
-</label>
-
-<button id="voiceBtn">🎙️</button>
-
-<input
-id="privateInput"
-placeholder="Message...">
-
-<button id="privateSend">➤</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- USERS -->
-<section id="users" class="page hidden">
-
-<header>
-<button class="back">‹</button>
-<b>Users</b>
-</header>
-
-<div id="usersList" class="list">
-<div class="empty">Users will appear here.</div>
-</div>
-
-</section>
-
-
-<!-- GROUPS -->
-<section id="groups" class="page hidden">
-
-<header>
-<button class="back">‹</button>
-<b>Group Chat</b>
-</header>
-
-<div class="notice">
-👥 Groups<br>
-@Mention • React • Message History • Admin Controls • Spam Protection
-</div>
-
-<div class="list">
-<div class="empty">No groups yet.</div>
-</div>
-
-</section>
-
-
-<!-- SETTINGS -->
-<section id="settings" class="page hidden">
-
-<header>
-<button class="back">‹</button>
-<b>Settings</b>
-</header>
-
-<div class="settings">
-
-<button>Account</button>
-<button>Privacy & Security</button>
-<button>Notifications</button>
-<button>Chat Settings</button>
-<button>Data & Storage</button>
-<button>Help & Support</button>
-<button>About</button>
-
-</div>
-
-</section>
-
-</div>
-
-
-<!-- FIREBASE -->
 <script type="module">
 
 import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 
 import {
-getAuth,
-onAuthStateChanged,
-signInWithEmailAndPassword,
-createUserWithEmailAndPassword,
-signOut
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
 import {
-getFirestore,
-collection,
-addDoc,
-query,
-orderBy,
-limit,
-onSnapshot,
-serverTimestamp,
-doc,
-setDoc
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
-
-import {
-getStorage,
-ref,
-uploadBytes,
-getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-storage.js";
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
+/* FIREBASE */
 
 const firebaseConfig = {
+  apiKey: "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
+  authDomain: "your-chat-24913.firebaseapp.com",
+  projectId: "your-chat-24913",
+  storageBucket: "your-chat-24913.firebasestorage.app",
+  messagingSenderId: "700520326360",
+  appId: "1:700520326360:web:a3dc5fd4e36b54dbb563ad",
+  measurementId: "G-7JBWVDK838"
+};
 
-apiKey:
-"AIzaSyBmyYllEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-authDomain:
-"your-chat-24913.firebaseapp.com",
 
-projectId:
-"your-chat-24913",
+/* GLOBAL */
 
-storageBucket:
-"your-chat-24913.firebasestorage.app",
+let currentUser = null;
+let currentUsername = "";
+let unsubscribeUsers = null;
+let unsubscribeWorld = null;
 
-messagingSenderId:
-"700520326360",
 
-appId:
-"1:700520326360:web:a3dc5fd4e36b54dbb563ad",
+/* ELEMENTS */
 
-measurementId:
-"G-7JBWVDK838"
+const loading = document.getElementById("loading");
+const authBox = document.getElementById("auth");
+const appBox = document.getElementById("app");
 
+
+/* HELPERS */
+
+function showMessage(text){
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = text;
+  toast.style.display = "block";
+
+  setTimeout(()=>{
+    toast.style.display = "none";
+  },2500);
+}
+
+window.showMessage = showMessage;
+
+
+/* PAGE SYSTEM */
+
+window.openPage = function(pageId){
+
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.remove("active");
+  });
+
+  document.getElementById(pageId).classList.add("active");
+
+  if(pageId === "worldPage"){
+    loadWorldMessages();
+  }
+
+  if(pageId === "usersPage"){
+    renderUsers();
+  }
 };
 
 
-const app =
-initializeApp(firebaseConfig);
+/* USERNAME */
 
-const auth =
-getAuth(app);
+function validUsername(name){
 
-const db =
-getFirestore(app);
-
-const storage =
-getStorage(app);
-
-
-let me=null;
-let currentPrivate=null;
-let unsubscribeWorld=null;
-
-
-const $=id =>
-document.getElementById(id);
-
-
-function show(id){
-
-document
-.querySelectorAll(".screen,.page,#home")
-.forEach(x=>x.classList.add("hidden"));
-
-$(id).classList.remove("hidden");
-
+  return /^[A-Za-z0-9_]{3,24}$/.test(name);
 }
 
 
-function emailFor(username){
+/* SIGN UP */
 
-return username
-.trim()
-.toLowerCase()
-+"@yourchat.local";
+document.getElementById("signupBtn").addEventListener("click", async()=>{
 
-}
+  const username =
+    document.getElementById("username").value.trim();
 
+  const password =
+    document.getElementById("password").value;
 
-function validUsername(username){
+  if(!validUsername(username)){
+    showMessage("Username 3–24 letters/numbers/_ hona chahiye");
+    return;
+  }
 
-return /^[A-Za-z0-9_]{3,24}$/
-.test(username);
+  if(password.length < 6){
+    showMessage("Password kam az kam 6 characters ka ho");
+    return;
+  }
 
-}
+  const email =
+    username.toLowerCase() + "@yourchat.local";
+
+  try{
+
+    const result =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    await setDoc(
+      doc(db,"users",result.user.uid),
+      {
+        uid:result.user.uid,
+        username:username,
+        usernameLower:username.toLowerCase(),
+        online:true,
+        lastSeen:serverTimestamp(),
+        createdAt:serverTimestamp()
+      }
+    );
+
+    showMessage("Account create ho gaya ❤️");
+
+  }catch(error){
+
+    console.error(error);
+    showMessage(error.message);
+
+  }
+
+});
 
 
 /* LOGIN */
 
-$("showSignup").onclick=()=>{
-show("signup");
-};
+document.getElementById("loginBtn").addEventListener("click", async()=>{
 
+  const username =
+    document.getElementById("username").value.trim();
 
-$("backLogin").onclick=()=>{
-show("auth");
-};
+  const password =
+    document.getElementById("password").value;
 
+  if(!validUsername(username)){
+    showMessage("Username sahi likho");
+    return;
+  }
 
-$("loginBtn").onclick=async()=>{
+  if(!password){
+    showMessage("Password likho");
+    return;
+  }
 
-try{
+  const email =
+    username.toLowerCase() + "@yourchat.local";
 
-const username=
-$("loginUser").value.trim();
+  try{
 
-const password=
-$("loginPass").value;
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-if(!validUsername(username))
-throw new Error(
-"Username must be 3-24 characters."
-);
+  }catch(error){
 
-await signInWithEmailAndPassword(
-auth,
-emailFor(username),
-password
-);
+    console.error(error);
+    showMessage("Username ya password ghalat hai");
 
-}catch(error){
-
-$("authMsg").textContent=
-error.message;
-
-}
-
-};
-
-
-/* CREATE ACCOUNT */
-
-$("signupBtn").onclick=async()=>{
-
-try{
-
-const username=
-$("signupUser").value.trim();
-
-const password=
-$("signupPass").value;
-
-const password2=
-$("signupPass2").value;
-
-
-if(!validUsername(username))
-throw new Error(
-"Username must be 3-24 characters."
-);
-
-
-if(password.length<6)
-throw new Error(
-"Password must be at least 6 characters."
-);
-
-
-if(password!==password2)
-throw new Error(
-"Passwords do not match."
-);
-
-
-const result=
-await createUserWithEmailAndPassword(
-auth,
-emailFor(username),
-password
-);
-
-
-await setDoc(
-doc(db,"users",result.user.uid),
-{
-
-uid:result.user.uid,
-
-username:username,
-
-displayName:username,
-
-createdAt:
-serverTimestamp()
-
-}
-
-);
-
-
-}catch(error){
-
-$("signupMsg").textContent=
-error.message;
-
-}
-
-};
-
-
-/* LOGOUT */
-
-$("logoutBtn").onclick=()=>{
-signOut(auth);
-};
-
-
-/* AUTH */
-
-onAuthStateChanged(auth,user=>{
-
-me=user;
-
-if(user){
-
-show("home");
-
-loadWorld();
-
-}else{
-
-show("auth");
-
-}
+  }
 
 });
 
 
-/* WORLD CHAT */
+/* AUTH STATE */
 
-function loadWorld(){
+onAuthStateChanged(auth, async(user)=>{
 
-if(unsubscribeWorld)
-unsubscribeWorld();
+  loading.classList.add("hidden");
 
+  if(user){
 
-const q=query(
+    currentUser = user;
 
-collection(db,"worldMessages"),
+    const userRef =
+      doc(db,"users",user.uid);
 
-orderBy("createdAt","asc"),
+    const snap =
+      await getDoc(userRef);
 
-limit(100)
+    if(snap.exists()){
 
-);
+      const data = snap.data();
 
+      currentUsername =
+        data.username || "User";
 
-unsubscribeWorld=
-onSnapshot(q,snapshot=>{
+    }else{
 
-const box=
-$("worldMessages");
+      currentUsername = "User";
 
-box.innerHTML="";
+      await setDoc(
+        userRef,
+        {
+          uid:user.uid,
+          username:"User",
+          usernameLower:"user",
+          online:true,
+          lastSeen:serverTimestamp()
+        },
+        {merge:true}
+      );
+    }
 
+    document.getElementById(
+      "settingsUsername"
+    ).textContent = currentUsername;
 
-snapshot.forEach(item=>{
+    authBox.classList.add("hidden");
+    appBox.classList.remove("hidden");
 
-const message=
-item.data();
+    setOnline(true);
 
-const div=
-document.createElement("div");
+    listenUsers();
 
-div.className=
-"bubble "+
-(message.uid===me.uid?"mine":"");
+    loadWorldMessages();
 
+  }else{
 
-div.innerHTML=`
+    appBox.classList.add("hidden");
+    authBox.classList.remove("hidden");
 
-<b>${message.username||"User"}</b>
-
-<div>
-${message.text||""}
-</div>
-
-<div class="meta">
-${message.createdAt?.toDate?.().toLocaleString()||""}
-</div>
-
-`;
-
-box.appendChild(div);
-
-});
-
-
-box.scrollTop=
-box.scrollHeight;
+  }
 
 });
 
+
+/* ONLINE STATUS */
+
+async function setOnline(value){
+
+  if(!currentUser) return;
+
+  try{
+
+    await updateDoc(
+      doc(db,"users",currentUser.uid),
+      {
+        online:value,
+        lastSeen:serverTimestamp()
+      }
+    );
+
+  }catch(error){
+
+    console.log(error);
+
+  }
 }
 
 
-$("worldSend").onclick=
-async()=>{
+/* HEARTBEAT */
 
-const text=
-$("worldInput").value.trim();
+setInterval(()=>{
 
-if(!text||!me)return;
+  if(currentUser){
+    setOnline(true);
+  }
+
+},30000);
 
 
-await addDoc(
-collection(db,"worldMessages"),
-{
+/* WHEN APP GOES BACKGROUND */
 
-uid:me.uid,
-
-username:
-me.email.split("@")[0],
-
-text:text,
-
-createdAt:
-serverTimestamp()
-
-}
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+    if(document.hidden){
+      setOnline(false);
+    }else{
+      setOnline(true);
+    }
+  }
 );
 
 
-$("worldInput").value="";
+/* USERS REALTIME */
 
-};
+function listenUsers(){
 
+  if(unsubscribeUsers){
+    unsubscribeUsers();
+  }
 
-$("worldInput").onkeydown=e=>{
+  const usersRef =
+    collection(db,"users");
 
-if(e.key==="Enter")
-$("worldSend").click();
+  unsubscribeUsers =
+    onSnapshot(
+      usersRef,
+      snapshot=>{
 
-};
+        const users = [];
 
+        snapshot.forEach(docSnap=>{
 
-/* PRIVATE MEDIA */
+          const data = docSnap.data();
 
-async function uploadPrivateMedia(file){
+          users.push(data);
 
-const path=
-`privateMedia/${me.uid}/${Date.now()}_${file.name}`;
+        });
 
-const storageRef=
-ref(storage,path);
+        window.allUsers = users;
 
-await uploadBytes(
-storageRef,
-file
-);
+        updateOnlineCounts(users);
 
-return getDownloadURL(storageRef);
+        renderUsers();
 
-}
+        renderWorldOnline(users);
 
+      },
+      error=>{
 
-$("mediaInput").onchange=
-async event=>{
+        console.error(error);
+        showMessage("Users load nahi ho rahe");
 
-const file=
-event.target.files[0];
-
-if(!file||!currentPrivate)
-return;
-
-
-try{
-
-const url=
-await uploadPrivateMedia(file);
-
-
-const type=
-file.type.startsWith("image/")
-?"image"
-:"video";
-
-
-await addDoc(
-
-collection(
-db,
-"chats",
-currentPrivate,
-"messages"
-),
-
-{
-
-uid:me.uid,
-
-username:
-me.email.split("@")[0],
-
-type:type,
-
-url:url,
-
-createdAt:
-serverTimestamp()
+      }
+    );
 
 }
 
-);
 
+/* ONLINE COUNTS */
 
-}catch(error){
+function updateOnlineCounts(users){
 
-alert(
-"Media upload failed: "+
-error.message
-);
+  const onlineUsers =
+    users.filter(
+      user=>user.online === true
+    );
 
-}
+  const count =
+    onlineUsers.length;
 
-};
+  document.getElementById(
+    "headerOnline"
+  ).textContent =
+    count + " online";
 
+  document.getElementById(
+    "homeOnlineText"
+  ).textContent =
+    count + " users online";
 
-/* PRIVATE TEXT */
+  document.getElementById(
+    "worldOnlineCount"
+  ).textContent = count;
 
-$("privateSend").onclick=
-async()=>{
-
-const text=
-$("privateInput").value.trim();
-
-if(!text||!currentPrivate)
-return;
-
-
-await addDoc(
-
-collection(
-db,
-"chats",
-currentPrivate,
-"messages"
-),
-
-{
-
-uid:me.uid,
-
-username:
-me.email.split("@")[0],
-
-type:"text",
-
-text:text,
-
-createdAt:
-serverTimestamp()
+  document.getElementById(
+    "usersOnlineCount"
+  ).textContent = count;
 
 }
 
-);
+
+/* WORLD ONLINE USERS */
+
+function renderWorldOnline(users){
+
+  const box =
+    document.getElementById(
+      "worldOnlineList"
+    );
+
+  const onlineUsers =
+    users.filter(
+      user=>user.online === true
+    );
+
+  box.innerHTML = "";
+
+  if(!onlineUsers.length){
+
+    box.innerHTML =
+      `<div class="userRow">
+        <span>No users online</span>
+      </div>`;
+
+    return;
+  }
+
+  onlineUsers.forEach(user=>{
+
+    const name =
+      user.username || "User";
+
+    const row =
+      document.createElement("div");
+
+    row.className = "userRow";
+
+    row.innerHTML = `
+      <div class="avatar">
+        ${name.charAt(0).toUpperCase()}
+      </div>
+
+      <div class="userName">
+        ${escapeHTML(name)}
+      </div>
+
+      <div class="userOnline">
+        ● Online
+      </div>
+    `;
+
+    box.appendChild(row);
+
+  });
+
+}
 
 
-$("privateInput").value="";
+/* ALL USERS + SEARCH */
 
-};
+function renderUsers(){
 
+  const list =
+    document.getElementById(
+      "usersList"
+    );
 
-/* VOICE */
+  if(!list) return;
 
-$("voiceBtn").onclick=()=>{
+  const search =
+    document.getElementById(
+      "userSearch"
+    ).value
+    .trim()
+    .toLowerCase();
 
-alert(
-"Voice recording needs microphone permission and Firebase Storage setup."
-);
+  const users =
+    (window.allUsers || [])
+    .filter(user=>{
 
-};
+      const name =
+        (user.username || "")
+        .toLowerCase();
 
+      return name.includes(search);
 
-/* PRIVATE CLOSE */
+    })
+    .sort((a,b)=>{
 
-$("closePrivate").onclick=()=>{
+      if(a.online && !b.online) return -1;
+      if(!a.online && b.online) return 1;
 
-$("privateChat")
-.classList.add("hidden");
+      return (a.username || "")
+        .localeCompare(b.username || "");
 
-$("privateList")
-.classList.remove("hidden");
+    });
 
-};
+  list.innerHTML = "";
 
+  if(!users.length){
 
-/* SETTINGS */
-
-$("settingsBtn").onclick=()=>{
-show("settings");
-};
-
-
-/* BACK */
-
-document
-.querySelectorAll(".back")
-.forEach(button=>{
-
-button.onclick=()=>{
-show("home");
-};
-
-});
-
-
-/* HOME MENU */
-
-document
-.querySelectorAll("[data-page]")
-.forEach(button=>{
-
-button.onclick=()=>{
-show(button.dataset.page);
-};
-
-});
-
-
-/* LOADING */
-
-setTimeout(()=>{
-
-if(!$("home").classList.contains("hidden")||
-!$("auth").classList.contains("hidden"))
-return;
-
-show("auth");
-
-},2500);
-
-</script>
-
-</body>
- </html>
+    list
