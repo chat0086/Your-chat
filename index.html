@@ -3,315 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#07111f">
 <title>Your Chat</title>
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:#020b18;
-  color:#fff;
-  font-family:Arial,sans-serif;
+html,body{
+ margin:0;
+ min-height:100%;
+ background:#07111f;
+ color:#fff;
+ font-family:Arial,sans-serif
 }
 button,input,textarea{font:inherit}
 button{cursor:pointer}
+.hide{display:none!important}
 
-#loading{
-  position:fixed;
-  inset:0;
-  background:#020b18;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
+#boot{
+ position:fixed;
+ inset:0;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:#07111f;
+ z-index:9999
 }
-.loadingBox{
-  width:90%;
-  max-width:420px;
-  background:#0d1b2d;
-  border:1px solid #21466c;
-  border-radius:25px;
-  padding:35px 25px;
-  text-align:center;
+
+.bootbox{
+ width:min(92%,400px);
+ padding:30px 22px;
+ text-align:center;
+ background:#0c1b2d;
+ border:1px solid #173b61;
+ border-radius:22px
 }
+
 .logo{
-  color:#4eb4ff;
-  font-size:38px;
-  font-weight:bold;
-  letter-spacing:5px;
-}
-.loader{
-  width:34px;
-  height:34px;
-  border:4px solid #24415d;
-  border-top-color:#2498ed;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-  margin:25px auto 12px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.small{color:#8da5bd;font-size:14px}
-
-#app{display:none;min-height:100vh}
-
-.top{
-  height:65px;
-  background:#0a1727;
-  border-bottom:1px solid #193753;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 16px;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
-.topTitle{
-  color:#4eb4ff;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-.iconBtn{
-  background:#132940;
-  color:white;
-  border:0;
-  border-radius:12px;
-  padding:10px 13px;
+ font-size:27px;
+ font-weight:800;
+ color:#4eb4ff;
+ letter-spacing:1px
 }
 
-.page{
-  width:94%;
-  max-width:700px;
-  margin:18px auto 90px;
+.spinner{
+ width:30px;
+ height:30px;
+ margin:18px auto;
+ border:3px solid #24405d;
+ border-top-color:#4eb4ff;
+ border-radius:50%;
+ animation:spin .8s linear infinite
+}
+
+@keyframes spin{
+ to{transform:rotate(360deg)}
+}
+
+.small{
+ font-size:13px;
+ color:#9eb2c8;
+ line-height:1.5
+}
+
+#errorBox{
+ margin-top:12px;
+ color:#ff9b9b;
+ font-size:13px
+}
+
+#app{
+ min-height:100vh
+}
+
+header{
+ height:58px;
+ padding:0 14px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ background:#0a1828;
+ border-bottom:1px solid #16334f;
+ position:sticky;
+ top:0;
+ z-index:20
+}
+
+header b{color:#4eb4ff}
+
+main{
+ padding:14px;
+ max-width:700px;
+ margin:auto
 }
 
 .card{
-  background:#0b192b;
-  border:1px solid #204260;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:15px;
+ background:#0c1b2d;
+ border:1px solid #173b61;
+ border-radius:18px;
+ padding:16px;
+ margin-bottom:12px
 }
 
-.auth{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-.authBox{
-  width:100%;
-  max-width:590px;
-  background:#0d1b2d;
-  border:1px solid #234765;
-  border-radius:28px;
-  padding:30px;
-  text-align:center;
-}
-.authTitle{
-  color:#4eb4ff;
-  font-size:38px;
-  letter-spacing:5px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-.authBox h2{margin:8px 0 25px}
-.input{
-  width:100%;
-  background:#050e1c;
-  color:#fff;
-  border:1px solid #2b4b69;
-  border-radius:15px;
-  padding:16px;
-  margin:7px 0;
-  outline:none;
-}
-.input:focus{border-color:#2196ee}
-
-.row{
-  display:flex;
-  gap:10px;
-}
-.row>*{flex:1}
+h1,h2,h3,p{margin-top:0}
+h2{font-size:21px}
 
 .btn{
-  border:0;
-  border-radius:15px;
-  padding:15px;
-  font-weight:bold;
-  color:#fff;
-  background:#188ce0;
-  width:100%;
-  margin-top:8px;
-}
-.btn2{background:#132b43}
-.btnDanger{background:#7b2631}
-
-.error{
-  color:#ff9b9b;
-  margin-top:12px;
-  line-height:1.4;
-  font-size:14px;
+ width:100%;
+ border:0;
+ border-radius:12px;
+ padding:13px 15px;
+ background:#1677c8;
+ color:#fff;
+ font-weight:700;
+ margin-top:9px
 }
 
-.menuGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.menuBtn{
-  min-height:90px;
-  background:#0d2035;
-  border:1px solid #244765;
-  color:#fff;
-  border-radius:18px;
-  padding:15px;
-  text-align:left;
-}
-.menuBtn b{display:block;font-size:17px;margin-bottom:7px}
-.menuBtn span{color:#7895af;font-size:12px}
-
-.sectionTitle{
-  font-size:21px;
-  font-weight:bold;
-  margin-bottom:14px;
+.btn.alt{
+ background:#122941;
+ border:1px solid #244866
 }
 
-.message{
-  padding:12px;
-  border-bottom:1px solid #18334c;
-}
-.message:last-child{border-bottom:0}
-.msgUser{color:#4eb4ff;font-weight:bold}
-.msgTime{color:#718ba4;font-size:11px;margin-left:5px}
-.msgText{margin-top:5px;white-space:pre-wrap;word-break:break-word}
-
-.chatInput{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  background:#071426;
-  border-top:1px solid #193753;
-  padding:10px;
-  z-index:30;
-}
-.chatInner{
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  gap:8px;
-}
-.chatInner input{margin:0}
-.sendBtn{
-  width:75px;
-  border:0;
-  border-radius:13px;
-  background:#188ce0;
-  color:white;
-  font-weight:bold;
+.btn.danger{
+ background:#a33a3a
 }
 
-.user{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 5px;
-  border-bottom:1px solid #18334c;
-}
-.onlineDot{
-  width:9px;
-  height:9px;
-  background:#32d583;
-  border-radius:50%;
-  display:inline-block;
-  margin-right:7px;
+input,textarea{
+ width:100%;
+ background:#081625;
+ color:#fff;
+ border:1px solid #234866;
+ border-radius:11px;
+ padding:12px;
+ margin:6px 0;
+ outline:none
 }
 
-.nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:62px;
-  background:#091728;
-  border-top:1px solid #1d3b57;
-  display:flex;
-  justify-content:space-around;
-  z-index:25;
+input:focus,textarea:focus{
+ border-color:#4eb4ff
 }
-.nav button{
-  background:none;
-  border:0;
-  color:#8ca4ba;
-  font-size:12px;
-}
-.nav button.active{color:#4eb4ff}
 
-.hide{display:none!important}
+textarea{
+ min-height:80px;
+ resize:vertical
+}
+
+.row{
+ display:flex;
+ gap:8px;
+ align-items:center
+}
+
+.row>*{flex:1}
+
+.navgrid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
+}
+
+.navitem{
+ min-height:92px;
+ background:#0d2034;
+ border:1px solid #1b4568;
+ border-radius:16px;
+ color:#fff;
+ padding:16px;
+ text-align:left
+}
+
+.navitem b{
+ display:block;
+ color:#4eb4ff;
+ margin-bottom:8px
+}
+
+.listitem{
+ padding:13px;
+ border-bottom:1px solid #17324b
+}
+
+.listitem:last-child{
+ border-bottom:0
+}
+
+.msg{
+ padding:9px 11px;
+ margin:7px 0;
+ border-radius:13px;
+ background:#10263d;
+ max-width:88%
+}
+
+.msg.mine{
+ margin-left:auto;
+ background:#125f96
+}
+
+.msg small{
+ display:block;
+ color:#91abc2;
+ margin-top:4px;
+ font-size:10px
+}
+
+#auth{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:16px
+}
+
+.authbox{
+ width:min(100%,420px)
+}
+
+.status{
+ font-size:13px;
+ color:#9eb2c8;
+ min-height:20px;
+ margin:8px 0
+}
+
+.badge{
+ display:inline-block;
+ padding:4px 8px;
+ border-radius:20px;
+ background:#143858;
+ color:#91d2ff;
+ font-size:11px
+}
 
 @media(max-width:430px){
-  .authBox{padding:22px}
-  .authTitle{font-size:31px}
-  .menuGrid{grid-template-columns:1fr}
+ main{padding:10px}
+ .navgrid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADING -->
-<div id="loading">
-  <div class="loadingBox">
-    <div class="logo">YOUR CHAT</div>
-    <div class="loader"></div>
-    <div id="loadingText" class="small">Connecting to the world...</div>
-    <button id="retryBtn" class="btn hide" onclick="location.reload()">Retry</button>
-  </div>
+<div id="boot">
+ <div class="bootbox">
+  <div class="logo">YOUR CHAT</div>
+  <div class="spinner"></div>
+  <div id="bootText" class="small">Starting safely...</div>
+  <div id="errorBox" class="hide"></div>
+  <button id="bootRetry" class="btn hide" onclick="location.reload()">Retry</button>
+ </div>
 </div>
 
-<!-- APP -->
-<div id="app">
+<div id="auth" class="hide">
+ <div class="authbox">
+  <div class="card">
+   <div class="logo">YOUR CHAT</div>
 
-  <div id="authScreen" class="auth hide">
-    <div class="authBox">
-      <div class="authTitle">YOUR CHAT</div>
-      <h2>Welcome</h2>
+   <p class="small">
+    Lightweight chat for Android and KaiOS-style browsers.
+   </p>
 
-      <input id="username" class="input" maxlength="24"
-             placeholder="Username">
+   <input
+    id="username"
+    maxlength="24"
+    autocomplete="username"
+    placeholder="Username (3-24 letters/numbers/_)">
 
-      <input id="password" class="input" type="password"
-             placeholder="Password">
+   <input
+    id="password"
+    type="password"
+    minlength="6"
+    autocomplete="current-password"
+    placeholder="Password (6+ characters)">
 
-      <div class="row">
-        <button class="btn" onclick="login()">Login</button>
-        <button class="btn btn2" onclick="createAccount()">Create Account</button>
-      </div>
+   <button class="btn" id="loginBtn">Login</button>
 
-      <div id="authError" class="error"></div>
-    </div>
+   <button class="btn alt" id="createBtn">
+    Create Account
+   </button>
+
+   <div id="authStatus" class="status"></div>
   </div>
+ </div>
+</div>
 
-  <div id="mainScreen" class="hide">
+<div id="app" class="hide">
 
-    <div class="top">
-      <div class="topTitle">YOUR CHAT</div>
-      <button class="iconBtn" onclick="openPage('settings')">⚙</button>
-    </div>
+<header>
+ <b>YOUR CHAT</b>
+ <span id="userBadge" class="badge">Guest</span>
+</header>
 
-    <div id="page" class="page"></div>
+<main id="main"></main>
 
-    <div class="nav">
-      <button id="navHome" onclick="openPage('home')">⌂<br>Home</button>
-      <button id="navWorld" onclick="openPage('world')">🌎<br>World</button>
-      <button id="navUsers" onclick="openPage('users')">👥<br>Users</button>
-      <button id="navGroups" onclick="openPage('groups')">▣<br>Groups</button>
-      <button id="navPrivate" onclick="openPage('private')">💬<br>Private</button>
-    </div>
-
-  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -319,1049 +302,1165 @@ button{cursor:pointer}
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
-/* =========================================================
-   YOUR CHAT - FIREBASE CONFIG
-   ========================================================= */
+"use strict";
+
+/* =========================
+   FIREBASE CONFIG
+   ========================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
-  authDomain: "your-chat-24913.firebaseapp.com",
-  projectId: "your-chat-24913",
-  storageBucket: "your-chat-24913.firebasestorage.app",
-  messagingSenderId: "700520326360",
-  appId: "1:700520326360:web:a3dc5fd4e36b54dbb563ad",
-  measurementId: "G-7JBWVDK838"
+ apiKey:"AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
+ authDomain:"your-chat-24913.firebaseapp.com",
+ projectId:"your-chat-24913",
+ storageBucket:"your-chat-24913.firebasestorage.app",
+ messagingSenderId:"700520326360",
+ appId:"1:700520326360:web:a3dc5fd4e36b54dbb563ad",
+ measurementId:"G-7JBWVDK838"
 };
 
-let auth = null;
-let db = null;
-let currentUser = null;
-let profile = {};
-let unsubscribe = null;
-let currentPage = "home";
+let auth=null;
+let db=null;
+let currentUser=null;
+let stopWorld=null;
 
-/* =========================================================
-   ERROR HANDLING
-   ========================================================= */
+const $=id=>document.getElementById(id);
 
-window.onerror = function(message){
-  console.error(message);
-};
-
-window.addEventListener("unhandledrejection",function(e){
-  console.error(e.reason);
-});
-
-function bootError(message){
-  document.getElementById("loadingText").innerHTML =
-    "Firebase error:<br><br>" + escapeHtml(message);
-
-  document.querySelector(".loader").style.display="none";
-  document.getElementById("retryBtn").classList.remove("hide");
-}
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function escapeHtml(value){
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-function cleanUsername(name){
-  return String(name || "").trim();
-}
+const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;",
+ "<":"&lt;",
+ ">":"&gt;",
+ '"':"&quot;",
+ "'":"&#039;"
+}[c]));
 
 function usernameEmail(name){
-  return cleanUsername(name).toLowerCase()+"@yourchat.local";
+ return name.trim().toLowerCase()+"@yourchat.local";
 }
 
 function validUsername(name){
-  return /^[A-Za-z0-9_]{3,24}$/.test(name);
+ return /^[A-Za-z0-9_]{3,24}$/.test(name);
 }
 
-function showLoading(text){
-  document.getElementById("loading").style.display="flex";
-  document.getElementById("loadingText").textContent=text || "Connecting to the world...";
-  document.querySelector(".loader").style.display="block";
-  document.getElementById("retryBtn").classList.add("hide");
+function setBoot(text,error=false){
+
+ $("bootText").textContent=text;
+
+ $("errorBox").classList.toggle(
+  "hide",
+  !error
+ );
+
+ if(error){
+
+  $("errorBox").textContent=text;
+
+  $("bootText").textContent=
+   "Your Chat could not start.";
+
+  $("bootRetry").classList.remove("hide");
+ }
 }
 
-function hideLoading(){
-  document.getElementById("loading").style.display="none";
+function show(id){
+
+ $("boot").classList.add("hide");
+
+ $("auth").classList.toggle(
+  "hide",
+  id!=="auth"
+ );
+
+ $("app").classList.toggle(
+  "hide",
+  id!=="app"
+ );
 }
 
-function showAuth(){
-  hideLoading();
-  document.getElementById("authScreen").classList.remove("hide");
-  document.getElementById("mainScreen").classList.add("hide");
+function status(text){
+ $("authStatus").textContent=text;
 }
 
-function showMain(){
-  hideLoading();
-  document.getElementById("authScreen").classList.add("hide");
-  document.getElementById("mainScreen").classList.remove("hide");
-}
 
-function formatTime(ts){
-  try{
-    if(!ts) return "";
-    const d=ts.toDate ? ts.toDate() : new Date(ts);
-    return d.toLocaleTimeString([],{
-      hour:"2-digit",
-      minute:"2-digit"
-    });
-  }catch(e){return "";}
-}
-
-function withTimeout(promise,ms){
-  return Promise.race([
-    promise,
-    new Promise((_,reject)=>
-      setTimeout(()=>reject(new Error("Connection timed out")),ms)
-    )
-  ]);
-}
-
-/* =========================================================
+/* =========================
    FIREBASE START
-   ========================================================= */
+   ========================= */
 
-try{
+function startFirebase(){
+
+ try{
 
   if(!window.firebase){
-    throw new Error("Firebase SDK did not load.");
+
+   throw new Error(
+    "Firebase library did not load. Check internet connection."
+   );
   }
 
-  firebase.initializeApp(firebaseConfig);
+  if(!firebase.apps.length){
+
+   firebase.initializeApp(firebaseConfig);
+  }
 
   auth=firebase.auth();
   db=firebase.firestore();
 
-  /* Auth listener */
-  auth.onAuthStateChanged(async function(user){
+  return true;
 
-    currentUser=user;
+ }catch(e){
 
-    if(!user){
-      showAuth();
-      return;
-    }
-
-    showLoading("Loading your account...");
-
-    profile={
-      uid:user.uid,
-      username:user.displayName || "User"
-    };
-
-    try{
-      await loadProfile();
-    }catch(e){
-      console.warn("Profile:",e);
-    }
-
-    setTimeout(function(){
-      showMain();
-      openPage("home");
-    },1200);
-  });
-
-}catch(e){
   console.error(e);
-  bootError(e.message || "Firebase could not start.");
+
+  setBoot(
+   e.message||"Firebase could not start.",
+   true
+  );
+
+  return false;
+ }
 }
 
-/* =========================================================
-   PROFILE
-   ========================================================= */
 
-async function loadProfile(){
+/* =========================
+   LOGIN
+   ========================= */
 
-  if(!currentUser) return;
+$("loginBtn").onclick=async()=>{
 
-  try{
+ const name=$("username").value.trim();
+ const pass=$("password").value;
 
-    const ref=db.collection("users").doc(currentUser.uid);
+ if(!validUsername(name)){
 
-    const snap=await withTimeout(ref.get(),5000);
+  return status(
+   "Username: 3-24 letters, numbers or _ only."
+  );
+ }
 
-    if(snap.exists){
-      profile=Object.assign(profile,snap.data());
-    }
+ if(pass.length<6){
 
-    const username=
-      profile.username ||
-      currentUser.displayName ||
-      "User";
+  return status(
+   "Password must be at least 6 characters."
+  );
+ }
 
-    await ref.set({
-      uid:currentUser.uid,
-      username:username,
-      online:true,
-      lastSeen:firebase.firestore.FieldValue.serverTimestamp()
-    },{merge:true});
+ status("Logging in...");
 
-  }catch(e){
-    console.warn("Profile sync failed:",e);
-  }
+ try{
+
+  await auth.signInWithEmailAndPassword(
+   usernameEmail(name),
+   pass
+  );
+
+ }catch(e){
+
+  console.error(e);
+
+  status(
+   e.code==="auth/user-not-found"
+   ?"Account not found. Create it first."
+   :
+   e.code==="auth/wrong-password"
+   ?"Wrong password."
+   :
+   e.message||"Login failed."
+  );
+ }
+};
+
+
+/* =========================
+   CREATE ACCOUNT
+   ========================= */
+
+$("createBtn").onclick=async()=>{
+
+ const name=$("username").value.trim();
+ const pass=$("password").value;
+
+ if(!validUsername(name)){
+
+  return status(
+   "Username: 3-24 letters, numbers or _ only."
+  );
+ }
+
+ if(pass.length<6){
+
+  return status(
+   "Password must be at least 6 characters."
+  );
+ }
+
+ status("Creating account...");
+
+ try{
+
+  const cred=
+   await auth.createUserWithEmailAndPassword(
+    usernameEmail(name),
+    pass
+   );
+
+  await db.collection("users")
+   .doc(cred.user.uid)
+   .set({
+
+    uid:cred.user.uid,
+    username:name,
+    usernameLower:name.toLowerCase(),
+    createdAt:
+     firebase.firestore.FieldValue.serverTimestamp(),
+    online:true
+
+   },{merge:true});
+
+ }catch(e){
+
+  console.error(e);
+
+  status(
+   e.code==="auth/email-already-in-use"
+   ?"Username already exists."
+   :
+   e.message||"Account creation failed."
+  );
+ }
+};
+
+
+/* =========================
+   HOME
+   ========================= */
+
+function home(){
+
+ $("userBadge").textContent=
+  currentUser?.displayName||
+  currentUser?.email?.split("@")[0]||
+  "User";
+
+ $("main").innerHTML=`
+
+ <div class="card">
+
+  <h2>Welcome to Your Chat 👋</h2>
+
+  <p class="small">
+   Choose a chat area.
+  </p>
+
+  <div class="navgrid">
+
+   <button class="navitem"
+    onclick="world()">
+
+    <b>🌍 World Chat</b>
+    Everyone can chat
+
+   </button>
+
+   <button class="navitem"
+    onclick="users()">
+
+    <b>🟢 Online Users</b>
+    Find people
+
+   </button>
+
+   <button class="navitem"
+    onclick="privateChat()">
+
+    <b>💬 Private Chat</b>
+    One-to-one messages
+
+   </button>
+
+   <button class="navitem"
+    onclick="groups()">
+
+    <b>👥 Group Chat</b>
+    Group messages
+
+   </button>
+
+   <button class="navitem"
+    onclick="users(true)">
+
+    <b>👤 All Users</b>
+    Browse users
+
+   </button>
+
+   <button class="navitem"
+    onclick="settings()">
+
+    <b>⚙️ Settings</b>
+    Account & privacy
+
+   </button>
+
+  </div>
+
+ </div>
+
+ <button class="btn danger"
+  onclick="logout()">
+  Log Out
+ </button>
+
+ `;
 }
 
-/* =========================================================
-   ACCOUNT
-   ========================================================= */
 
-async function login(){
+/* =========================
+   WORLD CHAT
+   ========================= */
 
-  const name=cleanUsername(document.getElementById("username").value);
-  const pass=document.getElementById("password").value;
-  const error=document.getElementById("authError");
+function world(){
 
-  error.textContent="";
+ if(stopWorld){
+  stopWorld();
+ }
 
-  if(!validUsername(name)){
-    error.textContent="Username 3-24 characters ka ho: A-Z, a-z, 0-9 ya _.";
-    return;
-  }
+ $("main").innerHTML=`
 
-  if(pass.length<6){
-    error.textContent="Password kam az kam 6 characters ka hona chahiye.";
-    return;
-  }
+ <div class="row">
 
-  try{
+  <button class="btn alt"
+   onclick="home()">
+   ← Home
+  </button>
 
-    showLoading("Logging in...");
+  <h2>🌍 World Chat</h2>
 
-    await auth.signInWithEmailAndPassword(
-      usernameEmail(name),
-      pass
-    );
+ </div>
 
-  }catch(e){
+ <div class="card">
 
-    hideLoading();
+  <div id="worldList"
+   style="max-height:55vh;overflow:auto">
+   Loading...
+  </div>
 
-    error.textContent=
-      "Login failed: "+friendlyError(e);
+  <textarea
+   id="worldText"
+   maxlength="1000"
+   placeholder="Write a message..."></textarea>
 
-  }
-}
+  <button class="btn"
+   onclick="sendWorld()">
+   Send
+  </button>
 
-async function createAccount(){
+  <div id="worldStatus"
+   class="status"></div>
 
-  const name=cleanUsername(document.getElementById("username").value);
-  const pass=document.getElementById("password").value;
-  const error=document.getElementById("authError");
+ </div>
 
-  error.textContent="";
+ `;
 
-  if(!validUsername(name)){
-    error.textContent="Username 3-24 characters ka ho: A-Z, a-z, 0-9 ya _.";
-    return;
-  }
+ stopWorld=
+ db.collection("worldMessages")
+ .orderBy("createdAt","desc")
+ .limit(80)
+ .onSnapshot(
 
-  if(pass.length<6){
-    error.textContent="Password kam az kam 6 characters ka hona chahiye.";
-    return;
-  }
+ snap=>{
 
-  try{
+  const rows=[];
 
-    showLoading("Creating your account...");
+  snap.forEach(d=>{
 
-    const result=await auth.createUserWithEmailAndPassword(
-      usernameEmail(name),
-      pass
-    );
+   const m=d.data();
 
-    await result.user.updateProfile({
-      displayName:name
-    });
+   rows.push(`
 
-    await db.collection("users").doc(result.user.uid).set({
-      uid:result.user.uid,
-      username:name,
-      online:true,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-      lastSeen:firebase.firestore.FieldValue.serverTimestamp()
-    },{merge:true});
+    <div class="msg ${
+     m.uid===currentUser.uid?"mine":""
+    }">
 
-  }catch(e){
+     <b>
+      ${safe(m.username||"User")}
+     </b>
 
-    hideLoading();
+     <br>
 
-    error.textContent=
-      "Create account failed: "+friendlyError(e);
+     ${safe(m.text)}
 
-  }
-}
+     <small>
+      ${
+       m.createdAt?.toDate
+       ?
+       m.createdAt.toDate().toLocaleString()
+       :
+       "sending..."
+      }
+     </small>
 
-function friendlyError(e){
+    </div>
 
-  const code=e && e.code ? e.code : "";
-
-  if(code==="auth/invalid-api-key")
-    return "Firebase API key invalid hai.";
-
-  if(code==="auth/invalid-credential")
-    return "Username ya password ghalat hai.";
-
-  if(code==="auth/email-already-in-use")
-    return "Ye username pehle se bana hua hai.";
-
-  if(code==="auth/weak-password")
-    return "Password kam az kam 6 characters ka hona chahiye.";
-
-  if(code==="auth/network-request-failed")
-    return "Internet connection check karo.";
-
-  if(code==="permission-denied")
-    return "Firebase Firestore permission denied.";
-
-  return e && e.message ? e.message : "Unknown error";
-}
-
-/* =========================================================
-   PAGES
-   ========================================================= */
-
-function openPage(page){
-
-  currentPage=page;
-
-  if(unsubscribe){
-    unsubscribe();
-    unsubscribe=null;
-  }
-
-  document.querySelectorAll(".nav button").forEach(function(b){
-    b.classList.remove("active");
+   `);
   });
 
-  const map={
-    home:"navHome",
-    world:"navWorld",
-    users:"navUsers",
-    groups:"navGroups",
-    private:"navPrivate"
-  };
+  $("worldList").innerHTML=
+   rows.reverse().join("")||
+   `<p class="small">No messages yet.</p>`;
 
-  if(map[page]){
-    document.getElementById(map[page]).classList.add("active");
-  }
+ },
 
-  if(page==="home") renderHome();
-  if(page==="world") renderWorld();
-  if(page==="users") renderUsers();
-  if(page==="groups") renderGroups();
-  if(page==="private") renderPrivate();
-  if(page==="settings") renderSettings();
+ err=>{
+
+  console.error(err);
+
+  $("worldList").innerHTML=
+   `<p class="small">
+    World Chat is unavailable.
+    Check Firestore rules.
+   </p>`;
+ }
+ );
 }
 
-/* =========================================================
-   HOME
-   ========================================================= */
-
-function renderHome(){
-
-  const name=escapeHtml(profile.username || "User");
-
-  document.getElementById("page").innerHTML=`
-
-    <div class="card">
-      <div class="sectionTitle">Welcome, ${name} 👋</div>
-      <div class="small">Your Chat mein khush aamdeed.</div>
-    </div>
-
-    <div class="menuGrid">
-
-      <button class="menuBtn" onclick="openPage('world')">
-        <b>🌎 World Chat</b>
-        <span>Sab users ke saath chat</span>
-      </button>
-
-      <button class="menuBtn" onclick="renderUsers()">
-        <b>🟢 Online Users</b>
-        <span>Online users dekho</span>
-      </button>
-
-      <button class="menuBtn" onclick="openPage('private')">
-        <b>💬 Private Chat</b>
-        <span>Private conversation</span>
-      </button>
-
-      <button class="menuBtn" onclick="openPage('groups')">
-        <b>👥 Group Chat</b>
-        <span>Groups aur messages</span>
-      </button>
-
-      <button class="menuBtn" onclick="renderUsers()">
-        <b>👤 All Users</b>
-        <span>Users ki list</span>
-      </button>
-
-      <button class="menuBtn" onclick="openPage('settings')">
-        <b>⚙ Settings</b>
-        <span>Account aur app settings</span>
-      </button>
-
-    </div>
-  `;
-}
-
-/* =========================================================
-   WORLD CHAT
-   ========================================================= */
-
-function renderWorld(){
-
-  document.getElementById("page").innerHTML=`
-
-    <div class="card">
-      <div class="sectionTitle">🌎 World Chat</div>
-      <div class="small">Public chat for Your Chat users.</div>
-    </div>
-
-    <div id="worldMessages" class="card">
-      <div class="small">Loading messages...</div>
-    </div>
-
-    <div style="height:70px"></div>
-
-    <div class="chatInput">
-      <div class="chatInner">
-        <input id="worldInput" class="input"
-          placeholder="Write a message..."
-          maxlength="1000"
-          onkeydown="if(event.key==='Enter')sendWorld()">
-        <button class="sendBtn" onclick="sendWorld()">Send</button>
-      </div>
-    </div>
-  `;
-
-  loadWorld();
-}
-
-function loadWorld(){
-
-  const box=document.getElementById("worldMessages");
-
-  if(!box) return;
-
-  unsubscribe=db.collection("worldMessages")
-    .limit(50)
-    .onSnapshot(function(snapshot){
-
-      let arr=[];
-
-      snapshot.forEach(function(doc){
-        arr.push(Object.assign({id:doc.id},doc.data()));
-      });
-
-      arr.sort(function(a,b){
-        const aa=a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis():0;
-        const bb=b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis():0;
-        return aa-bb;
-      });
-
-      if(!arr.length){
-        box.innerHTML='<div class="small">No messages yet. Be the first!</div>';
-        return;
-      }
-
-      box.innerHTML=arr.map(function(m){
-
-        return `
-          <div class="message">
-            <span class="msgUser">${escapeHtml(m.username || "User")}</span>
-            <span class="msgTime">${formatTime(m.createdAt)}</span>
-            <div class="msgText">${escapeHtml(m.text || "")}</div>
-          </div>
-        `;
-
-      }).join("");
-
-      box.scrollTop=box.scrollHeight;
-
-    },function(error){
-
-      box.innerHTML=
-        '<div class="error">World Chat error: '+
-        escapeHtml(error.message)+'</div>';
-
-    });
-}
 
 async function sendWorld(){
 
-  const input=document.getElementById("worldInput");
+ const el=$("worldText");
+ const text=el.value.trim();
 
-  if(!input || !currentUser) return;
+ if(!text)return;
 
-  const text=input.value.trim();
+ $("worldStatus").textContent=
+  "Sending...";
 
-  if(!text) return;
+ try{
 
-  input.disabled=true;
+  const u=
+   await db.collection("users")
+   .doc(currentUser.uid)
+   .get();
 
-  try{
+  await db.collection("worldMessages")
+   .add({
 
-    await db.collection("worldMessages").add({
-      uid:currentUser.uid,
-      username:profile.username || currentUser.displayName || "User",
-      text:text,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
-    });
+    uid:currentUser.uid,
 
-    input.value="";
+    username:
+     u.data()?.username||
+     "User",
 
-  }catch(e){
+    text,
 
-    alert("Message send nahi hua:\n"+friendlyError(e));
+    createdAt:
+     firebase.firestore.FieldValue.serverTimestamp()
+   });
 
-  }
+  el.value="";
 
-  input.disabled=false;
+  $("worldStatus").textContent="";
+
+ }catch(e){
+
+  console.error(e);
+
+  $("worldStatus").textContent=
+   "Message failed. Check Firestore rules.";
+ }
 }
 
-/* =========================================================
+
+/* =========================
    USERS
-   ========================================================= */
+   ========================= */
 
-function renderUsers(){
+function users(all=false){
 
-  if(unsubscribe){
-    unsubscribe();
-    unsubscribe=null;
-  }
+ $("main").innerHTML=`
 
-  document.getElementById("page").innerHTML=`
+ <div class="row">
 
-    <div class="card">
-      <div class="sectionTitle">👥 All Users</div>
-      <div class="small">Registered Your Chat users.</div>
-    </div>
+  <button class="btn alt"
+   onclick="home()">
+   ← Home
+  </button>
 
-    <div id="usersList" class="card">
-      <div class="small">Loading users...</div>
-    </div>
-  `;
+  <h2>
+   ${all?"👤 All Users":"🟢 Online Users"}
+  </h2>
 
-  loadUsers();
-}
+ </div>
 
-function loadUsers(){
+ <div class="card">
 
-  const box=document.getElementById("usersList");
+  <div id="usersList">
+   Loading...
+  </div>
 
-  unsubscribe=db.collection("users")
-    .limit(100)
-    .onSnapshot(function(snapshot){
+ </div>
 
-      let users=[];
+ `;
 
-      snapshot.forEach(function(doc){
-        users.push(doc.data());
-      });
+ db.collection("users")
+ .limit(100)
+ .get()
 
-      users.sort(function(a,b){
-        return String(a.username||"")
-          .localeCompare(String(b.username||""));
-      });
+ .then(snap=>{
 
-      if(!users.length){
-        box.innerHTML='<div class="small">No users found.</div>';
-        return;
-      }
+  let html="";
 
-      box.innerHTML=users.map(function(u){
+  snap.forEach(d=>{
 
-        const online=u.online===true;
+   const u=d.data();
 
-        return `
-          <div class="user">
-            <div>
-              <span class="onlineDot"
-                style="background:${online?'#32d583':'#56697a'}"></span>
-              <b>${escapeHtml(u.username||"User")}</b>
-            </div>
+   if(u.uid===currentUser.uid)
+    return;
 
-            ${
-              u.uid!==currentUser.uid
-              ? `<button class="iconBtn"
-                   onclick="startPrivate('${escapeHtml(u.uid)}','${escapeHtml(u.username||"User")}')">
-                   Chat
-                 </button>`
-              : `<span class="small">You</span>`
-            }
-          </div>
-        `;
+   if(!all && u.online!==true)
+    return;
 
-      }).join("");
+   html+=`
 
-    },function(error){
+   <div class="listitem">
 
-      box.innerHTML=
-        '<div class="error">Users error: '+
-        escapeHtml(error.message)+'</div>';
+    <b>
+     ${safe(u.username||"User")}
+    </b>
 
-    });
-}
+    <span class="badge">
+     ${u.online===true?"Online":"Offline"}
+    </span>
 
-/* =================   PRIVATE CHAT
-   ========================================================= */
-
-function chatIdFor(uid1,uid2){
-  return [uid1,uid2].sort().join("_");
-}
-
-function startPrivate(uid,username){
-  if(uid===currentUser.uid) return;
-  renderPrivateChat(uid,username);
-}
-
-function renderPrivate(){
-
-  document.getElementById("page").innerHTML=`
-
-    <div class="card">
-      <div class="sectionTitle">💬 Private Chat</div>
-      <div class="small">
-        Pehle All Users se kisi user ko select karo.
-      </div>
-    </div>
-
-    <button class="btn btn2" onclick="renderUsers()">
-      👥 Choose User
+    <button class="btn alt"
+     onclick="openPrivate(
+      '${safe(u.uid)}',
+      '${safe(u.username||"User")}'
+     )">
+     Chat
     </button>
-  `;
+
+   </div>
+
+   `;
+  });
+
+  $("usersList").innerHTML=
+   html||
+   `<p class="small">No users found.</p>`;
+
+ })
+
+ .catch(e=>{
+
+  console.error(e);
+
+  $("usersList").innerHTML=
+   `<p class="small">
+    Users could not be loaded.
+   </p>`;
+ });
 }
 
-function renderPrivateChat(uid,username){
 
-  if(unsubscribe){
-    unsubscribe();
-    unsubscribe=null;
-  }
-
-  const chatId=chatIdFor(currentUser.uid,uid);
-
-  document.getElementById("page").innerHTML=`
-
-    <div class="card">
-      <button class="iconBtn" onclick="openPage('private')">← Back</button>
-      <div class="sectionTitle" style="margin-top:15px">
-        💬 ${escapeHtml(username)}
-      </div>
-    </div>
-
-    <div id="privateMessages" class="card">
-      <div class="small">Loading...</div>
-    </div>
-
-    <div style="height:70px"></div>
-
-    <div class="chatInput">
-      <div class="chatInner">
-        <input id="privateInput" class="input"
-          placeholder="Write a private message..."
-          maxlength="1000"
-          onkeydown="if(event.key==='Enter')sendPrivate('${uid}')">
-        <button class="sendBtn"
-          onclick="sendPrivate('${uid}')">Send</button>
-      </div>
-    </div>
-  `;
-
-  loadPrivate(chatId);
+function privateChat(){
+ users(true);
 }
 
-function loadPrivate(chatId){
 
-  const box=document.getElementById("privateMessages");
+/* =========================
+   PRIVATE CHAT
+   ========================= */
 
-  unsubscribe=db.collection("chats")
-    .doc(chatId)
-    .collection("messages")
-    .limit(100)
-    .onSnapshot(function(snapshot){
-
-      let arr=[];
-
-      snapshot.forEach(function(doc){
-        arr.push(doc.data());
-      });
-
-      arr.sort(function(a,b){
-        const aa=a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis():0;
-        const bb=b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis():0;
-        return aa-bb;
-      });
-
-      if(!arr.length){
-        box.innerHTML='<div class="small">No messages yet.</div>';
-        return;
-      }
-
-      box.innerHTML=arr.map(function(m){
-
-        const mine=m.uid===currentUser.uid;
-
-        return `
-          <div class="message">
-            <span class="msgUser">
-              ${mine?"You":escapeHtml(m.username||"User")}
-            </span>
-            <span class="msgTime">${formatTime(m.createdAt)}</span>
-            <div class="msgText">${escapeHtml(m.text||"")}</div>
-          </div>
-        `;
-
-      }).join("");
-
-    },function(error){
-
-      box.innerHTML=
-        '<div class="error">Private chat error: '+
-        escapeHtml(error.message)+'</div>';
-
-    });
+function chatIdFor(a,b){
+ return [a,b].sort().join("_");
 }
 
-async function sendPrivate(otherUid){
+async function openPrivate(uid,name){
 
-  const input=document.getElementById("privateInput");
+ const chatId=
+  chatIdFor(currentUser.uid,uid);
 
-  if(!input) return;
+ $("main").innerHTML=`
 
-  const text=input.value.trim();
+ <div class="row">
 
-  if(!text) return;
+  <button class="btn alt"
+   onclick="users(true)">
+   ← Users
+  </button>
 
-  const chatId=chatIdFor(currentUser.uid,otherUid);
+  <h2>
+   💬 ${safe(name)}
+  </h2>
 
-  input.disabled=true;
+ </div>
 
-  try{
+ <div class="card">
 
-    await db.collection("chats")
-      .doc(chatId)
-      .collection("messages")
-      .add({
-        uid:currentUser.uid,
-        username:profile.username || currentUser.displayName || "User",
-        text:text,
-        createdAt:firebase.firestore.FieldValue.serverTimestamp()
-      });
+  <div id="privateList"
+   style="max-height:55vh;overflow:auto">
+   Loading...
+  </div>
 
-    input.value="";
+  <textarea
+   id="privateText"
+   maxlength="1000"
+   placeholder="Private message..."></textarea>
 
-  }catch(e){
+  <button class="btn"
+   onclick="sendPrivate(
+    '${safe(chatId)}',
+    '${safe(uid)}',
+    '${safe(name)}'
+   )">
+   Send
+  </button>
 
-    alert("Private message send nahi hua:\n"+friendlyError(e));
+  <div class="status">
+   Private messages are only visible
+   through this chat.
+  </div>
 
-  }
+ </div>
 
-  input.disabled=false;
+ `;
+
+ db.collection("chats")
+ .doc(chatId)
+ .collection("messages")
+ .orderBy("createdAt","asc")
+ .limit(100)
+ .onSnapshot(
+
+ snap=>{
+
+  const rows=[];
+
+  snap.forEach(d=>{
+
+   const m=d.data();
+
+   rows.push(`
+
+   <div class="msg ${
+    m.uid===currentUser.uid?"mine":""
+   }">
+
+    <b>
+     ${safe(m.username||"User")}
+    </b>
+
+    <br>
+
+    ${safe(m.text||"")}
+
+    <small>
+     ${
+      m.createdAt?.toDate
+      ?
+      m.createdAt.toDate().toLocaleString()
+      :
+      "sending..."
+     }
+    </small>
+
+   </div>
+
+   `);
+  });
+
+  $("privateList").innerHTML=
+   rows.join("")||
+   `<p class="small">No messages yet.</p>`;
+
+ },
+
+ err=>{
+
+  console.error(err);
+
+  $("privateList").innerHTML=
+   `<p class="small">
+    Private chat is unavailable.
+    Check Firestore rules.
+   </p>`;
+ }
+ );
 }
 
-/* =========================================================
+
+async function sendPrivate(
+ chatId,
+ otherUid,
+ otherName
+){
+
+ const el=$("privateText");
+ const text=el.value.trim();
+
+ if(!text)return;
+
+ try{
+
+  const me=
+   await db.collection("users")
+   .doc(currentUser.uid)
+   .get();
+
+  await db.collection("chats")
+   .doc(chatId)
+   .collection("messages")
+   .add({
+
+    uid:currentUser.uid,
+    toUid:otherUid,
+
+    username:
+     me.data()?.username||
+     "User",
+
+    text,
+
+    createdAt:
+     firebase.firestore.FieldValue.serverTimestamp()
+   });
+
+  el.value="";
+
+ }catch(e){
+
+  console.error(e);
+
+  alert(
+   "Private message failed. Check Firestore rules."
+  );
+ }
+}
+
+
+/* =========================
    GROUPS
-   ========================================================= */
+   ========================= */
 
-function renderGroups(){
+function groups(){
 
-  document.getElementById("page").innerHTML=`
+ $("main").innerHTML=`
 
-    <div class="card">
-      <div class="sectionTitle">👥 Group Chat</div>
-      <div class="small">Available groups.</div>
-    </div>
+ <div class="row">
 
-    <div id="groupsList" class="card">
-      <div class="small">Loading groups...</div>
-    </div>
-  `;
+  <button class="btn alt"
+   onclick="home()">
+   ← Home
+  </button>
 
-  loadGroups();
+  <h2>👥 Groups</h2>
+
+ </div>
+
+ <div class="card">
+
+  <input
+   id="groupName"
+   maxlength="40"
+   placeholder="New group name">
+
+  <button class="btn"
+   onclick="createGroup()">
+   Create Group
+  </button>
+
+ </div>
+
+ <div class="card">
+
+  <div id="groupList">
+   Loading...
+  </div>
+
+ </div>
+
+ `;
+
+ db.collection("groups")
+ .limit(50)
+ .get()
+
+ .then(s=>{
+
+  let h="";
+
+  s.forEach(d=>{
+
+   const g=d.data();
+
+   h+=`
+
+   <div class="listitem">
+
+    <b>
+     ${safe(g.name||"Group")}
+    </b>
+
+    <button class="btn alt"
+     onclick="openGroup(
+      '${safe(d.id)}',
+      '${safe(g.name||"Group")}'
+     )">
+     Open
+    </button>
+
+   </div>
+
+   `;
+  });
+
+  $("groupList").innerHTML=
+   h||
+   `<p class="small">No groups yet.</p>`;
+
+ })
+
+ .catch(e=>{
+
+  $("groupList").textContent=
+   "Groups unavailable.";
+
+  console.error(e);
+ });
 }
 
-function loadGroups(){
 
-  const box=document.getElementById("groupsList");
+async function createGroup(){
 
-  unsubscribe=db.collection("groups")
-    .limit(50)
-    .onSnapshot(function(snapshot){
+ const name=
+  $("groupName").value.trim();
 
-      let groups=[];
+ if(!name)return;
 
-      snapshot.forEach(function(doc){
-        groups.push(Object.assign({id:doc.id},doc.data()));
-      });
+ try{
 
-      if(!groups.length){
-        box.innerHTML='<div class="small">No groups created yet.</div>';
-        return;
-      }
+  const ref=
+   await db.collection("groups")
+   .add({
 
-      box.innerHTML=groups.map(function(g){
+    name,
 
-        return `
-          <div class="user">
-            <div>
-              <b>👥 ${escapeHtml(g.name||"Group")}</b>
-              <div class="small">${escapeHtml(g.memberCount||0)} members</div>
-            </div>
+    ownerUid:
+     currentUser.uid,
 
-            <button class="iconBtn"
-              onclick="openGroup('${escapeHtml(g.id)}','${escapeHtml(g.name||"Group")}')">
-              Open
-            </button>
-          </div>
-        `;
+    createdAt:
+     firebase.firestore.FieldValue.serverTimestamp()
+   });
 
-      }).join("");
+  $("groupName").value="";
 
-    },function(error){
+  openGroup(ref.id,name);
 
-      box.innerHTML=
-        '<div class="error">Groups error: '+
-        escapeHtml(error.message)+'</div>';
+ }catch(e){
 
-    });
+  console.error(e);
+
+  alert(
+   "Group creation failed."
+  );
+ }
 }
 
-function openGroup(groupId,groupName){
 
-  if(unsubscribe){
-    unsubscribe();
-    unsubscribe=null;
-  }
+function openGroup(id,name){
 
-  document.getElementById("page").innerHTML=`
+ $("main").innerHTML=`
 
-    <div class="card">
-      <button class="iconBtn" onclick="openPage('groups')">← Back</button>
+ <div class="row">
 
-      <div class="sectionTitle" style="margin-top:15px">
-        👥 ${escapeHtml(groupName)}
-      </div>
-    </div>
+  <button class="btn alt"
+   onclick="groups()">
+   ← Groups
+  </button>
 
-    <div id="groupMessages" class="card">
-      <div class="small">Loading...</div>
-    </div>
+  <h2>
+   👥 ${safe(name)}
+  </h2>
 
-    <div style="height:70px"></div>
+ </div>
 
-    <div class="chatInput">
-      <div class="chatInner">
-        <input id="groupInput" class="input"
-          placeholder="Group message..."
-          maxlength="1000"
-          onkeydown="if(event.key==='Enter')sendGroup('${groupId}')">
+ <div class="card">
 
-        <button class="sendBtn"
-          onclick="sendGroup('${groupId}')">
-          Send
-        </button>
-      </div>
-    </div>
-  `;
+  <div id="groupMessages"
+   style="max-height:55vh;overflow:auto">
+   Loading...
+  </div>
 
-  const box=document.getElementById("groupMessages");
+  <textarea
+   id="groupText"
+   maxlength="1000"
+   placeholder="Group message..."></textarea>
 
-  unsubscribe=db.collection("groups")
-    .doc(groupId)
-    .collection("messages")
-    .limit(100)
-    .onSnapshot(function(snapshot){
+  <button class="btn"
+   onclick="sendGroup('${safe(id)}')">
+   Send
+  </button>
 
-      let arr=[];
+ </div>
 
-      snapshot.forEach(function(doc){
-        arr.push(doc.data());
-      });
+ `;
 
-      arr.sort(function(a,b){
-        const aa=a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis():0;
-        const bb=b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis():0;
-        return aa-bb;
-      });
+ db.collection("groups")
+ .doc(id)
+ .collection("messages")
+ .orderBy("createdAt","asc")
+ .limit(100)
+ .onSnapshot(
 
-      box.innerHTML=arr.length
-        ? arr.map(function(m){
-            return `
-              <div class="message">
-                <span class="msgUser">${escapeHtml(m.username||"User")}</span>
-                <span class="msgTime">${formatTime(m.createdAt)}</span>
-                <div class="msgText">${escapeHtml(m.text||"")}</div>
-              </div>
-            `;
-          }).join("")
-        : '<div class="small">No group messages yet.</div>';
+ s=>{
 
-    },function(error){
+  let h="";
 
-      box.innerHTML=
-        '<div class="error">Group error: '+
-        escapeHtml(error.message)+'</div>';
+  s.forEach(d=>{
 
-    });
+   const m=d.data();
+
+   h+=`
+
+   <div class="msg ${
+    m.uid===currentUser.uid?"mine":""
+   }">
+
+    <b>
+     ${safe(m.username||"User")}
+    </b>
+
+    <br>
+
+    ${safe(m.text)}
+
+    <small>
+     ${
+      m.createdAt?.toDate
+      ?
+      m.createdAt.toDate().toLocaleString()
+      :
+      "sending..."
+     }
+    </small>
+
+   </div>
+
+   `;
+  });
+
+  $("groupMessages").innerHTML=
+   h||
+   `<p class="small">No messages yet.</p>`;
+
+ },
+
+ e=>{
+
+  $("groupMessages").textContent=
+   "Group chat unavailable.";
+
+  console.error(e);
+ }
+ );
 }
 
-async function sendGroup(groupId){
 
-  const input=document.getElementById("groupInput");
+async function sendGroup(id){
 
-  if(!input) return;
+ const el=$("groupText");
+ const text=el.value.trim();
 
-  const text=input.value.trim();
+ if(!text)return;
 
-  if(!text) return;
+ try{
 
-  input.disabled=true;
+  const me=
+   await db.collection("users")
+   .doc(currentUser.uid)
+   .get();
 
-  try{
+  await db.collection("groups")
+   .doc(id)
+   .collection("messages")
+   .add({
 
-    await db.collection("groups")
-      .doc(groupId)
-      .collection("messages")
-      .add({
-        uid:currentUser.uid,
-        username:profile.username || currentUser.displayName || "User",
-        text:text,
-        createdAt:firebase.firestore.FieldValue.serverTimestamp()
-      });
+    uid:currentUser.uid,
 
-    input.value="";
+    username:
+     me.data()?.username||
+     "User",
 
-  }catch(e){
+    text,
 
-    alert("Group message send nahi hua:\n"+friendlyError(e));
+    createdAt:
+     firebase.firestore.FieldValue.serverTimestamp()
+   });
 
-  }
+  el.value="";
 
-  input.disabled=false;
+ }catch(e){
+
+  console.error(e);
+
+  alert(
+   "Group message failed."
+  );
+ }
 }
 
-/* =========================================================
+
+/* =========================
    SETTINGS
-   ========================================================= */
+   ========================= */
 
-function renderSettings(){
+function settings(){
 
-  document.getElementById("page").innerHTML=`
+ $("main").innerHTML=`
 
-    <div class="card">
-      <div class="sectionTitle">⚙ Settings</div>
+ <div class="row">
 
-      <div class="user">
-        <span>Account</span>
-        <span class="small">${escapeHtml(profile.username||"User")}</span>
-      </div>
+  <button class="btn alt"
+   onclick="home()">
+   ← Home
+  </button>
 
-      <div class="user">
-        <span>Privacy & Security</span>
-        <span>›</span>
-      </div>
+  <h2>⚙️ Settings</h2>
 
-      <div class="user">
-        <span>Notifications</span>
-        <span>›</span>
-      </div>
+ </div>
 
-      <div class="user">
-        <span>Chat Settings</span>
-        <span>›</span>
-      </div>
+ <div class="card">
 
-      <div class="user">
-        <span>Data & Storage</span>
-        <span>›</span>
-      </div>
+  <h3>Account</h3>
 
-      <div class="user">
-        <span>Help & Support</span>
-        <span>›</span>
-      </div>
+  <p class="small">
+   User ID:
+   ${safe(currentUser.uid)}
+  </p>
 
-      <div class="user">
-        <span>About</span>
-        <span>Your Chat</span>
-      </div>
+  <button class="btn"
+   onclick="setOnline(false);logout()">
+   Log Out
+  </button>
 
-      <button class="btn btnDanger" onclick="logout()">
-        Log Out
-      </button>
-    </div>
-  `;
+ </div>
+
+ <div class="card">
+
+  <h3>Privacy & Security</h3>
+
+  <p class="small">
+   Your Chat uses Firebase Authentication
+   and Firestore security rules.
+  </p>
+
+ </div>
+
+ <div class="card">
+
+  <h3>Chat Settings</h3>
+
+  <p class="small">
+   World Chat, Private Chat and Groups
+   are available when Firestore rules allow them.
+  </p>
+
+ </div>
+
+ <div class="card">
+
+  <h3>About</h3>
+
+  <p class="small">
+   Your Chat • Lightweight build
+   for Android/KaiOS-style browsers.
+  </p>
+
+ </div>
+
+ `;
 }
+
+
+/* =========================
+   ONLINE / LOGOUT
+   ========================= */
+
+async function setOnline(value){
+
+ if(!currentUser||!db)return;
+
+ try{
+
+  await db.collection("users")
+  .doc(currentUser.uid)
+  .set({
+
+   online:value,
+
+   lastSeen:
+    firebase.firestore.FieldValue.serverTimestamp()
+
+  },{merge:true});
+
+ }catch(e){
+
+  console.error(e);
+ }
+}
+
 
 async function logout(){
 
-  try{
+ await setOnline(false);
 
-    if(unsubscribe){
-      unsubscribe();
-      unsubscribe=null;
-    }
+ try{
 
-    if(currentUser){
+  await auth.signOut();
 
-      try{
-        await db.collection("users")
-          .doc(currentUser.uid)
-          .set({
-            online:false,
-            lastSeen:firebase.firestore.FieldValue.serverTimestamp()
-          },{merge:true});
-      }catch(e){}
+ }catch(e){
 
-    }
-
-    await auth.signOut();
-
-  }catch(e){
-
-    alert("Logout error: "+friendlyError(e));
-
-  }
+  console.error(e);
+ }
 }
 
-/* =========================================================
-   AUTO TIMEOUT
-   ========================================================= */
 
-setTimeout(function(){
+/* =========================
+   STARTUP
+   ========================= */
 
-  const loading=document.getElementById("loading");
+(async function start(){
 
-  if(
-    loading &&
-    loading.style.display!=="none" &&
-    !currentUser
-  ){
+ setBoot(
+  "Starting Your Chat..."
+ );
 
-    document.getElementById("loadingText").innerHTML=
-      "Firebase se connection nahi ho raha.<br><br>"+
-      "Internet aur Firebase settings check karein.";
+ if(!startFirebase())
+  return;
 
-    document.querySelector(".loader").style.display="none";
-    document.getElementById("retryBtn").classList.remove("hide");
+ let settled=false;
 
+ const timer=setTimeout(()=>{
+
+  if(!settled){
+
+   setBoot(
+    "Firebase is taking too long. Check your internet connection and try again.",
+    true
+   );
   }
 
-},12000);
+ },10000);
 
-</script>
+ auth.onAuthStateChanged(
+  async user=>{
 
-</body>
-</html>
+   settled=true;
+   clearTimeout(timer);
+
+   currentUser=user||null;
+
+   if(user){
+
+    try{
+
+     await db.collection("
