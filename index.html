@@ -7,21 +7,9 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#050b14;
- color:#fff;
- font-family:Arial,sans-serif
-}
+html,body{margin:0;min-height:100%;background:#050b14;color:#fff;font-family:Arial,sans-serif}
 button,input,textarea{font:inherit}
-button{
- border:0;
- border-radius:12px;
- padding:12px 14px;
- background:#147ed4;
- color:#fff;
- font-weight:bold
-}
+button{border:0;border-radius:12px;padding:12px 14px;background:#147ed4;color:#fff;font-weight:bold}
 button.secondary{background:#162b40}
 button.danger{background:#a52d3d}
 .hidden{display:none!important}
@@ -34,41 +22,20 @@ button.danger{background:#a52d3d}
  text-align:center;
  padding:20px
 }
-.loadingBox{
- width:100%;
- max-width:430px
-}
-.brand{
- font-size:25px;
- font-weight:bold;
- letter-spacing:5px;
- color:#42b5ff;
- margin-bottom:20px
-}
+.loadingBox{width:100%;max-width:430px}
+.brand{font-size:25px;font-weight:bold;letter-spacing:5px;color:#42b5ff;margin-bottom:20px}
 .loader{
- width:40px;
- height:40px;
+ width:42px;height:42px;
  border:4px solid #17304b;
  border-top-color:#29a9ff;
  border-radius:50%;
  animation:spin 1s linear infinite;
  margin:20px auto
 }
-@keyframes spin{
- to{transform:rotate(360deg)}
-}
-#loadError{
- color:#ffb5bd;
- font-size:13px;
- line-height:1.5;
- margin:12px 0
-}
-.screen{
- max-width:720px;
- margin:auto;
- min-height:100vh;
- padding:15px
-}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadError{color:#ffb5bd;font-size:13px;line-height:1.5;margin:12px 0}
+
+.screen{max-width:720px;margin:auto;min-height:100vh;padding:15px}
 .card{
  background:#0d1928;
  border:1px solid #203b55;
@@ -86,37 +53,22 @@ input,textarea{
  color:#fff;
  outline:none
 }
-.row{
- display:flex;
- gap:8px;
- align-items:center
-}
+.row{display:flex;gap:8px;align-items:center}
 .row>*{flex:1}
-.top{
- display:flex;
- align-items:center;
- gap:10px;
- margin-bottom:12px
-}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .spacer{flex:1}
+
 .avatar{
- width:46px;
- height:46px;
- border-radius:50%;
- object-fit:cover;
+ width:46px;height:46px;border-radius:50%;
  background:#18324b;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
- color:#8bd5ff
+ display:flex;align-items:center;justify-content:center;
+ font-weight:bold;color:#8bd5ff;
+ object-fit:cover
 }
-.nav{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:10px
-}
-.nav button{min-height:60px}
+
+.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.nav button{min-height:62px}
+
 .chatlist{
  height:55vh;
  overflow-y:auto;
@@ -130,27 +82,12 @@ input,textarea{
  max-width:88%;
  word-break:break-word
 }
-.mine{
- margin-left:auto;
- background:#075f9f
-}
-.msg small{
- display:block;
- color:#9bb1c7;
- font-size:10px;
- margin-top:5px
-}
-.actions{
- display:flex;
- flex-wrap:wrap;
- gap:6px;
- margin-top:6px
-}
-.actions button{
- padding:7px 10px;
- font-size:12px;
- background:#17304a
-}
+.mine{margin-left:auto;background:#075f9f}
+.msg small{display:block;color:#9bb1c7;font-size:10px;margin-top:5px}
+
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.actions button{padding:7px 10px;font-size:12px;background:#17304a}
+
 .user{
  display:flex;
  align-items:center;
@@ -159,15 +96,8 @@ input,textarea{
  border-bottom:1px solid #193047
 }
 .grow{flex:1}
-.muted{
- color:#91a7bb;
- font-size:13px
-}
-.media{
- max-width:100%;
- border-radius:12px;
- margin-top:7px
-}
+.muted{color:#91a7bb;font-size:13px}
+
 #toast{
  position:fixed;
  left:12px;
@@ -179,8 +109,9 @@ input,textarea{
  padding:12px;
  text-align:center;
  display:none;
- z-index:200
+ z-index:999
 }
+
 @media(min-width:600px){
  .nav{grid-template-columns:repeat(5,1fr)}
 }
@@ -205,457 +136,233 @@ input,textarea{
 <script>
 (function(){
 
- function bootError(msg){
-
+ function errorScreen(message){
   var e=document.getElementById("loadError");
+  var l=document.getElementById("loader");
   var r=document.getElementById("retry");
 
-  if(e)e.textContent=msg;
-  if(r)r.classList.remove("hidden");
-
-  var l=document.getElementById("loader");
-
+  if(e)e.textContent=message;
   if(l)l.classList.add("hidden");
+  if(r)r.classList.remove("hidden");
  }
 
- window.__bootError=bootError;
+ window.__chatBootError=errorScreen;
 
  window.addEventListener("error",function(e){
-
-  bootError(
-   "App error: "+
-   (e.message||"JavaScript error")
-  );
-
+  errorScreen("App error: "+(e.message||"JavaScript error"));
  });
 
- window.addEventListener(
-  "unhandledrejection",
-  function(e){
+ window.addEventListener("unhandledrejection",function(e){
+  var m=e.reason&&e.reason.message
+   ?e.reason.message
+   :String(e.reason||"Unknown error");
 
-   var m=
-   e.reason&&e.reason.message
-   ?
-   e.reason.message
-   :
-   String(e.reason||"Unknown error");
+  errorScreen("Firebase error: "+m);
+ });
 
-   bootError(
-    "Firebase error: "+m
-   );
-
-  }
- );
-
- document.getElementById("retry").onclick=
- function(){
-
+ document.getElementById("retry").onclick=function(){
   location.reload();
-
  };
 
  setTimeout(function(){
+  var loading=document.getElementById("loading");
 
-  var l=document.getElementById("loading");
-
-  if(
-   l &&
-   !l.classList.contains("hidden")
-  ){
-
-   bootError(
-    "Connection is taking too long. Retry dabao."
-   );
-
+  if(loading && !loading.classList.contains("hidden")){
+   errorScreen("Connection zyada time le rahi hai. Retry dabao.");
   }
-
  },12000);
 
 })();
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-<script type="module">
+<script>
 
-import {
- initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-
-import {
- getAuth,
- onAuthStateChanged,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- signOut,
- updateProfile
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
- getFirestore,
- collection,
- doc,
- getDoc,
- getDocs,
- setDoc,
- addDoc,
- updateDoc,
- deleteDoc,
- query,
- orderBy,
- limit,
- onSnapshot,
- where,
- serverTimestamp
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-const firebaseConfig={
-
- apiKey:
- "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
-
- authDomain:
- "your-chat-24913.firebaseapp.com",
-
- projectId:
- "your-chat-24913",
-
- storageBucket:
- "your-chat-24913.firebasestorage.app",
-
- messagingSenderId:
- "700520326360",
-
- appId:
- "1:700520326360:web:a3dc5fd4e36b54dbb563ad",
-
- measurementId:
- "G-7JBWVDK838"
-
+var firebaseConfig={
+ apiKey:"AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
+ authDomain:"your-chat-24913.firebaseapp.com",
+ projectId:"your-chat-24913",
+ storageBucket:"your-chat-24913.firebasestorage.app",
+ messagingSenderId:"700520326360",
+ appId:"1:700520326360:web:a3dc5fd4e36b54dbb563ad",
+ measurementId:"G-7JBWVDK838"
 };
 
+var auth=null;
+var db=null;
+var me=null;
+var profile=null;
+var current="home";
+var selectedUser=null;
+var selectedGroup=null;
+var unsubs=[];
+var allUsers=[];
 
-let app;
-let auth;
-let db;
+function $(id){
+ return document.getElementById(id);
+}
 
-let me=null;
-let profile=null;
-
-let current="home";
-
-let selectedUser=null;
-
-let unsubs=[];
-
-
-const $=id=>
- document.getElementById(id);
-
-
-const esc=v=>
- String(v??"")
- .replace(
-  /[&<>"']/g,
-  c=>({
+function esc(v){
+ return String(v==null?"":v).replace(/[&<>"']/g,function(c){
+  return {
    "&":"&amp;",
    "<":"&lt;",
    ">":"&gt;",
    '"':"&quot;",
    "'":"&#39;"
-  }[c])
- );
-
-
-const email=u=>
- u.toLowerCase()+
- "@yourchat.local";
-
-
-function toast(s){
-
- const t=$("toast");
-
- t.textContent=s;
-
- t.style.display="block";
-
- clearTimeout(window.__toast);
-
- window.__toast=
- setTimeout(
-  ()=>t.style.display="none",
-  3500
- );
-
+  }[c];
+ });
 }
 
+function toast(message){
+ var t=$("toast");
+ t.textContent=message;
+ t.style.display="block";
+ clearTimeout(window.__toastTimer);
+ window.__toastTimer=setTimeout(function(){
+  t.style.display="none";
+ },3500);
+}
 
 function stopListeners(){
-
- unsubs.forEach(
-  f=>{
-   try{
-    f();
-   }catch(e){}
-  }
- );
-
+ unsubs.forEach(function(fn){
+  try{fn();}catch(e){}
+ });
  unsubs=[];
-
 }
-
 
 function hideLoading(){
-
- $("loading")
- .classList.add("hidden");
-
- $("app")
- .classList.remove("hidden");
-
+ $("loading").classList.add("hidden");
+ $("app").classList.remove("hidden");
 }
-
 
 function showConnecting(){
-
- $("loading")
- .classList.remove("hidden");
-
- $("app")
- .classList.add("hidden");
-
- $("loader")
- .classList.remove("hidden");
-
+ $("loading").classList.remove("hidden");
+ $("app").classList.add("hidden");
+ $("loader").classList.remove("hidden");
+ $("retry").classList.add("hidden");
  $("loadError").textContent="";
-
- $("retry")
- .classList.add("hidden");
-
- $("loadingText").textContent=
- "Connecting to the world...";
-
+ $("loadingText").textContent="Connecting to the world...";
 }
 
-
-function av(username,photo){
-
- if(photo){
-
-  return `
-  <img
-   class="avatar"
-   src="${esc(photo)}">
-  `;
-
- }
-
- return `
- <div class="avatar">
- ${esc(
-  (username||"?")[0]
-  .toUpperCase()
- )}
- </div>
- `;
-
+function emailFor(username){
+ return username.toLowerCase()+"@yourchat.local";
 }
 
+function avatar(username){
+ return '<div class="avatar">'+
+  esc((username||"?").charAt(0).toUpperCase())+
+  '</div>';
+}
 
-/* AUTH */
+try{
+ firebase.initializeApp(firebaseConfig);
+ auth=firebase.auth();
+ db=firebase.firestore();
+ window.__firebaseReady=true;
+}catch(e){
+ window.__chatBootError("Firebase start nahi hua: "+e.message);
+}
 
-function authScreen(){
+ </script><script>
+
+function showAuth(){
 
  hideLoading();
 
- $("app").innerHTML=`
+ $("app").innerHTML=
+ '<div class="screen" style="display:flex;align-items:center;min-height:100vh">'+
+ '<div class="card" style="width:100%;max-width:430px;margin:auto">'+
 
- <div
-  class="screen"
-  style="
-  display:flex;
-  align-items:center;
-  min-height:100vh">
+ '<div class="brand" style="text-align:center">YOUR CHAT</div>'+
 
-  <div
-   class="card"
-   style="
-   width:100%;
-   max-width:430px;
-   margin:auto">
+ '<h2 style="text-align:center">Welcome</h2>'+
 
-   <div
-    class="brand"
-    style="text-align:center">
+ '<input id="username" placeholder="Username">'+
 
-    YOUR CHAT
+ '<input id="password" type="password" placeholder="Password">'+
 
-   </div>
+ '<div class="row">'+
+ '<button id="loginBtn">Login</button>'+
+ '<button id="createBtn" class="secondary">Create Account</button>'+
+ '</div>'+
 
-   <h2 style="text-align:center">
-    Welcome
-   </h2>
+ '<p id="authMsg" class="muted"></p>'+
 
-   <input
-    id="username"
-    placeholder="Username (3-24 characters)">
+ '</div></div>';
 
-   <input
-    id="password"
-    type="password"
-    placeholder="Password (minimum 6)">
+ $("loginBtn").onclick=function(){
+  authAction(false);
+ };
 
-   <div class="row">
-
-    <button id="login">
-     Login
-    </button>
-
-    <button
-     id="create"
-     class="secondary">
-
-     Create Account
-
-    </button>
-
-   </div>
-
-   <p
-    id="authMsg"
-    class="muted">
-   </p>
-
-  </div>
-
- </div>
- `;
-
-
- $("login").onclick=
- ()=>authAction(false);
-
- $("create").onclick=
- ()=>authAction(true);
-
+ $("createBtn").onclick=function(){
+  authAction(true);
+ };
 }
-
-
-/* LOGIN / CREATE */
 
 async function authAction(create){
 
- const u=
- $("username").value.trim();
+ var username=$("username").value.trim();
+ var password=$("password").value;
+ var msg=$("authMsg");
 
- const p=
- $("password").value;
-
- const msg=
- $("authMsg");
-
-
- if(
-  !/^[A-Za-z0-9_]{3,24}$/.test(u)
- ){
-
-  msg.textContent=
-  "Username 3-24 letters, numbers ya _ hona chahiye.";
-
+ if(!/^[A-Za-z0-9_]{3,24}$/.test(username)){
+  msg.textContent="Username 3-24 letters, numbers ya _ hona chahiye.";
   return;
-
  }
 
-
- if(p.length<6){
-
-  msg.textContent=
-  "Password kam az kam 6 characters ka ho.";
-
+ if(password.length<6){
+  msg.textContent="Password kam az kam 6 characters ka ho.";
   return;
-
  }
 
-
- msg.textContent=
- "Please wait...";
-
+ msg.textContent="Please wait...";
 
  try{
 
   if(create){
 
-   const r=
-   await createUserWithEmailAndPassword(
-    auth,
-    email(u),
-    p
+   var result=await auth.createUserWithEmailAndPassword(
+    emailFor(username),
+    password
    );
 
+   await result.user.updateProfile({
+    displayName:username
+   });
 
-   await updateProfile(
-    r.user,
-    {
-     displayName:u
-    }
-   );
-
-
-   await setDoc(
-    doc(db,"users",r.user.uid),
-    {
-     uid:r.user.uid,
-     username:u,
-     photo:"",
-     online:true,
-     createdAt:serverTimestamp(),
-     lastSeen:serverTimestamp()
-    },
-    {
-     merge:true
-    }
-   );
+   await db.collection("users").doc(result.user.uid).set({
+    uid:result.user.uid,
+    username:username,
+    photo:"",
+    online:true,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+    lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+   },{merge:true});
 
   }else{
 
-   await signInWithEmailAndPassword(
-    auth,
-    email(u),
-    p
+   await auth.signInWithEmailAndPassword(
+    emailFor(username),
+    password
    );
 
   }
 
  }catch(e){
-
   msg.textContent=e.message;
-
  }
-
 }
-
-
-/* PROFILE */
 
 async function loadProfile(){
 
- const ref=
- doc(db,"users",me.uid);
+ var ref=db.collection("users").doc(me.uid);
+ var snap=await ref.get();
 
- const snap=
- await getDoc(ref);
-
-
- if(snap.exists()){
+ if(snap.exists){
 
   profile=snap.data();
 
@@ -667,1213 +374,731 @@ async function loadProfile(){
    photo:""
   };
 
-
-  await setDoc(
-   ref,
-   profile,
-   {merge:true}
-  );
-
+  await ref.set(profile,{merge:true});
  }
 
-
- await setDoc(
-  ref,
-  {
-   online:true,
-   lastSeen:serverTimestamp()
-  },
-  {merge:true}
- );
-
+ await ref.set({
+  online:true,
+  lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+ },{merge:true});
 }
-
-
-/* MAIN */
 
 function render(){
 
  stopListeners();
 
-
  if(!me){
-
-  authScreen();
-
+  showAuth();
   return;
-
  }
 
+ $("app").innerHTML=
+ '<div class="screen">'+
 
- $("app").innerHTML=`
+ '<div class="top">'+
+ '<button id="backBtn" class="secondary">←</button>'+
 
- <div class="screen">
+ '<div>'+
+ '<b>YOUR CHAT</b>'+
+ '<div class="muted">'+esc(current)+'</div>'+
+ '</div>'+
 
-  <div class="top">
+ '<div class="spacer"></div>'+
+ avatar(profile.username)+
 
-   <button
-    id="back"
-    class="secondary">
+ '</div>'+
 
-    ←
+ '<div id="content"></div>'+
 
-   </button>
+ '</div>';
 
-   <div>
-
-    <b>
-     YOUR CHAT
-    </b>
-
-    <div class="muted">
-     ${esc(current)}
-    </div>
-
-   </div>
-
-   <div class="spacer"></div>
-
-   ${av(
-    profile.username,
-    profile.photo
-   )}
-
-  </div>
-
-  <div id="content"></div>
-
- </div>
- `;
-
-
- $("back").onclick=
- function(){
-
-  if(current!=="home"){
-
-   current="home";
-   selectedUser=null;
-
-   render();
-
-  }
-
+ $("backBtn").onclick=function(){
+  current="home";
+  selectedUser=null;
+  selectedGroup=null;
+  render();
  };
 
+ var c=$("content");
 
- const c=
- $("content");
-
-
- if(current==="home")
-  home(c);
-
- if(current==="world")
-  world(c);
-
- if(current==="users")
-  users(c);
-
- if(current==="private")
-  privateChat(c);
-
- if(current==="groups")
-  groups(c);
-
- if(current==="status")
-  status(c);
-
- if(current==="settings")
-  settings(c);
-
+ if(current==="home")home(c);
+ if(current==="world")world(c);
+ if(current==="users")users(c);
+ if(current==="private")privateChat(c);
+ if(current==="groups")groups(c);
+ if(current==="group")groupChat(c);
+ if(current==="settings")settings(c);
 }
-
-
-/* HOME */
 
 function home(c){
 
- c.innerHTML=`
+ c.innerHTML=
+ '<div class="card">'+
 
- <div class="card">
+ '<h2>Welcome, '+esc(profile.username)+'</h2>'+
+ '<p class="muted">Choose an option</p>'+
 
-  <h2>
-   Welcome, ${esc(profile.username)}
-  </h2>
+ '<div class="nav">'+
 
-  <p class="muted">
-   Choose an option
-  </p>
+ '<button data-screen="world">🌍 World Chat</button>'+
+ '<button data-screen="users">🟢 Online Users</button>'+
+ '<button data-screen="private">💬 Private Chat</button>'+
+ '<button data-screen="groups">👥 Group Chat</button>'+
+ '<button data-screen="users">👤 All Users</button>'+
+ '<button data-screen="settings" class="secondary">⚙️ Settings</button>'+
 
-  <div class="nav">
+ '</div></div>';
 
-   <button data-s="world">
-    🌍 World Chat
-   </button>
-
-   <button data-s="users">
-    🟢 Online Users
-   </button>
-
-   <button data-s="private">
-    💬 Private Chat
-   </button>
-
-   <button data-s="groups">
-    👥 Group Chat
-   </button>
-
-   <button data-s="users">
-    👤 All Users
-   </button>
-
-   <button
-    data-s="status"
-    class="secondary">
-
-    ⭕ Status
-
-   </button>
-
-   <button
-    data-s="settings"
-    class="secondary">
-
-    ⚙️ Settings
-
-   </button>
-
-  </div>
-
- </div>
- `;
-
-
- c.querySelectorAll(
-  "[data-s]"
- )
- .forEach(
-  b=>
-  b.onclick=()=>{
-   current=b.dataset.s;
+ c.querySelectorAll("[data-screen]").forEach(function(b){
+  b.onclick=function(){
+   current=b.getAttribute("data-screen");
    render();
-  }
- );
-
+  };
+ });
 }
 
+function messageHTML(m,type,chatId){
 
-/* MESSAGE HTML */
+ var mine=m.uid===me.uid;
+ var time="now";
 
-function msgHtml(m,kind,id){
-
- const mine=
- m.uid===me.uid;
-
- let media="";
-
-
- if(m.type==="image"){
-
-  media=`
-  <img
-   class="media"
-   src="${esc(m.url)}">
-  `;
-
+ if(m.createdAt && m.createdAt.toDate){
+  time=m.createdAt.toDate().toLocaleString();
  }
 
+ return '<div class="msg '+(mine?"mine":"")+'">'+
 
- if(m.type==="video"){
+ '<b>'+esc(m.username||"User")+'</b>'+
 
-  media=`
-  <video
-   class="media"
-   controls
-   src="${esc(m.url)}">
-  </video>
-  `;
+ '<div>'+esc(m.text||"")+'</div>'+
 
- }
+ '<small>'+time+(m.edited?" · edited":"")+'</small>'+
 
+ (mine?
+ '<div class="actions">'+
+ '<button onclick="editMessage(\''+type+'\',\''+chatId+'\',\''+m.id+'\')">Edit</button>'+
+ '<button onclick="deleteMessage(\''+type+'\',\''+chatId+'\',\''+m.id+'\')">Delete</button>'+
+ '</div>'
+ :"")+
 
- if(m.type==="voice"){
-
-  media=`
-  <audio
-   class="media"
-   controls
-   src="${esc(m.url)}">
-  </audio>
-  `;
-
- }
-
-
- const tm=
- m.createdAt?.toDate
- ?
- m.createdAt
-  .toDate()
-  .toLocaleString()
- :
- "now";
-
-
- return `
-
- <div
-  class="msg ${mine?"mine":""}">
-
-  <b>
-   ${esc(m.username||"User")}
-  </b>
-
-  <div>
-   ${esc(m.text||"")}
-  </div>
-
-  ${media}
-
-  <small>
-   ${tm}
-   ${m.edited?" · edited":""}
-  </small>
-
-  ${
-   mine
-   ?
-
-   `<div class="actions">
-
-    <button
-     onclick="
-     editMsg(
-      '${kind}',
-      '${id}',
-      '${m.id}'
-     )">
-
-     Edit
-
-    </button>
-
-    <button
-     onclick="
-     delMsg(
-      '${kind}',
-      '${id}',
-      '${m.id}'
-     )">
-
-     Delete
-
-    </button>
-
-   </div>`
-
-   :
-
-   ""
-  }
-
- </div>
- `;
-
+ '</div>';
 }
-
-
-/* WORLD CHAT */
 
 function world(c){
 
- c.innerHTML=`
+ c.innerHTML=
+ '<div class="card">'+
 
- <div class="card">
+ '<div class="row">'+
+ '<b>🌍 World Chat</b>'+
+ '<span id="onlineCount" class="muted">Online...</span>'+
+ '</div>'+
 
-  <div class="row">
+ '<div id="worldMessages" class="chatlist"></div>'+
 
-   <b>
-    🌍 World Chat
-   </b>
+ '<textarea id="worldText" rows="2" placeholder="Write message..."></textarea>'+
 
-   <span
-    id="count"
-    class="muted">
+ '<button id="sendWorld">Send</button>'+
 
-    Online...
+ '</div>';
 
-   </span>
-
-  </div>
-
-
-  <div
-   id="worldList"
-   class="chatlist">
-  </div>
-
-
-  <textarea
-   id="worldText"
-   rows="2"
-   placeholder="Write message...">
-  </textarea>
-
-
-  <div class="row">
-
-   <button id="sendWorld">
-    Send
-   </button>
-
-   <button
-    id="mention"
-    class="secondary">
-
-    @ Mention
-
-   </button>
-
-  </div>
-
- </div>
- `;
-
-
- const q=
- query(
-  collection(db,"worldMessages"),
-  orderBy("createdAt","desc"),
-  limit(50)
- );
-
+ var q=db.collection("worldMessages")
+  .orderBy("createdAt","desc")
+  .limit(50);
 
  unsubs.push(
-  onSnapshot(
-   q,
-   s=>{
+  q.onSnapshot(function(snap){
 
-    $("worldList").innerHTML=
-    s.docs
-    .map(
-     d=>
-     msgHtml(
-      {
-       ...d.data(),
-       id:d.id
-      },
-      "world",
-      "world"
-     )
-    )
-    .reverse()
-    .join("");
+   var html="";
 
-   },
-   e=>{
+   snap.docs.slice().reverse().forEach(function(d){
 
-    $("worldList").innerHTML=
-    `<p class="muted">
-     ${esc(e.message)}
-    </p>`;
+    var m=d.data();
+    m.id=d.id;
 
-   }
-  )
+    html+=messageHTML(m,"world","world");
+
+   });
+
+   $("worldMessages").innerHTML=html;
+
+  },function(e){
+
+   $("worldMessages").innerHTML=
+    '<p class="muted">'+esc(e.message)+'</p>';
+
+  })
  );
 
-
- const uq=
- query(
-  collection(db,"users"),
-  where("online","==",true)
- );
-
+ var uq=db.collection("users")
+  .where("online","==",true);
 
  unsubs.push(
-  onSnapshot(
-   uq,
-   s=>{
-    $("count").textContent=
-    s.size+" online";
-   },
-   ()=>{}
-  )
+  uq.onSnapshot(function(snap){
+   $("onlineCount").textContent=snap.size+" online";
+  },function(){
+   $("onlineCount").textContent="Online";
+  })
  );
 
-
- $("sendWorld").onclick=
- sendWorld;
-
-
- $("mention").onclick=
- async function(){
-
-  try{
-
-   const s=
-   await getDocs(
-    query(
-     collection(db,"users"),
-     where("online","==",true),
-     limit(30)
-    )
-   );
-
-
-   const names=
-   s.docs
-   .map(
-    d=>d.data().username
-   )
-   .filter(
-    x=>x&&x!==profile.username
-   );
-
-
-   if(names.length){
-
-    $("worldText").value+=
-    " @"+names[0]+" ";
-
-   }
-
-  }catch(e){
-
-   toast(e.message);
-
-  }
-
- };
-
+ $("sendWorld").onclick=sendWorld;
 }
-
-
-/* SEND WORLD */
 
 async function sendWorld(){
 
- const b=
- $("worldText");
-
- const text=
- b.value.trim();
-
+ var box=$("worldText");
+ var text=box.value.trim();
 
  if(!text)return;
 
-
  try{
 
-  await addDoc(
-   collection(db,"worldMessages"),
-   {
-    uid:me.uid,
-    username:profile.username,
-    text:text,
-    type:"text",
-    createdAt:serverTimestamp()
-   }
-  );
+  await db.collection("worldMessages").add({
+   uid:me.uid,
+   username:profile.username,
+   text:text,
+   type:"text",
+   createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  });
 
-
-  b.value="";
+  box.value="";
 
  }catch(e){
-
   toast(e.message);
-
  }
-
 }
 
+window.editMessage=async function(type,chatId,messageId){
 
-/* EDIT */
-
-window.editMsg=
-async function(
- kind,
- id,
- mid
-){
-
- const text=
- prompt("New message:");
+ var text=prompt("New message:");
 
  if(!text)return;
 
+ try{
+
+  var ref;
+
+  if(type==="world"){
+   ref=db.collection("worldMessages").doc(messageId);
+  }else if(type==="private"){
+   ref=db.collection("chats").doc(chatId)
+    .collection("messages").doc(messageId);
+  }else{
+   ref=db.collection("groups").doc(chatId)
+    .collection("messages").doc(messageId);
+  }
+
+  await ref.update({
+   text:text,
+   edited:true
+  });
+
+ }catch(e){
+  toast(e.message);
+ }
+};
+
+window.deleteMessage=async function(type,chatId,messageId){
+
+ if(!confirm("Delete message?"))return;
 
  try{
 
-  const ref=
-  kind==="world"
-  ?
-  doc(
-   db,
-   "worldMessages",
-   mid
-  )
-  :
-  doc(
-   db,
-   "chats",
-   id,
-   "messages",
-   mid
-  );
+  var ref;
 
+  if(type==="world"){
+   ref=db.collection("worldMessages").doc(messageId);
+  }else if(type==="private"){
+   ref=db.collection("chats").doc(chatId)
+    .collection("messages").doc(messageId);
+  }else{
+   ref=db.collection("groups").doc(chatId)
+    .collection("messages").doc(messageId);
+  }
 
-  await updateDoc(
-   ref,
-   {
-    text:text,
-    edited:true
-   }
-  );
+  await ref.delete();
 
  }catch(e){
-
   toast(e.message);
-
  }
-
 };
 
-
-/* DELETE */
-
-window.delMsg=
-async function(
- kind,
- id,
- mid
-){
-
- if(!confirm("Delete message?"))
-  return;
-
-
- try{
-
-  const ref=
-  kind==="world"
-  ?
-  doc(
-   db,
-   "worldMessages",
-   mid
-  )
-  :
-  doc(
-   db,
-   "chats",
-   id,
-   "messages",
-   mid
-  );
-
-
-  await deleteDoc(ref);
-
- }catch(e){
-
-  toast(e.message);
-
- }
-
-};
-
-
-/* USERS */
+ </script><script>
 
 function users(c){
 
- c.innerHTML=`
+ c.innerHTML=
+ '<div class="card">'+
 
- <div class="card">
+ '<h3>👥 Users</h3>'+
 
-  <h3>
-   👥 Users
-  </h3>
+ '<input id="userSearch" placeholder="Search username">'+
 
-  <input
-   id="search"
-   placeholder="Search username">
+ '<div id="userList"></div>'+
 
-  <div id="userList">
-  </div>
+ '</div>';
 
- </div>
- `;
-
-
- const q=
- query(
-  collection(db,"users"),
-  orderBy("username"),
-  limit(100)
- );
-
+ var q=db.collection("users")
+  .orderBy("username")
+  .limit(100);
 
  unsubs.push(
-  onSnapshot(
-   q,
-   s=>{
+  q.onSnapshot(function(snap){
 
-    const arr=
-    s.docs.map(
-     d=>d.data()
-    );
+   allUsers=snap.docs.map(function(d){
+    return d.data();
+   });
 
-    window.__allUsers=arr;
+   showUsers(allUsers);
 
-    showUsers(arr);
+  },function(e){
 
-   },
-   e=>{
+   $("userList").innerHTML=
+    '<p class="muted">'+esc(e.message)+'</p>';
 
-    $("userList").innerHTML=
-    `<p class="muted">
-     ${esc(e.message)}
-    </p>`;
-
-   }
-  )
+  })
  );
 
+ $("userSearch").oninput=function(){
 
- $("search").oninput=
- function(){
-
-  const term=
-  $("search")
-  .value
-  .toLowerCase();
-
+  var term=$("userSearch").value.toLowerCase();
 
   showUsers(
-   (window.__allUsers||[])
-   .filter(
-    u=>
-    (u.username||"")
-    .toLowerCase()
-    .includes(term)
-   )
+   allUsers.filter(function(u){
+    return (u.username||"").toLowerCase().indexOf(term)>=0;
+   })
   );
-
  };
-
 }
-
-
-/* SHOW USERS */
 
 function showUsers(arr){
 
- $("userList").innerHTML=
- arr.map(
-  u=>`
+ $("userList").innerHTML=arr.map(function(u){
 
-  <div class="user">
+  return '<div class="user">'+
 
-   ${av(
-    u.username,
-    u.photo
-   )}
+   avatar(u.username)+
 
-   <div class="grow">
+   '<div class="grow">'+
+   '<b>'+esc(u.username)+'</b>'+
+   '<div class="muted">'+
+   (u.online?"🟢 Online":"Offline")+
+   '</div>'+
+   '</div>'+
 
-    <b>
-     ${esc(u.username)}
-    </b>
+   (u.uid!==me.uid?
+    '<button data-chat="'+esc(u.uid)+'">Chat</button>'
+    :"")+
 
-    <div class="muted">
+   '</div>';
 
-     ${
-      u.online
-      ?
-      "🟢 Online"
-      :
-      "Offline"
-     }
+ }).join("");
 
-    </div>
+ $("userList").querySelectorAll("[data-chat]").forEach(function(b){
 
-   </div>
+  b.onclick=function(){
 
-   ${
-    u.uid!==me.uid
-    ?
+   var uid=b.getAttribute("data-chat");
 
-    `<button
-     onclick='
-     openUser(
-      "${esc(u.uid)}",
-      "${esc(u.username)}",
-      "${esc(u.photo||"")}"
-     )'>
+   var u=allUsers.find(function(x){
+    return x.uid===uid;
+   });
 
-     Chat
+   if(!u)return;
 
-    </button>`
+   selectedUser={
+    uid:u.uid,
+    username:u.username,
+    photo:u.photo||""
+   };
 
-    :
-
-    ""
-   }
-
-  </div>
-
-  `
- ).join("");
-
+   current="private";
+   render();
+  };
+ });
 }
 
-
-window.openUser=
-function(
- uid,
- username,
- photo
-){
-
- selectedUser={
-  uid:uid,
-  username:username,
-  photo:photo
- };
-
- current="private";
-
- render();
-
-};
-
-
-/* PRIVATE CHAT ID */
-
-function chatId(a,b){
-
- return [a,b]
- .sort()
- .join("_");
-
+function privateId(a,b){
+ return [a,b].sort().join("_");
 }
-
-
-/* PRIVATE CHAT */
 
 function privateChat(c){
 
  if(!selectedUser){
 
-  c.innerHTML=`
+  c.innerHTML=
+   '<div class="card">'+
+   '<h3>💬 Private Chat</h3>'+
+   '<p class="muted">Choose a user first.</p>'+
+   '<button id="choosePrivate">Choose User</button>'+
+   '</div>';
 
-  <div class="card">
-
-   <h3>
-    💬 Private Chat
-   </h3>
-
-   <p class="muted">
-    Choose a user first.
-   </p>
-
-   <button id="pick">
-    Choose User
-   </button>
-
-  </div>
-  `;
-
-
-  $("pick").onclick=
-  function(){
-
+  $("choosePrivate").onclick=function(){
    current="users";
-
    render();
-
   };
 
-
   return;
-
  }
 
+ var chatId=privateId(me.uid,selectedUser.uid);
 
- const id=
- chatId(
-  me.uid,
-  selectedUser.uid
- );
+ c.innerHTML=
+ '<div class="card">'+
 
+ '<div class="user">'+
+ avatar(selectedUser.username)+
 
- c.innerHTML=`
+ '<div class="grow">'+
+ '<b>'+esc(selectedUser.username)+'</b>'+
+ '<div class="muted">Private Chat</div>'+
+ '</div>'+
+ '</div>'+
 
- <div class="card">
+ '<div id="privateMessages" class="chatlist"></div>'+
 
-  <div class="user">
+ '<textarea id="privateText" rows="2" placeholder="Message..."></textarea>'+
 
-   ${av(
-    selectedUser.username,
-    selectedUser.photo
-   )}
+ '<button id="sendPrivate">Send</button>'+
 
-   <div class="grow">
+ '</div>';
 
-    <b>
-     ${esc(
-      selectedUser.username
-     )}
-    </b>
-
-    <div class="muted">
-     Private Chat
-    </div>
-
-   </div>
-
-  </div>
-
-
-  <div
-   id="privateList"
-   class="chatlist">
-  </div>
-
-
-  <textarea
-   id="privateText"
-   rows="2"
-   placeholder="Message...">
-  </textarea>
-
-
-  <button id="sendPrivate">
-   Send
-  </button>
-
- </div>
- `;
-
-
- const q=
- query(
-  collection(
-   db,
-   "chats",
-   id,
-   "messages"
-  ),
-  orderBy("createdAt","desc"),
-  limit(50)
- );
-
+ var q=db.collection("chats")
+  .doc(chatId)
+  .collection("messages")
+  .orderBy("createdAt","desc")
+  .limit(50);
 
  unsubs.push(
-  onSnapshot(
-   q,
-   s=>{
+  q.onSnapshot(function(snap){
 
-    $("privateList").innerHTML=
-    s.docs
-    .map(
-     d=>
-     msgHtml(
-      {
-       ...d.data(),
-       id:d.id
-      },
-      "private",
-      id
-     )
-    )
-    .reverse()
-    .join("");
+   var html="";
 
-   },
-   e=>{
+   snap.docs.slice().reverse().forEach(function(d){
 
-    $("privateList").innerHTML=
-    `<p class="muted">
-     ${esc(e.message)}
-    </p>`;
+    var m=d.data();
+    m.id=d.id;
 
-   }
-  )
+    html+=messageHTML(m,"private",chatId);
+
+   });
+
+   $("privateMessages").innerHTML=html;
+
+  },function(e){
+
+   $("privateMessages").innerHTML=
+    '<p class="muted">'+esc(e.message)+'</p>';
+
+  })
  );
 
+ $("sendPrivate").onclick=async function(){
 
- $("sendPrivate").onclick=
- async function(){
-
-  const b=
-  $("privateText");
-
-  const text=
-  b.value.trim();
+  var box=$("privateText");
+  var text=box.value.trim();
 
   if(!text)return;
 
-
   try{
 
-   await addDoc(
-    collection(
-     db,
-     "chats",
-     id,
-     "messages"
-    ),
-    {
+   await db.collection("chats")
+    .doc(chatId)
+    .collection("messages")
+    .add({
      uid:me.uid,
      username:profile.username,
      text:text,
      type:"text",
-     createdAt:serverTimestamp()
-    }
-   );
+     createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-
-   b.value="";
+   box.value="";
 
   }catch(e){
-
    toast(e.message);
-
   }
-
  };
-
 }
-
-
-/* GROUPS */
 
 function groups(c){
 
- c.innerHTML=`
+ c.innerHTML=
+ '<div class="card">'+
 
- <div class="card">
+ '<h3>👥 Group Chat</h3>'+
 
-  <h3>
-   👥 Group Chat
-  </h3>
+ '<div class="row">'+
+ '<input id="newGroupName" placeholder="Group name">'+
+ '<button id="createGroup">Create</button>'+
+ '</div>'+
 
-  <div class="row">
+ '<div id="groupList"></div>'+
 
-   <input
-    id="groupName"
-    placeholder="New group name">
+ '</div>';
 
-   <button id="makeGroup">
-    Create
-   </button>
-
-  </div>
-
-  <div id="groupsList">
-  </div>
-
- </div>
- `;
-
-
- const q=
- query(
-  collection(db,"groups"),
-  orderBy("name"),
-  limit(50)
- );
-
+ var q=db.collection("groups")
+  .orderBy("name")
+  .limit(50);
 
  unsubs.push(
-  onSnapshot(
-   q,
-   s=>{
+  q.onSnapshot(function(snap){
 
-    $("groupsList").innerHTML=
-    s.docs
-    .map(
-     d=>{
+   $("groupList").innerHTML=snap.docs.map(function(d){
 
-      const g=d.data();
+    var g=d.data();
 
-      return `
+    return '<div class="user">'+
 
-      <div class="user">
+     '<div class="grow">'+
+     '<b>'+esc(g.name||"Group")+'</b>'+
+     '<div class="muted">'+
+     (g.members||[]).length+" members"+
+     '</div>'+
+     '</div>'+
 
-       <div class="grow">
+     '<button data-group="'+d.id+'">Open</button>'+
 
-        <b>
-         ${esc(g.name||"Group")}
-        </b>
+     '</div>';
 
-        <div class="muted">
-         ${(g.members||[]).length}
-         members
-        </div>
+   }).join("");
 
-       </div>
+   $("groupList").querySelectorAll("[data-group]").forEach(function(b){
 
-       <button
-        onclick='openGroup("${d.id}")'>
+    b.onclick=function(){
 
-        Open
+     selectedGroup=b.getAttribute("data-group");
+     current="group";
+     render();
 
-       </button>
+    };
+   });
 
-      </div>
+  },function(e){
 
-      `;
+   $("groupList").innerHTML=
+    '<p class="muted">'+esc(e.message)+'</p>';
 
-     }
-    )
-    .join("");
-
-   },
-   e=>{
-
-    $("groupsList").innerHTML=
-    `<p class="muted">
-     ${esc(e.message)}
-    </p>`;
-
-   }
-  )
+  })
  );
 
+ $("createGroup").onclick=async function(){
 
- $("makeGroup").onclick=
- async function(){
-
-  const name=
-  $("groupName")
-  .value
-  .trim();
-
+  var name=$("newGroupName").value.trim();
 
   if(!name)return;
 
+  try{
+
+   await db.collection("groups").add({
+    name:name,
+    members:[me.uid],
+    ownerId:me.uid,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+   });
+
+   $("newGroupName").value="";
+
+  }catch(e){
+   toast(e.message);
+  }
+ };
+}
+
+function groupChat(c){
+
+ if(!selectedGroup){
+  current="groups";
+  render();
+  return;
+ }
+
+ c.innerHTML=
+ '<div class="card">'+
+
+ '<button id="groupBack" class="secondary">← Groups</button>'+
+
+ '<div id="groupTitle"></div>'+
+
+ '<div id="groupMessages" class="chatlist"></div>'+
+
+ '<textarea id="groupText" rows="2" placeholder="Group message..."></textarea>'+
+
+ '<button id="sendGroup">Send</button>'+
+
+ '</div>';
+
+ $("groupBack").onclick=function(){
+  current="groups";
+  selectedGroup=null;
+  render();
+ };
+
+ db.collection("groups").doc(selectedGroup).get()
+ .then(function(snap){
+
+  if(snap.exists){
+
+   var g=snap.data();
+
+   $("groupTitle").innerHTML=
+    '<h3>👥 '+esc(g.name)+'</h3>'+
+    '<div class="muted">'+
+    (g.members||[]).length+
+    ' members</div>';
+  }
+ });
+
+ var q=db.collection("groups")
+  .doc(selectedGroup)
+  .collection("messages")
+  .orderBy("createdAt","desc")
+  .limit(50);
+
+ unsubs.push(
+  q.onSnapshot(function(snap){
+
+   var html="";
+
+   snap.docs.slice().reverse().forEach(function(d){
+
+    var m=d.data();
+    m.id=d.id;
+
+    html+=messageHTML(
+     m,
+     "group",
+     selectedGroup
+    );
+
+   });
+
+   $("groupMessages").innerHTML=html;
+
+  },function(e){
+
+   $("groupMessages").innerHTML=
+    '<p class="muted">'+esc(e.message)+'</p>';
+
+  })
+ );
+
+ $("sendGroup").onclick=async function(){
+
+  var box=$("groupText");
+  var text=box.value.trim();
+
+  if(!text)return;
 
   try{
 
-   await addDoc(
-    collection(db,"groups"),
-    {
-     name:name,
-     members:[me.uid],
-     ownerId:me.uid,
-     createdAt:serverTimestamp()
-    }
-   );
+   await db.collection("groups")
+    .doc(selectedGroup)
+    .collection("messages")
+    .add({
+     uid:me.uid,
+     username:profile.username,
+     text:text,
+     type:"text",
+     createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-
-   $("groupName").value="";
+   box.value="";
 
   }catch(e){
-
    toast(e.message);
-
   }
-
  };
 
 }
 
+ </script><script>
 
-window.openGroup=
-function(gid){
+function settings(c){
 
- stopListeners();
+ c.innerHTML=
+ '<div class="card">'+
 
+ '<h3>⚙️ Settings</h3>'+
 
- const c=
- $("content");
+ '<p><b>Account</b></p>'+
+ '<p class="muted">'+
+ 'Username: '+esc(profile.username)+
+ '</p>'+
 
+ '<hr style="border-color:#203b55">'+
 
- c.innerHTML=`
+ '<p><b>Privacy & Security</b></p>'+
+ '<p class="muted">'+
+ 'Your account uses Firebase Authentication. Private messages are stored in your chat database.'
+ +'</p>'+
 
- <div class="card">
+ '<hr style="border-color:#203b55">'+
 
-  <button
-   id="groupBack"
-   class="secondary">
+ '<p><b>About</b></p>'+
+ '<p class="muted">YOUR CHAT</p>'+
 
-   ← Groups
+ '<button id="logout" class="danger">Log Out</button>'+
 
-  </button>
+ '</div>';
 
-  <div id="groupInfo">
-  </div>
+ $("logout").onclick=async function(){
 
-  <div
-   id="groupList"
-   class="chatlist">
-  </div>
+  try{
 
-  <textarea
-   id="groupText"
-   rows="2"
-   placeholder="Group message...">
-  </textarea>
+   await db.collection("users")
+    .doc(me.uid)
+    .set({
+     online:false,
+     lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
 
-  <button id="groupSend">
-   Send
-  </button>
+  }catch(e){}
 
- </div>
- `;
-
-
- $("groupBack").onclick=
- function(){
-
-  render();
-
+  await auth.signOut();
  };
+}
 
+auth.onAuthStateChanged(async function(user){
 
- const gref=
- doc(db,"groups",gid);
+ me=user;
 
+ if(!user){
 
- getDoc(gref)
- .then(
-  s=>{
+  stopListeners();
+  profile=null;
+  current="home";
+  selectedUser=null;
+  selectedGroup=null;
+  showAuth();
+  return;
 
-   if(!s.exists()){
+ }
 
-    toast("Group not found");
+ try{
 
-    return;
+  await loadProfile();
 
-   }
+  showConnecting();
 
+  setTimeout(function(){
 
-   const g=s.data();
+   render();
 
+   hideLoading();
 
-   $("groupInfo").innerHTML=`
+  },1500);
 
-   <h3>
-    ${esc(g.name)}
-   </h3>
+ }catch(e){
 
-   <div class="muted">
-    ${(g.members||[]).length}
-    members
-   </div>
+  window.__chatBootError(
+   "Profile load error: "+e.message
+  );
 
-   `;
+ }
+});
 
-  }
- );
+</script>
 
-
- const q=
- query(
-  collection(
-   db,
-   "groups",
+</body>
+</html>
