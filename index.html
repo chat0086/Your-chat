@@ -9,19 +9,18 @@
 *{box-sizing:border-box}
 body{
  margin:0;
- font-family:Arial,sans-serif;
  background:#050b14;
  color:#fff;
+ font-family:Arial,sans-serif
 }
 button,input,textarea{font:inherit}
 button{
  border:0;
  border-radius:12px;
- padding:12px 15px;
+ padding:12px 14px;
  background:#147ed4;
  color:#fff;
- font-weight:bold;
- cursor:pointer;
+ font-weight:bold
 }
 button.secondary{background:#162b40}
 button.danger{background:#a52d3d}
@@ -30,59 +29,53 @@ button.danger{background:#a52d3d}
 #loading{
  min-height:100vh;
  display:flex;
- justify-content:center;
  align-items:center;
+ justify-content:center;
  text-align:center;
- background:#050b14;
- padding:20px;
+ padding:20px
 }
 .loadingBox{
  width:100%;
- max-width:430px;
+ max-width:430px
 }
 .brand{
- text-align:center;
  font-size:25px;
  font-weight:bold;
  letter-spacing:5px;
  color:#42b5ff;
- margin-bottom:20px;
+ margin-bottom:20px
 }
 .loader{
- width:38px;
- height:38px;
+ width:40px;
+ height:40px;
  border:4px solid #17304b;
- border-top:4px solid #29a9ff;
+ border-top-color:#29a9ff;
  border-radius:50%;
  animation:spin 1s linear infinite;
- margin:20px auto;
+ margin:20px auto
 }
 @keyframes spin{
  to{transform:rotate(360deg)}
 }
-
 #loadError{
  color:#ffb5bd;
  font-size:13px;
  line-height:1.5;
- margin-top:12px;
+ margin:12px 0
 }
-
 .screen{
  max-width:720px;
  margin:auto;
  min-height:100vh;
- padding:15px;
+ padding:15px
 }
-
 .card{
  background:#0d1928;
  border:1px solid #203b55;
  border-radius:18px;
  padding:15px;
- margin-bottom:12px;
+ margin-bottom:12px
 }
-
 input,textarea{
  width:100%;
  padding:12px;
@@ -91,30 +84,21 @@ input,textarea{
  border:1px solid #28445f;
  background:#07111f;
  color:#fff;
- outline:none;
+ outline:none
 }
-
 .row{
  display:flex;
  gap:8px;
- align-items:center;
+ align-items:center
 }
-
-.row>*{
- flex:1;
-}
-
+.row>*{flex:1}
 .top{
  display:flex;
  align-items:center;
  gap:10px;
- margin-bottom:12px;
+ margin-bottom:12px
 }
-
-.spacer{
- flex:1;
-}
-
+.spacer{flex:1}
 .avatar{
  width:46px;
  height:46px;
@@ -122,169 +106,218 @@ input,textarea{
  object-fit:cover;
  background:#18324b;
  display:flex;
- justify-content:center;
  align-items:center;
+ justify-content:center;
  font-weight:bold;
- color:#8bd5ff;
+ color:#8bd5ff
 }
-
 .nav{
  display:grid;
  grid-template-columns:repeat(2,1fr);
- gap:10px;
+ gap:10px
 }
-
-.nav button{
- min-height:60px;
-}
-
+.nav button{min-height:60px}
 .chatlist{
  height:55vh;
  overflow-y:auto;
- padding:5px;
+ padding:5px
 }
-
 .msg{
  background:#102238;
  border-radius:14px;
  padding:10px;
  margin:7px 0;
  max-width:88%;
- word-break:break-word;
+ word-break:break-word
 }
-
 .mine{
  margin-left:auto;
- background:#075f9f;
+ background:#075f9f
 }
-
 .msg small{
  display:block;
  color:#9bb1c7;
  font-size:10px;
- margin-top:5px;
+ margin-top:5px
 }
-
-.media{
- max-width:100%;
- border-radius:12px;
- margin-top:7px;
-}
-
 .actions{
  display:flex;
  flex-wrap:wrap;
  gap:6px;
- margin-top:6px;
+ margin-top:6px
 }
-
 .actions button{
  padding:7px 10px;
  font-size:12px;
- background:#17304a;
+ background:#17304a
 }
-
 .user{
  display:flex;
  align-items:center;
  gap:10px;
  padding:10px;
- border-bottom:1px solid #193047;
+ border-bottom:1px solid #193047
 }
-
-.userGrow{
- flex:1;
-}
-
+.grow{flex:1}
 .muted{
  color:#91a7bb;
- font-size:13px;
+ font-size:13px
 }
-
-.modal{
+.media{
+ max-width:100%;
+ border-radius:12px;
+ margin-top:7px
+}
+#toast{
  position:fixed;
- inset:0;
- background:#000b;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:15px;
- z-index:99;
+ left:12px;
+ right:12px;
+ bottom:15px;
+ background:#13283d;
+ border:1px solid #2b5374;
+ border-radius:12px;
+ padding:12px;
+ text-align:center;
+ display:none;
+ z-index:200
 }
-
-.modal .card{
- width:min(600px,100%);
- max-height:90vh;
- overflow:auto;
-}
-
 @media(min-width:600px){
- .nav{
-  grid-template-columns:repeat(5,1fr);
- }
+ .nav{grid-template-columns:repeat(5,1fr)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOADING
-========================= -->
-
 <div id="loading">
-
  <div class="loadingBox">
-
-  <div class="brand">
-   YOUR CHAT
-  </div>
-
+  <div class="brand">YOUR CHAT</div>
   <div id="loader" class="loader"></div>
-
-  <div id="loadingText">
-   Connecting to the world...
-  </div>
-
+  <div id="loadingText">Starting YOUR CHAT...</div>
   <div id="loadError"></div>
-
-  <button
-   id="retryBtn"
-   class="secondary hidden"
-   style="margin-top:12px">
-   Retry
-  </button>
-
+  <button id="retry" class="secondary hidden">Retry</button>
  </div>
-
 </div>
 
-
 <div id="app" class="hidden"></div>
-
-<div id="modal" class="modal hidden"></div>
-
-
-<!-- =========================
-     FIREBASE
-========================= -->
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
-
+<div id="toast"></div>
 
 <script>
+(function(){
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
+ function bootError(msg){
 
-const firebaseConfig = {
+  var e=document.getElementById("loadError");
+  var r=document.getElementById("retry");
+
+  if(e)e.textContent=msg;
+  if(r)r.classList.remove("hidden");
+
+  var l=document.getElementById("loader");
+
+  if(l)l.classList.add("hidden");
+ }
+
+ window.__bootError=bootError;
+
+ window.addEventListener("error",function(e){
+
+  bootError(
+   "App error: "+
+   (e.message||"JavaScript error")
+  );
+
+ });
+
+ window.addEventListener(
+  "unhandledrejection",
+  function(e){
+
+   var m=
+   e.reason&&e.reason.message
+   ?
+   e.reason.message
+   :
+   String(e.reason||"Unknown error");
+
+   bootError(
+    "Firebase error: "+m
+   );
+
+  }
+ );
+
+ document.getElementById("retry").onclick=
+ function(){
+
+  location.reload();
+
+ };
+
+ setTimeout(function(){
+
+  var l=document.getElementById("loading");
+
+  if(
+   l &&
+   !l.classList.contains("hidden")
+  ){
+
+   bootError(
+    "Connection is taking too long. Retry dabao."
+   );
+
+  }
+
+ },12000);
+
+})();
+</script>
+
+
+<script type="module">
+
+import {
+ initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+ getAuth,
+ onAuthStateChanged,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ signOut,
+ updateProfile
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+import {
+ getFirestore,
+ collection,
+ doc,
+ getDoc,
+ getDocs,
+ setDoc,
+ addDoc,
+ updateDoc,
+ deleteDoc,
+ query,
+ orderBy,
+ limit,
+ onSnapshot,
+ where,
+ serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+const firebaseConfig={
 
  apiKey:
  "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
@@ -310,54 +343,73 @@ const firebaseConfig = {
 };
 
 
-/* =========================
-   VARIABLES
-========================= */
+let app;
+let auth;
+let db;
 
-let me = null;
+let me=null;
+let profile=null;
 
-let profile = null;
+let current="home";
 
-let currentScreen = "home";
+let selectedUser=null;
 
-let selectedUser = null;
-
-let listeners = [];
-
-let firebaseReady = false;
+let unsubs=[];
 
 
-/* =========================
-   HELPERS
-========================= */
-
-function $(id){
- return document.getElementById(id);
-}
+const $=id=>
+ document.getElementById(id);
 
 
-function esc(value){
-
- return String(value ?? "")
- .replace(/[&<>"']/g,function(c){
-
-  return {
+const esc=v=>
+ String(v??"")
+ .replace(
+  /[&<>"']/g,
+  c=>({
    "&":"&amp;",
    "<":"&lt;",
    ">":"&gt;",
    '"':"&quot;",
    "'":"&#39;"
-  }[c];
+  }[c])
+ );
 
- });
+
+const email=u=>
+ u.toLowerCase()+
+ "@yourchat.local";
+
+
+function toast(s){
+
+ const t=$("toast");
+
+ t.textContent=s;
+
+ t.style.display="block";
+
+ clearTimeout(window.__toast);
+
+ window.__toast=
+ setTimeout(
+  ()=>t.style.display="none",
+  3500
+ );
 
 }
 
 
-function usernameEmail(username){
+function stopListeners(){
 
- return username.toLowerCase()
- +"@yourchat.local";
+ unsubs.forEach(
+  f=>{
+   try{
+    f();
+   }catch(e){}
+  }
+ );
+
+ unsubs=[];
 
 }
 
@@ -373,52 +425,29 @@ function hideLoading(){
 }
 
 
-function showLoadingError(message){
+function showConnecting(){
 
- $("loader")
+ $("loading")
+ .classList.remove("hidden");
+
+ $("app")
  .classList.add("hidden");
 
- $("loadingText")
- .textContent="YOUR CHAT";
-
- $("loadError")
- .textContent=message;
-
- $("retryBtn")
+ $("loader")
  .classList.remove("hidden");
+
+ $("loadError").textContent="";
+
+ $("retry")
+ .classList.add("hidden");
+
+ $("loadingText").textContent=
+ "Connecting to the world...";
 
 }
 
 
-$("retryBtn").onclick=function(){
-
- location.reload();
-
-};
-
-
-/* =========================
-   LOADING SAFETY
-========================= */
-
-setTimeout(function(){
-
- if(!firebaseReady){
-
-  showLoadingError(
-   "Firebase connect nahi hua. Retry dabao."
-  );
-
- }
-
-},8000);
-
-
-/* =========================
-   AVATAR
-========================= */
-
-function avatar(username,photo){
+function av(username,photo){
 
  if(photo){
 
@@ -432,143 +461,124 @@ function avatar(username,photo){
 
  return `
  <div class="avatar">
- ${esc((username||"?")[0].toUpperCase())}
+ ${esc(
+  (username||"?")[0]
+  .toUpperCase()
+ )}
  </div>
  `;
 
 }
 
 
-/* =========================
-   CLEANUP
-========================= */
+/* AUTH */
 
-function cleanup(){
-
- listeners.forEach(function(fn){
-
-  try{
-   fn();
-  }catch(e){}
-
- });
-
- listeners=[];
-
-}
-
-
-/* =========================
-   AUTH SCREEN
-========================= */
-
-function showAuth(){
+function authScreen(){
 
  hideLoading();
 
  $("app").innerHTML=`
 
  <div
- class="screen"
- style="
- display:flex;
- align-items:center;
- justify-content:center;
- min-height:100vh">
+  class="screen"
+  style="
+  display:flex;
+  align-items:center;
+  min-height:100vh">
 
- <div
- class="card"
- style="width:100%;max-width:430px">
+  <div
+   class="card"
+   style="
+   width:100%;
+   max-width:430px;
+   margin:auto">
 
- <div class="brand">
- YOUR CHAT
- </div>
+   <div
+    class="brand"
+    style="text-align:center">
 
- <h2 style="text-align:center">
- Welcome
- </h2>
+    YOUR CHAT
 
- <input
- id="username"
- placeholder="Username"
- autocomplete="username">
+   </div>
 
- <input
- id="password"
- type="password"
- placeholder="Password"
- autocomplete="current-password">
+   <h2 style="text-align:center">
+    Welcome
+   </h2>
 
- <div class="row">
+   <input
+    id="username"
+    placeholder="Username (3-24 characters)">
 
- <button id="loginBtn">
- Login
- </button>
+   <input
+    id="password"
+    type="password"
+    placeholder="Password (minimum 6)">
 
- <button
- id="createBtn"
- class="secondary">
- Create Account
- </button>
+   <div class="row">
 
- </div>
+    <button id="login">
+     Login
+    </button>
 
- <p
- id="authError"
- class="muted">
- </p>
+    <button
+     id="create"
+     class="secondary">
 
- </div>
+     Create Account
+
+    </button>
+
+   </div>
+
+   <p
+    id="authMsg"
+    class="muted">
+   </p>
+
+  </div>
 
  </div>
  `;
 
 
- $("loginBtn").onclick=function(){
+ $("login").onclick=
+ ()=>authAction(false);
 
-  authAction(false);
-
- };
-
-
- $("createBtn").onclick=function(){
-
-  authAction(true);
-
- };
+ $("create").onclick=
+ ()=>authAction(true);
 
 }
 
 
-/* =========================
-   LOGIN / CREATE
-========================= */
+/* LOGIN / CREATE */
 
 async function authAction(create){
 
- const username=
+ const u=
  $("username").value.trim();
 
- const password=
+ const p=
  $("password").value;
 
- const error=
- $("authError");
+ const msg=
+ $("authMsg");
 
 
- if(!/^[A-Za-z0-9_]{3,24}$/.test(username)){
+ if(
+  !/^[A-Za-z0-9_]{3,24}$/.test(u)
+ ){
 
-  error.textContent=
-  "Username 3-24 letters/numbers/_ hona chahiye.";
+  msg.textContent=
+  "Username 3-24 letters, numbers ya _ hona chahiye.";
 
   return;
 
  }
 
 
- if(password.length<6){
+ if(p.length<6){
 
-  error.textContent=
+  msg.textContent=
   "Password kam az kam 6 characters ka ho.";
 
   return;
@@ -576,145 +586,119 @@ async function authAction(create){
  }
 
 
- error.textContent=
+ msg.textContent=
  "Please wait...";
 
 
  try{
 
-  let result;
-
-
   if(create){
 
-   result=
-   await firebase.auth()
-   .createUserWithEmailAndPassword(
-    usernameEmail(username),
-    password
+   const r=
+   await createUserWithEmailAndPassword(
+    auth,
+    email(u),
+    p
    );
 
 
-   await result.user.updateProfile({
+   await updateProfile(
+    r.user,
+    {
+     displayName:u
+    }
+   );
 
-    displayName:username
 
-   });
-
-
-   await firebase.firestore()
-   .collection("users")
-   .doc(result.user.uid)
-   .set({
-
-    uid:result.user.uid,
-
-    username:username,
-
-    photo:"",
-
-    online:true,
-
-    createdAt:
-    firebase.firestore.FieldValue
-    .serverTimestamp(),
-
-    lastSeen:
-    firebase.firestore.FieldValue
-    .serverTimestamp()
-
-   });
+   await setDoc(
+    doc(db,"users",r.user.uid),
+    {
+     uid:r.user.uid,
+     username:u,
+     photo:"",
+     online:true,
+     createdAt:serverTimestamp(),
+     lastSeen:serverTimestamp()
+    },
+    {
+     merge:true
+    }
+   );
 
   }else{
 
-   result=
-   await firebase.auth()
-   .signInWithEmailAndPassword(
-    usernameEmail(username),
-    password
+   await signInWithEmailAndPassword(
+    auth,
+    email(u),
+    p
    );
 
   }
 
- }catch(error){
+ }catch(e){
 
-  $("authError").textContent=
-  error.message;
+  msg.textContent=e.message;
 
  }
 
 }
 
 
-/* =========================
-   PROFILE
-========================= */
+/* PROFILE */
 
 async function loadProfile(){
 
- const db=
- firebase.firestore();
-
-
- const userRef=
- db.collection("users")
- .doc(me.uid);
-
+ const ref=
+ doc(db,"users",me.uid);
 
  const snap=
- await userRef.get();
+ await getDoc(ref);
 
 
- if(snap.exists){
+ if(snap.exists()){
 
   profile=snap.data();
 
  }else{
 
   profile={
-
    uid:me.uid,
-
-   username:
-   me.displayName||"User",
-
+   username:me.displayName||"User",
    photo:""
-
   };
 
 
-  await userRef.set(profile);
+  await setDoc(
+   ref,
+   profile,
+   {merge:true}
+  );
 
  }
 
 
- await userRef.set({
-
-  online:true,
-
-  lastSeen:
-  firebase.firestore.FieldValue
-  .serverTimestamp()
-
- },{
-  merge:true
- });
+ await setDoc(
+  ref,
+  {
+   online:true,
+   lastSeen:serverTimestamp()
+  },
+  {merge:true}
+ );
 
 }
 
 
-/* =========================
-   MAIN RENDER
-========================= */
+/* MAIN */
 
 function render(){
 
- cleanup();
+ stopListeners();
 
 
  if(!me){
 
-  showAuth();
+  authScreen();
 
   return;
 
@@ -725,48 +709,50 @@ function render(){
 
  <div class="screen">
 
- <div class="top">
+  <div class="top">
 
- <button
- id="backBtn"
- class="secondary">
- ←
- </button>
+   <button
+    id="back"
+    class="secondary">
 
- <div>
+    ←
 
- <b>
- YOUR CHAT
- </b>
+   </button>
 
- <div class="muted">
- ${esc(currentScreen)}
+   <div>
+
+    <b>
+     YOUR CHAT
+    </b>
+
+    <div class="muted">
+     ${esc(current)}
+    </div>
+
+   </div>
+
+   <div class="spacer"></div>
+
+   ${av(
+    profile.username,
+    profile.photo
+   )}
+
+  </div>
+
+  <div id="content"></div>
+
  </div>
-
- </div>
-
- <div class="spacer"></div>
-
- ${avatar(
-  profile.username,
-  profile.photo
- )}
-
- </div>
-
-
- <div id="content"></div>
-
- </div>
-
  `;
 
 
- $("backBtn").onclick=function(){
+ $("back").onclick=
+ function(){
 
-  if(currentScreen!=="home"){
+  if(current!=="home"){
 
-   currentScreen="home";
+   current="home";
+   selectedUser=null;
 
    render();
 
@@ -775,298 +761,114 @@ function render(){
  };
 
 
- const content=
+ const c=
  $("content");
 
 
- if(currentScreen==="home")
- renderHome(content);
+ if(current==="home")
+  home(c);
 
+ if(current==="world")
+  world(c);
 
- if(currentScreen==="world")
- renderWorld(content);
+ if(current==="users")
+  users(c);
 
+ if(current==="private")
+  privateChat(c);
 
- if(currentScreen==="users")
- renderUsers(content);
+ if(current==="groups")
+  groups(c);
 
+ if(current==="status")
+  status(c);
 
- if(currentScreen==="private")
- renderPrivate(content);
-
-
- if(currentScreen==="groups")
- renderGroups(content);
-
-
- if(currentScreen==="status")
- renderStatus(content);
-
-
- if(currentScreen==="settings")
- renderSettings(content);
+ if(current==="settings")
+  settings(c);
 
 }
 
 
-/* =========================
-   HOME
-========================= */
+/* HOME */
 
-function renderHome(c){
+function home(c){
 
  c.innerHTML=`
 
  <div class="card">
 
- <h2>
- Welcome, ${esc(profile.username)}
- </h2>
+  <h2>
+   Welcome, ${esc(profile.username)}
+  </h2>
 
- <p class="muted">
- Choose an option
- </p>
+  <p class="muted">
+   Choose an option
+  </p>
 
+  <div class="nav">
 
- <div class="nav">
+   <button data-s="world">
+    🌍 World Chat
+   </button>
 
- <button data-screen="world">
- 🌍 World Chat
- </button>
+   <button data-s="users">
+    🟢 Online Users
+   </button>
 
- <button data-screen="users">
- 🟢 Online Users
- </button>
+   <button data-s="private">
+    💬 Private Chat
+   </button>
 
- <button data-screen="private">
- 💬 Private Chat
- </button>
+   <button data-s="groups">
+    👥 Group Chat
+   </button>
 
- <button data-screen="groups">
- 👥 Group Chat
- </button>
+   <button data-s="users">
+    👤 All Users
+   </button>
 
- <button data-screen="users">
- 👤 All Users
- </button>
+   <button
+    data-s="status"
+    class="secondary">
 
- <button
- data-screen="status"
- class="secondary">
- ⭕ Status
- </button>
+    ⭕ Status
 
- <button
- data-screen="settings"
- class="secondary">
- ⚙️ Settings
- </button>
+   </button>
+
+   <button
+    data-s="settings"
+    class="secondary">
+
+    ⚙️ Settings
+
+   </button>
+
+  </div>
 
  </div>
-
- </div>
-
  `;
 
 
- c.querySelectorAll("[data-screen]")
- .forEach(function(button){
-
-  button.onclick=function(){
-
-   currentScreen=
-   button.dataset.screen;
-
+ c.querySelectorAll(
+  "[data-s]"
+ )
+ .forEach(
+  b=>
+  b.onclick=()=>{
+   current=b.dataset.s;
    render();
-
-  };
-
- });
+  }
+ );
 
 }
 
 
-/* =========================
-   WORLD CHAT
-========================= */
+/* MESSAGE HTML */
 
-function renderWorld(c){
-
- c.innerHTML=`
-
- <div class="card">
-
- <div class="row">
-
- <b>
- 🌍 World Chat
- </b>
-
- <span
- id="onlineCount"
- class="muted">
- Online...
- </span>
-
- </div>
-
-
- <div
- id="worldMessages"
- class="chatlist">
- </div>
-
-
- <textarea
- id="worldText"
- rows="2"
- placeholder="Write message...">
- </textarea>
-
-
- <div class="row">
-
- <button id="worldSend">
- Send
- </button>
-
- <button
- id="mentionBtn"
- class="secondary">
- @ Mention
- </button>
-
- </div>
-
-
- <div class="actions">
-
- <label
- class="secondary"
- style="
- padding:10px;
- border-radius:12px">
-
- 📷 Media
-
- <input
- id="worldFile"
- type="file"
- accept="image/*,video/*"
- hidden>
-
- </label>
-
- </div>
-
- </div>
-
- `;
-
-
- const db=
- firebase.firestore();
-
-
- const messageQuery=
- db.collection("worldMessages")
- .orderBy("createdAt","desc")
- .limit(50);
-
-
- listeners.push(
-
-  messageQuery.onSnapshot(
-
-   function(snapshot){
-
-    const messages=
-    snapshot.docs
-    .map(function(doc){
-
-     return {
-      id:doc.id,
-      ...doc.data()
-     };
-
-    })
-    .reverse();
-
-
-    $("worldMessages")
-    .innerHTML=
-    messages
-    .map(messageHTML)
-    .join("");
-
-
-   },
-
-   function(error){
-
-    $("worldMessages")
-    .innerHTML=
-    `<p class="muted">
-    World Chat error:
-    ${esc(error.message)}
-    </p>`;
-
-   }
-
-  )
-
- );
-
-
- const onlineQuery=
- db.collection("users")
- .where("online","==",true);
-
-
- listeners.push(
-
-  onlineQuery.onSnapshot(
-   function(snapshot){
-
-    $("onlineCount")
-    .textContent=
-    snapshot.size+" online";
-
-   }
-  )
-
- );
-
-
- $("worldSend").onclick=
- sendWorld;
-
-
- $("mentionBtn").onclick=
- mentionUsers;
-
-
- $("worldFile").onchange=
- function(e){
-
-  uploadWorldFile(
-   e.target.files[0]
-  );
-
- };
-
-}
-
-
-/* =========================
-   MESSAGE HTML
-========================= */
-
-function messageHTML(m){
+function msgHtml(m,kind,id){
 
  const mine=
  m.uid===me.uid;
-
 
  let media="";
 
@@ -1108,595 +910,549 @@ function messageHTML(m){
  }
 
 
- return `
-
- <div class="msg ${mine?"mine":""}">
-
- <b>
- ${esc(m.username||"User")}
- </b>
-
- <div>
- ${esc(m.text||"")}
- </div>
-
- ${media}
-
-
- <small>
-
- ${
-  m.createdAt &&
-  m.createdAt.toDate
-
-  ?
-
-  m.createdAt
+ const tm=
+ m.createdAt?.toDate
+ ?
+ m.createdAt
   .toDate()
   .toLocaleString()
-
-  :
-
-  "now"
-
- }
-
- </small>
+ :
+ "now";
 
 
- ${
-  mine
+ return `
 
-  ?
+ <div
+  class="msg ${mine?"mine":""}">
 
-  `<div class="actions">
+  <b>
+   ${esc(m.username||"User")}
+  </b>
 
-  <button
-   onclick="editWorld('${m.id}')">
-   Edit
-  </button>
+  <div>
+   ${esc(m.text||"")}
+  </div>
 
-  <button
-   onclick="deleteWorld('${m.id}')">
-   Delete
-  </button>
+  ${media}
 
-  </div>`
+  <small>
+   ${tm}
+   ${m.edited?" · edited":""}
+  </small>
 
-  :
+  ${
+   mine
+   ?
 
-  ""
+   `<div class="actions">
 
- }
+    <button
+     onclick="
+     editMsg(
+      '${kind}',
+      '${id}',
+      '${m.id}'
+     )">
+
+     Edit
+
+    </button>
+
+    <button
+     onclick="
+     delMsg(
+      '${kind}',
+      '${id}',
+      '${m.id}'
+     )">
+
+     Delete
+
+    </button>
+
+   </div>`
+
+   :
+
+   ""
+  }
 
  </div>
-
  `;
 
 }
 
 
-/* =========================
-   SEND WORLD
-========================= */
+/* WORLD CHAT */
 
-async function sendWorld(){
-
- const box=
- $("worldText");
-
-
- const text=
- box.value.trim();
-
-
- if(!text)
- return;
-
-
- try{
-
-  await firebase.firestore()
-  .collection("worldMessages")
-  .add({
-
-   uid:me.uid,
-
-   username:
-   profile.username,
-
-   text:text,
-
-   type:"text",
-
-   createdAt:
-   firebase.firestore.FieldValue
-   .serverTimestamp()
-
-  });
-
-
-  box.value="";
-
-
- }catch(error){
-
-  alert(error.message);
-
- }
-
-}
-
-
-/* =========================
-   EDIT
-========================= */
-
-window.editWorld=
-async function(id){
-
- const text=
- prompt("New message:");
-
-
- if(!text)
- return;
-
-
- try{
-
-  await firebase.firestore()
-  .collection("worldMessages")
-  .doc(id)
-  .update({
-
-   text:text,
-
-   edited:true
-
-  });
-
- }catch(error){
-
-  alert(error.message);
-
- }
-
-};
-
-
-/* =========================
-   DELETE
-========================= */
-
-window.deleteWorld=
-async function(id){
-
- if(!confirm("Delete message?"))
- return;
-
-
- try{
-
-  await firebase.firestore()
-  .collection("worldMessages")
-  .doc(id)
-  .delete();
-
- }catch(error){
-
-  alert(error.message);
-
- }
-
-};
-
-
-/* =========================
-   MENTION
-========================= */
-
-async function mentionUsers(){
-
- try{
-
-  const snapshot=
-  await firebase.firestore()
-  .collection("users")
-  .where("online","==",true)
-  .limit(30)
-  .get();
-
-
-  $("modal")
-  .classList.remove("hidden");
-
-
-  $("modal").innerHTML=`
-
-  <div class="card">
-
-  <h3>
-  Online Users
-  </h3>
-
-  ${
-   snapshot.docs
-   .filter(function(d){
-
-    return d.id!==me.uid;
-
-   })
-   .map(function(d){
-
-    const u=d.data();
-
-    return `
-
-    <button
-     style="
-     width:100%;
-     margin:4px 0"
-     onclick="
-     insertMention('${esc(u.username)}')">
-
-     @${esc(u.username)}
-
-    </button>
-
-    `;
-
-   })
-   .join("")
-  }
-
-
-  <button
-   id="closeModal"
-   class="secondary">
-
-   Close
-
-  </button>
-
-  </div>
-
-  `;
-
-
-  $("closeModal").onclick=
-  function(){
-
-   $("modal")
-   .classList.add("hidden");
-
-  };
-
-
- }catch(error){
-
-  alert(error.message);
-
- }
-
-}
-
-
-window.insertMention=
-function(username){
-
- $("worldText").value+=
- " @"+username+" ";
-
- $("modal")
- .classList.add("hidden");
-
-};
-
-
-/* =========================
-   WORLD MEDIA
-========================= */
-
-async function uploadWorldFile(file){
-
- if(!file)
- return;
-
-
- if(file.size>25*1024*1024){
-
-  alert("Maximum 25MB.");
-
-  return;
-
- }
-
-
- try{
-
-  const type=
-  file.type.startsWith("image/")
-  ?
-
-  "image"
-
-  :
-
-  "video";
-
-
-  const storage=
-  firebase.storage();
-
-
-  const storageRef=
-  storage.ref(
-   "messages/"
-   +me.uid+"/"
-   +Date.now()
-   +"_"+file.name
-  );
-
-
-  await storageRef.put(file);
-
-
-  const url=
-  await storageRef.getDownloadURL();
-
-
-  await firebase.firestore()
-  .collection("worldMessages")
-  .add({
-
-   uid:me.uid,
-
-   username:
-   profile.username,
-
-   type:type,
-
-   url:url,
-
-   text:"",
-
-   createdAt:
-   firebase.firestore.FieldValue
-   .serverTimestamp()
-
-  });
-
-
- }catch(error){
-
-  alert(error.message);
-
- }
-
-}
-
-
-/* =========================
-   USERS
-========================= */
-
-function renderUsers(c){
+function world(c){
 
  c.innerHTML=`
 
  <div class="card">
 
- <h3>
- 👥 Users
- </h3>
+  <div class="row">
 
- <input
- id="userSearch"
- placeholder="Search username">
+   <b>
+    🌍 World Chat
+   </b>
 
- <div id="userList"></div>
+   <span
+    id="count"
+    class="muted">
+
+    Online...
+
+   </span>
+
+  </div>
+
+
+  <div
+   id="worldList"
+   class="chatlist">
+  </div>
+
+
+  <textarea
+   id="worldText"
+   rows="2"
+   placeholder="Write message...">
+  </textarea>
+
+
+  <div class="row">
+
+   <button id="sendWorld">
+    Send
+   </button>
+
+   <button
+    id="mention"
+    class="secondary">
+
+    @ Mention
+
+   </button>
+
+  </div>
 
  </div>
-
  `;
 
 
- const queryRef=
- firebase.firestore()
- .collection("users")
- .orderBy("username")
- .limit(100);
-
-
- listeners.push(
-
-  queryRef.onSnapshot(
-
-   function(snapshot){
-
-    displayUsers(
-     snapshot.docs
-     .map(function(d){
-
-      return d.data();
-
-     })
-    );
-
-   },
-
-   function(error){
-
-    $("userList")
-    .innerHTML=
-    `<p class="muted">
-    ${esc(error.message)}
-    </p>`;
-
-   }
-
-  )
-
+ const q=
+ query(
+  collection(db,"worldMessages"),
+  orderBy("createdAt","desc"),
+  limit(50)
  );
 
 
- $("userSearch").oninput=
+ unsubs.push(
+  onSnapshot(
+   q,
+   s=>{
+
+    $("worldList").innerHTML=
+    s.docs
+    .map(
+     d=>
+     msgHtml(
+      {
+       ...d.data(),
+       id:d.id
+      },
+      "world",
+      "world"
+     )
+    )
+    .reverse()
+    .join("");
+
+   },
+   e=>{
+
+    $("worldList").innerHTML=
+    `<p class="muted">
+     ${esc(e.message)}
+    </p>`;
+
+   }
+  )
+ );
+
+
+ const uq=
+ query(
+  collection(db,"users"),
+  where("online","==",true)
+ );
+
+
+ unsubs.push(
+  onSnapshot(
+   uq,
+   s=>{
+    $("count").textContent=
+    s.size+" online";
+   },
+   ()=>{}
+  )
+ );
+
+
+ $("sendWorld").onclick=
+ sendWorld;
+
+
+ $("mention").onclick=
  async function(){
 
+  try{
+
+   const s=
+   await getDocs(
+    query(
+     collection(db,"users"),
+     where("online","==",true),
+     limit(30)
+    )
+   );
+
+
+   const names=
+   s.docs
+   .map(
+    d=>d.data().username
+   )
+   .filter(
+    x=>x&&x!==profile.username
+   );
+
+
+   if(names.length){
+
+    $("worldText").value+=
+    " @"+names[0]+" ";
+
+   }
+
+  }catch(e){
+
+   toast(e.message);
+
+  }
+
+ };
+
+}
+
+
+/* SEND WORLD */
+
+async function sendWorld(){
+
+ const b=
+ $("worldText");
+
+ const text=
+ b.value.trim();
+
+
+ if(!text)return;
+
+
+ try{
+
+  await addDoc(
+   collection(db,"worldMessages"),
+   {
+    uid:me.uid,
+    username:profile.username,
+    text:text,
+    type:"text",
+    createdAt:serverTimestamp()
+   }
+  );
+
+
+  b.value="";
+
+ }catch(e){
+
+  toast(e.message);
+
+ }
+
+}
+
+
+/* EDIT */
+
+window.editMsg=
+async function(
+ kind,
+ id,
+ mid
+){
+
+ const text=
+ prompt("New message:");
+
+ if(!text)return;
+
+
+ try{
+
+  const ref=
+  kind==="world"
+  ?
+  doc(
+   db,
+   "worldMessages",
+   mid
+  )
+  :
+  doc(
+   db,
+   "chats",
+   id,
+   "messages",
+   mid
+  );
+
+
+  await updateDoc(
+   ref,
+   {
+    text:text,
+    edited:true
+   }
+  );
+
+ }catch(e){
+
+  toast(e.message);
+
+ }
+
+};
+
+
+/* DELETE */
+
+window.delMsg=
+async function(
+ kind,
+ id,
+ mid
+){
+
+ if(!confirm("Delete message?"))
+  return;
+
+
+ try{
+
+  const ref=
+  kind==="world"
+  ?
+  doc(
+   db,
+   "worldMessages",
+   mid
+  )
+  :
+  doc(
+   db,
+   "chats",
+   id,
+   "messages",
+   mid
+  );
+
+
+  await deleteDoc(ref);
+
+ }catch(e){
+
+  toast(e.message);
+
+ }
+
+};
+
+
+/* USERS */
+
+function users(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+  <h3>
+   👥 Users
+  </h3>
+
+  <input
+   id="search"
+   placeholder="Search username">
+
+  <div id="userList">
+  </div>
+
+ </div>
+ `;
+
+
+ const q=
+ query(
+  collection(db,"users"),
+  orderBy("username"),
+  limit(100)
+ );
+
+
+ unsubs.push(
+  onSnapshot(
+   q,
+   s=>{
+
+    const arr=
+    s.docs.map(
+     d=>d.data()
+    );
+
+    window.__allUsers=arr;
+
+    showUsers(arr);
+
+   },
+   e=>{
+
+    $("userList").innerHTML=
+    `<p class="muted">
+     ${esc(e.message)}
+    </p>`;
+
+   }
+  )
+ );
+
+
+ $("search").oninput=
+ function(){
+
   const term=
-  $("userSearch")
+  $("search")
   .value
   .toLowerCase();
 
 
-  try{
-
-   const snapshot=
-   await queryRef.get();
-
-
-   displayUsers(
-
-    snapshot.docs
-    .map(function(d){
-
-     return d.data();
-
-    })
-    .filter(function(user){
-
-     return (user.username||"")
-     .toLowerCase()
-     .includes(term);
-
-    })
-
-   );
-
-  }catch(error){
-
-   $("userList")
-   .textContent=
-   error.message;
-
-  }
+  showUsers(
+   (window.__allUsers||[])
+   .filter(
+    u=>
+    (u.username||"")
+    .toLowerCase()
+    .includes(term)
+   )
+  );
 
  };
 
 }
 
 
-/* =========================
-   DISPLAY USERS
-========================= */
+/* SHOW USERS */
 
-function displayUsers(users){
+function showUsers(arr){
 
- $("userList")
- .innerHTML=
-
- users.map(function(user){
-
-  return `
+ $("userList").innerHTML=
+ arr.map(
+  u=>`
 
   <div class="user">
 
-  ${avatar(
-   user.username,
-   user.photo
-  )}
+   ${av(
+    u.username,
+    u.photo
+   )}
 
+   <div class="grow">
 
-  <div class="userGrow">
+    <b>
+     ${esc(u.username)}
+    </b>
 
-  <b>
-  ${esc(user.username)}
-  </b>
+    <div class="muted">
 
-  <div class="muted">
+     ${
+      u.online
+      ?
+      "🟢 Online"
+      :
+      "Offline"
+     }
 
-  ${
-   user.online
-   ?
+    </div>
 
-   "🟢 Online"
+   </div>
 
-   :
+   ${
+    u.uid!==me.uid
+    ?
 
-   "Offline"
+    `<button
+     onclick='
+     openUser(
+      "${esc(u.uid)}",
+      "${esc(u.username)}",
+      "${esc(u.photo||"")}"
+     )'>
 
-  }
+     Chat
 
-  </div>
+    </button>`
 
-  </div>
+    :
 
-
-  ${
-   user.uid!==me.uid
-
-   ?
-
-   `<button
-   onclick='openPrivate(
-   "${esc(user.uid)}",
-   "${esc(user.username)}",
-   "${esc(user.photo||"")}"
-   )'>
-
-   Chat
-
-   </button>`
-
-   :
-
-   ""
-
-  }
+    ""
+   }
 
   </div>
 
-  `;
-
- })
- .join("");
+  `
+ ).join("");
 
 }
 
 
-/* =========================
-   OPEN PRIVATE
-========================= */
-
-window.openPrivate=
-function(uid,username,photo){
+window.openUser=
+function(
+ uid,
+ username,
+ photo
+){
 
  selectedUser={
-
   uid:uid,
-
   username:username,
-
   photo:photo
-
  };
 
-
- currentScreen=
- "private";
-
+ current="private";
 
  render();
 
 };
 
 
-/* =========================
-   PRIVATE ID
-========================= */
+/* PRIVATE CHAT ID */
 
-function privateId(a,b){
+function chatId(a,b){
 
  return [a,b]
  .sort()
@@ -1705,11 +1461,9 @@ function privateId(a,b){
 }
 
 
-/* =========================
-   PRIVATE CHAT
-========================= */
+/* PRIVATE CHAT */
 
-function renderPrivate(c){
+function privateChat(c){
 
  if(!selectedUser){
 
@@ -1717,27 +1471,26 @@ function renderPrivate(c){
 
   <div class="card">
 
-  <h3>
-  💬 Private Chat
-  </h3>
+   <h3>
+    💬 Private Chat
+   </h3>
 
-  <p class="muted">
-  First choose a user.
-  </p>
+   <p class="muted">
+    Choose a user first.
+   </p>
 
-  <button id="chooseUser">
-  Choose User
-  </button>
+   <button id="pick">
+    Choose User
+   </button>
 
   </div>
-
   `;
 
 
-  $("chooseUser").onclick=
+  $("pick").onclick=
   function(){
 
-   currentScreen="users";
+   current="users";
 
    render();
 
@@ -1749,8 +1502,8 @@ function renderPrivate(c){
  }
 
 
- const chatId=
- privateId(
+ const id=
+ chatId(
   me.uid,
   selectedUser.uid
  );
@@ -1760,76 +1513,367 @@ function renderPrivate(c){
 
  <div class="card">
 
- <div class="user">
+  <div class="user">
 
- ${avatar(
-  selectedUser.username,
-  selectedUser.photo
- )}
+   ${av(
+    selectedUser.username,
+    selectedUser.photo
+   )}
 
- <div class="userGrow">
+   <div class="grow">
 
- <b>
- ${esc(selectedUser.username)}
- </b>
+    <b>
+     ${esc(
+      selectedUser.username
+     )}
+    </b>
 
- <div class="muted">
- Private Chat
+    <div class="muted">
+     Private Chat
+    </div>
+
+   </div>
+
+  </div>
+
+
+  <div
+   id="privateList"
+   class="chatlist">
+  </div>
+
+
+  <textarea
+   id="privateText"
+   rows="2"
+   placeholder="Message...">
+  </textarea>
+
+
+  <button id="sendPrivate">
+   Send
+  </button>
+
  </div>
-
- </div>
-
- </div>
-
-
- <div
- id="privateMessages"
- class="chatlist">
- </div>
-
-
- <textarea
- id="privateText"
- rows="2"
- placeholder="Message...">
- </textarea>
-
-
- <button id="privateSend">
- Send
- </button>
-
- </div>
-
  `;
 
 
- const db=
- firebase.firestore();
+ const q=
+ query(
+  collection(
+   db,
+   "chats",
+   id,
+   "messages"
+  ),
+  orderBy("createdAt","desc"),
+  limit(50)
+ );
 
 
- const queryRef=
- db.collection("chats")
- .doc(chatId)
- .collection("messages")
- .orderBy("createdAt","desc")
- .limit(50);
+ unsubs.push(
+  onSnapshot(
+   q,
+   s=>{
+
+    $("privateList").innerHTML=
+    s.docs
+    .map(
+     d=>
+     msgHtml(
+      {
+       ...d.data(),
+       id:d.id
+      },
+      "private",
+      id
+     )
+    )
+    .reverse()
+    .join("");
+
+   },
+   e=>{
+
+    $("privateList").innerHTML=
+    `<p class="muted">
+     ${esc(e.message)}
+    </p>`;
+
+   }
+  )
+ );
 
 
- listeners.push(
+ $("sendPrivate").onclick=
+ async function(){
 
-  queryRef.onSnapshot(
+  const b=
+  $("privateText");
 
-   function(snapshot){
+  const text=
+  b.value.trim();
 
-    const messages=
-    snapshot.docs
-    .map(function(d){
+  if(!text)return;
 
-     return {
-      id:d.id,
-      ...d.data()
-     };
 
-    })
-  
+  try{
+
+   await addDoc(
+    collection(
+     db,
+     "chats",
+     id,
+     "messages"
+    ),
+    {
+     uid:me.uid,
+     username:profile.username,
+     text:text,
+     type:"text",
+     createdAt:serverTimestamp()
+    }
+   );
+
+
+   b.value="";
+
+  }catch(e){
+
+   toast(e.message);
+
+  }
+
+ };
+
+}
+
+
+/* GROUPS */
+
+function groups(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+  <h3>
+   👥 Group Chat
+  </h3>
+
+  <div class="row">
+
+   <input
+    id="groupName"
+    placeholder="New group name">
+
+   <button id="makeGroup">
+    Create
+   </button>
+
+  </div>
+
+  <div id="groupsList">
+  </div>
+
+ </div>
+ `;
+
+
+ const q=
+ query(
+  collection(db,"groups"),
+  orderBy("name"),
+  limit(50)
+ );
+
+
+ unsubs.push(
+  onSnapshot(
+   q,
+   s=>{
+
+    $("groupsList").innerHTML=
+    s.docs
+    .map(
+     d=>{
+
+      const g=d.data();
+
+      return `
+
+      <div class="user">
+
+       <div class="grow">
+
+        <b>
+         ${esc(g.name||"Group")}
+        </b>
+
+        <div class="muted">
+         ${(g.members||[]).length}
+         members
+        </div>
+
+       </div>
+
+       <button
+        onclick='openGroup("${d.id}")'>
+
+        Open
+
+       </button>
+
+      </div>
+
+      `;
+
+     }
+    )
+    .join("");
+
+   },
+   e=>{
+
+    $("groupsList").innerHTML=
+    `<p class="muted">
+     ${esc(e.message)}
+    </p>`;
+
+   }
+  )
+ );
+
+
+ $("makeGroup").onclick=
+ async function(){
+
+  const name=
+  $("groupName")
+  .value
+  .trim();
+
+
+  if(!name)return;
+
+
+  try{
+
+   await addDoc(
+    collection(db,"groups"),
+    {
+     name:name,
+     members:[me.uid],
+     ownerId:me.uid,
+     createdAt:serverTimestamp()
+    }
+   );
+
+
+   $("groupName").value="";
+
+  }catch(e){
+
+   toast(e.message);
+
+  }
+
+ };
+
+}
+
+
+window.openGroup=
+function(gid){
+
+ stopListeners();
+
+
+ const c=
+ $("content");
+
+
+ c.innerHTML=`
+
+ <div class="card">
+
+  <button
+   id="groupBack"
+   class="secondary">
+
+   ← Groups
+
+  </button>
+
+  <div id="groupInfo">
+  </div>
+
+  <div
+   id="groupList"
+   class="chatlist">
+  </div>
+
+  <textarea
+   id="groupText"
+   rows="2"
+   placeholder="Group message...">
+  </textarea>
+
+  <button id="groupSend">
+   Send
+  </button>
+
+ </div>
+ `;
+
+
+ $("groupBack").onclick=
+ function(){
+
+  render();
+
+ };
+
+
+ const gref=
+ doc(db,"groups",gid);
+
+
+ getDoc(gref)
+ .then(
+  s=>{
+
+   if(!s.exists()){
+
+    toast("Group not found");
+
+    return;
+
+   }
+
+
+   const g=s.data();
+
+
+   $("groupInfo").innerHTML=`
+
+   <h3>
+    ${esc(g.name)}
+   </h3>
+
+   <div class="muted">
+    ${(g.members||[]).length}
+    members
+   </div>
+
+   `;
+
+  }
+ );
+
+
+ const q=
+ query(
+  collection(
+   db,
+   "groups",
