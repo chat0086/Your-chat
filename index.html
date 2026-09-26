@@ -914,4 +914,454 @@ function loadUsers(){
     });
 }
 
-/* =================
+/* =================   PRIVATE CHAT
+   ========================================================= */
+
+function chatIdFor(uid1,uid2){
+  return [uid1,uid2].sort().join("_");
+}
+
+function startPrivate(uid,username){
+  if(uid===currentUser.uid) return;
+  renderPrivateChat(uid,username);
+}
+
+function renderPrivate(){
+
+  document.getElementById("page").innerHTML=`
+
+    <div class="card">
+      <div class="sectionTitle">💬 Private Chat</div>
+      <div class="small">
+        Pehle All Users se kisi user ko select karo.
+      </div>
+    </div>
+
+    <button class="btn btn2" onclick="renderUsers()">
+      👥 Choose User
+    </button>
+  `;
+}
+
+function renderPrivateChat(uid,username){
+
+  if(unsubscribe){
+    unsubscribe();
+    unsubscribe=null;
+  }
+
+  const chatId=chatIdFor(currentUser.uid,uid);
+
+  document.getElementById("page").innerHTML=`
+
+    <div class="card">
+      <button class="iconBtn" onclick="openPage('private')">← Back</button>
+      <div class="sectionTitle" style="margin-top:15px">
+        💬 ${escapeHtml(username)}
+      </div>
+    </div>
+
+    <div id="privateMessages" class="card">
+      <div class="small">Loading...</div>
+    </div>
+
+    <div style="height:70px"></div>
+
+    <div class="chatInput">
+      <div class="chatInner">
+        <input id="privateInput" class="input"
+          placeholder="Write a private message..."
+          maxlength="1000"
+          onkeydown="if(event.key==='Enter')sendPrivate('${uid}')">
+        <button class="sendBtn"
+          onclick="sendPrivate('${uid}')">Send</button>
+      </div>
+    </div>
+  `;
+
+  loadPrivate(chatId);
+}
+
+function loadPrivate(chatId){
+
+  const box=document.getElementById("privateMessages");
+
+  unsubscribe=db.collection("chats")
+    .doc(chatId)
+    .collection("messages")
+    .limit(100)
+    .onSnapshot(function(snapshot){
+
+      let arr=[];
+
+      snapshot.forEach(function(doc){
+        arr.push(doc.data());
+      });
+
+      arr.sort(function(a,b){
+        const aa=a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis():0;
+        const bb=b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis():0;
+        return aa-bb;
+      });
+
+      if(!arr.length){
+        box.innerHTML='<div class="small">No messages yet.</div>';
+        return;
+      }
+
+      box.innerHTML=arr.map(function(m){
+
+        const mine=m.uid===currentUser.uid;
+
+        return `
+          <div class="message">
+            <span class="msgUser">
+              ${mine?"You":escapeHtml(m.username||"User")}
+            </span>
+            <span class="msgTime">${formatTime(m.createdAt)}</span>
+            <div class="msgText">${escapeHtml(m.text||"")}</div>
+          </div>
+        `;
+
+      }).join("");
+
+    },function(error){
+
+      box.innerHTML=
+        '<div class="error">Private chat error: '+
+        escapeHtml(error.message)+'</div>';
+
+    });
+}
+
+async function sendPrivate(otherUid){
+
+  const input=document.getElementById("privateInput");
+
+  if(!input) return;
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  const chatId=chatIdFor(currentUser.uid,otherUid);
+
+  input.disabled=true;
+
+  try{
+
+    await db.collection("chats")
+      .doc(chatId)
+      .collection("messages")
+      .add({
+        uid:currentUser.uid,
+        username:profile.username || currentUser.displayName || "User",
+        text:text,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+    input.value="";
+
+  }catch(e){
+
+    alert("Private message send nahi hua:\n"+friendlyError(e));
+
+  }
+
+  input.disabled=false;
+}
+
+/* =========================================================
+   GROUPS
+   ========================================================= */
+
+function renderGroups(){
+
+  document.getElementById("page").innerHTML=`
+
+    <div class="card">
+      <div class="sectionTitle">👥 Group Chat</div>
+      <div class="small">Available groups.</div>
+    </div>
+
+    <div id="groupsList" class="card">
+      <div class="small">Loading groups...</div>
+    </div>
+  `;
+
+  loadGroups();
+}
+
+function loadGroups(){
+
+  const box=document.getElementById("groupsList");
+
+  unsubscribe=db.collection("groups")
+    .limit(50)
+    .onSnapshot(function(snapshot){
+
+      let groups=[];
+
+      snapshot.forEach(function(doc){
+        groups.push(Object.assign({id:doc.id},doc.data()));
+      });
+
+      if(!groups.length){
+        box.innerHTML='<div class="small">No groups created yet.</div>';
+        return;
+      }
+
+      box.innerHTML=groups.map(function(g){
+
+        return `
+          <div class="user">
+            <div>
+              <b>👥 ${escapeHtml(g.name||"Group")}</b>
+              <div class="small">${escapeHtml(g.memberCount||0)} members</div>
+            </div>
+
+            <button class="iconBtn"
+              onclick="openGroup('${escapeHtml(g.id)}','${escapeHtml(g.name||"Group")}')">
+              Open
+            </button>
+          </div>
+        `;
+
+      }).join("");
+
+    },function(error){
+
+      box.innerHTML=
+        '<div class="error">Groups error: '+
+        escapeHtml(error.message)+'</div>';
+
+    });
+}
+
+function openGroup(groupId,groupName){
+
+  if(unsubscribe){
+    unsubscribe();
+    unsubscribe=null;
+  }
+
+  document.getElementById("page").innerHTML=`
+
+    <div class="card">
+      <button class="iconBtn" onclick="openPage('groups')">← Back</button>
+
+      <div class="sectionTitle" style="margin-top:15px">
+        👥 ${escapeHtml(groupName)}
+      </div>
+    </div>
+
+    <div id="groupMessages" class="card">
+      <div class="small">Loading...</div>
+    </div>
+
+    <div style="height:70px"></div>
+
+    <div class="chatInput">
+      <div class="chatInner">
+        <input id="groupInput" class="input"
+          placeholder="Group message..."
+          maxlength="1000"
+          onkeydown="if(event.key==='Enter')sendGroup('${groupId}')">
+
+        <button class="sendBtn"
+          onclick="sendGroup('${groupId}')">
+          Send
+        </button>
+      </div>
+    </div>
+  `;
+
+  const box=document.getElementById("groupMessages");
+
+  unsubscribe=db.collection("groups")
+    .doc(groupId)
+    .collection("messages")
+    .limit(100)
+    .onSnapshot(function(snapshot){
+
+      let arr=[];
+
+      snapshot.forEach(function(doc){
+        arr.push(doc.data());
+      });
+
+      arr.sort(function(a,b){
+        const aa=a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis():0;
+        const bb=b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis():0;
+        return aa-bb;
+      });
+
+      box.innerHTML=arr.length
+        ? arr.map(function(m){
+            return `
+              <div class="message">
+                <span class="msgUser">${escapeHtml(m.username||"User")}</span>
+                <span class="msgTime">${formatTime(m.createdAt)}</span>
+                <div class="msgText">${escapeHtml(m.text||"")}</div>
+              </div>
+            `;
+          }).join("")
+        : '<div class="small">No group messages yet.</div>';
+
+    },function(error){
+
+      box.innerHTML=
+        '<div class="error">Group error: '+
+        escapeHtml(error.message)+'</div>';
+
+    });
+}
+
+async function sendGroup(groupId){
+
+  const input=document.getElementById("groupInput");
+
+  if(!input) return;
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  input.disabled=true;
+
+  try{
+
+    await db.collection("groups")
+      .doc(groupId)
+      .collection("messages")
+      .add({
+        uid:currentUser.uid,
+        username:profile.username || currentUser.displayName || "User",
+        text:text,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+    input.value="";
+
+  }catch(e){
+
+    alert("Group message send nahi hua:\n"+friendlyError(e));
+
+  }
+
+  input.disabled=false;
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+function renderSettings(){
+
+  document.getElementById("page").innerHTML=`
+
+    <div class="card">
+      <div class="sectionTitle">⚙ Settings</div>
+
+      <div class="user">
+        <span>Account</span>
+        <span class="small">${escapeHtml(profile.username||"User")}</span>
+      </div>
+
+      <div class="user">
+        <span>Privacy & Security</span>
+        <span>›</span>
+      </div>
+
+      <div class="user">
+        <span>Notifications</span>
+        <span>›</span>
+      </div>
+
+      <div class="user">
+        <span>Chat Settings</span>
+        <span>›</span>
+      </div>
+
+      <div class="user">
+        <span>Data & Storage</span>
+        <span>›</span>
+      </div>
+
+      <div class="user">
+        <span>Help & Support</span>
+        <span>›</span>
+      </div>
+
+      <div class="user">
+        <span>About</span>
+        <span>Your Chat</span>
+      </div>
+
+      <button class="btn btnDanger" onclick="logout()">
+        Log Out
+      </button>
+    </div>
+  `;
+}
+
+async function logout(){
+
+  try{
+
+    if(unsubscribe){
+      unsubscribe();
+      unsubscribe=null;
+    }
+
+    if(currentUser){
+
+      try{
+        await db.collection("users")
+          .doc(currentUser.uid)
+          .set({
+            online:false,
+            lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+          },{merge:true});
+      }catch(e){}
+
+    }
+
+    await auth.signOut();
+
+  }catch(e){
+
+    alert("Logout error: "+friendlyError(e));
+
+  }
+}
+
+/* =========================================================
+   AUTO TIMEOUT
+   ========================================================= */
+
+setTimeout(function(){
+
+  const loading=document.getElementById("loading");
+
+  if(
+    loading &&
+    loading.style.display!=="none" &&
+    !currentUser
+  ){
+
+    document.getElementById("loadingText").innerHTML=
+      "Firebase se connection nahi ho raha.<br><br>"+
+      "Internet aur Firebase settings check karein.";
+
+    document.querySelector(".loader").style.display="none";
+    document.getElementById("retryBtn").classList.remove("hide");
+
+  }
+
+},12000);
+
+</script>
+
+</body>
+</html>
