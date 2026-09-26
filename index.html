@@ -2,1238 +2,1695 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Chat</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YOUR CHAT</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
+*{box-sizing:border-box}
 body{
-  background:#07111f;
-  color:white;
-  min-height:100vh;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#050b14;
+ color:white;
 }
-
-button,input{
-  font:inherit;
+button,input,textarea{font:inherit}
+button{
+ border:0;
+ cursor:pointer;
 }
+.hidden{display:none!important}
 
-.hidden{
-  display:none!important;
-}
-
-/* LOADING */
 #loading{
-  position:fixed;
-  inset:0;
-  background:#020812;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ background:#050b14;
 }
-
-.logo{
-  font-size:30px;
-  font-weight:bold;
-  color:#38a9ff;
-  letter-spacing:3px;
-}
-
-.loadingText{
-  margin-top:15px;
-  color:#aaa;
-}
-
 .loader{
-  width:35px;
-  height:35px;
-  border:4px solid #18324c;
-  border-top:4px solid #2196f3;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-  margin-top:20px;
+ width:38px;
+ height:38px;
+ border:4px solid #17304b;
+ border-top:4px solid #29a9ff;
+ border-radius:50%;
+ animation:spin 1s linear infinite;
+ margin:20px auto;
 }
-
 @keyframes spin{
-  to{transform:rotate(360deg)}
+ to{transform:rotate(360deg)}
 }
 
-/* LOGIN */
-.auth{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
-.authBox{
-  width:100%;
-  max-width:390px;
-  background:#0d1b2a;
-  border:1px solid #183957;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 0 30px rgba(0,150,255,.15);
-}
-
-.authBox h1{
-  text-align:center;
-  color:#39aaff;
-  margin-bottom:8px;
-}
-
-.authBox p{
-  text-align:center;
-  color:#91a2b5;
-  margin-bottom:20px;
-}
-
-.input{
-  width:100%;
-  padding:14px;
-  border:none;
-  outline:none;
-  background:#07111f;
-  color:white;
-  border:1px solid #24425f;
-  border-radius:10px;
-  margin-bottom:12px;
-}
-
-.btn{
-  width:100%;
-  border:none;
-  border-radius:10px;
-  padding:13px;
-  margin-top:7px;
-  background:#168cff;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.btn.secondary{
-  background:#18324c;
-}
-
-.small{
-  text-align:center;
-  margin-top:15px;
-  color:#8195aa;
-  font-size:13px;
-}
-
-/* APP */
-#app{
-  min-height:100vh;
-}
-
-.header{
-  height:62px;
-  background:#0b1928;
-  border-bottom:1px solid #17334d;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-
-.headerTitle{
-  font-size:20px;
-  font-weight:bold;
-  color:#35a9ff;
-}
-
-.onlineDot{
-  width:10px;
-  height:10px;
-  background:#25e878;
-  border-radius:50%;
-  display:inline-block;
-  margin-right:6px;
-}
-
-.content{
-  padding:15px;
-  padding-bottom:85px;
-  max-width:700px;
-  margin:auto;
+.screen{
+ max-width:720px;
+ margin:auto;
+ min-height:100vh;
+ padding:15px;
 }
 
 .card{
-  background:#0d1b2a;
-  border:1px solid #183957;
-  border-radius:15px;
-  margin-bottom:12px;
-  overflow:hidden;
+ background:#0d1928;
+ border:1px solid #203b55;
+ border-radius:18px;
+ padding:15px;
+ margin-bottom:12px;
 }
 
-.menuItem{
-  padding:17px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  border-bottom:1px solid #17334d;
-  cursor:pointer;
+.brand{
+ text-align:center;
+ font-size:25px;
+ font-weight:bold;
+ letter-spacing:5px;
+ color:#42b5ff;
+ margin-bottom:20px;
 }
 
-.menuItem:last-child{
-  border-bottom:none;
+input,textarea{
+ width:100%;
+ padding:12px;
+ margin:6px 0;
+ border-radius:12px;
+ border:1px solid #28445f;
+ background:#07111f;
+ color:white;
+ outline:none;
 }
 
-.menuItem:hover{
-  background:#10263b;
+button{
+ padding:12px 15px;
+ border-radius:12px;
+ background:#147ed4;
+ color:white;
+ font-weight:bold;
 }
 
-.icon{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  background:#102c47;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
+.secondary{
+ background:#162b40;
 }
 
-.menuText{
-  flex:1;
+.danger{
+ background:#a52d3d;
 }
 
-.menuText b{
-  display:block;
-  margin-bottom:3px;
+.row{
+ display:flex;
+ gap:8px;
+ align-items:center;
 }
 
-.menuText span{
-  color:#8195aa;
-  font-size:12px;
+.row>*{
+ flex:1;
 }
 
-.arrow{
-  color:#64809a;
+.top{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:12px;
 }
 
-/* PAGES */
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.pageTitle{
-  font-size:22px;
-  margin-bottom:14px;
-}
-
-.backBtn{
-  background:#12283d;
-  color:white;
-  border:none;
-  border-radius:9px;
-  padding:9px 14px;
-  margin-bottom:14px;
-  cursor:pointer;
-}
-
-/* WORLD */
-.worldLayout{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.onlineBox{
-  background:#0d1b2a;
-  border:1px solid #183957;
-  border-radius:14px;
-  overflow:hidden;
-}
-
-.boxTitle{
-  padding:13px;
-  border-bottom:1px solid #183957;
-  font-weight:bold;
-}
-
-.onlineList{
-  max-height:180px;
-  overflow:auto;
-}
-
-.userRow{
-  display:flex;
-  align-items:center;
-  padding:10px 13px;
-  border-bottom:1px solid #122b42;
-  gap:10px;
+.spacer{
+ flex:1;
 }
 
 .avatar{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:#1469a5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
+ width:46px;
+ height:46px;
+ border-radius:50%;
+ object-fit:cover;
+ background:#18324b;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ font-weight:bold;
+ color:#8bd5ff;
 }
 
-.userName{
-  flex:1;
+.avatar.big{
+ width:85px;
+ height:85px;
 }
 
-.userOnline{
-  color:#25e878;
-  font-size:11px;
+.nav{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
 }
 
-.chatBox{
-  background:#0d1b2a;
-  border:1px solid #183957;
-  border-radius:14px;
-  overflow:hidden;
+.nav button{
+ min-height:60px;
 }
 
-.messages{
-  height:430px;
-  overflow-y:auto;
-  padding:12px;
+.chatlist{
+ height:55vh;
+ overflow-y:auto;
+ padding:5px;
 }
 
 .msg{
-  margin-bottom:10px;
-  max-width:85%;
+ background:#102238;
+ border-radius:14px;
+ padding:10px;
+ margin:7px 0;
+ max-width:88%;
+ word-break:break-word;
 }
 
-.msg.mine{
-  margin-left:auto;
+.mine{
+ margin-left:auto;
+ background:#075f9f;
 }
 
-.msgBubble{
-  background:#142b42;
-  padding:9px 11px;
-  border-radius:12px;
+.msg small{
+ display:block;
+ color:#9bb1c7;
+ font-size:10px;
+ margin-top:5px;
 }
 
-.mine .msgBubble{
-  background:#1268a7;
+.media{
+ max-width:100%;
+ border-radius:12px;
+ margin-top:7px;
 }
 
-.msgName{
-  color:#45b3ff;
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:3px;
+.actions{
+ display:flex;
+ flex-wrap:wrap;
+ gap:6px;
+ margin-top:6px;
 }
 
-.mine .msgName{
-  color:#d9f2ff;
+.actions button{
+ padding:7px 10px;
+ font-size:12px;
+ background:#17304a;
 }
 
-.msgTime{
-  color:#7e94a8;
-  font-size:9px;
-  margin-top:3px;
+.user{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:10px;
+ border-bottom:1px solid #193047;
 }
 
-.sendArea{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  border-top:1px solid #183957;
+.user>div:nth-child(2){
+ flex:1;
 }
 
-.sendInput{
-  flex:1;
-  background:#07111f;
-  color:white;
-  border:1px solid #234762;
-  outline:none;
-  border-radius:10px;
-  padding:11px;
+.status-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:8px;
 }
 
-.sendBtn{
-  border:none;
-  background:#168cff;
-  color:white;
-  border-radius:10px;
-  width:48px;
+.status-card{
+ background:#102238;
+ border-radius:14px;
+ overflow:hidden;
 }
 
-/* SEARCH */
-.searchBox{
-  position:relative;
-  margin-bottom:12px;
+.status-card img,
+.status-card video{
+ width:100%;
+ height:180px;
+ object-fit:cover;
 }
 
-.searchBox input{
-  width:100%;
-  padding:13px 15px 13px 42px;
-  background:#0d1b2a;
-  border:1px solid #234762;
-  border-radius:12px;
-  color:white;
-  outline:none;
+.muted{
+ color:#91a7bb;
+ font-size:13px;
 }
 
-.searchIcon{
-  position:absolute;
-  left:14px;
-  top:12px;
+.modal{
+ position:fixed;
+ inset:0;
+ background:#000b;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+ z-index:99;
 }
 
-/* SETTINGS */
-.settingRow{
-  padding:16px;
-  border-bottom:1px solid #183957;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.modal .card{
+ width:min(600px,100%);
+ max-height:90vh;
+ overflow:auto;
 }
 
-.settingRow:last-child{
-  border-bottom:none;
-}
-
-.logout{
-  color:#ff6262;
-}
-
-/* BOTTOM */
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:65px;
-  background:#0b1928;
-  border-top:1px solid #183957;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:100;
-}
-
-.bottom button{
-  border:none;
-  background:none;
-  color:#7890a5;
-  font-size:11px;
-}
-
-.bottom button.active{
-  color:#36aaff;
-}
-
-.bottomIcon{
-  font-size:21px;
-  display:block;
-  margin-bottom:2px;
-}
-
-/* TOAST */
-#toast{
-  position:fixed;
-  left:50%;
-  bottom:80px;
-  transform:translateX(-50%);
-  background:#142b42;
-  border:1px solid #285271;
-  padding:11px 16px;
-  border-radius:10px;
-  display:none;
-  z-index:999;
-  max-width:90%;
-  text-align:center;
+@media(min-width:600px){
+ .nav{
+  grid-template-columns:repeat(5,1fr);
+ }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADING -->
 <div id="loading">
-  <div class="logo">YOUR CHAT</div>
-  <div class="loadingText">Connecting to the world...</div>
+ <div>
+  <div class="brand">YOUR CHAT</div>
   <div class="loader"></div>
+  <div>Connecting to the world...</div>
+  <p id="loadError" class="muted"></p>
+  <button id="retry" class="hidden">Retry</button>
+ </div>
 </div>
 
-<!-- AUTH -->
-<div id="auth" class="auth hidden">
-  <div class="authBox">
+<div id="app" class="hidden"></div>
 
-    <h1>YOUR CHAT</h1>
-    <p>Chat with the world</p>
+<div id="modal" class="modal hidden"></div>
 
-    <input id="username"
-           class="input"
-           placeholder="Username"
-           maxlength="24">
-
-    <input id="password"
-           class="input"
-           type="password"
-           placeholder="Password">
-
-    <button id="loginBtn" class="btn">
-      Login
-    </button>
-
-    <button id="signupBtn" class="btn secondary">
-      Create Account
-    </button>
-
-    <div class="small">
-      Username: 3–24 letters, numbers or _
-    </div>
-
-  </div>
-</div>
-
-<!-- APP -->
-<div id="app" class="hidden">
-
-  <div class="header">
-    <div class="headerTitle">YOUR CHAT</div>
-
-    <div>
-      <span class="onlineDot"></span>
-      <span id="headerOnline">0 online</span>
-    </div>
-  </div>
-
-  <main class="content">
-
-    <!-- HOME -->
-    <section id="homePage" class="page active">
-
-      <div class="card">
-
-        <div class="menuItem" onclick="openPage('worldPage')">
-          <div class="icon">🌍</div>
-          <div class="menuText">
-            <b>World Chat</b>
-            <span>Chat with everyone</span>
-          </div>
-          <div class="arrow">›</div>
-        </div>
-
-        <div class="menuItem" onclick="openPage('usersPage')">
-          <div class="icon">👥</div>
-          <div class="menuText">
-            <b>Online Users</b>
-            <span id="homeOnlineText">0 users online</span>
-          </div>
-          <div class="arrow">›</div>
-        </div>
-
-        <div class="menuItem" onclick="showMessage('Private Chat coming next')">
-          <div class="icon">💬</div>
-          <div class="menuText">
-            <b>Private Chat</b>
-            <span>Your private conversations</span>
-          </div>
-          <div class="arrow">›</div>
-        </div>
-
-        <div class="menuItem" onclick="showMessage('Group Chat coming next')">
-          <div class="icon">👨‍👩‍👧‍👦</div>
-          <div class="menuText">
-            <b>Group Chat</b>
-            <span>Your groups</span>
-          </div>
-          <div class="arrow">›</div>
-        </div>
-
-        <div class="menuItem" onclick="openPage('usersPage')">
-          <div class="icon">🔎</div>
-          <div class="menuText">
-            <b>All Users</b>
-            <span>Search users</span>
-          </div>
-          <div class="arrow">›</div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- WORLD CHAT -->
-    <section id="worldPage" class="page">
-
-      <button class="backBtn" onclick="openPage('homePage')">
-        ← Back
-      </button>
-
-      <div class="pageTitle">🌍 World Chat</div>
-
-      <div class="worldLayout">
-
-        <div class="onlineBox">
-
-          <div class="boxTitle">
-            🟢 Online Users
-            (<span id="worldOnlineCount">0</span>)
-          </div>
-
-          <div id="worldOnlineList" class="onlineList">
-          </div>
-
-        </div>
-
-        <div class="chatBox">
-
-          <div id="worldMessages" class="messages">
-          </div>
-
-          <div class="sendArea">
-
-            <input
-              id="worldInput"
-              class="sendInput"
-              placeholder="Write a message..."
-              maxlength="500">
-
-            <button id="worldSend" class="sendBtn">
-              ➤
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- USERS -->
-    <section id="usersPage" class="page">
-
-      <button class="backBtn" onclick="openPage('homePage')">
-        ← Back
-      </button>
-
-      <div class="pageTitle">👥 Users</div>
-
-      <div class="searchBox">
-        <span class="searchIcon">🔎</span>
-        <input
-          id="userSearch"
-          placeholder="Search username..."
-          autocomplete="off">
-      </div>
-
-      <div class="card">
-
-        <div class="boxTitle">
-          Online Users
-          (<span id="usersOnlineCount">0</span>)
-        </div>
-
-        <div id="usersList">
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- SETTINGS -->
-    <section id="settingsPage" class="page">
-
-      <button class="backBtn" onclick="openPage('homePage')">
-        ← Back
-      </button>
-
-      <div class="pageTitle">⚙️ Settings</div>
-
-      <div class="card">
-
-        <div class="settingRow">
-          <span>👤 Account</span>
-          <span id="settingsUsername">-</span>
-        </div>
-
-        <div class="settingRow">
-          <span>🔒 Privacy & Security</span>
-          <span>›</span>
-        </div>
-
-        <div class="settingRow">
-          <span>🔔 Notifications</span>
-          <span>›</span>
-        </div>
-
-        <div class="settingRow">
-          <span>💬 Chat Settings</span>
-          <span>›</span>
-        </div>
-
-        <div class="settingRow">
-          <span>💾 Data & Storage</span>
-          <span>›</span>
-        </div>
-
-        <div class="settingRow">
-          <span>❓ Help & Support</span>
-          <span>›</span>
-        </div>
-
-        <div class="settingRow">
-          <span>ℹ️ About</span>
-          <span>YOUR CHAT</span>
-        </div>
-
-        <div
-          class="settingRow logout"
-          onclick="logoutUser()">
-          <span>🚪 Log Out</span>
-          <span>›</span>
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- BOTTOM NAV -->
-  <div class="bottom">
-
-    <button onclick="openPage('homePage')">
-      <span class="bottomIcon">🏠</span>
-      Home
-    </button>
-
-    <button onclick="openPage('worldPage')">
-      <span class="bottomIcon">🌍</span>
-      World
-    </button>
-
-    <button onclick="openPage('usersPage')">
-      <span class="bottomIcon">👥</span>
-      Users
-    </button>
-
-    <button onclick="openPage('settingsPage')">
-      <span class="bottomIcon">⚙️</span>
-      Settings
-    </button>
-
-  </div>
-
-</div>
-
-<div id="toast"></div>
 
 <script type="module">
 
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+ initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  serverTimestamp,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+ getAuth,
+ onAuthStateChanged,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ signOut,
+ updateProfile
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+ getFirestore,
+ collection,
+ doc,
+ setDoc,
+ getDoc,
+ addDoc,
+ updateDoc,
+ deleteDoc,
+ query,
+ orderBy,
+ limit,
+ onSnapshot,
+ where,
+ getDocs,
+ serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-/* FIREBASE */
+import {
+ getStorage,
+ ref,
+ uploadBytes,
+ getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
-  authDomain: "your-chat-24913.firebaseapp.com",
-  projectId: "your-chat-24913",
-  storageBucket: "your-chat-24913.firebasestorage.app",
-  messagingSenderId: "700520326360",
-  appId: "1:700520326360:web:a3dc5fd4e36b54dbb563ad",
-  measurementId: "G-7JBWVDK838"
-};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+ apiKey:
+ "AIzaSyBmyYllEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
 
+ authDomain:
+ "your-chat-24913.firebaseapp.com",
 
-/* GLOBAL */
+ projectId:
+ "your-chat-24913",
 
-let currentUser = null;
-let currentUsername = "";
-let unsubscribeUsers = null;
-let unsubscribeWorld = null;
+ storageBucket:
+ "your-chat-24913.firebasestorage.app",
 
+ messagingSenderId:
+ "700520326360",
 
-/* ELEMENTS */
+ appId:
+ "1:700520326360:web:a3dc5fd4e36b54dbb563ad",
 
-const loading = document.getElementById("loading");
-const authBox = document.getElementById("auth");
-const appBox = document.getElementById("app");
-
-
-/* HELPERS */
-
-function showMessage(text){
-
-  const toast = document.getElementById("toast");
-
-  toast.textContent = text;
-  toast.style.display = "block";
-
-  setTimeout(()=>{
-    toast.style.display = "none";
-  },2500);
-}
-
-window.showMessage = showMessage;
-
-
-/* PAGE SYSTEM */
-
-window.openPage = function(pageId){
-
-  document.querySelectorAll(".page").forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  document.getElementById(pageId).classList.add("active");
-
-  if(pageId === "worldPage"){
-    loadWorldMessages();
-  }
-
-  if(pageId === "usersPage"){
-    renderUsers();
-  }
+ measurementId:
+ "G-7JBWVDK838"
 };
 
 
-/* USERNAME */
+const firebaseApp =
+ initializeApp(firebaseConfig);
 
-function validUsername(name){
+const auth =
+ getAuth(firebaseApp);
 
-  return /^[A-Za-z0-9_]{3,24}$/.test(name);
+const db =
+ getFirestore(firebaseApp);
+
+const storage =
+ getStorage(firebaseApp);
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let me=null;
+let profile=null;
+let currentScreen="home";
+let selectedUser=null;
+let selectedGroup=null;
+let unsubscribers=[];
+
+const $=id=>document.getElementById(id);
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function esc(value){
+
+ return String(value ?? "")
+ .replace(/[&<>"']/g,c=>({
+
+ "&":"&amp;",
+ "<":"&lt;",
+ ">":"&gt;",
+ '"':"&quot;",
+ "'":"&#39;"
+
+ }[c]));
+
 }
 
 
-/* SIGN UP */
+function usernameEmail(username){
 
-document.getElementById("signupBtn").addEventListener("click", async()=>{
+ return username.toLowerCase()
+ +"@yourchat.local";
 
-  const username =
-    document.getElementById("username").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  if(!validUsername(username)){
-    showMessage("Username 3–24 letters/numbers/_ hona chahiye");
-    return;
-  }
-
-  if(password.length < 6){
-    showMessage("Password kam az kam 6 characters ka ho");
-    return;
-  }
-
-  const email =
-    username.toLowerCase() + "@yourchat.local";
-
-  try{
-
-    const result =
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-    await setDoc(
-      doc(db,"users",result.user.uid),
-      {
-        uid:result.user.uid,
-        username:username,
-        usernameLower:username.toLowerCase(),
-        online:true,
-        lastSeen:serverTimestamp(),
-        createdAt:serverTimestamp()
-      }
-    );
-
-    showMessage("Account create ho gaya ❤️");
-
-  }catch(error){
-
-    console.error(error);
-    showMessage(error.message);
-
-  }
-
-});
+}
 
 
-/* LOGIN */
+function avatar(username,photo,big=false){
 
-document.getElementById("loginBtn").addEventListener("click", async()=>{
+ if(photo){
 
-  const username =
-    document.getElementById("username").value.trim();
+  return `
+  <img
+   class="avatar ${big?"big":""}"
+   src="${esc(photo)}"
+  >`;
 
-  const password =
-    document.getElementById("password").value;
+ }
 
-  if(!validUsername(username)){
-    showMessage("Username sahi likho");
-    return;
-  }
+ return `
+ <div class="avatar ${big?"big":""}">
+ ${esc((username||"?")[0].toUpperCase())}
+ </div>`;
 
-  if(!password){
-    showMessage("Password likho");
-    return;
-  }
-
-  const email =
-    username.toLowerCase() + "@yourchat.local";
-
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-  }catch(error){
-
-    console.error(error);
-    showMessage("Username ya password ghalat hai");
-
-  }
-
-});
+}
 
 
-/* AUTH STATE */
+function cleanup(){
 
-onAuthStateChanged(auth, async(user)=>{
+ unsubscribers.forEach(fn=>{
+  try{fn()}catch(e){}
+ });
 
-  loading.classList.add("hidden");
+ unsubscribers=[];
 
-  if(user){
+}
 
-    currentUser = user;
 
-    const userRef =
-      doc(db,"users",user.uid);
+function loading(show){
 
-    const snap =
-      await getDoc(userRef);
+ $("loading")
+ .classList.toggle("hidden",!show);
 
-    if(snap.exists()){
+}
 
-      const data = snap.data();
 
-      currentUsername =
-        data.username || "User";
+/* =========================
+   AUTH SCREEN
+========================= */
 
-    }else{
+function showAuth(){
 
-      currentUsername = "User";
+ loading(false);
 
-      await setDoc(
-        userRef,
-        {
-          uid:user.uid,
-          username:"User",
-          usernameLower:"user",
-          online:true,
-          lastSeen:serverTimestamp()
-        },
-        {merge:true}
-      );
+ $("app").classList.remove("hidden");
+
+ $("app").innerHTML=`
+
+ <div class="screen"
+ style="display:flex;align-items:center;justify-content:center">
+
+ <div class="card" style="width:100%;max-width:430px">
+
+ <div class="brand">
+ YOUR CHAT
+ </div>
+
+ <h2 style="text-align:center">
+ Welcome
+ </h2>
+
+ <input
+ id="username"
+ placeholder="Username"
+ >
+
+ <input
+ id="password"
+ type="password"
+ placeholder="Password"
+ >
+
+ <div class="row">
+
+ <button id="loginBtn">
+ Login
+ </button>
+
+ <button
+ id="createBtn"
+ class="secondary">
+ Create Account
+ </button>
+
+ </div>
+
+ <p
+ id="authError"
+ class="muted">
+ </p>
+
+ </div>
+
+ </div>
+ `;
+
+
+ $("loginBtn").onclick=()=>login(false);
+
+ $("createBtn").onclick=()=>login(true);
+
+}
+
+
+async function login(create){
+
+ const username=
+ $("username").value.trim();
+
+ const password=
+ $("password").value;
+
+ if(!/^[A-Za-z0-9_]{3,24}$/.test(username)){
+
+  $("authError").textContent=
+  "Username 3-24 letters/numbers/_ hona chahiye.";
+
+  return;
+
+ }
+
+ if(password.length<6){
+
+  $("authError").textContent=
+  "Password kam az kam 6 characters ka ho.";
+
+  return;
+
+ }
+
+ try{
+
+  let result;
+
+  if(create){
+
+   result=
+   await createUserWithEmailAndPassword(
+    auth,
+    usernameEmail(username),
+    password
+   );
+
+   await updateProfile(
+    result.user,
+    {
+     displayName:username
     }
+   );
 
-    document.getElementById(
-      "settingsUsername"
-    ).textContent = currentUsername;
-
-    authBox.classList.add("hidden");
-    appBox.classList.remove("hidden");
-
-    setOnline(true);
-
-    listenUsers();
-
-    loadWorldMessages();
+   await setDoc(
+    doc(db,"users",result.user.uid),
+    {
+     uid:result.user.uid,
+     username:username,
+     photo:"",
+     online:true,
+     createdAt:serverTimestamp(),
+     lastSeen:serverTimestamp()
+    }
+   );
 
   }else{
 
-    appBox.classList.add("hidden");
-    authBox.classList.remove("hidden");
+   result=
+   await signInWithEmailAndPassword(
+    auth,
+    usernameEmail(username),
+    password
+   );
 
   }
 
-});
+ }catch(error){
 
+  $("authError").textContent=
+  error.message;
 
-/* ONLINE STATUS */
-
-async function setOnline(value){
-
-  if(!currentUser) return;
-
-  try{
-
-    await updateDoc(
-      doc(db,"users",currentUser.uid),
-      {
-        online:value,
-        lastSeen:serverTimestamp()
-      }
-    );
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-}
-
-
-/* HEARTBEAT */
-
-setInterval(()=>{
-
-  if(currentUser){
-    setOnline(true);
-  }
-
-},30000);
-
-
-/* WHEN APP GOES BACKGROUND */
-
-document.addEventListener(
-  "visibilitychange",
-  ()=>{
-    if(document.hidden){
-      setOnline(false);
-    }else{
-      setOnline(true);
-    }
-  }
-);
-
-
-/* USERS REALTIME */
-
-function listenUsers(){
-
-  if(unsubscribeUsers){
-    unsubscribeUsers();
-  }
-
-  const usersRef =
-    collection(db,"users");
-
-  unsubscribeUsers =
-    onSnapshot(
-      usersRef,
-      snapshot=>{
-
-        const users = [];
-
-        snapshot.forEach(docSnap=>{
-
-          const data = docSnap.data();
-
-          users.push(data);
-
-        });
-
-        window.allUsers = users;
-
-        updateOnlineCounts(users);
-
-        renderUsers();
-
-        renderWorldOnline(users);
-
-      },
-      error=>{
-
-        console.error(error);
-        showMessage("Users load nahi ho rahe");
-
-      }
-    );
+ }
 
 }
 
 
-/* ONLINE COUNTS */
+/* =========================
+   PROFILE
+========================= */
 
-function updateOnlineCounts(users){
+async function loadProfile(){
 
-  const onlineUsers =
-    users.filter(
-      user=>user.online === true
-    );
+ const snap=
+ await getDoc(
+  doc(db,"users",me.uid)
+ );
 
-  const count =
-    onlineUsers.length;
+ if(snap.exists()){
 
-  document.getElementById(
-    "headerOnline"
-  ).textContent =
-    count + " online";
+  profile=snap.data();
 
-  document.getElementById(
-    "homeOnlineText"
-  ).textContent =
-    count + " users online";
+ }else{
 
-  document.getElementById(
-    "worldOnlineCount"
-  ).textContent = count;
+  profile={
+   uid:me.uid,
+   username:me.displayName||"User",
+   photo:""
+  };
 
-  document.getElementById(
-    "usersOnlineCount"
-  ).textContent = count;
+  await setDoc(
+   doc(db,"users",me.uid),
+   profile
+  );
+
+ }
+
+ await updateDoc(
+  doc(db,"users",me.uid),
+  {
+   online:true,
+   lastSeen:serverTimestamp()
+  }
+ );
 
 }
 
 
-/* WORLD ONLINE USERS */
+/* =========================
+   MAIN LAYOUT
+========================= */
 
-function renderWorldOnline(users){
+function layout(){
 
-  const box =
-    document.getElementById(
-      "worldOnlineList"
-    );
+ $("app").innerHTML=`
 
-  const onlineUsers =
-    users.filter(
-      user=>user.online === true
-    );
+ <div class="screen">
 
-  box.innerHTML = "";
+ <div class="top">
 
-  if(!onlineUsers.length){
+ <button
+ id="backBtn"
+ class="secondary">
+ ←
+ </button>
 
-    box.innerHTML =
-      `<div class="userRow">
-        <span>No users online</span>
-      </div>`;
+ <div>
 
-    return;
+ <b>YOUR CHAT</b>
+
+ <div class="muted">
+ ${esc(currentScreen)}
+ </div>
+
+ </div>
+
+ <div class="spacer"></div>
+
+ ${avatar(
+  profile.username,
+  profile.photo
+ )}
+
+ </div>
+
+ <div id="content"></div>
+
+ </div>
+ `;
+
+
+ $("backBtn").onclick=()=>{
+
+  if(currentScreen!=="home"){
+
+   currentScreen="home";
+
+   render();
+
   }
 
-  onlineUsers.forEach(user=>{
+ };
 
-    const name =
-      user.username || "User";
+}
 
-    const row =
-      document.createElement("div");
 
-    row.className = "userRow";
+function render(){
 
-    row.innerHTML = `
-      <div class="avatar">
-        ${name.charAt(0).toUpperCase()}
-      </div>
+ cleanup();
 
-      <div class="userName">
-        ${escapeHTML(name)}
-      </div>
+ if(!me){
 
-      <div class="userOnline">
-        ● Online
-      </div>
+  showAuth();
+
+  return;
+
+ }
+
+ layout();
+
+ const content=$("content");
+
+ if(currentScreen==="home")
+ renderHome(content);
+
+ else if(currentScreen==="world")
+ renderWorld(content);
+
+ else if(currentScreen==="users")
+ renderUsers(content);
+
+ else if(currentScreen==="private")
+ renderPrivate(content);
+
+ else if(currentScreen==="groups")
+ renderGroups(content);
+
+ else if(currentScreen==="status")
+ renderStatus(content);
+
+ else if(currentScreen==="settings")
+ renderSettings(content);
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+ <h2>
+ Welcome, ${esc(profile.username)}
+ </h2>
+
+ <p class="muted">
+ Choose an option
+ </p>
+
+ <div class="nav">
+
+ <button data-screen="world">
+ 🌍 World Chat
+ </button>
+
+ <button data-screen="users">
+ 🟢 Online Users
+ </button>
+
+ <button data-screen="private">
+ 💬 Private Chat
+ </button>
+
+ <button data-screen="groups">
+ 👥 Group Chat
+ </button>
+
+ <button data-screen="users">
+ 👤 All Users
+ </button>
+
+ <button data-screen="status"
+ class="secondary">
+ ⭕ Status
+ </button>
+
+ <button data-screen="settings"
+ class="secondary">
+ ⚙️ Settings
+ </button>
+
+ </div>
+
+ </div>
+ `;
+
+
+ c.querySelectorAll("[data-screen]")
+ .forEach(btn=>{
+
+  btn.onclick=()=>{
+
+   currentScreen=
+   btn.dataset.screen;
+
+   render();
+
+  };
+
+ });
+
+}
+
+
+/* =========================
+   WORLD CHAT
+========================= */
+
+function renderWorld(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+ <div class="row">
+
+ <b>🌍 World Chat</b>
+
+ <span
+ id="onlineCount"
+ class="muted">
+ Online...
+ </span>
+
+ </div>
+
+ <div
+ id="worldMessages"
+ class="chatlist">
+ </div>
+
+ <textarea
+ id="worldText"
+ rows="2"
+ placeholder="Write message...">
+ </textarea>
+
+ <div class="row">
+
+ <button id="worldSend">
+ Send
+ </button>
+
+ <button
+ id="mentionBtn"
+ class="secondary">
+ @ Mention
+ </button>
+
+ </div>
+
+ <div class="actions">
+
+ <button id="worldVoice">
+ 🎙 Voice
+ </button>
+
+ <label class="secondary"
+ style="padding:10px;border-radius:12px">
+
+ 📷 Media
+
+ <input
+ id="worldFile"
+ type="file"
+ accept="image/*,video/*"
+ hidden>
+
+ </label>
+
+ </div>
+
+ </div>
+ `;
+
+
+ const q=query(
+  collection(db,"worldMessages"),
+  orderBy("createdAt","desc"),
+  limit(12)
+ );
+
+
+ unsubscribers.push(
+  onSnapshot(q,snap=>{
+
+   const messages=
+   snap.docs
+   .map(d=>({
+    id:d.id,
+    ...d.data()
+   }))
+   .reverse();
+
+   $("worldMessages").innerHTML=
+   messages.map(messageHTML).join("");
+
+  })
+ );
+
+
+ const uq=query(
+  collection(db,"users"),
+  where("online","==",true)
+ );
+
+
+ unsubscribers.push(
+  onSnapshot(uq,snap=>{
+
+   $("onlineCount").textContent=
+   snap.size+" online";
+
+  })
+ );
+
+
+ $("worldSend").onclick=
+ sendWorld;
+
+ $("mentionBtn").onclick=
+ mentionUsers;
+
+ $("worldFile").onchange=
+ e=>uploadWorldFile(e.target.files[0]);
+
+}
+
+
+/* =========================
+   MESSAGE HTML
+========================= */
+
+function messageHTML(m){
+
+ const mine=
+ m.uid===me.uid;
+
+ let media="";
+
+ if(m.type==="image"){
+
+  media=
+  `<img
+   class="media"
+   src="${esc(m.url)}">`;
+
+ }
+
+ if(m.type==="video"){
+
+  media=
+  `<video
+   class="media"
+   controls
+   src="${esc(m.url)}">
+   </video>`;
+
+ }
+
+ if(m.type==="voice"){
+
+  media=
+  `<audio
+   class="media"
+   controls
+   src="${esc(m.url)}">
+   </audio>`;
+
+ }
+
+ return `
+
+ <div class="msg ${mine?"mine":""}">
+
+ <b>
+ ${esc(m.username||"User")}
+ </b>
+
+ <div>
+ ${esc(m.text||"")}
+ </div>
+
+ ${media}
+
+ <small>
+ ${m.createdAt?.toDate
+ ?m.createdAt.toDate().toLocaleString()
+ :"now"}
+ </small>
+
+ ${
+ mine
+ ?
+ `<div class="actions">
+
+ <button
+ onclick="editWorld('${m.id}')">
+ Edit
+ </button>
+
+ <button
+ onclick="deleteWorld('${m.id}')">
+ Delete
+ </button>
+
+ <button
+ onclick="reactWorld('${m.id}')">
+ ❤️
+ </button>
+
+ </div>`
+ :""
+ }
+
+ </div>
+
+ `;
+
+}
+
+
+/* =========================
+   WORLD SEND
+========================= */
+
+async function sendWorld(){
+
+ const box=$("worldText");
+
+ const text=
+ box.value.trim();
+
+ if(!text)return;
+
+ await addDoc(
+  collection(db,"worldMessages"),
+  {
+   uid:me.uid,
+   username:profile.username,
+   text:text,
+   type:"text",
+   createdAt:serverTimestamp()
+  }
+ );
+
+ box.value="";
+
+}
+
+
+window.editWorld=
+async function(id){
+
+ const text=
+ prompt("New message:");
+
+ if(!text)return;
+
+ await updateDoc(
+  doc(db,"worldMessages",id),
+  {
+   text:text,
+   edited:true
+  }
+ );
+
+};
+
+
+window.deleteWorld=
+async function(id){
+
+ if(!confirm("Delete message?"))
+ return;
+
+ await deleteDoc(
+  doc(db,"worldMessages",id)
+ );
+
+};
+
+
+window.reactWorld=
+async function(id){
+
+ await updateDoc(
+  doc(db,"worldMessages",id),
+  {
+   reaction:"❤️"
+  }
+ );
+
+};
+
+
+/* =========================
+   MENTION
+========================= */
+
+async function mentionUsers(){
+
+ const snap=
+ await getDocs(
+  query(
+   collection(db,"users"),
+   where("online","==",true),
+   limit(30)
+  )
+ );
+
+ $("modal").classList.remove("hidden");
+
+ $("modal").innerHTML=`
+
+ <div class="card">
+
+ <h3>
+ Online Users
+ </h3>
+
+ ${
+ snap.docs
+ .filter(d=>d.id!==me.uid)
+ .map(d=>{
+
+  const u=d.data();
+
+  return `
+  <button
+   style="width:100%;margin:4px 0"
+   onclick="insertMention('${esc(u.username)}')">
+
+   @${esc(u.username)}
+
+  </button>
+  `;
+
+ }).join("")
+ }
+
+ <button
+ id="closeModal"
+ class="secondary">
+ Close
+ </button>
+
+ </div>
+ `;
+
+ $("closeModal").onclick=
+ ()=>$("modal").classList.add("hidden");
+
+}
+
+
+window.insertMention=
+function(username){
+
+ $("worldText").value+=
+ " @"+username+" ";
+
+ $("modal")
+ .classList.add("hidden");
+
+};
+
+
+/* =========================
+   WORLD MEDIA
+========================= */
+
+async function uploadWorldFile(file){
+
+ if(!file)return;
+
+ if(file.size>25*1024*1024){
+
+  alert("Maximum 25MB.");
+
+  return;
+
+ }
+
+ const type=
+ file.type.startsWith("image/")
+ ?"image":
+ file.type.startsWith("video/")
+ ?"video":
+ "file";
+
+ try{
+
+  const storageRef=
+  ref(
+   storage,
+   "messages/"
+   +me.uid+"/"
+   +Date.now()+"_"+file.name
+  );
+
+  await uploadBytes(
+   storageRef,
+   file
+  );
+
+  const url=
+  await getDownloadURL(
+   storageRef
+  );
+
+  await addDoc(
+   collection(db,"worldMessages"),
+   {
+    uid:me.uid,
+    username:profile.username,
+    type:type,
+    url:url,
+    text:"",
+    createdAt:serverTimestamp()
+   }
+  );
+
+ }catch(e){
+
+  alert(e.message);
+
+ }
+
+}
+
+
+/* =========================
+   USERS
+========================= */
+
+function renderUsers(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+ <h3>
+ 👥 Users
+ </h3>
+
+ <input
+ id="userSearch"
+ placeholder="Search username">
+
+ <div id="userList"></div>
+
+ </div>
+ `;
+
+
+ const q=query(
+  collection(db,"users"),
+  orderBy("username"),
+  limit(100)
+ );
+
+
+ unsubscribers.push(
+  onSnapshot(q,snap=>{
+
+   showUsers(
+    snap.docs.map(d=>d.data())
+   );
+
+  })
+ );
+
+
+ $("userSearch").oninput=async()=>{
+
+  const term=
+  $("userSearch").value
+  .toLowerCase();
+
+  const snap=
+  await getDocs(
+   query(
+    collection(db,"users"),
+    orderBy("username"),
+    limit(100)
+   )
+  );
+
+  showUsers(
+   snap.docs
+   .map(d=>d.data())
+   .filter(u=>
+    u.username
+    ?.toLowerCase()
+    .includes(term)
+   )
+  );
+
+ };
+
+}
+
+
+function showUsers(users){
+
+ $("userList").innerHTML=
+ users.map(u=>`
+
+ <div class="user">
+
+ ${avatar(
+  u.username,
+  u.photo
+ )}
+
+ <div>
+
+ <b>
+ ${esc(u.username)}
+ </b>
+
+ <div class="muted">
+ ${u.online?"🟢 Online":"Offline"}
+ </div>
+
+ </div>
+
+ ${
+ u.uid!==me.uid
+ ?
+ `<button
+ onclick='openPrivate(
+ "${esc(u.uid)}",
+ "${esc(u.username)}",
+ "${esc(u.photo||"")}"
+ )'>
+ Chat
+ </button>`
+ :""
+ }
+
+ </div>
+
+ `).join("");
+
+}
+
+
+window.openPrivate=
+function(uid,username,photo){
+
+ selectedUser={
+  uid,
+  username,
+  photo
+ };
+
+ currentScreen=
+ "private";
+
+ render();
+
+};
+
+
+/* =========================
+   PRIVATE CHAT
+========================= */
+
+function privateId(a,b){
+
+ return [a,b]
+ .sort()
+ .join("_");
+
+}
+
+
+function renderPrivate(c){
+
+ if(!selectedUser){
+
+  c.innerHTML=`
+
+  <div class="card">
+
+  <h3>
+  💬 Private Chat
+  </h3>
+
+  <p class="muted">
+  First choose a user.
+  </p>
+
+  <button id="chooseUser">
+  Choose User
+  </button>
+
+  </div>
+  `;
+
+  $("chooseUser").onclick=()=>{
+
+   currentScreen="users";
+
+   render();
+
+  };
+
+  return;
+
+ }
+
+
+ const chatId=
+ privateId(
+  me.uid,
+  selectedUser.uid
+ );
+
+
+ c.innerHTML=`
+
+ <div class="card">
+
+ <div class="user">
+
+ ${avatar(
+  selectedUser.username,
+  selectedUser.photo
+ )}
+
+ <div>
+
+ <b>
+ ${esc(selectedUser.username)}
+ </b>
+
+ <div class="muted">
+ Private Chat
+ </div>
+
+ </div>
+
+ </div>
+
+
+ <div
+ id="privateMessages"
+ class="chatlist">
+ </div>
+
+
+ <textarea
+ id="privateText"
+ rows="2"
+ placeholder="Message...">
+ </textarea>
+
+
+ <div class="row">
+
+ <button
+ id="privateSend">
+ Send
+ </button>
+
+ <button
+ id="privateVoice"
+ class="secondary">
+ 🎙
+ </button>
+
+ </div>
+
+
+ <div class="actions">
+
+ <label class="secondary"
+ style="padding:10px;border-radius:12px">
+
+ 📷🎥 Media
+
+ <input
+ id="privateFile"
+ type="file"
+ accept="image/*,video/*"
+ hidden>
+
+ </label>
+
+ <button
+ id="blockUser"
+ class="danger">
+ Block
+ </button>
+
+ </div>
+
+ </div>
+ `;
+
+
+ const q=query(
+  collection(
+   db,
+   "chats",
+   chatId,
+   "messages"
+  ),
+  orderBy("createdAt","desc"),
+  limit(12)
+ );
+
+
+ unsubscribers.push(
+  onSnapshot(q,snap=>{
+
+   const arr=
+   snap.docs
+   .map(d=>({
+    id:d.id,
+    ...d.data()
+   }))
+   .reverse();
+
+   $("privateMessages").innerHTML=
+   arr.map(messageHTML).join("");
+
+  })
+ );
+
+
+ $("privateSend").onclick=
+ async()=>{
+
+  const text=
+  $("privateText").value.trim();
+
+  if(!text)return;
+
+  await addDoc(
+   collection(
+    db,
+    "chats",
+    chatId,
+    "messages"
+   ),
+   {
+    uid:me.uid,
+    to:selectedUser.uid,
+    username:profile.username,
+    text:text,
+    type:"text",
+    createdAt:serverTimestamp()
+   }
+  );
+
+  $("privateText").value="";
+
+ };
+
+
+ $("privateFile").onchange=
+ async e=>{
+
+  const file=e.target.files[0];
+
+  if(!file)return;
+
+  const type=
+  file.type.startsWith("image/")
+  ?"image":"video";
+
+  const r=
+  ref(
+   storage,
+   "private/"
+   +me.uid+"/"
+   +Date.now()+"_"+file.name
+  );
+
+  await uploadBytes(r,file);
+
+  const url=
+  await getDownloadURL(r);
+
+  await addDoc(
+   collection(
+    db,
+    "chats",
+    chatId,
+    "messages"
+   ),
+   {
+    uid:me.uid,
+    to:selectedUser.uid,
+    username:profile.username,
+    type:type,
+    url:url,
+    createdAt:serverTimestamp()
+   }
+  );
+
+ };
+
+
+ $("blockUser").onclick=
+ async()=>{
+
+  await setDoc(
+   doc(
+    db,
+    "blocks",
+    me.uid+"_"+selectedUser.uid
+   ),
+   {
+    uid:me.uid,
+    blocked:selectedUser.uid,
+    createdAt:serverTimestamp()
+   }
+  );
+
+  alert("User blocked.");
+
+ };
+
+}
+
+
+/* =========================
+   GROUPS
+========================= */
+
+function renderGroups(c){
+
+ c.innerHTML=`
+
+ <div class="card">
+
+ <div class="row">
+
+ <h3>
+ 👥 Group Chat
+ </h3>
+
+ <button id="newGroup">
+ + New Group
+ </button>
+
+ </div>
+
+ <div id="groupsList"></div>
+
+ </div>
+ `;
+
+
+ const q=query(
+  collection(db,"groups"),
+  orderBy("name"),
+  limit(50)
+ );
+
+
+ unsubscribers.push(
+  onSnapshot(q,snap=>{
+
+   $("groupsList").innerHTML=
+   snap.docs.map(d=>{
+
+    const g=d.data();
+
+    return `
+
+    <div class="user">
+
+    <div class="avatar">
+    👥
+    </div>
+
+    <div>
+
+    <b>
+    ${esc(g.name)}
+    </b>
+
+    <div class="muted">
+    ${g.members?.length||0} members
+    </div>
+
+    </div>
+
+    <button
+    onclick='openGroup(
+    "${d.id}",
+    "${esc(g.name)}"
+    )'>
+    Open
+    </button>
+
+    </div>
+
     `;
 
-    box.appendChild(row);
+   }).join("");
 
-  });
-
-}
-
-
-/* ALL USERS + SEARCH */
-
-function renderUsers(){
-
-  const list =
-    document.getElementById(
-      "usersList"
-    );
-
-  if(!list) return;
-
-  const search =
-    document.getElementById(
-      "userSearch"
-    ).value
-    .trim()
-    .toLowerCase();
-
-  const users =
-    (window.allUsers || [])
-    .filter(user=>{
-
-      const name =
-        (user.username || "")
-        .toLowerCase();
-
-      return name.includes(search);
-
-    })
-    .sort((a,b)=>{
-
-      if(a.online && !b.online) return -1;
-      if(!a.online && b.online) return 1;
-
-      return (a.username || "")
-        .localeCompare(b.username || "");
-
-    });
-
-  list.innerHTML = "";
-
-  if(!users.length){
-
-    list
+  })
+ )
