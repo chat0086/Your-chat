@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>YOUR CHAT</title>
 
 <style>
@@ -11,13 +11,20 @@ body{
  margin:0;
  font-family:Arial,sans-serif;
  background:#050b14;
- color:white;
+ color:#fff;
 }
 button,input,textarea{font:inherit}
 button{
  border:0;
+ border-radius:12px;
+ padding:12px 15px;
+ background:#147ed4;
+ color:#fff;
+ font-weight:bold;
  cursor:pointer;
 }
+button.secondary{background:#162b40}
+button.danger{background:#a52d3d}
 .hidden{display:none!important}
 
 #loading{
@@ -27,6 +34,19 @@ button{
  align-items:center;
  text-align:center;
  background:#050b14;
+ padding:20px;
+}
+.loadingBox{
+ width:100%;
+ max-width:430px;
+}
+.brand{
+ text-align:center;
+ font-size:25px;
+ font-weight:bold;
+ letter-spacing:5px;
+ color:#42b5ff;
+ margin-bottom:20px;
 }
 .loader{
  width:38px;
@@ -39,6 +59,13 @@ button{
 }
 @keyframes spin{
  to{transform:rotate(360deg)}
+}
+
+#loadError{
+ color:#ffb5bd;
+ font-size:13px;
+ line-height:1.5;
+ margin-top:12px;
 }
 
 .screen{
@@ -56,15 +83,6 @@ button{
  margin-bottom:12px;
 }
 
-.brand{
- text-align:center;
- font-size:25px;
- font-weight:bold;
- letter-spacing:5px;
- color:#42b5ff;
- margin-bottom:20px;
-}
-
 input,textarea{
  width:100%;
  padding:12px;
@@ -72,24 +90,8 @@ input,textarea{
  border-radius:12px;
  border:1px solid #28445f;
  background:#07111f;
- color:white;
+ color:#fff;
  outline:none;
-}
-
-button{
- padding:12px 15px;
- border-radius:12px;
- background:#147ed4;
- color:white;
- font-weight:bold;
-}
-
-.secondary{
- background:#162b40;
-}
-
-.danger{
- background:#a52d3d;
 }
 
 .row{
@@ -124,11 +126,6 @@ button{
  align-items:center;
  font-weight:bold;
  color:#8bd5ff;
-}
-
-.avatar.big{
- width:85px;
- height:85px;
 }
 
 .nav{
@@ -195,27 +192,8 @@ button{
  border-bottom:1px solid #193047;
 }
 
-.user>div:nth-child(2){
+.userGrow{
  flex:1;
-}
-
-.status-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px;
-}
-
-.status-card{
- background:#102238;
- border-radius:14px;
- overflow:hidden;
-}
-
-.status-card img,
-.status-card video{
- width:100%;
- height:180px;
- object-fit:cover;
 }
 
 .muted{
@@ -250,70 +228,66 @@ button{
 
 <body>
 
+<!-- =========================
+     LOADING
+========================= -->
+
 <div id="loading">
- <div>
-  <div class="brand">YOUR CHAT</div>
-  <div class="loader"></div>
-  <div>Connecting to the world...</div>
-  <p id="loadError" class="muted"></p>
-  <button id="retry" class="hidden">Retry</button>
+
+ <div class="loadingBox">
+
+  <div class="brand">
+   YOUR CHAT
+  </div>
+
+  <div id="loader" class="loader"></div>
+
+  <div id="loadingText">
+   Connecting to the world...
+  </div>
+
+  <div id="loadError"></div>
+
+  <button
+   id="retryBtn"
+   class="secondary hidden"
+   style="margin-top:12px">
+   Retry
+  </button>
+
  </div>
+
 </div>
+
 
 <div id="app" class="hidden"></div>
 
 <div id="modal" class="modal hidden"></div>
 
 
-<script type="module">
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+
+<script>
 
 /* =========================
    FIREBASE CONFIG
 ========================= */
 
-import {
- initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-import {
- getAuth,
- onAuthStateChanged,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- signOut,
- updateProfile
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-import {
- getFirestore,
- collection,
- doc,
- setDoc,
- getDoc,
- addDoc,
- updateDoc,
- deleteDoc,
- query,
- orderBy,
- limit,
- onSnapshot,
- where,
- getDocs,
- serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-import {
- getStorage,
- ref,
- uploadBytes,
- getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-
 const firebaseConfig = {
 
  apiKey:
- "AIzaSyBmyYllEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
+ "AIzaSyBmyYlEtZCm7yDsmqAsqdRNmxBjPSiCyQ",
 
  authDomain:
  "your-chat-24913.firebaseapp.com",
@@ -332,52 +306,50 @@ const firebaseConfig = {
 
  measurementId:
  "G-7JBWVDK838"
+
 };
-
-
-const firebaseApp =
- initializeApp(firebaseConfig);
-
-const auth =
- getAuth(firebaseApp);
-
-const db =
- getFirestore(firebaseApp);
-
-const storage =
- getStorage(firebaseApp);
 
 
 /* =========================
    VARIABLES
 ========================= */
 
-let me=null;
-let profile=null;
-let currentScreen="home";
-let selectedUser=null;
-let selectedGroup=null;
-let unsubscribers=[];
+let me = null;
 
-const $=id=>document.getElementById(id);
+let profile = null;
+
+let currentScreen = "home";
+
+let selectedUser = null;
+
+let listeners = [];
+
+let firebaseReady = false;
 
 
 /* =========================
    HELPERS
 ========================= */
 
+function $(id){
+ return document.getElementById(id);
+}
+
+
 function esc(value){
 
  return String(value ?? "")
- .replace(/[&<>"']/g,c=>({
+ .replace(/[&<>"']/g,function(c){
 
- "&":"&amp;",
- "<":"&lt;",
- ">":"&gt;",
- '"':"&quot;",
- "'":"&#39;"
+  return {
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c];
 
- }[c]));
+ });
 
 }
 
@@ -390,41 +362,98 @@ function usernameEmail(username){
 }
 
 
-function avatar(username,photo,big=false){
+function hideLoading(){
+
+ $("loading")
+ .classList.add("hidden");
+
+ $("app")
+ .classList.remove("hidden");
+
+}
+
+
+function showLoadingError(message){
+
+ $("loader")
+ .classList.add("hidden");
+
+ $("loadingText")
+ .textContent="YOUR CHAT";
+
+ $("loadError")
+ .textContent=message;
+
+ $("retryBtn")
+ .classList.remove("hidden");
+
+}
+
+
+$("retryBtn").onclick=function(){
+
+ location.reload();
+
+};
+
+
+/* =========================
+   LOADING SAFETY
+========================= */
+
+setTimeout(function(){
+
+ if(!firebaseReady){
+
+  showLoadingError(
+   "Firebase connect nahi hua. Retry dabao."
+  );
+
+ }
+
+},8000);
+
+
+/* =========================
+   AVATAR
+========================= */
+
+function avatar(username,photo){
 
  if(photo){
 
   return `
   <img
-   class="avatar ${big?"big":""}"
-   src="${esc(photo)}"
-  >`;
+   class="avatar"
+   src="${esc(photo)}">
+  `;
 
  }
 
  return `
- <div class="avatar ${big?"big":""}">
+ <div class="avatar">
  ${esc((username||"?")[0].toUpperCase())}
- </div>`;
+ </div>
+ `;
 
 }
 
+
+/* =========================
+   CLEANUP
+========================= */
 
 function cleanup(){
 
- unsubscribers.forEach(fn=>{
-  try{fn()}catch(e){}
+ listeners.forEach(function(fn){
+
+  try{
+   fn();
+  }catch(e){}
+
  });
 
- unsubscribers=[];
-
-}
-
-
-function loading(show){
-
- $("loading")
- .classList.toggle("hidden",!show);
+ listeners=[];
 
 }
 
@@ -435,16 +464,21 @@ function loading(show){
 
 function showAuth(){
 
- loading(false);
-
- $("app").classList.remove("hidden");
+ hideLoading();
 
  $("app").innerHTML=`
 
- <div class="screen"
- style="display:flex;align-items:center;justify-content:center">
+ <div
+ class="screen"
+ style="
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ min-height:100vh">
 
- <div class="card" style="width:100%;max-width:430px">
+ <div
+ class="card"
+ style="width:100%;max-width:430px">
 
  <div class="brand">
  YOUR CHAT
@@ -457,13 +491,13 @@ function showAuth(){
  <input
  id="username"
  placeholder="Username"
- >
+ autocomplete="username">
 
  <input
  id="password"
  type="password"
  placeholder="Password"
- >
+ autocomplete="current-password">
 
  <div class="row">
 
@@ -490,14 +524,27 @@ function showAuth(){
  `;
 
 
- $("loginBtn").onclick=()=>login(false);
+ $("loginBtn").onclick=function(){
 
- $("createBtn").onclick=()=>login(true);
+  authAction(false);
+
+ };
+
+
+ $("createBtn").onclick=function(){
+
+  authAction(true);
+
+ };
 
 }
 
 
-async function login(create){
+/* =========================
+   LOGIN / CREATE
+========================= */
+
+async function authAction(create){
 
  const username=
  $("username").value.trim();
@@ -505,61 +552,84 @@ async function login(create){
  const password=
  $("password").value;
 
+ const error=
+ $("authError");
+
+
  if(!/^[A-Za-z0-9_]{3,24}$/.test(username)){
 
-  $("authError").textContent=
+  error.textContent=
   "Username 3-24 letters/numbers/_ hona chahiye.";
 
   return;
 
  }
 
+
  if(password.length<6){
 
-  $("authError").textContent=
+  error.textContent=
   "Password kam az kam 6 characters ka ho.";
 
   return;
 
  }
 
+
+ error.textContent=
+ "Please wait...";
+
+
  try{
 
   let result;
 
+
   if(create){
 
    result=
-   await createUserWithEmailAndPassword(
-    auth,
+   await firebase.auth()
+   .createUserWithEmailAndPassword(
     usernameEmail(username),
     password
    );
 
-   await updateProfile(
-    result.user,
-    {
-     displayName:username
-    }
-   );
 
-   await setDoc(
-    doc(db,"users",result.user.uid),
-    {
-     uid:result.user.uid,
-     username:username,
-     photo:"",
-     online:true,
-     createdAt:serverTimestamp(),
-     lastSeen:serverTimestamp()
-    }
-   );
+   await result.user.updateProfile({
+
+    displayName:username
+
+   });
+
+
+   await firebase.firestore()
+   .collection("users")
+   .doc(result.user.uid)
+   .set({
+
+    uid:result.user.uid,
+
+    username:username,
+
+    photo:"",
+
+    online:true,
+
+    createdAt:
+    firebase.firestore.FieldValue
+    .serverTimestamp(),
+
+    lastSeen:
+    firebase.firestore.FieldValue
+    .serverTimestamp()
+
+   });
 
   }else{
 
    result=
-   await signInWithEmailAndPassword(
-    auth,
+   await firebase.auth()
+   .signInWithEmailAndPassword(
     usernameEmail(username),
     password
    );
@@ -582,46 +652,74 @@ async function login(create){
 
 async function loadProfile(){
 
- const snap=
- await getDoc(
-  doc(db,"users",me.uid)
- );
+ const db=
+ firebase.firestore();
 
- if(snap.exists()){
+
+ const userRef=
+ db.collection("users")
+ .doc(me.uid);
+
+
+ const snap=
+ await userRef.get();
+
+
+ if(snap.exists){
 
   profile=snap.data();
 
  }else{
 
   profile={
+
    uid:me.uid,
-   username:me.displayName||"User",
+
+   username:
+   me.displayName||"User",
+
    photo:""
+
   };
 
-  await setDoc(
-   doc(db,"users",me.uid),
-   profile
-  );
+
+  await userRef.set(profile);
 
  }
 
- await updateDoc(
-  doc(db,"users",me.uid),
-  {
-   online:true,
-   lastSeen:serverTimestamp()
-  }
- );
+
+ await userRef.set({
+
+  online:true,
+
+  lastSeen:
+  firebase.firestore.FieldValue
+  .serverTimestamp()
+
+ },{
+  merge:true
+ });
 
 }
 
 
 /* =========================
-   MAIN LAYOUT
+   MAIN RENDER
 ========================= */
 
-function layout(){
+function render(){
+
+ cleanup();
+
+
+ if(!me){
+
+  showAuth();
+
+  return;
+
+ }
+
 
  $("app").innerHTML=`
 
@@ -637,7 +735,9 @@ function layout(){
 
  <div>
 
- <b>YOUR CHAT</b>
+ <b>
+ YOUR CHAT
+ </b>
 
  <div class="muted">
  ${esc(currentScreen)}
@@ -654,13 +754,15 @@ function layout(){
 
  </div>
 
+
  <div id="content"></div>
 
  </div>
+
  `;
 
 
- $("backBtn").onclick=()=>{
+ $("backBtn").onclick=function(){
 
   if(currentScreen!=="home"){
 
@@ -672,44 +774,36 @@ function layout(){
 
  };
 
-}
 
+ const content=
+ $("content");
 
-function render(){
-
- cleanup();
-
- if(!me){
-
-  showAuth();
-
-  return;
-
- }
-
- layout();
-
- const content=$("content");
 
  if(currentScreen==="home")
  renderHome(content);
 
- else if(currentScreen==="world")
+
+ if(currentScreen==="world")
  renderWorld(content);
 
- else if(currentScreen==="users")
+
+ if(currentScreen==="users")
  renderUsers(content);
 
- else if(currentScreen==="private")
+
+ if(currentScreen==="private")
  renderPrivate(content);
 
- else if(currentScreen==="groups")
+
+ if(currentScreen==="groups")
  renderGroups(content);
 
- else if(currentScreen==="status")
+
+ if(currentScreen==="status")
  renderStatus(content);
 
- else if(currentScreen==="settings")
+
+ if(currentScreen==="settings")
  renderSettings(content);
 
 }
@@ -733,6 +827,7 @@ function renderHome(c){
  Choose an option
  </p>
 
+
  <div class="nav">
 
  <button data-screen="world">
@@ -755,12 +850,14 @@ function renderHome(c){
  👤 All Users
  </button>
 
- <button data-screen="status"
+ <button
+ data-screen="status"
  class="secondary">
  ⭕ Status
  </button>
 
- <button data-screen="settings"
+ <button
+ data-screen="settings"
  class="secondary">
  ⚙️ Settings
  </button>
@@ -768,16 +865,17 @@ function renderHome(c){
  </div>
 
  </div>
+
  `;
 
 
  c.querySelectorAll("[data-screen]")
- .forEach(btn=>{
+ .forEach(function(button){
 
-  btn.onclick=()=>{
+  button.onclick=function(){
 
    currentScreen=
-   btn.dataset.screen;
+   button.dataset.screen;
 
    render();
 
@@ -800,7 +898,9 @@ function renderWorld(c){
 
  <div class="row">
 
- <b>🌍 World Chat</b>
+ <b>
+ 🌍 World Chat
+ </b>
 
  <span
  id="onlineCount"
@@ -810,16 +910,19 @@ function renderWorld(c){
 
  </div>
 
+
  <div
  id="worldMessages"
  class="chatlist">
  </div>
+
 
  <textarea
  id="worldText"
  rows="2"
  placeholder="Write message...">
  </textarea>
+
 
  <div class="row">
 
@@ -835,14 +938,14 @@ function renderWorld(c){
 
  </div>
 
+
  <div class="actions">
 
- <button id="worldVoice">
- 🎙 Voice
- </button>
-
- <label class="secondary"
- style="padding:10px;border-radius:12px">
+ <label
+ class="secondary"
+ style="
+ padding:10px;
+ border-radius:12px">
 
  📷 Media
 
@@ -857,58 +960,100 @@ function renderWorld(c){
  </div>
 
  </div>
+
  `;
 
 
- const q=query(
-  collection(db,"worldMessages"),
-  orderBy("createdAt","desc"),
-  limit(12)
+ const db=
+ firebase.firestore();
+
+
+ const messageQuery=
+ db.collection("worldMessages")
+ .orderBy("createdAt","desc")
+ .limit(50);
+
+
+ listeners.push(
+
+  messageQuery.onSnapshot(
+
+   function(snapshot){
+
+    const messages=
+    snapshot.docs
+    .map(function(doc){
+
+     return {
+      id:doc.id,
+      ...doc.data()
+     };
+
+    })
+    .reverse();
+
+
+    $("worldMessages")
+    .innerHTML=
+    messages
+    .map(messageHTML)
+    .join("");
+
+
+   },
+
+   function(error){
+
+    $("worldMessages")
+    .innerHTML=
+    `<p class="muted">
+    World Chat error:
+    ${esc(error.message)}
+    </p>`;
+
+   }
+
+  )
+
  );
 
 
- unsubscribers.push(
-  onSnapshot(q,snap=>{
-
-   const messages=
-   snap.docs
-   .map(d=>({
-    id:d.id,
-    ...d.data()
-   }))
-   .reverse();
-
-   $("worldMessages").innerHTML=
-   messages.map(messageHTML).join("");
-
-  })
- );
+ const onlineQuery=
+ db.collection("users")
+ .where("online","==",true);
 
 
- const uq=query(
-  collection(db,"users"),
-  where("online","==",true)
- );
+ listeners.push(
 
+  onlineQuery.onSnapshot(
+   function(snapshot){
 
- unsubscribers.push(
-  onSnapshot(uq,snap=>{
+    $("onlineCount")
+    .textContent=
+    snapshot.size+" online";
 
-   $("onlineCount").textContent=
-   snap.size+" online";
+   }
+  )
 
-  })
  );
 
 
  $("worldSend").onclick=
  sendWorld;
 
+
  $("mentionBtn").onclick=
  mentionUsers;
 
+
  $("worldFile").onchange=
- e=>uploadWorldFile(e.target.files[0]);
+ function(e){
+
+  uploadWorldFile(
+   e.target.files[0]
+  );
+
+ };
 
 }
 
@@ -922,38 +1067,46 @@ function messageHTML(m){
  const mine=
  m.uid===me.uid;
 
+
  let media="";
+
 
  if(m.type==="image"){
 
-  media=
-  `<img
+  media=`
+  <img
    class="media"
-   src="${esc(m.url)}">`;
+   src="${esc(m.url)}">
+  `;
 
  }
+
 
  if(m.type==="video"){
 
-  media=
-  `<video
+  media=`
+  <video
    class="media"
    controls
    src="${esc(m.url)}">
-   </video>`;
+  </video>
+  `;
 
  }
+
 
  if(m.type==="voice"){
 
-  media=
-  `<audio
+  media=`
+  <audio
    class="media"
    controls
    src="${esc(m.url)}">
-   </audio>`;
+  </audio>
+  `;
 
  }
+
 
  return `
 
@@ -969,34 +1122,51 @@ function messageHTML(m){
 
  ${media}
 
+
  <small>
- ${m.createdAt?.toDate
- ?m.createdAt.toDate().toLocaleString()
- :"now"}
- </small>
 
  ${
- mine
- ?
- `<div class="actions">
+  m.createdAt &&
+  m.createdAt.toDate
 
- <button
- onclick="editWorld('${m.id}')">
- Edit
- </button>
+  ?
 
- <button
- onclick="deleteWorld('${m.id}')">
- Delete
- </button>
+  m.createdAt
+  .toDate()
+  .toLocaleString()
 
- <button
- onclick="reactWorld('${m.id}')">
- ❤️
- </button>
+  :
 
- </div>`
- :""
+  "now"
+
+ }
+
+ </small>
+
+
+ ${
+  mine
+
+  ?
+
+  `<div class="actions">
+
+  <button
+   onclick="editWorld('${m.id}')">
+   Edit
+  </button>
+
+  <button
+   onclick="deleteWorld('${m.id}')">
+   Delete
+  </button>
+
+  </div>`
+
+  :
+
+  ""
+
  }
 
  </div>
@@ -1007,33 +1177,60 @@ function messageHTML(m){
 
 
 /* =========================
-   WORLD SEND
+   SEND WORLD
 ========================= */
 
 async function sendWorld(){
 
- const box=$("worldText");
+ const box=
+ $("worldText");
+
 
  const text=
  box.value.trim();
 
- if(!text)return;
 
- await addDoc(
-  collection(db,"worldMessages"),
-  {
+ if(!text)
+ return;
+
+
+ try{
+
+  await firebase.firestore()
+  .collection("worldMessages")
+  .add({
+
    uid:me.uid,
-   username:profile.username,
-   text:text,
-   type:"text",
-   createdAt:serverTimestamp()
-  }
- );
 
- box.value="";
+   username:
+   profile.username,
+
+   text:text,
+
+   type:"text",
+
+   createdAt:
+   firebase.firestore.FieldValue
+   .serverTimestamp()
+
+  });
+
+
+  box.value="";
+
+
+ }catch(error){
+
+  alert(error.message);
+
+ }
 
 }
 
+
+/* =========================
+   EDIT
+========================= */
 
 window.editWorld=
 async function(id){
@@ -1041,18 +1238,36 @@ async function(id){
  const text=
  prompt("New message:");
 
- if(!text)return;
 
- await updateDoc(
-  doc(db,"worldMessages",id),
-  {
+ if(!text)
+ return;
+
+
+ try{
+
+  await firebase.firestore()
+  .collection("worldMessages")
+  .doc(id)
+  .update({
+
    text:text,
+
    edited:true
-  }
- );
+
+  });
+
+ }catch(error){
+
+  alert(error.message);
+
+ }
 
 };
 
+
+/* =========================
+   DELETE
+========================= */
 
 window.deleteWorld=
 async function(id){
@@ -1060,22 +1275,19 @@ async function(id){
  if(!confirm("Delete message?"))
  return;
 
- await deleteDoc(
-  doc(db,"worldMessages",id)
- );
 
-};
+ try{
 
+  await firebase.firestore()
+  .collection("worldMessages")
+  .doc(id)
+  .delete();
 
-window.reactWorld=
-async function(id){
+ }catch(error){
 
- await updateDoc(
-  doc(db,"worldMessages",id),
-  {
-   reaction:"❤️"
-  }
- );
+  alert(error.message);
+
+ }
 
 };
 
@@ -1086,56 +1298,86 @@ async function(id){
 
 async function mentionUsers(){
 
- const snap=
- await getDocs(
-  query(
-   collection(db,"users"),
-   where("online","==",true),
-   limit(30)
-  )
- );
+ try{
 
- $("modal").classList.remove("hidden");
+  const snapshot=
+  await firebase.firestore()
+  .collection("users")
+  .where("online","==",true)
+  .limit(30)
+  .get();
 
- $("modal").innerHTML=`
 
- <div class="card">
+  $("modal")
+  .classList.remove("hidden");
 
- <h3>
- Online Users
- </h3>
 
- ${
- snap.docs
- .filter(d=>d.id!==me.uid)
- .map(d=>{
+  $("modal").innerHTML=`
 
-  const u=d.data();
+  <div class="card">
 
-  return `
+  <h3>
+  Online Users
+  </h3>
+
+  ${
+   snapshot.docs
+   .filter(function(d){
+
+    return d.id!==me.uid;
+
+   })
+   .map(function(d){
+
+    const u=d.data();
+
+    return `
+
+    <button
+     style="
+     width:100%;
+     margin:4px 0"
+     onclick="
+     insertMention('${esc(u.username)}')">
+
+     @${esc(u.username)}
+
+    </button>
+
+    `;
+
+   })
+   .join("")
+  }
+
+
   <button
-   style="width:100%;margin:4px 0"
-   onclick="insertMention('${esc(u.username)}')">
+   id="closeModal"
+   class="secondary">
 
-   @${esc(u.username)}
+   Close
 
   </button>
+
+  </div>
+
   `;
 
- }).join("")
+
+  $("closeModal").onclick=
+  function(){
+
+   $("modal")
+   .classList.add("hidden");
+
+  };
+
+
+ }catch(error){
+
+  alert(error.message);
+
  }
-
- <button
- id="closeModal"
- class="secondary">
- Close
- </button>
-
- </div>
- `;
-
- $("closeModal").onclick=
- ()=>$("modal").classList.add("hidden");
 
 }
 
@@ -1158,7 +1400,9 @@ function(username){
 
 async function uploadWorldFile(file){
 
- if(!file)return;
+ if(!file)
+ return;
+
 
  if(file.size>25*1024*1024){
 
@@ -1168,48 +1412,65 @@ async function uploadWorldFile(file){
 
  }
 
- const type=
- file.type.startsWith("image/")
- ?"image":
- file.type.startsWith("video/")
- ?"video":
- "file";
 
  try{
 
+  const type=
+  file.type.startsWith("image/")
+  ?
+
+  "image"
+
+  :
+
+  "video";
+
+
+  const storage=
+  firebase.storage();
+
+
   const storageRef=
-  ref(
-   storage,
+  storage.ref(
    "messages/"
    +me.uid+"/"
-   +Date.now()+"_"+file.name
+   +Date.now()
+   +"_"+file.name
   );
 
-  await uploadBytes(
-   storageRef,
-   file
-  );
+
+  await storageRef.put(file);
+
 
   const url=
-  await getDownloadURL(
-   storageRef
-  );
+  await storageRef.getDownloadURL();
 
-  await addDoc(
-   collection(db,"worldMessages"),
-   {
-    uid:me.uid,
-    username:profile.username,
-    type:type,
-    url:url,
-    text:"",
-    createdAt:serverTimestamp()
-   }
-  );
 
- }catch(e){
+  await firebase.firestore()
+  .collection("worldMessages")
+  .add({
 
-  alert(e.message);
+   uid:me.uid,
+
+   username:
+   profile.username,
+
+   type:type,
+
+   url:url,
+
+   text:"",
+
+   createdAt:
+   firebase.firestore.FieldValue
+   .serverTimestamp()
+
+  });
+
+
+ }catch(error){
+
+  alert(error.message);
 
  }
 
@@ -1237,113 +1498,194 @@ function renderUsers(c){
  <div id="userList"></div>
 
  </div>
+
  `;
 
 
- const q=query(
-  collection(db,"users"),
-  orderBy("username"),
-  limit(100)
+ const queryRef=
+ firebase.firestore()
+ .collection("users")
+ .orderBy("username")
+ .limit(100);
+
+
+ listeners.push(
+
+  queryRef.onSnapshot(
+
+   function(snapshot){
+
+    displayUsers(
+     snapshot.docs
+     .map(function(d){
+
+      return d.data();
+
+     })
+    );
+
+   },
+
+   function(error){
+
+    $("userList")
+    .innerHTML=
+    `<p class="muted">
+    ${esc(error.message)}
+    </p>`;
+
+   }
+
+  )
+
  );
 
 
- unsubscribers.push(
-  onSnapshot(q,snap=>{
-
-   showUsers(
-    snap.docs.map(d=>d.data())
-   );
-
-  })
- );
-
-
- $("userSearch").oninput=async()=>{
+ $("userSearch").oninput=
+ async function(){
 
   const term=
-  $("userSearch").value
+  $("userSearch")
+  .value
   .toLowerCase();
 
-  const snap=
-  await getDocs(
-   query(
-    collection(db,"users"),
-    orderBy("username"),
-    limit(100)
-   )
-  );
 
-  showUsers(
-   snap.docs
-   .map(d=>d.data())
-   .filter(u=>
-    u.username
-    ?.toLowerCase()
-    .includes(term)
-   )
-  );
+  try{
+
+   const snapshot=
+   await queryRef.get();
+
+
+   displayUsers(
+
+    snapshot.docs
+    .map(function(d){
+
+     return d.data();
+
+    })
+    .filter(function(user){
+
+     return (user.username||"")
+     .toLowerCase()
+     .includes(term);
+
+    })
+
+   );
+
+  }catch(error){
+
+   $("userList")
+   .textContent=
+   error.message;
+
+  }
 
  };
 
 }
 
 
-function showUsers(users){
+/* =========================
+   DISPLAY USERS
+========================= */
 
- $("userList").innerHTML=
- users.map(u=>`
+function displayUsers(users){
 
- <div class="user">
+ $("userList")
+ .innerHTML=
 
- ${avatar(
-  u.username,
-  u.photo
- )}
+ users.map(function(user){
 
- <div>
+  return `
 
- <b>
- ${esc(u.username)}
- </b>
+  <div class="user">
 
- <div class="muted">
- ${u.online?"🟢 Online":"Offline"}
- </div>
+  ${avatar(
+   user.username,
+   user.photo
+  )}
 
- </div>
 
- ${
- u.uid!==me.uid
- ?
- `<button
- onclick='openPrivate(
- "${esc(u.uid)}",
- "${esc(u.username)}",
- "${esc(u.photo||"")}"
- )'>
- Chat
- </button>`
- :""
- }
+  <div class="userGrow">
 
- </div>
+  <b>
+  ${esc(user.username)}
+  </b>
 
- `).join("");
+  <div class="muted">
+
+  ${
+   user.online
+   ?
+
+   "🟢 Online"
+
+   :
+
+   "Offline"
+
+  }
+
+  </div>
+
+  </div>
+
+
+  ${
+   user.uid!==me.uid
+
+   ?
+
+   `<button
+   onclick='openPrivate(
+   "${esc(user.uid)}",
+   "${esc(user.username)}",
+   "${esc(user.photo||"")}"
+   )'>
+
+   Chat
+
+   </button>`
+
+   :
+
+   ""
+
+  }
+
+  </div>
+
+  `;
+
+ })
+ .join("");
 
 }
 
+
+/* =========================
+   OPEN PRIVATE
+========================= */
 
 window.openPrivate=
 function(uid,username,photo){
 
  selectedUser={
-  uid,
-  username,
-  photo
+
+  uid:uid,
+
+  username:username,
+
+  photo:photo
+
  };
+
 
  currentScreen=
  "private";
+
 
  render();
 
@@ -1351,7 +1693,7 @@ function(uid,username,photo){
 
 
 /* =========================
-   PRIVATE CHAT
+   PRIVATE ID
 ========================= */
 
 function privateId(a,b){
@@ -1362,6 +1704,10 @@ function privateId(a,b){
 
 }
 
+
+/* =========================
+   PRIVATE CHAT
+========================= */
 
 function renderPrivate(c){
 
@@ -1384,15 +1730,19 @@ function renderPrivate(c){
   </button>
 
   </div>
+
   `;
 
-  $("chooseUser").onclick=()=>{
+
+  $("chooseUser").onclick=
+  function(){
 
    currentScreen="users";
 
    render();
 
   };
+
 
   return;
 
@@ -1417,7 +1767,7 @@ function renderPrivate(c){
   selectedUser.photo
  )}
 
- <div>
+ <div class="userGrow">
 
  <b>
  ${esc(selectedUser.username)}
@@ -1445,252 +1795,41 @@ function renderPrivate(c){
  </textarea>
 
 
- <div class="row">
-
- <button
- id="privateSend">
+ <button id="privateSend">
  Send
  </button>
 
- <button
- id="privateVoice"
- class="secondary">
- 🎙
- </button>
-
  </div>
 
-
- <div class="actions">
-
- <label class="secondary"
- style="padding:10px;border-radius:12px">
-
- 📷🎥 Media
-
- <input
- id="privateFile"
- type="file"
- accept="image/*,video/*"
- hidden>
-
- </label>
-
- <button
- id="blockUser"
- class="danger">
- Block
- </button>
-
- </div>
-
- </div>
  `;
 
 
- const q=query(
-  collection(
-   db,
-   "chats",
-   chatId,
-   "messages"
-  ),
-  orderBy("createdAt","desc"),
-  limit(12)
- );
+ const db=
+ firebase.firestore();
 
 
- unsubscribers.push(
-  onSnapshot(q,snap=>{
-
-   const arr=
-   snap.docs
-   .map(d=>({
-    id:d.id,
-    ...d.data()
-   }))
-   .reverse();
-
-   $("privateMessages").innerHTML=
-   arr.map(messageHTML).join("");
-
-  })
- );
+ const queryRef=
+ db.collection("chats")
+ .doc(chatId)
+ .collection("messages")
+ .orderBy("createdAt","desc")
+ .limit(50);
 
 
- $("privateSend").onclick=
- async()=>{
+ listeners.push(
 
-  const text=
-  $("privateText").value.trim();
+  queryRef.onSnapshot(
 
-  if(!text)return;
+   function(snapshot){
 
-  await addDoc(
-   collection(
-    db,
-    "chats",
-    chatId,
-    "messages"
-   ),
-   {
-    uid:me.uid,
-    to:selectedUser.uid,
-    username:profile.username,
-    text:text,
-    type:"text",
-    createdAt:serverTimestamp()
-   }
-  );
+    const messages=
+    snapshot.docs
+    .map(function(d){
 
-  $("privateText").value="";
+     return {
+      id:d.id,
+      ...d.data()
+     };
 
- };
-
-
- $("privateFile").onchange=
- async e=>{
-
-  const file=e.target.files[0];
-
-  if(!file)return;
-
-  const type=
-  file.type.startsWith("image/")
-  ?"image":"video";
-
-  const r=
-  ref(
-   storage,
-   "private/"
-   +me.uid+"/"
-   +Date.now()+"_"+file.name
-  );
-
-  await uploadBytes(r,file);
-
-  const url=
-  await getDownloadURL(r);
-
-  await addDoc(
-   collection(
-    db,
-    "chats",
-    chatId,
-    "messages"
-   ),
-   {
-    uid:me.uid,
-    to:selectedUser.uid,
-    username:profile.username,
-    type:type,
-    url:url,
-    createdAt:serverTimestamp()
-   }
-  );
-
- };
-
-
- $("blockUser").onclick=
- async()=>{
-
-  await setDoc(
-   doc(
-    db,
-    "blocks",
-    me.uid+"_"+selectedUser.uid
-   ),
-   {
-    uid:me.uid,
-    blocked:selectedUser.uid,
-    createdAt:serverTimestamp()
-   }
-  );
-
-  alert("User blocked.");
-
- };
-
-}
-
-
-/* =========================
-   GROUPS
-========================= */
-
-function renderGroups(c){
-
- c.innerHTML=`
-
- <div class="card">
-
- <div class="row">
-
- <h3>
- 👥 Group Chat
- </h3>
-
- <button id="newGroup">
- + New Group
- </button>
-
- </div>
-
- <div id="groupsList"></div>
-
- </div>
- `;
-
-
- const q=query(
-  collection(db,"groups"),
-  orderBy("name"),
-  limit(50)
- );
-
-
- unsubscribers.push(
-  onSnapshot(q,snap=>{
-
-   $("groupsList").innerHTML=
-   snap.docs.map(d=>{
-
-    const g=d.data();
-
-    return `
-
-    <div class="user">
-
-    <div class="avatar">
-    👥
-    </div>
-
-    <div>
-
-    <b>
-    ${esc(g.name)}
-    </b>
-
-    <div class="muted">
-    ${g.members?.length||0} members
-    </div>
-
-    </div>
-
-    <button
-    onclick='openGroup(
-    "${d.id}",
-    "${esc(g.name)}"
-    )'>
-    Open
-    </button>
-
-    </div>
-
-    `;
-
-   }).join("");
-
-  })
- )
+    })
+  
