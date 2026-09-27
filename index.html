@@ -4,95 +4,362 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>CHIT CHAT PLUS</title>
+
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:#07111f;color:#fff;font-family:Arial,sans-serif;overflow:hidden}
-button,input,textarea{font-family:Arial,sans-serif}
+html,body{
+margin:0;
+height:100%;
+background:#07111f;
+color:#fff;
+font-family:Arial,sans-serif;
+overflow:hidden
+}
+button,input{font-family:Arial,sans-serif}
 button{cursor:pointer}
-#loading{position:fixed;inset:0;background:#07111f;z-index:9999}
-#loading img{width:100%;height:100%;object-fit:cover}
-.top{height:54px;background:#101d32;border-bottom:1px solid #263957;display:flex;align-items:center;padding:0 10px}
-.logo{font-weight:bold;font-size:18px;color:#7de3ff;flex:1}
-.online{font-size:12px;color:#75f5a5}
-.screen{height:calc(100% - 106px);overflow:auto;padding:10px}
-.nav{height:52px;background:#0d1829;border-top:1px solid #263957;display:flex}
-.nav button{flex:1;background:none;border:0;color:#9db0ca;font-size:11px}
-.nav button.on{color:#fff;background:#15253d}
-.card{background:#0e1b2d;border:1px solid #263957;border-radius:10px;padding:10px;margin-bottom:8px}
-.row{display:flex;align-items:center;gap:9px}
-.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#263957}
-.name{font-size:14px;font-weight:bold}
-.small{font-size:11px;color:#93a8c3}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#586a80;margin-right:5px}
-.dot.on{background:#3ff08a}
-.msg{background:#162844;border-radius:9px;padding:8px 9px;margin:5px 0;max-width:92%;word-break:break-word}
-.mine{margin-left:auto;background:#15536a}
-.time{font-size:9px;color:#8297b1;margin-top:3px}
-.mention{color:#7de3ff}
-.inputbar{position:fixed;bottom:52px;left:0;right:0;background:#0c1728;border-top:1px solid #263957;padding:7px;display:flex;gap:6px}
-.inputbar input{flex:1;background:#091424;color:#fff;border:1px solid #314967;border-radius:8px;padding:10px;outline:none}
-.btn{border:0;border-radius:8px;background:#20a8d8;color:#fff;padding:9px 12px;font-weight:bold}
+
+#loading{
+position:fixed;
+left:0;
+top:0;
+right:0;
+bottom:0;
+background:#07111f;
+z-index:99999
+}
+#loading img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.top{
+height:54px;
+background:#101d32;
+border-bottom:1px solid #263957;
+display:flex;
+align-items:center;
+padding:0 10px
+}
+
+.logo{
+font-weight:bold;
+font-size:18px;
+color:#7de3ff;
+flex:1
+}
+
+.online{
+font-size:12px;
+color:#75f5a5
+}
+
+.screen{
+height:calc(100% - 106px);
+overflow-y:auto;
+overflow-x:hidden;
+padding:10px;
+-webkit-overflow-scrolling:touch
+}
+
+.nav{
+height:52px;
+background:#0d1829;
+border-top:1px solid #263957;
+display:flex
+}
+
+.nav button{
+flex:1;
+background:none;
+border:0;
+color:#9db0ca;
+font-size:11px
+}
+
+.nav button.on{
+color:#fff;
+background:#15253d
+}
+
+.card{
+background:#0e1b2d;
+border:1px solid #263957;
+border-radius:10px;
+padding:10px;
+margin-bottom:8px
+}
+
+.row{
+display:flex;
+align-items:center;
+gap:9px
+}
+
+.avatar{
+width:38px;
+height:38px;
+border-radius:50%;
+object-fit:cover;
+background:#263957
+}
+
+.name{
+font-size:14px;
+font-weight:bold
+}
+
+.small{
+font-size:11px;
+color:#93a8c3
+}
+
+.dot{
+display:inline-block;
+width:8px;
+height:8px;
+border-radius:50%;
+background:#586a80;
+margin-right:5px
+}
+
+.dot.on{
+background:#3ff08a
+}
+
+.msg{
+background:#162844;
+border-radius:9px;
+padding:8px 9px;
+margin:5px 0;
+max-width:92%;
+word-break:break-word
+}
+
+.mine{
+margin-left:auto;
+background:#15536a
+}
+
+.time{
+font-size:9px;
+color:#8297b1;
+margin-top:3px
+}
+
+.mention{
+color:#7de3ff
+}
+
+.inputbar{
+position:fixed;
+bottom:52px;
+left:0;
+right:0;
+background:#0c1728;
+border-top:1px solid #263957;
+padding:7px;
+display:flex;
+gap:6px;
+z-index:500
+}
+
+.inputbar input{
+flex:1;
+background:#091424;
+color:#fff;
+border:1px solid #314967;
+border-radius:8px;
+padding:10px;
+outline:none
+}
+
+.btn{
+border:0;
+border-radius:8px;
+background:#20a8d8;
+color:#fff;
+padding:9px 12px;
+font-weight:bold
+}
+
 .gray{background:#263957}
 .green{background:#198c60}
 .red{background:#a83c4a}
-.listbtn{width:100%;text-align:left;background:#0e1b2d;color:#fff;border:1px solid #263957;padding:9px;border-radius:9px;margin-bottom:7px}
-.form{max-width:380px;margin:35px auto;padding:15px}
-.form h1{text-align:center;color:#7de3ff}
-.form input{width:100%;margin:6px 0;background:#091424;color:#fff;border:1px solid #314967;border-radius:8px;padding:11px}
-.form .btn{width:100%;margin-top:7px}
+
+.listbtn{
+width:100%;
+text-align:left;
+background:#0e1b2d;
+color:#fff;
+border:1px solid #263957;
+padding:9px;
+border-radius:9px;
+margin-bottom:7px
+}
+
+.form{
+max-width:380px;
+margin:35px auto;
+padding:15px
+}
+
+.form h1{
+text-align:center;
+color:#7de3ff
+}
+
+.form input{
+width:100%;
+margin:6px 0;
+background:#091424;
+color:#fff;
+border:1px solid #314967;
+border-radius:8px;
+padding:11px
+}
+
+.form .btn{
+width:100%;
+margin-top:7px
+}
+
 .center{text-align:center}
-.hidden{display:none!important}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9000;padding:15px;overflow:auto}
-.modalbox{max-width:430px;margin:20px auto;background:#0d1a2b;border:1px solid #314967;border-radius:12px;padding:12px}
-#toast{position:fixed;left:10px;right:10px;bottom:62px;background:#172941;padding:10px;border-radius:8px;text-align:center;z-index:10000;display:none}
-hr{border:0;border-top:1px solid #263957}
+
+.hidden{
+display:none!important
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+z-index:9000;
+padding:15px;
+overflow:auto
+}
+
+.modalbox{
+max-width:430px;
+margin:20px auto;
+background:#0d1a2b;
+border:1px solid #314967;
+border-radius:12px;
+padding:12px
+}
+
+#toast{
+position:fixed;
+left:10px;
+right:10px;
+bottom:62px;
+background:#172941;
+padding:10px;
+border-radius:8px;
+text-align:center;
+z-index:10000;
+display:none
+}
+
+hr{
+border:0;
+border-top:1px solid #263957
+}
 </style>
 </head>
 
 <body>
 
 <div id="loading">
-<img src="/loading.png" onerror="this.style.display='none'">
+<img src="loading.png" onerror="document.getElementById('loading').style.display='none'">
 </div>
 
 <div id="login" class="screen hidden">
 <div class="form">
+
 <h1>CHIT CHAT PLUS</h1>
-<div class="small center">Real Firebase login — same account on every browser</div>
 
-<input id="loginUser" placeholder="Username" maxlength="30">
-<input id="loginPass" type="password" placeholder="Password (6+ characters)" maxlength="60">
+<div class="small center">
+Firebase Login
+</div>
 
-<button class="btn" id="loginBtn">Login</button>
-<button class="btn gray" id="createBtn">Create Account</button>
+<input id="loginUser"
+placeholder="Username"
+maxlength="30">
+
+<input id="loginPass"
+type="password"
+placeholder="Password (6+ characters)"
+maxlength="60">
+
+<button class="btn" id="loginBtn">
+Login
+</button>
+
+<button class="btn gray" id="createBtn">
+Create Account
+</button>
 
 <div id="authMsg" class="small center"></div>
+
 </div>
 </div>
 
 <div id="app" class="hidden">
 
 <div class="top">
-<div class="logo">CHIT CHAT PLUS</div>
-<div id="onlineTop" class="online">Online: 0</div>
+
+<div class="logo">
+CHIT CHAT PLUS
+</div>
+
+<div id="onlineTop" class="online">
+Online: 0
+</div>
+
 </div>
 
 <div id="screen" class="screen"></div>
 
 <div class="nav">
-<button data-page="world">World</button>
-<button data-page="private">Private</button>
-<button data-page="groups">Groups</button>
-<button data-page="status">Status</button>
-<button data-page="users">Users</button>
+
+<button data-page="world">
+World
+</button>
+
+<button data-page="private">
+Private
+</button>
+
+<button data-page="groups">
+Groups
+</button>
+
+<button data-page="status">
+Status
+</button>
+
+<button data-page="users">
+Users
+</button>
+
 </div>
 
 </div>
 
 <div id="inputBar" class="inputbar hidden">
-<input id="msgInput" placeholder="Message...">
-<button id="voiceBtn" class="btn gray">🎙</button>
-<button id="sendBtn" class="btn">Send</button>
+
+<input id="msgInput"
+placeholder="Message...">
+
+<button id="voiceBtn" class="btn gray">
+🎙
+</button>
+
+<button id="sendBtn" class="btn">
+Send
+</button>
+
 </div>
 
 <div id="toast"></div>
@@ -129,16 +396,13 @@ var users={};
 var page="world";
 var privateUid=null;
 var groupId=null;
-
 var pageUnsub=null;
 var usersUnsub=null;
 var presenceTimer=null;
-var recording=null;
-var recordChunks=[];
 
-var $=function(id){
+function $(id){
 return document.getElementById(id);
-};
+}
 
 function esc(s){
 return String(s||"")
@@ -149,70 +413,101 @@ return String(s||"")
 }
 
 function toast(s){
+
 $("toast").innerHTML=esc(s);
 $("toast").style.display="block";
 
 setTimeout(function(){
 $("toast").style.display="none";
 },2500);
+
 }
 
 function hideLoading(){
+
 setTimeout(function(){
-$("loading").className="hidden";
-},250);
+
+$("loading").style.display="none";
+
+},500);
+
 }
 
-setTimeout(function(){
-hideLoading();
-},5000);
+setTimeout(hideLoading,5000);
+
+function avatar(u){
+
+if(u&&u.avatar){
+return u.avatar;
+}
+
+var n=(u&&u.username||"?")
+.charAt(0)
+.toUpperCase();
+
+return "https://dummyimage.com/80x80/263957/ffffff&text="+
+encodeURIComponent(n);
+
+}
+
+function usernameEmail(u){
+
+return u
+.toLowerCase()
+.replace(/[^a-z0-9_]/g,"")
+.slice(0,25)+
+"@chitchatplus.local";
+
+}
 
 function timeOf(t){
+
 if(!t)return "";
 
-var d=t.toDate?t.toDate():new Date(t);
+var d=t.toDate?
+t.toDate():
+new Date(t);
 
 return d.toLocaleTimeString([],{
 hour:"2-digit",
 minute:"2-digit"
 });
-}
-
-function avatar(u){
-
-if(u&&u.avatar)
-return u.avatar;
-
-var n=(u&&u.username||"?").charAt(0).toUpperCase();
-
-return "https://dummyimage.com/80x80/263957/ffffff&text="+encodeURIComponent(n);
-}
-
-function usernameEmail(u){
-
-return u.toLowerCase()
-.replace(/[^a-z0-9_]/g,"")
-.slice(0,25)+"@chitchatplus.local";
 
 }
 
-function err(e){
+function errorText(e){
+
+if(!e)return "Unknown error";
 
 var m={
-"auth/email-already-in-use":"Username already exists.",
-"auth/user-not-found":"Account not found.",
-"auth/wrong-password":"Wrong password.",
-"auth/invalid-credential":"Wrong username or password.",
-"auth/weak-password":"Password must be at least 6 characters.",
-"auth/too-many-requests":"Too many attempts. Try later."
+
+"auth/email-already-in-use":
+"Username already exists.",
+
+"auth/user-not-found":
+"Account not found.",
+
+"auth/wrong-password":
+"Wrong password.",
+
+"auth/invalid-credential":
+"Wrong username or password.",
+
+"auth/weak-password":
+"Password must be at least 6 characters.",
+
+"auth/too-many-requests":
+"Too many attempts. Try later."
+
 };
 
-return m[e&&e.code]||(e&&e.message)||"Something went wrong.";
+return m[e.code]||e.message||"Something went wrong.";
+
 }
 
 function badWord(s){
 
-var a=[
+var words=[
 "fuck",
 "bitch",
 "chutiya",
@@ -224,85 +519,96 @@ var a=[
 
 var t=s.toLowerCase();
 
-for(var i=0;i<a.length;i++){
+for(var i=0;i<words.length;i++){
 
-if(t.indexOf(a[i])>=0)
+if(t.indexOf(words[i])>=0){
 return true;
+}
 
 }
 
 return false;
+
 }
 
 function spamOK(){
 
-var k="ccspam_"+me.uid;
-var rk="ccrestrict_"+me.uid;
+var key="ccspam_"+me.uid;
+var block="ccrestrict_"+me.uid;
 
 var now=Date.now();
 
 var until=parseInt(
-localStorage.getItem(rk)||"0",
+localStorage.getItem(block)||"0",
 10
 );
 
 if(until>now){
 
 toast(
-"Spam restriction active for "+
-Math.ceil((until-now)/60000)+
-" minute(s)."
+"Spam restriction active."
 );
 
 return false;
+
 }
 
 var a=[];
 
 try{
+
 a=JSON.parse(
-localStorage.getItem(k)||"[]"
+localStorage.getItem(key)||"[]"
 );
+
 }catch(e){
+
 a=[];
+
 }
 
 var b=[];
 
 for(var i=0;i<a.length;i++){
 
-if(now-a[i]<30000)
+if(now-a[i]<30000){
 b.push(a[i]);
+}
 
 }
 
 b.push(now);
 
 localStorage.setItem(
-k,
+key,
 JSON.stringify(b)
 );
 
 if(b.length>=12){
 
 localStorage.setItem(
-rk,
+block,
 String(now+300000)
 );
 
-toast("5 minute spam restriction.");
+toast(
+"5 minute spam restriction."
+);
 
 return false;
+
 }
 
-if(b.length>=8)
-toast("Spam warning — slow down.");
+if(b.length>=8){
+
+toast(
+"Spam warning — slow down."
+);
+
+}
 
 return true;
-}
 
-function closeModal(){
-$("modal").className="modal hidden";
 }
 
 function openModal(h){
@@ -312,16 +618,24 @@ $("modal").className="modal";
 
 }
 
+function closeModal(){
+
+$("modal").className="modal hidden";
+
+}
+
 $("modal").onclick=function(e){
 
-if(e.target===this)
+if(e.target===this){
 closeModal();
+}
 
 };
 
 $("loginBtn").onclick=function(){
 
-var u=$("loginUser").value
+var u=$("loginUser")
+.value
 .replace(/^\s+|\s+$/g,"");
 
 var p=$("loginPass").value;
@@ -332,16 +646,20 @@ $("authMsg").innerHTML=
 "Username 2+ chars; password 6+ chars.";
 
 return;
+
 }
 
 $("authMsg").innerHTML="Logging in...";
 
-auth.signInWithEmailAndPassword(
+auth
+.signInWithEmailAndPassword(
 usernameEmail(u),
 p
-).catch(function(e){
+)
+.catch(function(e){
 
-$("authMsg").innerHTML=esc(err(e));
+$("authMsg").innerHTML=
+esc(errorText(e));
 
 });
 
@@ -349,7 +667,8 @@ $("authMsg").innerHTML=esc(err(e));
 
 $("createBtn").onclick=function(){
 
-var u=$("loginUser").value
+var u=$("loginUser")
+.value
 .replace(/^\s+|\s+$/g,"");
 
 var p=$("loginPass").value;
@@ -360,16 +679,20 @@ $("authMsg").innerHTML=
 "Username 2+ chars; password 6+ chars.";
 
 return;
+
 }
 
 $("authMsg").innerHTML="Creating...";
 
-auth.createUserWithEmailAndPassword(
+auth
+.createUserWithEmailAndPassword(
 usernameEmail(u),
 p
-).then(function(c){
+)
+.then(function(c){
 
-return db.collection("users")
+return db
+.collection("users")
 .doc(c.user.uid)
 .set({
 
@@ -385,17 +708,19 @@ firebase.firestore.FieldValue.serverTimestamp()
 
 });
 
-}).catch(function(e){
+})
+.catch(function(e){
 
-$("authMsg").innerHTML=esc(err(e));
+$("authMsg").innerHTML=
+esc(errorText(e));
 
 });
 
 };
 
-auth.onAuthStateChanged(function(u){
+auth.onAuthStateChanged(function(user){
 
-if(!u){
+if(!user){
 
 me=null;
 
@@ -405,28 +730,36 @@ $("login").className="screen";
 hideLoading();
 
 return;
+
 }
 
-db.collection("users")
-.doc(u.uid)
+db
+.collection("users")
+.doc(user.uid)
 .get()
 .then(function(s){
 
-var d=s.exists?s.data():{};
+var d=s.exists?
+s.data():
+{};
 
 me={
-uid:u.uid,
-username:d.username||u.email.split("@")[0],
+uid:user.uid,
+username:
+d.username||
+user.email.split("@")[0],
 avatar:d.avatar||""
 };
 
-return db.collection("users")
-.doc(u.uid)
+return db
+.collection("users")
+.doc(user.uid)
 .set({
 
 uid:me.uid,
 username:me.username,
-usernameLower:me.username.toLowerCase(),
+usernameLower:
+me.username.toLowerCase(),
 avatar:me.avatar||"",
 online:true,
 lastSeen:
@@ -439,7 +772,9 @@ merge:true
 })
 .then(function(){
 
-$("login").className="screen hidden";
+$("login").className=
+"screen hidden";
+
 $("app").className="";
 
 startPresence();
@@ -452,7 +787,7 @@ hideLoading();
 })
 .catch(function(e){
 
-toast(err(e));
+toast(errorText(e));
 
 });
 
@@ -460,8 +795,9 @@ toast(err(e));
 
 function startPresence(){
 
-if(presenceTimer)
+if(presenceTimer){
 clearInterval(presenceTimer);
+}
 
 updatePresence();
 
@@ -494,7 +830,7 @@ merge:true
 
 function updatePresence(){
 
-if(me)
+if(!me)return;
 
 db.collection("users")
 .doc(me.uid)
@@ -513,8 +849,9 @@ merge:true
 
 function startUsers(){
 
-if(usersUnsub)
+if(usersUnsub){
 usersUnsub();
+}
 
 usersUnsub=
 db.collection("users")
@@ -531,10 +868,11 @@ var x=d.data();
 
 x.uid=d.id;
 
-var ls=
-x.lastSeen&&x.lastSeen.toDate?
-x.lastSeen.toDate().getTime():
-0;
+var ls=0;
+
+if(x.lastSeen&&x.lastSeen.toDate){
+ls=x.lastSeen.toDate().getTime();
+}
 
 x._realOnline=
 x.online&&
@@ -545,23 +883,18 @@ x.uid===me.uid||
 
 users[d.id]=x;
 
-if(x._realOnline)
+if(x._realOnline){
 count++;
+}
 
 });
 
 $("onlineTop").innerHTML=
 "Online: "+count;
 
-if(page==="users")
+if(page==="users"){
 renderUsers();
-
-},function(e){
-
-toast(
-"Users live error: "+
-e.message
-);
+}
 
 });
 
@@ -571,15 +904,16 @@ function render(p){
 
 page=p;
 
-var bs=
-document.querySelectorAll(".nav button");
+var buttons=
+document.querySelectorAll(
+".nav button"
+);
 
-var i;
+for(var i=0;i<buttons.length;i++){
 
-for(i=0;i<bs.length;i++){
-
-bs[i].className=
-bs[i].getAttribute("data-page")===p?
+buttons[i].className=
+buttons[i]
+.getAttribute("data-page")===p?
 "on":"";
 
 }
@@ -594,29 +928,36 @@ pageUnsub=null;
 $("inputBar").className=
 "inputbar hidden";
 
-if(p==="world")
+if(p==="world"){
 world();
+}
 
-else if(p==="private")
+else if(p==="private"){
 privateHome();
+}
 
-else if(p==="groups")
+else if(p==="groups"){
 groups();
+}
 
-else if(p==="status")
+else if(p==="status"){
 statusPage();
+}
 
-else
+else{
 usersPage();
+}
 
 }
 
 var nav=
-document.querySelectorAll(".nav button");
+document.querySelectorAll(
+".nav button"
+);
 
-for(var z=0;z<nav.length;z++){
+for(var n=0;n<nav.length;n++){
 
-nav[z].onclick=function(){
+nav[n].onclick=function(){
 
 render(
 this.getAttribute("data-page")
@@ -630,56 +971,60 @@ function baseMsg(x){
 
 var u=users[x.uid]||x;
 
-var mine=x.uid===me.uid;
+var mine=
+x.uid===me.uid;
 
-var t=
+var text=
 esc(x.text||"")
 .replace(
 /@([A-Za-z0-9_]+)/g,
 '<span class="mention">@$1</span>'
 );
 
-var media=x.voice?
+var voice="";
+
+if(x.voice){
+
+voice=
 '<audio controls src="'+
 esc(x.voice)+
-'" style="max-width:100%"></audio>':
-"";
+'" style="max-width:100%"></audio>';
+
+}
 
 return '<div class="msg '+
 (mine?"mine":"")+
 '">'+
 
 '<div class="row">'+
+
 '<img class="avatar" src="'+
 esc(avatar(u))+
 '">'+
 
 '<div>'+
+
 '<div class="name">'+
 esc(u.username||"User")+
 '</div>'+
 
 '<div class="small">'+
-(u._realOnline?"Online":"Offline")+
+(u._realOnline?
+"Online":"Offline")+
 '</div>'+
 
 '</div>'+
+
 '</div>'+
 
 '<div style="margin-top:5px">'+
-t+
-media+
+text+
+voice+
 '</div>'+
 
 '<div class="time">'+
 esc(timeOf(x.createdAt))+
 '</div>'+
-
-'<button class="btn gray" style="padding:4px 7px;margin-top:4px" onclick="react(&quot;'+
-x.id+
-'&quot;,&quot;'+
-esc(x.uid)+
-'&quot;)">❤ React</button>'+
 
 '</div>';
 
@@ -688,1688 +1033,34 @@ esc(x.uid)+
 function world(){
 
 $("screen").innerHTML=
+
 '<div class="card">'+
 '<b>World Chat</b>'+
 '<div class="small">'+
-'Text only • latest 15 shown • old messages are not deleted'+
+'Text only • latest 15 shown'+
 '</div>'+
 '</div>'+
+
 '<div id="worldMsgs"></div>';
 
-$("inputBar").className="inputbar";
+$("inputBar").className=
+"inputbar";
 
-$("voiceBtn").className="btn gray";
-$("voiceBtn").style.display="none";
+$("voiceBtn").style.display=
+"none";
 
 $("msgInput").placeholder=
 "World message...";
 
-$("sendBtn").onclick=sendWorld;
-
-$("msgInput").oninput=mentionBox;
-
-pageUnsub=
-db.collection("worldMessages")
-.orderBy("createdAt","desc")
-.limit(15)
-.onSnapshot(function(s){
-
-var a=[];
-
-s.forEach(function(d){
-
-var x=d.data();
-
-x.id=d.id;
-
-a.push(x);
-
-});
-
-a.reverse();
-
-var h="";
-
-for(var i=0;i<a.length;i++)
-h+=baseMsg(a[i]);
-
-$("worldMsgs").innerHTML=
-h||
-'<div class="small center">No messages yet.</div>';
-
-},function(e){
-
-toast("World: "+e.message);
-
-});
-
-}
-
-function mentionBox(){
-
-var v=$("msgInput").value;
-
-var p=$("msgInput").selectionStart||v.length;
-
-var j=v.lastIndexOf("@",p);
-
-if(
-j<0||
-v.slice(j+1,p).indexOf(" ")>=0
-){
-
-closeModal();
-
-return;
-}
-
-var q=
-v.slice(j+1,p)
-.toLowerCase();
-
-var a=[];
-var id;
-
-for(id in users){
-
-if(
-id!==me.uid&&
-(users[id].username||"")
-.toLowerCase()
-.indexOf(q)===0
-)
-
-a.push(users[id]);
-
-}
-
-if(!a.length){
-
-closeModal();
-
-return;
-}
-
-var h="<h3>Mention</h3>";
-
-var i;
-
-for(i=0;i<a.length;i++){
-
-h+=
-'<button class="listbtn" data-name="'+
-esc(a[i].username)+
-'">'+
-
-'<img class="avatar" src="'+
-esc(avatar(a[i]))+
-'"> '+
-esc(a[i].username)+
-
-'</button>';
-
-}
-
-openModal(h);
-
-var bs=
-$("modalBox")
-.querySelectorAll(".listbtn");
-
-for(i=0;i<bs.length;i++){
-
-bs[i].onclick=function(){
-
-var val=$("msgInput").value;
-
-var p2=
-$("msgInput").selectionStart||val.length;
-
-var j2=
-val.lastIndexOf("@",p2);
-
-$("msgInput").value=
-val.slice(0,j2)+
-"@"+
-this.getAttribute("data-name")+
-" "+
-val.slice(p2);
-
-closeModal();
-
-};
-
-}
-
-}
-
-function sendWorld(){
-
-var s=$("msgInput").value
-.replace(/^\s+|\s+$/g,"");
-
-if(!s)
-return;
-
-if(badWord(s)){
-
-toast("Abusive words blocked.");
-
-return;
-
-}
-
-if(!spamOK())
-return;
-
-db.collection("worldMessages")
-.add({
-
-uid:me.uid,
-username:me.username,
-avatar:me.avatar||"",
-text:s,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-$("msgInput").value="";
-
-notifyMentions(s);
-
-})
-.catch(function(e){
-
-toast(err(e));
-
-});
-
-}
-
-function notifyMentions(s){
-
-var re=/@([A-Za-z0-9_]+)/g;
-
-var m,id;
-
-while((m=re.exec(s))){
-
-for(id in users){
-
-if(
-id!==me.uid&&
-(users[id].username||"")
-.toLowerCase()===
-m[1].toLowerCase()
-)
-
-db.collection("notifications")
-.add({
-
-toUid:id,
-fromUid:me.uid,
-type:"mention",
-text:me.username+" mentioned you",
-read:false,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-}
-
-}
-
-}
-
-function react(messageId,ownerUid){
-
-var rid=
-page+"_"+
-(privateUid||groupId||"world")+"_"+
-messageId+"_"+
-me.uid;
-
-db.collection("reactions")
-.doc(rid)
-.set({
-
-uid:me.uid,
-messageId:messageId,
-ownerUid:ownerUid,
-type:"heart",
-where:page,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-toast("Reaction sent.");
-
-if(ownerUid&&ownerUid!==me.uid)
-
-db.collection("notifications")
-.add({
-
-toUid:ownerUid,
-fromUid:me.uid,
-type:"reaction",
-text:me.username+
-" reacted to your message",
-read:false,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-})
-.catch(function(e){
-
-toast(err(e));
-
-});
-
-}
-
-function usersPage(){
-
-renderUsers();
-
-}
-
-function renderUsers(){
-
-var h=
-'<div class="card">'+
-'<b>Users</b>'+
-'<div class="small">Real Firebase users • live online/offline status</div>'+
-'<button class="btn gray" style="float:right" onclick="showRequests()">Requests</button>'+
-'</div>';
-
-var a=[];
-var id;
-
-for(id in users)
-
-if(id!==me.uid)
-a.push(users[id]);
-
-a.sort(function(x,y){
-
-return (x.username||"")
-.localeCompare(y.username||"");
-
-});
-
-if(!a.length)
-
-h+=
-'<div class="small center">No other users yet.</div>';
-
-for(var i=0;i<a.length;i++){
-
-var u=a[i];
-
-h+=
-'<div class="card">'+
-'<div class="row">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'">'+
-
-'<div style="flex:1">'+
-'<b>'+
-esc(u.username)+
-'</b>'+
-
-'<div class="small">'+
-'<span class="dot '+
-(u._realOnline?"on":"")+
-'"></span>'+
-(u._realOnline?"Online":"Offline")+
-'</div>'+
-
-'</div>'+
-
-'<button class="btn" onclick="userMenu(&quot;'+
-u.uid+
-'&quot;)">Open</button>'+
-
-'</div>'+
-'</div>';
-
-}
-
-$("screen").innerHTML=h;
-
-}
-
-function userMenu(uid){
-
-var u=users[uid]||{};
-
-openModal(
-
-'<h3>'+
-esc(u.username)+
-'</h3>'+
-
-'<div class="row">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'">'+
-
-'<div>'+
-(u._realOnline?"Online":"Offline")+
-'</div>'+
-
-'</div>'+
-
-'<hr>'+
-
-'<button class="listbtn" onclick="friendReq(&quot;'+
-uid+
-'&quot;)">Send Friend Request</button>'+
-
-'<button class="listbtn" onclick="closeModal()">Close</button>'
-
-);
-
-}
-
-function friendReq(uid){
-
-db.collection("friendRequests")
-.add({
-
-fromUid:me.uid,
-toUid:uid,
-status:"pending",
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-return db.collection("notifications")
-.add({
-
-toUid:uid,
-fromUid:me.uid,
-type:"friend",
-text:
-me.username+
-" sent you a friend request",
-read:false,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-})
-.then(function(){
-
-toast("Friend request sent.");
-closeModal();
-
-});
-
-}
-
-function showRequests(){
-
-var h="<h3>Friend Requests</h3>";
-
-db.collection("friendRequests")
-.where("toUid","==",me.uid)
-.where("status","==","pending")
-.get()
-.then(function(s){
-
-var a=[];
-var i;
-
-s.forEach(function(d){
-
-var x=d.data();
-
-x.id=d.id;
-
-a.push(x);
-
-});
-
-if(!a.length)
-
-h+="<div class='small'>No pending requests.</div>";
-
-for(i=0;i<a.length;i++){
-
-var u=
-users[a[i].fromUid]||{};
-
-h+=
-'<div class="card">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'"> '+
-esc(u.username||"User")+
-
-'<br>'+
-
-'<button class="btn green" onclick="acceptReq(&quot;'+
-a[i].id+
-'&quot;)">Accept</button> '+
-
-'<button class="btn red" onclick="rejectReq(&quot;'+
-a[i].id+
-'&quot;)">Reject</button>'+
-
-'</div>';
-
-}
-
-openModal(h);
-
-});
-
-}
-
-function acceptReq(id){
-
-db.collection("friendRequests")
-.doc(id)
-.update({
-status:"accepted"
-})
-.then(function(){
-
-closeModal();
-
-toast("Friend request accepted.");
-
-});
-
-}
-
-function rejectReq(id){
-
-db.collection("friendRequests")
-.doc(id)
-.update({
-status:"rejected"
-})
-.then(function(){
-
-closeModal();
-
-toast("Request rejected.");
-
-});
-
-}
-
-function friendList(cb){
-
-var a=[];
-
-db.collection("friendRequests")
-.where("fromUid","==",me.uid)
-.where("status","==","accepted")
-.get()
-.then(function(s){
-
-s.forEach(function(d){
-
-a.push(
-d.data().toUid
-);
-
-});
-
-return db.collection("friendRequests")
-.where("toUid","==",me.uid)
-.where("status","==","accepted")
-.get();
-
-})
-.then(function(s){
-
-s.forEach(function(d){
-
-a.push(
-d.data().fromUid
-);
-
-});
-
-cb(a);
-
-})
-.catch(function(){
-
-cb(a);
-
-});
-
-}
-
-function privateHome(){
-
-$("screen").innerHTML=
-'<div class="card">'+
-'<b>Private Chat</b>'+
-'<div class="small">Friend permission required • text + voice</div>'+
-'<button class="btn gray" style="float:right" onclick="notifications()">🔔</button>'+
-'</div>'+
-'<div id="privateList"></div>';
-
-friendList(function(a){
-
-var h="";
-var i;
-
-if(!a.length)
-
-h=
-'<div class="small center">No friends yet. Users → Requests.</div>';
-
-for(i=0;i<a.length;i++){
-
-var u=users[a[i]]||{};
-
-h+=
-'<button class="listbtn" onclick="openPrivate(&quot;'+
-a[i]+
-'&quot;)">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'"> '+
-
-'<b>'+
-esc(u.username||"User")+
-'</b> '+
-
-'<span class="small"> • '+
-(u._realOnline?"Online":"Offline")+
-'</span>'+
-
-'</button>';
-
-}
-
-$("privateList").innerHTML=h;
-
-});
-
-}
-
-function openPrivate(uid){
-
-friendList(function(a){
-
-if(a.indexOf(uid)<0){
-
-toast("Friend permission required.");
-
-return;
-
-}
-
-privateUid=uid;
-
-privateChat();
-
-});
-
-}
-
-function cid(a,b){
-
-return a<b?
-a+"_"+b:
-b+"_"+a;
-
-}
-
-function privateChat(){
-
-$("screen").innerHTML=
-'<div class="card" id="privateHead"></div>'+
-'<div id="privateMsgs"></div>';
-
-var u=
-users[privateUid]||{};
-
-$("privateHead").innerHTML=
-
-'<div class="row">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'">'+
-
-'<div style="flex:1">'+
-
-'<b>'+
-esc(u.username||"User")+
-'</b>'+
-
-'<div class="small">'+
-(u._realOnline?"Online":"Offline")+
-'</div>'+
-
-'</div>'+
-
-'<button class="btn gray" onclick="privateSettings()">⚙</button>'+
-
-'</div>';
-
-$("inputBar").className="inputbar";
-
-$("voiceBtn").style.display=
-"inline-block";
-
-$("msgInput").placeholder=
-"Private message...";
-
 $("sendBtn").onclick=
-sendPrivate;
+sendWorld;
 
-$("voiceBtn").onclick=
-voice;
+$("msgInput").oninput=
+mentionBox;
 
-if(pageUnsub)
-pageUnsub();
-
-pageUnsub=
-db.collection("chats")
-.doc(cid(me.uid,privateUid))
-.collection("messages")
-.orderBy("createdAt","desc")
-.limit(15)
-.onSnapshot(function(s){
-
-var a=[];
-
-s.forEach(function(d){
-
-var x=d.data();
-
-x.id=d.id;
-
-a.push(x);
-
-});
-
-a.reverse();
-
-var h="";
-
-for(var i=0;i<a.length;i++)
-h+=baseMsg(a[i]);
-
-$("privateMsgs").innerHTML=
-h||
-'<div class="small center">No messages yet.</div>';
-
-});
-
-}
-
-function sendPrivate(){
-
-var s=$("msgInput").value
-.replace(/^\s+|\s+$/g,"");
-
-if(!s)
-return;
-
-if(badWord(s)){
-
-toast("Abusive words blocked.");
-
-return;
-
-}
-
-if(!spamOK())
-return;
-
-db.collection("chats")
-.doc(cid(me.uid,privateUid))
-.collection("messages")
-.add({
-
-uid:me.uid,
-username:me.username,
-avatar:me.avatar||"",
-text:s,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-$("msgInput").value="";
-
-notify(
-privateUid,
-"private",
-me.username+
-" sent you a message"
-);
-
-})
-.catch(function(e){
-
-toast(err(e));
-
-});
-
-}
-
-function privateSettings(){
-
-openModal(
-
-'<h3>Private Chat Settings</h3>'+
-
-'<button class="listbtn" onclick="profileSettings()">My Profile / DP</button>'+
-
-'<button class="listbtn" onclick="removeFriend()">Remove Friend Permission</button>'+
-
-'<button class="listbtn" onclick="block()">Block User</button>'+
-
-'<button class="listbtn" onclick="logout()">Logout</button>'+
-
-'<button class="listbtn" onclick="closeModal()">Close</button>'
-
-);
-
-}
-
-function profileSettings(){
-
-openModal(
-
-'<h3>My Profile</h3>'+
-
-'<div class="card">'+
-
-'<img class="avatar" src="'+
-esc(avatar(me))+
-'">'+
-
-'<div class="name">'+
-esc(me.username)+
-'</div>'+
-
-'</div>'+
-
-'<input id="dpFile" type="file" accept="image/*" style="width:100%;margin:8px 0">'+
-
-'<button class="btn green" onclick="uploadDP()">Save DP</button>'+
-
-'<div class="small" style="margin-top:8px">'+
-'DP upload needs Firebase Storage to be enabled.'+
-'</div>'
-
-);
-
-}
-
-function uploadDP(){
-
-var f=$("dpFile").files[0];
-
-if(!f){
-
-toast("Choose a photo first.");
-
-return;
-
-}
-
-var r=
-storage.ref()
-.child(
-"avatars/"+me.uid+"/profile.jpg"
-);
-
-r.put(f)
-.then(function(){
-
-return r.getDownloadURL();
-
-})
-.then(function(url){
-
-me.avatar=url;
-
-return db.collection("users")
-.doc(me.uid)
-.set({
-avatar:url
-},{
-merge:true
-});
-
-})
-.then(function(){
-
-closeModal();
-
-toast("DP updated.");
-
-})
-.catch(function(){
-
-toast(
-"DP upload failed. Enable Firebase Storage."
-);
-
-});
-
-}
-
-function logout(){
-
-if(me)
-
-db.collection("users")
-.doc(me.uid)
-.set({
-
-online:false,
-lastSeen:
-firebase.firestore.FieldValue.serverTimestamp()
-
-},{
-merge:true
-})
-.then(function(){
-
-auth.signOut();
-
-});
-
-}
-
-function removeFriend(){
-
-var p=[];
-
-db.collection("friendRequests")
-.where("fromUid","==",me.uid)
-.where("toUid","==",privateUid)
-.where("status","==","accepted")
-.get()
-.then(function(s){
-
-s.forEach(function(d){
-
-p.push(
-d.ref.update({
-status:"removed"
-})
-);
-
-});
-
-return db.collection("friendRequests")
-.where("fromUid","==",privateUid)
-.where("toUid","==",me.uid)
-.where("status","==","accepted")
-.get();
-
-})
-.then(function(s){
-
-s.forEach(function(d){
-
-p.push(
-d.ref.update({
-status:"removed"
-})
-);
-
-});
-
-return Promise.all(p);
-
-})
-.then(function(){
-
-closeModal();
-
-render("private");
-
-toast("Friend permission removed.");
-
-});
-
-}
-
-function block(){
-
-db.collection("blocks")
-.doc(
-me.uid+"_"+privateUid
-)
-.set({
-
-uid:me.uid,
-blockedUid:privateUid,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-closeModal();
-
-toast("User blocked.");
-
-});
-
-}
-
-function notifications(){
-
-db.collection("notifications")
-.where("toUid","==",me.uid)
-.where("read","==",false)
-.get()
-.then(function(s){
-
-var h=
-"<h3>Notifications ("+
-s.size+
-")</h3>";
-
-var a=[];
-var i;
-
-s.forEach(function(d){
-
-a.push(d);
-
-});
-
-for(i=0;i<a.length;i++)
-
-h+=
-'<div class="card">'+
-esc(a[i].data().text)+
-'</div>';
-
-h+=
-'<button class="btn" onclick="markNotifications()">Mark read</button>';
-
-openModal(h);
-
-});
-
-}
-
-function markNotifications(){
-
-db.collection("notifications")
-.where("toUid","==",me.uid)
-.where("read","==",false)
-.get()
-.then(function(s){
-
-var p=[];
-
-s.forEach(function(d){
-
-p.push(
-d.ref.update({
-read:true
-})
-);
-
-});
-
-return Promise.all(p);
-
-})
-.then(closeModal);
-
-}
-
-function notify(uid,type,text){
-
-db.collection("notifications")
-.add({
-
-toUid:uid,
-fromUid:me.uid,
-type:type,
-text:text,
-read:false,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-}
-
-function groups(){
-
-$("screen").innerHTML=
-
-'<div class="card">'+
-
-'<b>Groups</b>'+
-
-'<button class="btn" style="float:right" onclick="newGroup()">+ Create</button>'+
-
-'<div class="small">Text only • latest 15 • members</div>'+
-
-'</div>'+
-
-'<div id="groupList"></div>';
-
-if(pageUnsub)
-pageUnsub();
-
-pageUnsub=
-db.collection("groups")
-.onSnapshot(function(s){
-
-var h="";
-var i;
-
-s.forEach(function(d){
-
-var g=d.data();
-
-if(
-(g.memberUids||[])
-.indexOf(me.uid)>=0
-)
-
-h+=
-'<button class="listbtn" onclick="openGroup(&quot;'+
-d.id+
-'&quot;)">'+
-
-'<b>'+
-esc(g.name)+
-'</b>'+
-
-'<div class="small">'+
-(g.memberUids||[]).length+
-' members</div>'+
-
-'</button>';
-
-});
-
-$("groupList").innerHTML=
-h||
-'<div class="small center">No groups yet.</div>';
-
-});
-
-}
-
-function newGroup(){
-
-var n=prompt("Group name:");
-
-if(!n)
-return;
-
-db.collection("groups")
-.add({
-
-name:n,
-ownerUid:me.uid,
-memberUids:[me.uid],
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-toast("Group created.");
-
-});
-
-}
-
-function openGroup(id){
-
-groupId=id;
-
-db.collection("groups")
-.doc(id)
-.get()
-.then(function(s){
-
-var g=s.data();
-
-$("screen").innerHTML=
-
-'<div class="card">'+
-
-'<b>'+
-esc(g.name)+
-'</b>'+
-
-'<button class="btn gray" style="float:right" onclick="members(&quot;'+
-id+
-'&quot;)">Members</button>'+
-
-'<div class="small">Text only</div>'+
-
-'</div>'+
-
-'<div id="groupMsgs"></div>';
-
-$("inputBar").className="inputbar";
-
-$("voiceBtn").style.display="none";
-
-$("msgInput").placeholder=
-"Group message...";
-
-$("sendBtn").onclick=
-sendGroup;
-
-if(pageUnsub)
-pageUnsub();
-
-pageUnsub=
-db.collection("groups")
-.doc(id)
-.collection("messages")
-.orderBy("createdAt","desc")
-.limit(15)
-.onSnapshot(function(s){
-
-var a=[];
-
-s.forEach(function(d){
-
-var x=d.data();
-
-x.id=d.id;
-
-a.push(x);
-
-});
-
-a.reverse();
-
-var h="";
-
-for(var i=0;i<a.length;i++)
-h+=baseMsg(a[i]);
-
-$("groupMsgs").innerHTML=
-h||
-'<div class="small center">No messages yet.</div>';
-
-});
-
-});
-
-}
-
-function members(id){
-
-db.collection("groups")
-.doc(id)
-.get()
-.then(function(s){
-
-var g=s.data();
-
-var a=g.memberUids||[];
-
-var h="<h3>Members</h3>";
-
-var i;
-
-for(i=0;i<a.length;i++){
-
-var u=users[a[i]]||{};
-
-h+=
-'<div class="card">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'"> '+
-
-esc(u.username||"User")+
-
-'</div>';
-
-}
-
-h+=
-'<button class="btn green" onclick="addMember(\''+
-id+
-'\')">Add Member</button>';
-
-openModal(h);
-
-});
-
-}
-
-function addMember(id){
-
-var h="<h3>Add Member</h3>";
-
-var u,i;
-
-for(u in users){
-
-if(u!==me.uid)
-
-h+=
-'<button class="listbtn" onclick="doMember(\''+
-id+
-'\',\''+
-u+
-'\')">'+
-esc(users[u].username)+
-'</button>';
-
-}
-
-openModal(h);
-
-}
-
-function doMember(id,uid){
-
-db.collection("groups")
-.doc(id)
-.get()
-.then(function(s){
-
-var a=s.data().memberUids||[];
-
-if(a.indexOf(uid)<0)
-a.push(uid);
-
-return s.ref.update({
-memberUids:a
-});
-
-})
-.then(function(){
-
-closeModal();
-
-toast("Member added.");
-
-});
-
-}
-
-function sendGroup(){
-
-var s=$("msgInput").value
-.replace(/^\s+|\s+$/g,"");
-
-if(!s)
-return;
-
-if(badWord(s)){
-
-toast("Abusive words blocked.");
-
-return;
-
-}
-
-if(!spamOK())
-return;
-
-db.collection("groups")
-.doc(groupId)
-.collection("messages")
-.add({
-
-uid:me.uid,
-username:me.username,
-avatar:me.avatar||"",
-text:s,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-$("msgInput").value="";
-
-});
-
-}
-
-function statusPage(){
-
-$("screen").innerHTML=
-
-'<div class="card">'+
-
-'<b>Status</b>'+
-
-'<div class="small">Text only • My Status + Friends Status</div>'+
-
-'<button class="btn" style="float:right" onclick="myStatus()">My Status</button>'+
-
-'</div>'+
-
-'<div id="statusList"></div>';
-
-db.collection("statuses")
-.orderBy("createdAt","desc")
-.limit(50)
-.onSnapshot(function(s){
-
-var h="";
-var i;
-
-s.forEach(function(d){
-
-var x=d.data();
-
-var u=users[x.uid]||x;
-
-h+=
-'<div class="card">'+
-
-'<div class="row">'+
-
-'<img class="avatar" src="'+
-esc(avatar(u))+
-'">'+
-
-'<div>'+
-
-'<b>'+
-esc(u.username||"User")+
-'</b>'+
-
-'<div>'+
-esc(x.text)+
-'</div>'+
-
-'<div class="time">'+
-esc(timeOf(x.createdAt))+
-'</div>'+
-
-'<button class="btn gray" style="padding:4px 7px" onclick="statusReact(\''+
-d.id+
-'\',\''+
-x.uid+
-'\')">❤ React</button>'+
-
-'</div>'+
-
-'</div>'+
-
-'</div>';
-
-});
-
-$("statusList").innerHTML=
-h||
-'<div class="small center">No statuses.</div>';
-
-});
-
-}
-
-function myStatus(){
-
-var t=prompt(
-"Write your status:"
-);
-
-if(!t)
-return;
-
-db.collection("statuses")
-.doc(me.uid)
-.set({
-
-uid:me.uid,
-username:me.username,
-text:t,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-},{
-merge:true
-})
-.then(function(){
-
-toast("Status updated.");
-
-});
-
-}
-
-function statusReact(id,owner){
-
-db.collection("statusReactions")
-.doc(
-id+"_"+me.uid
-)
-.set({
-
-uid:me.uid,
-statusId:id,
-type:"heart",
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-})
-.then(function(){
-
-toast("Reaction sent.");
-
-if(owner!==me.uid)
-
-notify(
-owner,
-"statusReaction",
-me.username+
-" reacted to your status"
-);
-
-});
-
-}
-
-function voice(){
-
-if(
-!navigator.mediaDevices||
-!navigator.mediaDevices.getUserMedia||
-!window.MediaRecorder
-){
-
-toast(
-"Voice is not supported by this browser."
-);
-
-return;
-
-}
-
-if(recording){
-
-recording.stop();
-
-return;
-
-}
-
-navigator.mediaDevices
-.getUserMedia({
-audio:true
-})
-.then(function(stream){
-
-recordChunks=[];
-
-recording=
-new MediaRecorder(stream);
-
-recording.ondataavailable=
+$("msgInput").onkeydown=
 function(e){
 
-if(e.data&&e.data.size)
-recordChunks.push(e.data);
+e=e||window.event;
 
-};
-
-recording.onstop=function(){
-
-stream.getTracks()[0].stop();
-
-var b=
-new Blob(
-recordChunks,
-{type:"audio/webm"}
-);
-
-recording=null;
-
-uploadVoice(b);
-
-};
-
-recording.start();
-
-$("voiceBtn").innerHTML="⏹";
-
-toast(
-"Recording... tap again to stop."
-);
-
-})
-.catch(function(){
-
-toast(
-"Microphone permission denied."
-);
-
-});
-
-}
-
-function uploadVoice(blob){
-
-var r=
-storage.ref()
-.child(
-"voice/"+
-me.uid+
-"/"+
-Date.now()+
-".webm"
-);
-
-toast("Uploading voice...");
-
-r.put(blob)
-
-.then(function(){
-
-return r.getDownloadURL();
-
-})
-
-.then(function(url){
-
-return db.collection("chats")
-.doc(cid(me.uid,privateUid))
-.collection("messages")
-.add({
-
-uid:me.uid,
-username:me.username,
-avatar:me.avatar||"",
-voice:url,
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-})
-
-.then(function(){
-
-$("voiceBtn").innerHTML="🎙";
-
-notify(
-privateUid,
-"private",
-"Voice message from "+
-me.username
-);
-
-})
-
-.catch(function(){
-
-$("voiceBtn").innerHTML="🎙";
-
-toast(
-"Voice upload failed. Firebase Storage must be enabled."
-);
-
-});
-
-}
-
-$("onlineTop").onclick=function(){
-
-render("users");
-
-};
-
-window.logout=function(){
-
-if(me)
-
-db.collection("users")
-.doc(me.uid)
-.set({
-
-online:false,
-lastSeen:
-firebase.firestore.FieldValue.serverTimestamp()
-
-},{
-merge:true
-});
-
-auth.signOut();
-
-};
-
-</script>
-
-</body>
-</html>
+if
