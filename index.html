@@ -2,94 +2,79 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,
-      maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#061326">
 <title>YOUR CHAT</title>
 
 <style>
 *{box-sizing:border-box}
-
 html,body{
  margin:0;
+ padding:0;
  min-height:100%;
  background:#061326;
- color:#fff;
+ color:#ffffff;
  font-family:Arial,sans-serif;
 }
-
 button,input,textarea{font:inherit}
 button{cursor:pointer}
 .hide{display:none!important}
 
-:root{
- --bg:#061326;
- --panel:#081b32;
- --panel2:#0d2745;
- --line:#16568c;
- --blue:#168cff;
- --purple:#8b35ff;
- --pink:#d72cff;
- --green:#00e99a;
- --muted:#8da8c5;
-}
-
 #loading{
  position:fixed;
- inset:0;
+ left:0;
+ top:0;
+ right:0;
+ bottom:0;
  z-index:9999;
- display:flex;
- align-items:center;
- justify-content:center;
- background:
- radial-gradient(circle at 50% 18%,#173d70,#061326 68%);
+ display:block;
+ background:#061326;
+ text-align:center;
 }
 
 .loadbox{
- width:92%;
+ width:90%;
  max-width:350px;
+ margin:15% auto 0 auto;
  padding:24px 18px;
  text-align:center;
  background:#081a31;
  border:1px solid #1975df;
  border-radius:20px;
- box-shadow:0 0 35px #071d40;
 }
 
 .logo{
  font-size:27px;
  font-weight:bold;
  letter-spacing:1px;
+ color:#ffffff;
 }
-
 .logo span{color:#b833ff}
 
 .loadingPeople{
- display:flex;
- justify-content:center;
- align-items:center;
- gap:18px;
- margin:16px 0 4px;
+ text-align:center;
+ margin:16px 0 4px 0;
 }
 
 .loadingPerson{
- width:82px;
- height:82px;
+ display:inline-block;
+ width:70px;
+ height:70px;
+ margin:0 8px;
  border-radius:50%;
  border:2px solid #238cff;
  background:#102d4d;
- object-fit:cover;
+ line-height:66px;
+ font-size:36px;
+ vertical-align:middle;
 }
 
-.loadingPerson.girl{
- border-color:#d72cff;
-}
+.loadingPerson.girl{border-color:#d72cff}
 
 .spinner{
  width:34px;
  height:34px;
- margin:15px auto 10px;
+ margin:15px auto 10px auto;
  border:3px solid #214365;
  border-top-color:#b833ff;
  border-right-color:#168cff;
@@ -102,7 +87,7 @@ button{cursor:pointer}
 }
 
 .small{
- color:var(--muted);
+ color:#8da8c5;
  font-size:12px;
  line-height:1.5;
 }
@@ -110,16 +95,13 @@ button{cursor:pointer}
 #auth{
  min-height:100vh;
  padding:15px;
- display:flex;
- align-items:center;
- justify-content:center;
- background:
- radial-gradient(circle at 80% 20%,#301061,#061326 55%);
+ background:#061326;
 }
 
 .box{
  width:100%;
  max-width:390px;
+ margin:20px auto;
  padding:20px;
  background:#081a31;
  border:1px solid #175ea8;
@@ -130,7 +112,7 @@ input,textarea{
  width:100%;
  padding:12px;
  margin:6px 0;
- color:#fff;
+ color:#ffffff;
  background:#061326;
  border:1px solid #21496f;
  border-radius:10px;
@@ -150,9 +132,9 @@ textarea{
  width:100%;
  padding:11px;
  margin-top:7px;
- color:#fff;
+ color:#ffffff;
  font-weight:bold;
- background:linear-gradient(90deg,#167fff,#8b2fff);
+ background:#168cff;
  border:0;
  border-radius:10px;
 }
@@ -162,40 +144,34 @@ textarea{
  border:1px solid #20547f;
 }
 
-.btn.red{
- background:#a9273d;
-}
-
-.btn.green{
- background:#087f65;
-}
+.btn.red{background:#a9273d}
+.btn.green{background:#087f65}
 
 .tabs{
- display:flex;
- gap:5px;
  margin:10px 0;
+ font-size:0;
 }
 
 .tab{
- flex:1;
+ width:49%;
+ display:inline-block;
  padding:9px 3px;
  border:1px solid #174b78;
  border-radius:8px;
  background:#0a2039;
  color:#b7cbe0;
  font-size:11px;
+ text-align:center;
 }
+.tab:first-child{margin-right:2%}
 
 .tab.active{
  background:#7b2cff;
- color:#fff;
+ color:#ffffff;
 }
 
 header{
  height:55px;
- display:flex;
- align-items:center;
- justify-content:space-between;
  padding:0 10px;
  background:#07182d;
  border-bottom:1px solid #12518c;
@@ -205,16 +181,16 @@ header{
 }
 
 .brand{
+ float:left;
  font-weight:bold;
  font-size:19px;
+ line-height:55px;
 }
-
 .brand span{color:#bd39ff}
 
 .headerUser{
- display:flex;
- align-items:center;
- gap:6px;
+ float:right;
+ margin-top:14px;
  font-size:11px;
 }
 
@@ -222,9 +198,9 @@ header{
  width:34px;
  height:34px;
  border-radius:50%;
- object-fit:cover;
  border:1px solid #238cff;
  background:#102d4d;
+ vertical-align:middle;
 }
 
 .dot{
@@ -233,10 +209,10 @@ header{
  height:8px;
  border-radius:50%;
  background:#00e99a;
+ vertical-align:middle;
 }
 
 .offline{background:#65758a}
-
 .grn{color:#00e99a}
 
 main{
@@ -255,27 +231,36 @@ main{
  margin-bottom:9px;
 }
 
-.menu{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:7px;
+.demo-badge{
+ background:#ff9800;
+ color:#000000;
+ font-weight:bold;
+ font-size:10px;
+ padding:2px 6px;
+ border-radius:4px;
+ display:inline-block;
+ margin-bottom:6px;
 }
 
 .menuBtn{
+ width:48%;
+ display:inline-block;
  min-height:75px;
- color:#fff;
+ color:#ffffff;
  text-align:left;
  padding:10px;
+ margin:1%;
  border-radius:12px;
  border:1px solid #174c7b;
  background:#0a213b;
+ vertical-align:top;
 }
 
 .menuBtn strong{
  display:block;
  color:#54aaff;
  margin-bottom:5px;
- font-size:13px;
+ font-size:12px;
 }
 
 .menuBtn small{
@@ -284,28 +269,25 @@ main{
 }
 
 .topTitle{
- display:flex;
- align-items:center;
- gap:7px;
  margin-bottom:8px;
 }
 
 .back{
  width:auto;
  padding:7px 10px;
- margin:0 0 8px;
+ margin:0 0 8px 0;
 }
 
 .userRow{
- display:flex;
- align-items:center;
- gap:8px;
  padding:8px 2px;
  border-bottom:1px solid #123653;
 }
 
 .userInfo{
- flex:1;
+ display:inline-block;
+ vertical-align:middle;
+ width:60%;
+ margin-left:8px;
 }
 
 .userInfo b{
@@ -325,6 +307,8 @@ main{
  padding:7px 9px;
  margin:0;
  font-size:11px;
+ float:right;
+ margin-top:4px;
 }
 
 .chatBox{
@@ -335,36 +319,39 @@ main{
 }
 
 .message{
- display:flex;
- gap:6px;
  margin:7px 0;
- align-items:flex-end;
-}
-
-.message.mine{
- justify-content:flex-end;
-}
-
-.message.mine .messageAvatar{
- order:2;
+ overflow:hidden;
 }
 
 .message.mine .bubble{
- order:1;
+ float:right;
+ background:#4720a0;
+ border-color:#763bdf;
+}
+
+.message.mine .messageAvatar{
+ float:right;
+ margin-left:6px;
+}
+
+.message.other .bubble{
+ float:left;
+ background:#102e4d;
+ border-color:#174c79;
+}
+
+.message.other .messageAvatar{
+ float:left;
+ margin-right:6px;
 }
 
 .bubble{
  max-width:78%;
  padding:8px 10px;
- background:#102e4d;
  border:1px solid #174c79;
  border-radius:11px;
  font-size:12px;
-}
-
-.mine .bubble{
- background:#4720a0;
- border-color:#763bdf;
+ word-wrap:break-word;
 }
 
 .bubble small{
@@ -379,8 +366,8 @@ main{
  width:27px;
  height:27px;
  border-radius:50%;
- object-fit:cover;
  border:1px solid #238cff;
+ vertical-align:middle;
 }
 
 .mention{
@@ -389,36 +376,42 @@ main{
 }
 
 .chatInput{
- display:flex;
- gap:5px;
  margin-top:6px;
 }
 
 .chatInput textarea{
+ width:80%;
+ display:inline-block;
  margin:0;
  min-height:40px;
  height:40px;
+ vertical-align:middle;
 }
 
 .send{
- width:45px;
+ width:18%;
+ display:inline-block;
  margin:0;
+ height:40px;
+ vertical-align:middle;
 }
 
 .tools{
- display:flex;
- gap:5px;
  margin-top:5px;
+ font-size:0;
 }
 
 .tool{
- flex:1;
+ width:32%;
+ display:inline-block;
  padding:7px 2px;
+ margin:0 0.6%;
  color:#b8d3ee;
  background:#0b2744;
  border:1px solid #194b74;
  border-radius:8px;
  font-size:10px;
+ text-align:center;
 }
 
 .statusCard{
@@ -426,22 +419,13 @@ main{
  border-bottom:1px solid #143a5d;
 }
 
-.statusImg{
- width:100%;
- max-height:210px;
- object-fit:cover;
- border-radius:9px;
- margin-top:5px;
-}
-
 .reactions{
- display:flex;
- gap:5px;
  margin-top:5px;
 }
 
 .react{
  padding:5px 7px;
+ margin-right:4px;
  background:#102d4c;
  border:1px solid #1b527f;
  border-radius:15px;
@@ -478,39 +462,35 @@ main{
  height:47px;
  background:#07182d;
  border-top:1px solid #164d7d;
- display:flex;
- justify-content:center;
+ text-align:center;
  z-index:100;
 }
 
 .bottom button{
- flex:1;
- max-width:105px;
+ width:19%;
+ display:inline-block;
  background:none;
  color:#91aac2;
  border:0;
  font-size:9px;
+ height:100%;
+ vertical-align:top;
 }
 
-.bottom button.active{
- color:#bd48ff;
-}
+.bottom button.active{color:#bd48ff}
 
 .badge{
  background:#7b2cff;
- color:#fff;
+ color:#ffffff;
  border-radius:12px;
  padding:2px 6px;
  font-size:9px;
 }
 
-.search{
- margin-bottom:7px;
-}
+.search{margin-bottom:7px}
 
 @media(max-width:350px){
- .menuBtn{min-height:67px}
- .menuBtn strong{font-size:12px}
+ .menuBtn{width:98%; margin:1% 0;}
  main{padding:7px}
 }
 </style>
@@ -518,2369 +498,519 @@ main{
 
 <body>
 
-<!-- =========================
-     LOADING
-========================= -->
-
 <div id="loading">
  <div class="loadbox">
-
-  <div class="logo">
-   YOUR <span>CHAT</span>
-  </div>
-
+  <div class="logo">YOUR <span>CHAT</span></div>
   <div class="loadingPeople">
-
-   <!-- Built-in boy DP -->
-   <img
-    class="loadingPerson"
-    alt="Boy"
-    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23102745'/%3E%3Ccircle cx='50' cy='39' r='24' fill='%23d99b70'/%3E%3Cpath d='M27 38c2-25 46-34 49 2-8-7-15-11-25-11-9 0-16 3-24 9z' fill='%231b1720'/%3E%3Cpath d='M25 92c3-25 47-25 50 0' fill='%23168cff'/%3E%3Ccircle cx='41' cy='40' r='3' fill='%23061326'/%3E%3Ccircle cx='59' cy='40' r='3' fill='%23061326'/%3E%3Cpath d='M43 51q7 5 14 0' fill='none' stroke='%236c3828' stroke-width='2'/%3E%3C/svg%3E">
-
-   <!-- Built-in girl DP -->
-   <img
-    class="loadingPerson girl"
-    alt="Girl"
-    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23301950'/%3E%3Ccircle cx='50' cy='42' r='22' fill='%23e0a27d'/%3E%3Cpath d='M25 43c-5-30 51-40 52 0l-8 27H31z' fill='%23201828'/%3E%3Cpath d='M22 95c3-27 53-27 56 0' fill='%23d72cff'/%3E%3Ccircle cx='42' cy='43' r='3' fill='%23061326'/%3E%3Ccircle cx='58' cy='43' r='3' fill='%23061326'/%3E%3Cpath d='M43 54q7 5 14 0' fill='none' stroke='%23723c2d' stroke-width='2'/%3E%3C/svg%3E">
-
+   <div class="loadingPerson">👦</div>
+   <div class="loadingPerson girl">👧</div>
   </div>
-
   <div class="spinner"></div>
-
-  <div class="small">
-   Starting Your Chat...
-  </div>
-
+  <div class="small">Starting Your Chat...</div>
  </div>
 </div>
 
-<!-- =========================
-     LOGIN
-========================= -->
-
 <div id="auth" class="hide">
-
  <div class="box">
-
   <div style="text-align:center">
-
-   <div class="logo">
-    YOUR <span>CHAT</span>
-   </div>
-
-   <p class="small">
-    Connect • Chat • Share
-   </p>
-
+   <div class="logo">YOUR <span>CHAT</span></div>
+   <div class="demo-badge">FRONTEND / LOCAL DEMO</div>
+   <p class="small">Connect • Chat • Share</p>
   </div>
 
   <div class="tabs">
-
-   <button id="loginTab"
-           class="tab active"
-           onclick="authMode('login')">
-    Login
-   </button>
-
-   <button id="createTab"
-           class="tab"
-           onclick="authMode('create')">
-    Create Account
-   </button>
-
+   <button id="loginTab" class="tab active" onclick="authMode('login')">Login</button>
+   <button id="createTab" class="tab" onclick="authMode('create')">Create Account</button>
   </div>
 
-  <input id="username"
-         maxlength="24"
-         placeholder="Username">
+  <input id="username" maxlength="24" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
 
-  <input id="password"
-         type="password"
-         minlength="6"
-         placeholder="Password">
+  <button id="authBtn" class="btn" onclick="authAction()">Login</button>
 
-  <button id="authBtn"
-          class="btn"
-          onclick="authAction()">
-   Login
-  </button>
-
-  <div id="authStatus"
-       class="small"
-       style="text-align:center;margin-top:8px">
-  </div>
-
+  <div id="authStatus" class="small" style="text-align:center;margin-top:8px"></div>
  </div>
 </div>
-
-<!-- =========================
-     APP
-========================= -->
 
 <div id="app" class="hide">
 
 <header>
-
- <div class="brand">
-  YOUR <span>CHAT</span>
- </div>
-
+ <div class="brand">YOUR <span>CHAT</span></div>
  <div class="headerUser">
   <span class="dot"></span>
   <span id="headerName">User</span>
  </div>
-
 </header>
 
 <main id="main"></main>
 
 <div class="bottom">
-
- <button id="navHome"
-         onclick="home()">
-  🏠<br>Home
- </button>
-
- <button id="navWorld"
-         onclick="worldChat()">
-  🌍<br>World
- </button>
-
- <button id="navUsers"
-         onclick="onlineUsers()">
-  <span class="grn">●</span><br>Online
- </button>
-
- <button id="navStatus"
-         onclick="statusPage()">
-  ●<br>Status
- </button>
-
- <button id="navSettings"
-         onclick="settings()">
-  ⚙<br>Settings
- </button>
-
+ <button id="navHome" onclick="home()">🏠<br>Home</button>
+ <button id="navWorld" onclick="worldChat()">🌍<br>World</button>
+ <button id="navUsers" onclick="onlineUsers()"><span class="grn">●</span><br>Online</button>
+ <button id="navStatus" onclick="statusPage()">●<br>Status</button>
+ <button id="navSettings" onclick="settings()">⚙<br>Settings</button>
 </div>
 
 </div>
 
-<script>
-"use strict";
+<script type="text/javascript">
 
-/* =========================
-   DEMO USERS
-   ========================= */
+/*
+ YOUR CHAT
+ Safe JavaScript (ES5). No ES6 syntax.
+*/
 
-const demoUsers=[
- {
-  uid:"U1001",
-  username:"Ali",
-  online:true,
-  avatar:"https://i.pravatar.cc/100?img=12"
- },
- {
-  uid:"U1002",
-  username:"Aisha",
-  online:true,
-  avatar:"https://i.pravatar.cc/100?img=47"
- },
- {
-  uid:"U1003",
-  username:"Zoha",
-  online:true,
-  avatar:"https://i.pravatar.cc/100?img=32"
- },
- {
-  uid:"U1004",
-  username:"Hassan",
-  online:true,
-  avatar:"https://i.pravatar.cc/100?img=11"
- },
- {
-  uid:"U1005",
-  username:"Nimra",
-  online:true,
-  avatar:"https://i.pravatar.cc/100?img=44"
- },
- {
-  uid:"U1006",
-  username:"Usman",
-  online:false,
-  avatar:"https://i.pravatar.cc/100?img=68"
- }
+var mode = "login";
+var currentChatUser = null;
+
+var FALLBACK_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23102d4d'/%3E%3Ccircle cx='50' cy='38' r='20' fill='%23238cff'/%3E%3Cellipse cx='50' cy='90' rx='32' ry='25' fill='%23238cff'/%3E%3C/svg%3E";
+
+var demoUsers = [
+ { uid:"U1001", username:"Ali", online:true, avatar:FALLBACK_AVATAR },
+ { uid:"U1002", username:"Aisha", online:true, avatar:FALLBACK_AVATAR },
+ { uid:"U1003", username:"Zoha", online:true, avatar:FALLBACK_AVATAR },
+ { uid:"U1004", username:"Hassan", online:true, avatar:FALLBACK_AVATAR },
+ { uid:"U1005", username:"Nimra", online:true, avatar:FALLBACK_AVATAR },
+ { uid:"U1006", username:"Usman", online:false, avatar:FALLBACK_AVATAR }
 ];
 
-let demoMessages=[
- {
-  uid:"U1001",
-  username:"Ali",
-  text:"Hello everyone! 👋",
-  time:"12:42"
- },
- {
-  uid:"U1002",
-  username:"Aisha",
-  text:"Good morning ☀️",
-  time:"12:41"
- },
- {
-  uid:"U1003",
-  username:"Zoha",
-  text:"Koi new friend banao yaar 😄",
-  time:"12:38"
- },
- {
-  uid:"U1004",
-  username:"Hassan",
-  text:"Nice pic!",
-  time:"12:35"
- },
- {
-  uid:"U1005",
-  username:"Nimra",
-  text:"Welcome all 😊",
-  time:"12:30"
- },
- {
-  uid:"U1006",
-  username:"Usman",
-  text:"Kya haal hai?",
-  time:"12:20"
- }
+var demoMessages = [
+ { uid:"U1001", username:"Ali", text:"Hello everyone! 👋", time:"12:42" },
+ { uid:"U1002", username:"Aisha", text:"Good morning ☀️", time:"12:41" },
+ { uid:"U1003", username:"Zoha", text:"Koi new friend banao yaar 😄", time:"12:38" },
+ { uid:"U1004", username:"Hassan", text:"Nice pic!", time:"12:35" },
+ { uid:"U1005", username:"Nimra", text:"Welcome all 😊", time:"12:30" },
+ { uid:"U1006", username:"Usman", text:"Kya haal hai?", time:"12:20" }
 ];
 
-let groupsData=[
- {
-  id:"G1001",
-  name:"Friends Group",
-  memberIds:[
-   "U1001",
-   "U1002",
-   "U1003",
-   "U1004"
-  ]
- }
+var groupsData = [
+ { id:"G1001", name:"Friends Group", memberIds:["U1001","U1002","U1003","U1004"] }
 ];
 
-let me={
- uid:"LOCAL_"+Math.random()
-       .toString(36)
-       .slice(2,8)
-       .toUpperCase(),
+var me = {
+ uid:"LOCAL_USER",
  username:"Malik",
  online:true,
- avatar:"https://i.pravatar.cc/100?img=13"
+ avatar:FALLBACK_AVATAR
 };
 
-let mode="login";
-let currentChatUser=null;
+var BAD_WORDS = ["badword1", "badword2"];
 
-/* =========================
-   HELPERS
-========================= */
-
-function $(id){
- return document.getElementById(id);
-}
+function $(id){ return document.getElementById(id); }
 
 function esc(v){
- return String(v||"")
- .replace(/[&<>"']/g,function(x){
-  return {
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#039;"
-  }[x];
- });
+ v = String(v || "");
+ return v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
 function avatar(user){
-
- if(user && user.avatar){
-  return user.avatar;
- }
-
+ if(user && user.avatar){ return user.avatar; }
  return FALLBACK_AVATAR;
 }
 
-/* Offline fallback avatar */
-const FALLBACK_AVATAR=
-"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23102d4d'/%3E%3Ccircle cx='50' cy='38' r='20' fill='%23238cff'/%3E%3Cellipse cx='50' cy='90' rx='32' ry='25' fill='%23238cff'/%3E%3C/svg%3E";
-
-document.addEventListener(
- "error",
- function(e){
-
-  const el=e.target;
-
-  if(!el || el.tagName!=="IMG"){
-   return;
-  }
-
-  if(
-   el.classList.contains("avatar") ||
-   el.classList.contains("messageAvatar")
-  ){
-
-   el.onerror=null;
-   el.src=FALLBACK_AVATAR;
-  }
-
-  if(el.classList.contains("statusImg")){
-   el.style.display="none";
-  }
-
- },
- true
-);
-
 function findUser(uid){
-
- if(uid===me.uid){
-  return me;
+ var i;
+ if(uid === me.uid){ return me; }
+ for(i=0; i<demoUsers.length; i++){
+  if(demoUsers[i].uid === uid){ return demoUsers[i]; }
  }
-
- return demoUsers.find(
-  u=>u.uid===uid
- ) || {
-  uid:uid,
-  username:"User",
-  online:false,
-  avatar:FALLBACK_AVATAR
- };
+ return { uid:uid, username:"User", online:false, avatar:FALLBACK_AVATAR };
 }
 
 function timeNow(){
-
- return new Date().toLocaleTimeString(
-  [],
-  {
-   hour:"2-digit",
-   minute:"2-digit"
-  }
- );
+ var d = new Date();
+ var h = d.getHours();
+ var m = d.getMinutes();
+ if(h < 10){ h = "0" + h; }
+ if(m < 10){ m = "0" + m; }
+ return h + ":" + m;
 }
 
 function onlineCount(){
-
- return demoUsers.filter(
-  u=>u.online
- ).length + (me.online?1:0);
+ var count = 0;
+ var i;
+ for(i=0; i<demoUsers.length; i++){
+  if(demoUsers[i].online){ count++; }
+ }
+ if(me.online){ count++; }
+ return count;
 }
 
 function setNav(name){
-
- document.querySelectorAll(
-  ".bottom button"
- ).forEach(function(x){
-  x.classList.remove("active");
- });
-
- const el=$("nav"+name);
-
- if(el){
-  el.classList.add("active");
+ var ids = ["navHome", "navWorld", "navUsers", "navStatus", "navSettings"];
+ var i, el;
+ for(i=0; i<ids.length; i++){
+  el = $(ids[i]);
+  if(el){ el.className = ""; }
  }
+ el = $("nav" + name);
+ if(el){ el.className = "active"; }
 }
-
-/* =========================
-   MODERATION
-========================= */
-
-const BAD_WORDS=[
- "badword1",
- "badword2"
-];
 
 function containsAbusiveWord(text){
-
- const lower=
-  String(text||"").toLowerCase();
-
- return BAD_WORDS.some(
-  function(word){
-
-   const safe=
-    word.replace(
-     /[.*+?^${}()|[\]\\]/g,
-     "\\$&"
-    );
-
-   return new RegExp(
-    "\\b"+safe+"\\b",
-    "i"
-   ).test(lower);
-
+ var lower = String(text || "").toLowerCase();
+ var i;
+ for(i=0; i<BAD_WORDS.length; i++){
+  if(lower.indexOf(BAD_WORDS[i].toLowerCase()) !== -1){
+   return true;
   }
- );
+ }
+ return false;
 }
 
-/* =========================
-   START
-========================= */
+function showNotice(text, warning){
+ var old = $("noticeBox");
+ if(old && old.parentNode){ old.parentNode.removeChild(old); }
+ var box = document.createElement("div");
+ box.id = "noticeBox";
+ box.className = "notice " + (warning ? "warning" : "success");
+ box.innerHTML = esc(text);
+ var mainEl = $("main");
+ if(mainEl && mainEl.firstChild){
+  mainEl.insertBefore(box, mainEl.firstChild);
+ }
+ window.setTimeout(function(){
+  if(box && box.parentNode){ box.parentNode.removeChild(box); }
+ }, 4000);
+}
 
-setTimeout(function(){
+/* HARD SAFE FALLBACK LOADING SCREEN */
+function dismissLoading(){
+ var loading = $("loading");
+ if(loading){ loading.className = "hide"; }
+ var auth = $("auth");
+ if(auth){ auth.className = ""; }
+ try{
+  var saved = localStorage.getItem("yourchat_username");
+  if(saved && $("username")){ $("username").value = saved; }
+ }catch(e){}
+}
 
- $("loading").classList.add("hide");
- $("auth").classList.remove("hide");
+window.setTimeout(dismissLoading, 1500);
 
-},1100);
-
-/* =========================
-   AUTH
-========================= */
-
+/* AUTH */
 function authMode(type){
-
- mode=type;
-
- $("loginTab").classList.toggle(
-  "active",
-  type==="login"
- );
-
- $("createTab").classList.toggle(
-  "active",
-  type==="create"
- );
-
- $("authBtn").textContent=
-  type==="login"
-  ? "Login"
-  : "Create Account";
-
- $("authStatus").textContent="";
+ mode = type;
+ $("loginTab").className = (type === "login" ? "tab active" : "tab");
+ $("createTab").className = (type === "create" ? "tab active" : "tab");
+ $("authBtn").innerHTML = (type === "login" ? "Login" : "Create Account");
+ $("authStatus").innerHTML = "";
 }
 
 function validUsername(name){
-
  return /^[A-Za-z0-9_]{3,24}$/.test(name);
 }
 
 function authAction(){
-
- const name=
-  $("username").value.trim();
-
- const pass=
-  $("password").value;
+ var name = $("username").value.trim();
+ var pass = $("password").value;
 
  if(!validUsername(name)){
-
-  $("authStatus").textContent=
-   "Username 3-24 letters, numbers or _ only.";
-
+  $("authStatus").innerHTML = "Username 3-24 letters, numbers or _ only.";
+  return;
+ }
+ if(pass.length < 6){
+  $("authStatus").innerHTML = "Password must be 6 characters or more.";
   return;
  }
 
- if(pass.length<6){
+ me.username = name;
+ try{ localStorage.setItem("yourchat_username", name); }catch(e){}
 
-  $("authStatus").textContent=
-   "Password must be 6 characters or more.";
-
-  return;
- }
-
- me.username=name;
-
- localStorage.setItem(
-  "yourchat_username",
-  name
- );
-
- $("headerName").textContent=name;
-
- $("auth").classList.add("hide");
- $("app").classList.remove("hide");
+ $("headerName").innerHTML = esc(name);
+ $("auth").className = "hide";
+ $("app").className = "";
 
  home();
 }
 
-/* =========================
-   HOME
-========================= */
-
+/* HOME */
 function home(){
-
  setNav("Home");
-
- $("main").innerHTML=`
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <img class="avatar"
-        src="${avatar(me)}">
-
-   <div>
-
-    <b>
-     Welcome, ${esc(me.username)} 👋
-    </b>
-
-    <div class="small">
-     Your Chat is ready
-    </div>
-
-   </div>
-
-  </div>
-
-  <div class="menu">
-
-   <button class="menuBtn"
-           onclick="worldChat()">
-    <strong>🌍 World Chat</strong>
-    <small>Text + @mentions only</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="onlineUsers()">
-    <strong>
-     <span class="grn">●</span>
-     Online Users
-    </strong>
-    <small>
-     ${onlineCount()} users online
-    </small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="allUsers()">
-    <strong>👤 All Users</strong>
-    <small>Username + ID + status</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="privateInfo()">
-    <strong>💬 Private Chat</strong>
-    <small>Friends / approved users</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="groups()">
-    <strong>👥 Group Chat</strong>
-    <small>Members + messages</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="statusPage()">
-    <strong>● Status</strong>
-    <small>Text, image, video</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="notifications()">
-    <strong>🔔 Notifications</strong>
-    <small>Messages & mentions</small>
-   </button>
-
-   <button class="menuBtn"
-           onclick="settings()">
-    <strong>⚙️ Settings</strong>
-    <small>Account & privacy</small>
-   </button>
-
-  </div>
-
- </div>
-
- <div class="card">
-
-  <b>
-   <span class="grn">●</span>
-   Online now
-  </b>
-
-  <span class="badge">
-   ${onlineCount()}
-  </span>
-
-  <p class="small">
-   World Chat: text + @mentions only.
-  </p>
-
- </div>
-
- <div class="card">
-
-  <b>🔒 Current build</b>
-
-  <p class="small">
-   Frontend preview only. Firebase backend will be
-   connected after Google Cloud access is restored.
-  </p>
-
- </div>
-
- <button class="btn red"
-         onclick="logout()">
-  Log Out
- </button>
- `;
+ $("main").innerHTML = 
+ '<div class="card">'+
+ '<div class="demo-badge">FRONTEND / LOCAL DEMO</div>'+
+ '<div class="topTitle">'+
+ '<img class="avatar" src="' + avatar(me) + '" onerror="this.src=\''+FALLBACK_AVATAR+'\'">'+
+ '<div style="display:inline-block;vertical-align:middle;margin-left:8px">'+
+ '<b>Welcome, ' + esc(me.username) + ' 👋</b>'+
+ '<div class="small">Your Chat is ready</div>'+
+ '</div></div>'+
+ '<div>'+
+ menuButton("🌍 World Chat", "Text + @mentions only", "worldChat()")+
+ menuButton('<span class="grn">●</span> Online Users', onlineCount() + " users online", "onlineUsers()")+
+ menuButton("👤 All Users", "Username + ID + status", "allUsers()")+
+ menuButton("💬 Private Chat", "Friends / approved users", "privateInfo()")+
+ menuButton("👥 Group Chat", "Members + messages", "groups()")+
+ menuButton("● Status", "Text, image, video", "statusPage()")+
+ menuButton("🔔 Notifications", "Messages & mentions", "notifications()")+
+ menuButton("⚙️ Settings", "Account & privacy", "settings()")+
+ '</div></div>'+
+ '<div class="card">'+
+ '<b><span class="grn">●</span> Online now</b> <span class="badge">' + onlineCount() + '</span>'+
+ '<p class="small">World Chat: text + @mentions only.</p>'+
+ '</div>'+
+ '<div class="card">'+
+ '<b>🔒 Current Build Status</b>'+
+ '<p class="small">KaiOS ES5 Frontend Test Build. Firebase Cloud backend is currently in restricted demo mode.</p>'+
+ '</div>'+
+ '<button class="btn red" onclick="logout()">Log Out</button>';
 }
 
-/* =========================
-   WORLD CHAT
-========================= */
+function menuButton(title, small, action){
+ return '<button class="menuBtn" onclick="' + action + '"><strong>' + title + '</strong><small>' + small + '</small></button>';
+}
 
+/* WORLD CHAT */
 function worldChat(){
-
  setNav("World");
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <b>🌍 World Chat</b>
-
-   <span class="badge">
-    <span class="grn">●</span>
-    ${onlineCount()}
-   </span>
-
-  </div>
-
-  <div id="worldMessages"
-       class="chatBox">
-  </div>
-
-  <div class="chatInput">
-
-   <textarea id="worldText"
-             maxlength="1000"
-             placeholder="Type a message..."></textarea>
-
-   <button class="btn send"
-           onclick="sendWorld()">
-    ➤
-   </button>
-
-  </div>
-
-  <div class="tools">
-
-   <button class="tool"
-           onclick="mentionPicker()">
-    @ Mention
-   </button>
-
-   <button class="tool"
-           onclick="showNotice(
-            'World Chat only supports text and @mentions.'
-           )">
-    World Rules
-   </button>
-
-  </div>
-
-  <div class="small"
-       style="margin-top:7px">
-   Latest 15 shown • Old database messages are not
-   automatically deleted.
-  </div>
-
- </div>
- `;
+ $("main").innerHTML = 
+ '<button class="btn alt back" onclick="home()">← Home</button>'+
+ '<div class="card">'+
+ '<div class="topTitle"><b>🌍 World Chat</b> <span class="badge"><span class="grn">●</span> ' + onlineCount() + '</span></div>'+
+ '<div id="worldMessages" class="chatBox"></div>'+
+ '<div class="chatInput">'+
+ '<textarea id="worldText" maxlength="1000" placeholder="Type a message..."></textarea>'+
+ '<button class="btn send" onclick="sendWorld()">➤</button>'+
+ '</div>'+
+ '<div class="tools">'+
+ '<button class="tool" onclick="mentionPicker()">@ Mention</button>'+
+ '<button class="tool" onclick="worldRules()">World Rules</button>'+
+ '</div>'+
+ '<div class="small" style="margin-top:7px">Latest 15 shown • Old messages stay saved.</div>'+
+ '</div>';
 
  renderWorld();
 }
 
 function renderWorld(){
-
- const box=$("worldMessages");
-
- if(!box)return;
-
- box.innerHTML="";
-
- demoMessages
- .slice(-15)
- .forEach(function(m){
-
-  const u=findUser(m.uid);
-
-  const div=
-   document.createElement("div");
-
-  div.className=
-   "message "+
-   (m.uid===me.uid?"mine":"");
-
-  let text=esc(m.text);
-
-  text=text.replace(
-   /@([A-Za-z0-9_]+)/g,
-   '<span class="mention">@$1</span>'
-  );
-
-  div.innerHTML=`
-
-   <img class="messageAvatar"
-        src="${avatar(u)}">
-
-   <div class="bubble">
-
-    <b>${esc(m.username)}</b><br>
-
-    ${text}
-
-    <small>
-     ${esc(m.time)}
-    </small>
-
-   </div>
-  `;
-
+ var box = $("worldMessages");
+ if(!box){ return; }
+ box.innerHTML = "";
+ var start = demoMessages.length - 15;
+ if(start < 0){ start = 0; }
+ var i;
+ for(i = start; i < demoMessages.length; i++){
+  var m = demoMessages[i];
+  var u = findUser(m.uid);
+  var div = document.createElement("div");
+  div.className = "message " + (m.uid === me.uid ? "mine" : "other");
+  var text = esc(m.text).replace(/@([A-Za-z0-9_]+)/g, '<span class="mention">@$1</span>');
+  div.innerHTML = 
+   '<img class="messageAvatar" src="' + avatar(u) + '" onerror="this.src=\''+FALLBACK_AVATAR+'\'">'+
+   '<div class="bubble"><b>' + esc(m.username) + '</b><br>' + text + '<small>' + esc(m.time) + '</small></div>';
   box.appendChild(div);
- });
-
- box.scrollTop=box.scrollHeight;
+ }
+ box.scrollTop = box.scrollHeight;
 }
 
 function sendWorld(){
-
- const input=$("worldText");
-
- if(!input)return;
-
- const text=input.value.trim();
-
- if(!text)return;
-
+ var input = $("worldText");
+ if(!input){ return; }
+ var text = input.value.trim();
+ if(!text){ return; }
  if(containsAbusiveWord(text)){
-
-  showNotice(
-   "⚠ Message blocked. Please avoid abusive words.",
-   true
-  );
-
+  showNotice("Message blocked. Abusive words are not allowed.", true);
   return;
  }
-
- const recent=
-  JSON.parse(
-   localStorage.getItem(
-    "worldSendTimes"
-   ) || "[]"
-  );
-
- const now=Date.now();
-
- const active=
-  recent.filter(
-   x=>now-x<10000
-  );
-
- if(active.length>=5){
-
-  showNotice(
-   "⚠ You are sending messages too fast. Please wait.",
-   true
-  );
-
-  return;
- }
-
- active.push(now);
-
- localStorage.setItem(
-  "worldSendTimes",
-  JSON.stringify(active)
- );
-
- demoMessages.push({
-
-  uid:me.uid,
-  username:me.username,
-  text:text,
-  time:timeNow()
-
- });
-
- input.value="";
-
+ demoMessages.push({ uid: me.uid, username: me.username, text: text, time: timeNow() });
+ input.value = "";
  renderWorld();
 }
 
+function worldRules(){ showNotice("World Chat: Text + @mentions. Anti-spam active."); }
+
 function mentionPicker(){
+ var online = [];
+ var i;
+ for(i=0; i<demoUsers.length; i++){
+  if(demoUsers[i].online){ online.push(demoUsers[i]); }
+ }
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="worldChat()">← World Chat</button>'+
+  '<div class="card"><b>@ Select Online User</b><div id="mentionList"></div></div>';
 
- const online=
-  demoUsers.filter(
-   u=>u.online
-  );
-
- let html=`
-
- <div class="card">
-
-  <b>@ Select online user</b>
-
- `;
-
- online.forEach(function(u){
-
-  html+=`
-
-   <div class="userRow">
-
-    <img class="avatar"
-         src="${avatar(u)}">
-
-    <div class="userInfo">
-
-     <b>${esc(u.username)}</b>
-
-     <small>
-      <span class="dot"></span>
-      Online
-     </small>
-
-    </div>
-
-    <button class="btn miniBtn"
-            onclick="insertMention('${esc(u.username)}')">
-     Select
-    </button>
-
-   </div>
-
-  `;
- });
-
- html+=`</div>`;
-
- $("main").innerHTML=
-
-  `<button class="btn alt back"
-           onclick="worldChat()">
-    ← World Chat
-   </button>`+
-  html;
+ var list = $("mentionList");
+ for(i=0; i<online.length; i++){
+  var u = online[i];
+  list.innerHTML += 
+   '<div class="userRow">'+
+   '<img class="avatar" src="' + avatar(u) + '" onerror="this.src=\''+FALLBACK_AVATAR+'\'">'+
+   '<div class="userInfo"><b>' + esc(u.username) + '</b><small><span class="dot"></span> Online</small></div>'+
+   '<button class="btn miniBtn" onclick="insertMention(\'' + esc(u.username) + '\')">Select</button>'+
+   '</div>';
+ }
 }
 
 function insertMention(name){
-
  worldChat();
-
- setTimeout(function(){
-
-  const box=$("worldText");
-
-  if(box){
-
-   box.value="@"+name+" ";
-   box.focus();
-
-  }
-
- },50);
+ window.setTimeout(function(){
+  var box = $("worldText");
+  if(box){ box.value = "@" + name + " "; box.focus(); }
+ }, 50);
 }
 
-/* =========================
-   USERS
-========================= */
-
-function onlineUsers(){
-
- showUsers(false);
-}
-
-function allUsers(){
-
- showUsers(true);
-}
+/* USERS */
+function onlineUsers(){ showUsers(false); }
+function allUsers(){ showUsers(true); }
 
 function showUsers(all){
-
  setNav("Users");
+ var list = [];
+ var i;
+ for(i=0; i<demoUsers.length; i++){
+  if(all || demoUsers[i].online){ list.push(demoUsers[i]); }
+ }
+ if(me.online){ list.push(me); }
 
- const list=
-  all
-  ?[...demoUsers,me]
-  :demoUsers.filter(
-    u=>u.online
-   ).concat(
-    me.online?[me]:[]
-   );
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card">'+
+  '<div class="topTitle"><b>' + (all ? "👤 All Users" : '<span class="grn">●</span> Online Users') + '</b> <span class="badge">' + list.length + '</span></div>'+
+  '<input id="userSearch" class="search" placeholder="Search users...">'+
+  '<div id="userList"></div>'+
+  '</div>';
 
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <b>
-    ${all
-     ?"👤 All Users"
-     :'<span class="grn">●</span> Online Users'}
-   </b>
-
-   <span class="badge">
-    ${list.length}
-   </span>
-
-  </div>
-
-  <input class="search"
-         placeholder="Search users..."
-         oninput="filterUsers(this.value,${all})">
-
-  <div id="userList"></div>
-
- </div>
- `;
-
+ $("userSearch").onkeyup = function(){ filterUsers($("userSearch").value, all); };
  renderUsers(list);
 }
 
 function renderUsers(list){
-
- const box=$("userList");
-
- if(!box)return;
-
- box.innerHTML="";
-
- list.forEach(function(u){
-
-  const row=
-   document.createElement("div");
-
-  row.className="userRow";
-
-  row.innerHTML=`
-
-   <img class="avatar"
-        src="${avatar(u)}">
-
-   <div class="userInfo">
-
-    <b>
-     ${esc(u.username)}
-     ${u.uid===me.uid?" (You)":""}
-    </b>
-
-    <small>
-     ID: ${esc(u.uid)}
-    </small>
-
-    <small>
-     <span class="dot ${
-      u.online?"":"offline"
-     }"></span>
-
-     ${u.online?"Online":"Offline"}
-    </small>
-
-   </div>
-
-   ${
-    u.uid===me.uid
-    ?""
-    :`
-     <button class="btn miniBtn"
-             onclick="privateChat('${u.uid}')">
-      Chat
-     </button>
-    `
-   }
-
-  `;
-
+ var box = $("userList");
+ if(!box){ return; }
+ box.innerHTML = "";
+ var i;
+ for(i=0; i<list.length; i++){
+  var u = list[i];
+  var row = document.createElement("div");
+  row.className = "userRow";
+  var button = "";
+  if(u.uid !== me.uid){
+   button = '<button class="btn miniBtn" onclick="privateChat(\'' + u.uid + '\')">Chat</button>';
+  }
+  row.innerHTML = 
+   '<img class="avatar" src="' + avatar(u) + '" onerror="this.src=\''+FALLBACK_AVATAR+'\'">'+
+   '<div class="userInfo">'+
+   '<b>' + esc(u.username) + (u.uid === me.uid ? " (You)" : "") + '</b>'+
+   '<small>ID: ' + esc(u.uid) + '</small>'+
+   '<small><span class="dot ' + (u.online ? "" : "offline") + '"></span> ' + (u.online ? "Online" : "Offline") + '</small>'+
+   '</div>' + button;
   box.appendChild(row);
- });
+ }
 }
 
-function filterUsers(q,all){
-
- const source=
-  all
-  ?[...demoUsers,me]
-  :demoUsers.filter(
-    u=>u.online
-   ).concat(
-    me.online?[me]:[]
-   );
-
- const search=
-  String(q||"").toLowerCase();
-
- const filtered=
-  source.filter(
-   u=>u.username
-    .toLowerCase()
-    .includes(search)
-  );
-
- renderUsers(filtered);
+function filterUsers(q, all){
+ var source = [];
+ var i;
+ for(i=0; i<demoUsers.length; i++){
+  if(all || demoUsers[i].online){ source.push(demoUsers[i]); }
+ }
+ if(me.online){ source.push(me); }
+ q = String(q || "").toLowerCase();
+ var result = [];
+ for(i=0; i<source.length; i++){
+  if(source[i].username.toLowerCase().indexOf(q) !== -1){ result.push(source[i]); }
+ }
+ renderUsers(result);
 }
 
-/* =========================
-   PRIVATE CHAT
-========================= */
-
+/* PRIVATE CHAT */
 function privateInfo(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <h3>💬 Private Chat</h3>
-
-  <p class="small">
-   Private messages are for friends or approved users.
-   Random unsolicited messages are not allowed.
-  </p>
-
-  <button class="btn"
-          onclick="allUsers()">
-   Find Users
-  </button>
-
- </div>
-
- <div class="card">
-
-  <b>🔒 Permission system</b>
-
-  <p class="small">
-   Friend request → Accept → Private Chat
-  </p>
-
- </div>
- `;
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card"><h3>💬 Private Chat</h3><p class="small">Approved friends only.</p><button class="btn" onclick="allUsers()">Find Users</button></div>';
 }
 
 function privateChat(uid){
-
- currentChatUser=findUser(uid);
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="allUsers()">
-  ← Users
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <img class="avatar"
-        src="${avatar(currentChatUser)}">
-
-   <div>
-
-    <b>
-     ${esc(currentChatUser.username)}
-    </b>
-
-    <div class="small">
-     ID: ${esc(currentChatUser.uid)}
-    </div>
-
-    <div class="small">
-
-     <span class="dot ${
-      currentChatUser.online
-      ?""
-      :"offline"
-     }"></span>
-
-     ${
-      currentChatUser.online
-      ?"Online"
-      :"Offline"
-     }
-
-    </div>
-
-   </div>
-
-  </div>
-
-  <div id="privateMessages"
-       class="chatBox">
-
-   <div class="message">
-
-    <img class="messageAvatar"
-         src="${avatar(currentChatUser)}">
-
-    <div class="bubble">
-     Hi! kaisi ho? 😊
-     <small>12:40</small>
-    </div>
-
-   </div>
-
-   <div class="message mine">
-
-    <div class="bubble">
-     Main theek hoon 😊
-     <small>12:41</small>
-    </div>
-
-   </div>
-
-  </div>
-
-  <div class="chatInput">
-
-   <textarea id="privateText"
-             maxlength="1000"
-             placeholder="Private message..."></textarea>
-
-   <button class="btn send"
-           onclick="sendPrivate()">
-    ➤
-   </button>
-
-  </div>
-
-  <div class="tools">
-
-   <button class="tool"
-           onclick="fakeMedia('image')">
-    🖼 Image
-   </button>
-
-   <button class="tool"
-           onclick="fakeMedia('video')">
-    🎥 Video
-   </button>
-
-   <button class="tool"
-           onclick="reactionPicker()">
-    ❤️ React
-   </button>
-
-  </div>
-
- </div>
-
- <button class="btn alt"
-         onclick="showFriendOptions()">
-  👥 Friend / Permission
- </button>
- `;
+ currentChatUser = findUser(uid);
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="allUsers()">← Users</button>'+
+  '<div class="card">'+
+  '<div class="topTitle">'+
+  '<img class="avatar" src="' + avatar(currentChatUser) + '" onerror="this.src=\''+FALLBACK_AVATAR+'\'">'+
+  '<div style="display:inline-block;vertical-align:middle;margin-left:8px">'+
+  '<b>' + esc(currentChatUser.username) + '</b>'+
+  '<div class="small">ID: ' + esc(currentChatUser.uid) + '</div>'+
+  '</div></div>'+
+  '<div id="privateMessages" class="chatBox">'+
+  '<div class="message other"><div class="bubble">Hi! Kaise ho? 😊<small>12:40</small></div></div>'+
+  '</div>'+
+  '<div class="chatInput">'+
+  '<textarea id="privateText" maxlength="1000" placeholder="Private message..."></textarea>'+
+  '<button class="btn send" onclick="sendPrivate()">➤</button>'+
+  '</div>'+
+  '<div class="tools">'+
+  '<button class="tool" onclick="fakeMedia(\'image\')">🖼 Image</button>'+
+  '<button class="tool" onclick="fakeMedia(\'video\')">🎥 Video</button>'+
+  '<button class="tool" onclick="reactionPicker()">❤️ React</button>'+
+  '</div>'+
+  '</div>';
 }
 
 function sendPrivate(){
-
- const box=$("privateText");
-
- if(!box)return;
-
- const text=box.value.trim();
-
- if(!text)return;
-
- if(containsAbusiveWord(text)){
-
-  showNotice(
-   "⚠ Message blocked. Please avoid abusive words.",
-   true
-  );
-
-  return;
- }
-
- const area=$("privateMessages");
-
- area.innerHTML+=`
-
-  <div class="message mine">
-
-   <div class="bubble">
-
-    ${esc(text)}
-
-    <small>
-     ${timeNow()}
-    </small>
-
-   </div>
-
-  </div>
- `;
-
- box.value="";
-
- area.scrollTop=area.scrollHeight;
+ var box = $("privateText");
+ if(!box){ return; }
+ var text = box.value.trim();
+ if(!text){ return; }
+ var area = $("privateMessages");
+ area.innerHTML += '<div class="message mine"><div class="bubble">' + esc(text) + '<small>' + timeNow() + '</small></div></div>';
+ box.value = "";
+ area.scrollTop = area.scrollHeight;
 }
 
-function reactionPicker(){
+function reactionPicker(){ showNotice("Reactions: ❤️ 👍 😂 😢 😮"); }
 
- showNotice(
-  "❤️ 👍 😂 😢 😮 reactions are supported."
- );
-}
-
-function showFriendOptions(){
-
- $("main").innerHTML+=`
-
- <div class="card">
-
-  <b>👥 Friend Permission</b>
-
-  <p class="small">
-   Control who can message you privately.
-  </p>
-
-  <button class="btn">
-   Accept Friend Request
-  </button>
-
-  <button class="btn alt">
-   Block User
-  </button>
-
-  <button class="btn red">
-   Remove Permission
-  </button>
-
- </div>
- `;
-}
-
-/* =========================
-   GROUP CHAT
-========================= */
-
+/* GROUPS & STATUS & SETTINGS */
 function groups(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <h3>👥 Group Chat</h3>
-
-  <input id="groupName"
-         maxlength="40"
-         placeholder="Group name">
-
-  <button class="btn"
-          onclick="createGroup()">
-   Create Group
-  </button>
-
- </div>
-
- <div class="card">
-
-  <div id="groupsList"></div>
-
- </div>
- `;
-
- renderGroups();
-}
-
-function renderGroups(){
-
- const box=$("groupsList");
-
- if(!box)return;
-
- box.innerHTML="";
-
- groupsData.forEach(function(g){
-
-  const memberCount=
-   g.memberIds.length+1;
-
-  box.innerHTML+=`
-
-   <div class="userRow">
-
-    <div class="avatar"
-         style="display:flex;
-                align-items:center;
-                justify-content:center">
-     👥
-    </div>
-
-    <div class="userInfo">
-
-     <b>
-      ${esc(g.name)}
-     </b>
-
-     <small>
-      ${memberCount} members
-     </small>
-
-    </div>
-
-    <button class="btn miniBtn"
-            onclick="openGroup('${g.id}')">
-     Open
-    </button>
-
-   </div>
-  `;
- });
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card"><h3>👥 Group Chat</h3><input id="groupName" placeholder="Group name"><button class="btn" onclick="createGroup()">Create Group</button></div>';
 }
 
 function createGroup(){
-
- const input=$("groupName");
-
- const name=
-  input.value.trim();
-
- if(!name){
-
-  showNotice(
-   "Enter a group name."
-  );
-
-  return;
- }
-
- const id=
-  "G"+Date.now();
-
- groupsData.push({
-
-  id:id,
-  name:name,
-  memberIds:[]
-
- });
-
- openGroup(id);
+ var input = $("groupName");
+ if(!input || !input.value.trim()){ showNotice("Enter group name", true); return; }
+ showNotice("Group Created locally");
+ home();
 }
-
-function openGroup(id){
-
- const group=
-  groupsData.find(
-   g=>g.id===id
-  );
-
- if(!group)return;
-
- const memberCount=
-  group.memberIds.length+1;
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="groups()">
-  ← Groups
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <div class="avatar"
-        style="display:flex;
-               align-items:center;
-               justify-content:center">
-    👥
-   </div>
-
-   <div>
-
-    <b>
-     ${esc(group.name)}
-    </b>
-
-    <button class="tool"
-            style="padding:2px 8px;
-                   font-size:10px;
-                   margin-top:3px"
-            onclick="groupMembersPage('${group.id}')">
-     ${memberCount} members
-    </button>
-
-   </div>
-
-  </div>
-
-  <div id="groupMessages"
-       class="chatBox">
-
-   <div class="message">
-
-    <img class="messageAvatar"
-         src="${avatar(findUser("U1003"))}">
-
-    <div class="bubble">
-
-     <b>Zoha</b><br>
-     Group create kar diya hai 👍
-
-     <small>12:20</small>
-
-    </div>
-
-   </div>
-
-   <div class="message">
-
-    <img class="messageAvatar"
-         src="${avatar(findUser("U1004"))}">
-
-    <div class="bubble">
-
-     <b>Hassan</b><br>
-     Nice! 👍
-
-     <small>12:22</small>
-
-    </div>
-
-   </div>
-
-  </div>
-
-  <div class="chatInput">
-
-   <textarea id="groupText"
-             maxlength="1000"
-             placeholder="Group message..."></textarea>
-
-   <button class="btn send"
-           onclick="sendGroup()">
-    ➤
-   </button>
-
-  </div>
-
-  <div class="tools">
-
-   <button class="tool"
-           onclick="fakeMedia('image')">
-    🖼 Image
-   </button>
-
-   <button class="tool"
-           onclick="fakeMedia('video')">
-    🎥 Video
-   </button>
-
-  </div>
-
- </div>
-
- <button class="btn alt"
-         onclick="groupMembersPage('${group.id}')">
-  👥 Members
- </button>
- `;
-}
-
-function sendGroup(){
-
- const box=$("groupText");
-
- if(!box)return;
-
- const text=
-  box.value.trim();
-
- if(!text)return;
-
- if(containsAbusiveWord(text)){
-
-  showNotice(
-   "⚠ Message blocked. Please avoid abusive words.",
-   true
-  );
-
-  return;
- }
-
- $("groupMessages").innerHTML+=`
-
-  <div class="message mine">
-
-   <div class="bubble">
-
-    <b>${esc(me.username)}</b><br>
-
-    ${esc(text)}
-
-    <small>
-     ${timeNow()}
-    </small>
-
-   </div>
-
-  </div>
- `;
-
- box.value="";
-}
-
-function groupMembersPage(id){
-
- const group=
-  groupsData.find(
-   g=>g.id===id
-  );
-
- if(!group)return;
-
- let rowsHtml="";
-
- /* Current user */
- rowsHtml+=`
-
-  <div class="userRow">
-
-   <img class="avatar"
-        src="${avatar(me)}">
-
-   <div class="userInfo">
-
-    <b>
-     ${esc(me.username)} (You)
-    </b>
-
-    <small>
-     ID: ${esc(me.uid)}
-    </small>
-
-    <small>
-     <span class="dot"></span>
-     Online
-    </small>
-
-   </div>
-
-  </div>
- `;
-
- /* Every group member */
- group.memberIds.forEach(
-  function(uid){
-
-   const u=findUser(uid);
-
-   rowsHtml+=`
-
-    <div class="userRow">
-
-     <img class="avatar"
-          src="${avatar(u)}">
-
-     <div class="userInfo">
-
-      <b>
-       ${esc(u.username)}
-      </b>
-
-      <small>
-       ID: ${esc(u.uid)}
-      </small>
-
-      <small>
-
-       <span class="dot ${
-        u.online
-        ?""
-        :"offline"
-       }"></span>
-
-       ${
-        u.online
-        ?"Online"
-        :"Offline"
-       }
-
-      </small>
-
-     </div>
-
-    </div>
-   `;
-  }
- );
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="openGroup('${group.id}')">
-  ← ${esc(group.name)}
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <b>👥 Members</b>
-
-   <span class="badge">
-    ${group.memberIds.length+1}
-   </span>
-
-  </div>
-
-  ${rowsHtml}
-
- </div>
- `;
-}
-
-/* =========================
-   STATUS
-========================= */
 
 function statusPage(){
-
  setNav("Status");
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-   <b>● Status</b>
-  </div>
-
-  <button class="btn"
-          onclick="addStatus()">
-   ＋ Add Status
-  </button>
-
- </div>
-
- <div class="card">
-
-  <div class="statusCard">
-
-   <b>Aisha</b>
-
-   <div class="small">
-    <span class="grn">●</span>
-    2h ago
-   </div>
-
-   <p>
-    Good morning ☀️
-   </p>
-
-   <div class="reactions">
-
-    <button class="react">❤️</button>
-    <button class="react">👍</button>
-    <button class="react">😂</button>
-    <button class="react">😢</button>
-    <button class="react">😮</button>
-
-   </div>
-
-  </div>
-
-  <div class="statusCard">
-
-   <b>Zoha</b>
-
-   <div class="small">
-    <span class="grn">●</span>
-    3h ago
-   </div>
-
-   <img class="statusImg"
-        src="https://picsum.photos/500/250?random=10"
-        alt="Status">
-
-   <div class="reactions">
-
-    <button class="react">❤️</button>
-    <button class="react">😂</button>
-
-   </div>
-
-  </div>
-
- </div>
- `;
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card"><b>● Status Updates</b><p class="small">No status uploaded yet.</p></div>';
 }
-
-function addStatus(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="statusPage()">
-  ← Status
- </button>
-
- <div class="card">
-
-  <h3>Add Status</h3>
-
-  <textarea id="statusText"
-            maxlength="500"
-            placeholder="Write a status..."></textarea>
-
-  <button class="btn"
-          onclick="postStatus()">
-   Post Text Status
-  </button>
-
-  <button class="btn alt"
-          onclick="fakeMedia('image')">
-   🖼 Add Image
-  </button>
-
-  <button class="btn alt"
-          onclick="fakeMedia('video')">
-   🎥 Add Video
-  </button>
-
- </div>
- `;
-}
-
-function postStatus(){
-
- const box=$("statusText");
-
- const text=
-  box.value.trim();
-
- if(!text){
-
-  showNotice(
-   "Write something first."
-  );
-
-  return;
- }
-
- showNotice(
-  "Status posted successfully."
- );
-}
-
-/* =========================
-   NOTIFICATIONS
-========================= */
 
 function notifications(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <b>🔔 Notifications</b>
-
-   <span class="badge">
-    5
-   </span>
-
-  </div>
-
-  <div class="userRow">
-
-   <img class="avatar"
-        src="${avatar(findUser("U1002"))}">
-
-   <div class="userInfo">
-
-    <b>Aisha</b>
-
-    <small>
-     Sent you a message • 2m ago
-    </small>
-
-   </div>
-
-  </div>
-
-  <div class="userRow">
-
-   <div class="avatar"
-        style="display:flex;
-               align-items:center;
-               justify-content:center">
-    @
-   </div>
-
-   <div class="userInfo">
-
-    <b>Zoha</b>
-
-    <small>
-     Mentioned you in World Chat • 5m ago
-    </small>
-
-   </div>
-
-  </div>
-
-  <div class="userRow">
-
-   <div class="avatar"
-        style="display:flex;
-               align-items:center;
-               justify-content:center">
-    ❤️
-   </div>
-
-   <div class="userInfo">
-
-    <b>Ali</b>
-
-    <small>
-     Reacted to your status • 15m ago
-    </small>
-
-   </div>
-
-  </div>
-
-  <div class="userRow">
-
-   <img class="avatar"
-        src="${avatar(findUser("U1004"))}">
-
-   <div class="userInfo">
-
-    <b>Hassan</b>
-
-    <small>
-     Sent you a friend request • 30m ago
-    </small>
-
-   </div>
-
-  </div>
-
-  <div class="userRow">
-
-   <img class="avatar"
-        src="${avatar(findUser("U1005"))}">
-
-   <div class="userInfo">
-
-    <b>Nimra</b>
-
-    <small>
-     Accepted your friend request • 1h ago
-    </small>
-
-   </div>
-
-  </div>
-
- </div>
-
- <div class="card">
-
-  <b>🔔 Notification Settings</b>
-
-  <p class="small">
-   Private message • Group message •
-   @Mention • Reaction
-  </p>
-
-  <button class="btn green">
-   Notifications ON
-  </button>
-
- </div>
- `;
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card"><b>🔔 Notifications</b><p class="small">No unread notifications.</p></div>';
 }
-
-/* =========================
-   SETTINGS
-========================= */
 
 function settings(){
-
  setNav("Settings");
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="topTitle">
-
-   <img class="avatar"
-        src="${avatar(me)}">
-
-   <div>
-
-    <b>${esc(me.username)}</b>
-
-    <div class="small">
-     Online
-    </div>
-
-   </div>
-
-  </div>
-
- </div>
-
- <div class="card">
-
-  <button class="btn alt"
-          onclick="accountInfo()">
-   👤 Account Information
-  </button>
-
-  <button class="btn alt"
-          onclick="profilePage()">
-   🖼 Profile / DP
-  </button>
-
-  <button class="btn alt"
-          onclick="privacyPage()">
-   🔒 Privacy & Security
-  </button>
-
-  <button class="btn alt"
-          onclick="notificationSettings()">
-   🔔 Notifications
-  </button>
-
-  <button class="btn alt"
-          onclick="chatSettings()">
-   💬 Chat Settings
-  </button>
-
-  <button class="btn red"
-          onclick="logout()">
-   Log Out
-  </button>
-
- </div>
-
- <div class="card">
-
-  <b>ℹ️ About</b>
-
-  <p class="small">
-   YOUR CHAT<br>
-   Lightweight Android / KaiOS friendly chat app.
-  </p>
-
-  <p class="small">
-   AI Assistant: OFF
-  </p>
-
- </div>
- `;
+ $("main").innerHTML = 
+  '<button class="btn alt back" onclick="home()">← Home</button>'+
+  '<div class="card">'+
+  '<b>⚙ Settings</b>'+
+  '<p class="small">User: ' + esc(me.username) + '</p>'+
+  '<button class="btn red" onclick="logout()">Log Out</button>'+
+  '</div>';
 }
 
-function accountInfo(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="settings()">
-  ← Settings
- </button>
-
- <div class="card">
-
-  <h3>👤 Account Information</h3>
-
-  <p class="small">
-   Username
-  </p>
-
-  <b>${esc(me.username)}</b>
-
-  <p class="small">
-   User ID
-  </p>
-
-  <b>${esc(me.uid)}</b>
-
-  <p class="small">
-   Status
-  </p>
-
-  <b>
-   <span class="grn">●</span>
-   Online
-  </b>
-
- </div>
- `;
-}
-
-function profilePage(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="settings()">
-  ← Settings
- </button>
-
- <div class="card"
-      style="text-align:center">
-
-  <img class="avatar"
-       style="width:80px;height:80px"
-       src="${avatar(me)}">
-
-  <h3>
-   ${esc(me.username)}
-  </h3>
-
-  <p class="small">
-   ID: ${esc(me.uid)}
-  </p>
-
-  <button class="btn"
-          onclick="fakeMedia('profile')">
-   Upload Profile Picture
-  </button>
-
- </div>
- `;
-}
-
-function privacyPage(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="settings()">
-  ← Settings
- </button>
-
- <div class="card">
-
-  <h3>🔒 Privacy & Security</h3>
-
-  <div class="notice success">
-   Friend permission is required for private chat.
-  </div>
-
-  <div class="notice">
-   Users can be blocked and permissions removed.
-  </div>
-
-  <div class="notice">
-   World Chat has spam and abusive-word protection.
-  </div>
-
- </div>
- `;
-}
-
-function notificationSettings(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="settings()">
-  ← Settings
- </button>
-
- <div class="card">
-
-  <h3>🔔 Notifications</h3>
-
-  <button class="btn green">
-   🔔 Notifications ON
-  </button>
-
-  <p class="small">
-   Private messages<br>
-   Group messages<br>
-   @ Mentions<br>
-   Reactions
-  </p>
-
- </div>
- `;
-}
-
-function chatSettings(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="settings()">
-  ← Settings
- </button>
-
- <div class="card">
-
-  <h3>💬 Chat Settings</h3>
-
-  <button class="btn alt">
-   Latest 15 messages on screen
-  </button>
-
-  <button class="btn alt">
-   Auto-delete old database messages: OFF
-  </button>
-
-  <button class="btn alt">
-   Message time: ON
-  </button>
-
- </div>
- `;
-}
-
-/* =========================
-   FRIENDS
-========================= */
-
-function friends(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <h3>👥 Friends</h3>
-
-  <div class="userRow">
-
-   <img class="avatar"
-        src="${avatar(findUser("U1004"))}">
-
-   <div class="userInfo">
-
-    <b>Hassan</b>
-
-    <small>
-     Wants to be your friend
-    </small>
-
-   </div>
-
-   <button class="btn miniBtn">
-    Accept
-   </button>
-
-  </div>
-
- </div>
- `;
-}
-
-/* =========================
-   SAFETY
-========================= */
-
-function spamPage(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="notice warning">
-
-   <h3>⚠ Slow Down!</h3>
-
-   You are sending messages too fast.
-   Please wait.
-
-  </div>
-
-  <p class="small">
-   Repeated spam can later result in a
-   temporary 5-minute server-side ban.
-  </p>
-
- </div>
- `;
-}
-
-function abusivePage(){
-
- $("main").innerHTML=`
-
- <button class="btn alt back"
-         onclick="home()">
-  ← Home
- </button>
-
- <div class="card">
-
-  <div class="notice warning">
-
-   <h3>🚫 Message Blocked</h3>
-
-   This message contains abusive words
-   and cannot be sent.
-
-  </div>
-
- </div>
- `;
-}
-
-/* =========================
-   MEDIA PLACEHOLDERS
-========================= */
-
-function fakeMedia(type){
-
- if(type==="image"){
-
-  showNotice(
-   "🖼 Image picker ready. Real upload will be connected after Firebase Storage is available."
-  );
-
- }
-
- else if(type==="video"){
-
-  showNotice(
-   "🎥 Video picker ready. Real upload will be connected after Firebase Storage is available."
-  );
-
- }
-
- else{
-
-  showNotice(
-   "🖼 Profile picture picker ready."
-  );
-
- }
-}
-
-/* =========================
-   NOTICE
-========================= */
-
-function showNotice(text,warning){
-
- const old=$("noticeBox");
-
- if(old){
-  old.remove();
- }
-
- const box=
-  document.createElement("div");
-
- box.id="noticeBox";
-
- box.className=
-  "notice "+
-  (warning?"warning":"success");
-
- box.textContent=text;
-
- $("main").prepend(box);
-
- setTimeout(function(){
-
-  if(box){
-   box.remove();
-  }
-
- },4000);
-}
-
-/* =========================
-   LOGOUT
-========================= */
+function fakeMedia(type){ showNotice(type + " upload selected (Demo)."); }
 
 function logout(){
-
- localStorage.removeItem(
-  "yourchat_username"
- );
-
+ try{ localStorage.removeItem("yourchat_username"); }catch(e){}
  location.reload();
 }
 
-/* =========================
-   KEYBOARD
-========================= */
+document.onkeydown = function(e){
+ e = e || window.event;
+ if(e.keyCode === 27){ home(); }
+};
 
-document.addEventListener(
- "keydown",
- function(e){
-
-  if(e.key==="Escape"){
-   home();
-  }
-
- }
-);
-
-/* =========================
-   REMEMBER USERNAME
-========================= */
-
-const saved=
- localStorage.getItem(
-  "yourchat_username"
- );
-
-if(saved){
-
- $("username").value=saved;
-
-}
 </script>
-
 </body>
 </html>
