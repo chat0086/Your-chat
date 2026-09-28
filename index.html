@@ -34,9 +34,34 @@ textarea{height:70px;resize:none}
 .menuBtn span{display:block;color:#8eb5d8;font-size:11px}
 .bottom{position:fixed;left:0;right:0;bottom:0;height:58px;background:#07192e;border-top:1px solid #224b72;text-align:center;z-index:50}
 .bottom button{width:19%;margin:4px 0;padding:8px 2px;font-size:11px;background:#0d2947}
-.navbar{display:flex;gap:5px;padding:7px;background:#07192e;border-bottom:1px solid #224b72;position:sticky;top:0;z-index:45}.navtab{flex:1;padding:8px 4px;font-size:11px;background:#0d2947;border-radius:8px}.navtab.active{background:#1a5a8d}.sideMenu{position:fixed;left:0;top:0;bottom:0;width:82%;max-width:320px;background:#081b31;border-right:1px solid #2a5b88;z-index:100;padding:12px;transform:translateX(-105%);transition:.2s;box-shadow:8px 0 25px #000}.sideMenu.show{transform:translateX(0)}.sideMenu button{width:100%;margin:5px 0;text-align:left}.waChat{background:#06172a;border-radius:12px;padding:7px;min-height:360px;max-height:430px;overflow:auto;border:1px solid #21486e}.bubble{max-width:82%;padding:7px 9px;margin:6px 2px;border-radius:10px;display:inline-block;word-wrap:break-word;line-height:1.35}.bubbleRow{text-align:left;clear:both}.bubbleRow.me{text-align:right}.bubble.me{background:#145437;border-bottom-right-radius:3px}.bubble.them{background:#172f47;border-bottom-left-radius:3px}.bubbleName{font-size:10px;color:#8ecbff;margin-bottom:2px}.bubbleTime{font-size:9px;color:#a9b9c7;margin-left:7px}.mediaMsg{max-width:230px;max-height:220px;border-radius:8px;display:block}.chatTools{display:flex;gap:5px;margin-top:7px}.chatTools input{flex:1}.chatTools button{min-width:44px}.chatReply{display:none;background:#0b2440;border-left:3px solid #52a7df;padding:7px;border-radius:7px;margin-top:6px;font-size:11px}.chatReply.show{display:block}.settingsItem{padding:11px;border-bottom:1px solid #173754}.statusTop{display:flex;gap:7px;margin-bottom:8px}.statusTop button{flex:1}.sideOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90}.sideOverlay.show{display:block}
+.navbar{display:flex;gap:5px;padding:7px;background:#07192e;border-bottom:1px solid #224b72;position:sticky;top:0;z-index:45}
+.navtab{flex:1;padding:8px 4px;font-size:11px;background:#0d2947;border-radius:8px}
+.navtab.active{background:#1a5a8d}
+.sideMenu{position:fixed;left:0;top:0;bottom:0;width:82%;max-width:320px;background:#081b31;border-right:1px solid #2a5b88;z-index:100;padding:12px;transform:translateX(-105%);transition:.2s;box-shadow:8px 0 25px #000}
+.sideMenu.show{transform:translateX(0)}
+.sideMenu button{width:100%;margin:5px 0;text-align:left}
+.waChat{background:#06172a;border-radius:12px;padding:7px;min-height:360px;max-height:430px;overflow:auto;border:1px solid #21486e}
+.bubble{max-width:82%;padding:7px 9px;margin:6px 2px;border-radius:10px;display:inline-block;word-wrap:break-word;line-height:1.35}
+.bubbleRow{text-align:left;clear:both}
+.bubbleRow.me{text-align:right}
+.bubble.me{background:#145437;border-bottom-right-radius:3px}
+.bubble.them{background:#172f47;border-bottom-left-radius:3px}
+.bubbleName{font-size:10px;color:#8ecbff;margin-bottom:2px}
+.bubbleTime{font-size:9px;color:#a9b9c7;margin-left:7px}
+.mediaMsg{max-width:230px;max-height:220px;border-radius:8px;display:block}
+.chatTools{display:flex;gap:5px;margin-top:7px}
+.chatTools input{flex:1}
+.chatTools button{min-width:44px}
+.chatReply{display:none;background:#0b2440;border-left:3px solid #52a7df;padding:7px;border-radius:7px;margin-top:6px;font-size:11px}
+.chatReply.show{display:block}
+.settingsItem{padding:11px;border-bottom:1px solid #173754}
+.statusTop{display:flex;gap:7px;margin-bottom:8px}
+.statusTop button{flex:1}
+.sideOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90}
+.sideOverlay.show{display:block}
 .row{display:block}
-.avatar{width:38px;height:38px;border-radius:50%;vertical-align:middle;border:1px solid #2d5e8e;background:#0e3559;object-fit:cover}.emptyDP{display:inline-block;position:relative;background:#fff!important;border:1px solid #ddd;overflow:hidden}
+.avatar{width:38px;height:38px;border-radius:50%;vertical-align:middle;border:1px solid #2d5e8e;background:#0e3559;object-fit:cover}
+.emptyDP{display:inline-block;position:relative;background:#fff!important;border:1px solid #ddd;overflow:hidden}
 .userRow{padding:8px 2px;border-bottom:1px solid #173754;min-height:54px}
 .userInfo{display:inline-block;vertical-align:middle;width:58%;padding-left:7px}
 .userName{font-weight:bold}
@@ -59,7 +84,11 @@ textarea{height:70px;resize:none}
 .headerBtn{float:right;margin-left:5px}
 .clear{clear:both}
 .statusItem{padding:9px;border-bottom:1px solid #173754}
-.reactRow button{padding:4px 7px;margin:2px;font-size:12px}.replyBox{margin:4px 0 5px 45px;padding:5px 7px;border-left:3px solid #4d91c9;background:#0a2138;border-radius:5px;color:#9fc4e4;font-size:11px}.replyBar{display:none;margin-top:6px;padding:7px;background:#0b2440;border:1px solid #2a587f;border-radius:7px;font-size:11px}.replyBar.show{display:block}.replyBar button{float:right;padding:3px 7px;font-size:10px}
+.reactRow button{padding:4px 7px;margin:2px;font-size:12px}
+.replyBox{margin:4px 0 5px 45px;padding:5px 7px;border-left:3px solid #4d91c9;background:#0a2138;border-radius:5px;color:#9fc4e4;font-size:11px}
+.replyBar{display:none;margin-top:6px;padding:7px;background:#0b2440;border:1px solid #2a587f;border-radius:7px;font-size:11px}
+.replyBar.show{display:block}
+.replyBar button{float:right;padding:3px 7px;font-size:10px}
 .groupMemberBox{display:none;background:#071a30;border:1px solid #24537e;border-radius:8px;padding:8px;margin:8px 0}
 .groupMemberBox.show{display:block}
 .notice{padding:8px;background:#0b2440;border:1px solid #2a587f;border-radius:8px;color:#9fc4e4;font-size:12px;margin:7px 0}
@@ -128,7 +157,7 @@ textarea{height:70px;resize:none}
   <div class="notice">Settings sirf Private Chat mein rakhi gayi hain.</div>
   <button style="width:100%;margin-top:5px" onclick="changeDP()">Change DP</button>
   <button style="width:100%;margin-top:5px" onclick="toggleNotify()">Notifications ON/OFF</button>
-  <button id="blockBtn" style="width:100%;margin-top:5px" onclick="blockCurrent()">Block User</button>
+  <button style="width:100%;margin-top:5px" onclick="blockCurrent()">Block User</button>
   <button style="width:100%;margin-top:5px" onclick="removeCurrentFriend()">Remove Friend</button>
   <button style="width:100%;margin-top:5px;background:#301b2a" onclick="closePrivateSettings()">Close</button>
 </div>
@@ -140,9 +169,6 @@ textarea{height:70px;resize:none}
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-/* =========================
-   CHIT CHAT PLUS FIREBASE
-   ========================= */
 var firebaseConfig = {
   apiKey: "AIzaSyAEqeB2YXk_2A9gZ41WQ_fNiBKiGnzYGc0",
   authDomain: "chit-chat-plus-7382b.firebaseapp.com",
@@ -183,39 +209,31 @@ var abusiveCount = 0;
 var onlineTimer = null;
 var statusTimer = null;
 var blockedCache = {};
-var blockedByMe = false;
-var blockedMe = false;
 var worldReply = null;
 var chatReply = null;
 
 function $(id){return document.getElementById(id)}
 function esc(s){
-  s = s === undefined || s === null ? "" : String(s);
+  s=s===undefined||s===null?"":String(s);
   return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
 function nowMs(){return new Date().getTime()}
-function avatar(src){ return src ? esc(src) : FALLBACK_AVATAR; }
-function avatarHTML(src, cls){
+function avatarHTML(src,cls){
   cls=cls||"avatar";
-  if(src && String(src).trim()!=="") return '<img class="'+cls+'" src="'+esc(src)+'" alt="DP">';
+  if(src&&String(src).trim()!=="")return '<img class="'+cls+'" src="'+esc(src)+'" alt="DP">';
   return '<span class="'+cls+' emptyDP" aria-label="No DP"></span>';
 }
 function tsTime(ts){
-  var d = null;
-  try{
-    if(ts && ts.toDate){d=ts.toDate();}
-    else if(ts instanceof Date){d=ts;}
-  }catch(e){}
-  if(!d){d=new Date();}
-  var h=d.getHours(), m=d.getMinutes();
-  var ap=h>=12?"PM":"AM";
-  h=h%12; if(h===0)h=12;
+  var d=null;
+  try{if(ts&&ts.toDate)d=ts.toDate();else if(ts instanceof Date)d=ts}catch(e){}
+  if(!d)d=new Date();
+  var h=d.getHours(),m=d.getMinutes(),ap=h>=12?"PM":"AM";
+  h=h%12;if(h===0)h=12;
   return h+":"+("0"+m).slice(-2)+" "+ap;
 }
 function msgText(s){
   var x=esc(s);
-  x=x.replace(/(^|\s)@([A-Za-z0-9_]{3,24})/g,'$1<span class="mention">@$2</span>');
-  return x;
+  return x.replace(/(^|\s)@([A-Za-z0-9_]{3,24})/g,'$1<span class="mention">@$2</span>');
 }
 function setMsg(text,ok){
   $("authMsg").className=ok?"ok":"err";
@@ -223,46 +241,37 @@ function setMsg(text,ok){
 }
 function showScreen(html,title,count){
   var h='<div class="card" style="margin-top:0"><b>'+esc(title)+'</b>';
-  if(count!==undefined){h+='<span class="countBox headerBtn">'+esc(count)+'</span>';}
+  if(count!==undefined)h+='<span class="countBox headerBtn">'+esc(count)+'</span>';
   h+='<div class="clear"></div></div>'+html;
   $("screen").innerHTML=h;
 }
 function errText(e){
-  if(!e)return "Unknown error";
+  if(!e)return"Unknown error";
   var c=e.code||"";
-  if(c.indexOf("email-already-in-use")>=0)return "Ye username pehle se bana hua hai.";
-  if(c.indexOf("invalid-email")>=0)return "Username format theek nahi hai.";
-  if(c.indexOf("weak-password")>=0)return "Password kam az kam 6 characters ka rakho.";
-  if(c.indexOf("wrong-password")>=0)return "Password ghalat hai.";
-  if(c.indexOf("user-not-found")>=0)return "Account nahi mila.";
-  if(c.indexOf("invalid-credential")>=0)return "Username ya password ghalat hai.";
-  if(c.indexOf("api-key-not-valid")>=0)return "Firebase API key/config issue hai.";
-  if(c.indexOf("permission-denied")>=0)return "Firestore Rules ne access rok diya.";
-  if(c.indexOf("failed-precondition")>=0)return "Firebase query/index issue hai.";
+  if(c.indexOf("email-already-in-use")>=0)return"Ye username pehle se bana hua hai.";
+  if(c.indexOf("invalid-email")>=0)return"Username format theek nahi hai.";
+  if(c.indexOf("weak-password")>=0)return"Password kam az kam 6 characters ka rakho.";
+  if(c.indexOf("wrong-password")>=0)return"Password ghalat hai.";
+  if(c.indexOf("user-not-found")>=0)return"Account nahi mila.";
+  if(c.indexOf("invalid-credential")>=0)return"Username ya password ghalat hai.";
+  if(c.indexOf("permission-denied")>=0)return"Firestore Rules ne access rok diya.";
   return c+" "+(e.message||"");
 }
 function usernameEmail(u){
-  var x=unescape(encodeURIComponent(String(u)));
-  var h="u";
-  for(var i=0;i<x.length;i++){
-    var n=x.charCodeAt(i).toString(16);
-    h+=("00"+n).slice(-2);
-  }
+  var x=unescape(encodeURIComponent(String(u))),h="u";
+  for(var i=0;i<x.length;i++)h+=("00"+x.charCodeAt(i).toString(16)).slice(-2);
   return h+"@chitchatplus.local";
 }
 function validUsername(u){
   u=String(u||"").replace(/^\s+|\s+$/g,"");
-  if(u.length<2 || u.length>30)return false;
-  for(var i=0;i<u.length;i++){
-    var c=u.charCodeAt(i);
-    if(c<32 || c===127)return false;
-  }
+  if(u.length<2||u.length>30)return false;
+  for(var i=0;i<u.length;i++)if(u.charCodeAt(i)<32||u.charCodeAt(i)===127)return false;
   return true;
 }
 
 function dismissLoading(){
   var l=$("loading");
-  if(l){l.style.display="none";}
+  if(l)l.style.display="none";
 }
 setTimeout(dismissLoading,1500);
 setTimeout(dismissLoading,3500);
@@ -272,7 +281,7 @@ try{
   appFirebase=firebase.initializeApp(firebaseConfig);
   auth=firebase.auth();
   db=firebase.firestore();
-  try{auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);}catch(e){}
+  try{auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)}catch(e){}
 }catch(e){
   setTimeout(function(){
     $("authMsg").className="err";
@@ -289,20 +298,26 @@ function toggleAuthMode(){
 }
 
 function authAction(){
-  if(!auth){setMsg("Firebase ready nahi hai.",false);return;}
-  var u=$("username").value.replace(/^\s+|\s+$/g,"");
-  var p=$("password").value;
-  if(!validUsername(u)){setMsg("Name 2–30 characters ka ho. Aap letters, numbers, space aur special characters bhi likh sakte ho.",false);return;}
-  if(p.length<6){setMsg("Password kam az kam 6 characters ka hona chahiye.",false);return;}
+  if(!auth){setMsg("Firebase ready nahi hai.",false);return}
+  var u=$("username").value.replace(/^\s+|\s+$/g,""),p=$("password").value;
+  if(!validUsername(u)){setMsg("Name 2–30 characters ka ho.",false);return}
+  if(p.length<6){setMsg("Password kam az kam 6 characters ka hona chahiye.",false);return}
   setMsg("Please wait...",true);
+
   if(authCreateMode){
     db.collection("users").where("username","==",u).limit(1).get().then(function(s){
-      if(!s.empty)throw {code:"username-exists",message:"Username already exists"};
+      if(!s.empty)throw{code:"username-exists",message:"Username already exists"};
       return auth.createUserWithEmailAndPassword(usernameEmail(u),p);
     }).then(function(cr){
       me=cr.user;
       return db.collection("users").doc(me.uid).set({
-        uid:me.uid,username:u,avatar:"",online:true,lastSeen:firebase.firestore.FieldValue.serverTimestamp(),createdAt:firebase.firestore.FieldValue.serverTimestamp()
+        uid:me.uid,
+        username:u,
+        avatar:"",
+        avatarSet:false,
+        online:true,
+        lastSeen:firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
       });
     }).then(function(){
       setMsg("Account ban gaya.",true);
@@ -314,11 +329,11 @@ function authAction(){
     auth.signInWithEmailAndPassword(usernameEmail(u),p).then(function(cr){
       me=cr.user;
       setMsg("Login ho gaya.",true);
-    }).catch(function(e){setMsg(errText(e),false);});
+    }).catch(function(e){setMsg(errText(e),false)});
   }
 }
 
-auth && auth.onAuthStateChanged(function(user){
+auth&&auth.onAuthStateChanged(function(user){
   if(user){
     me=user;
     loadMyProfile(function(){
@@ -341,697 +356,1304 @@ auth && auth.onAuthStateChanged(function(user){
 
 function loadMyProfile(cb){
   db.collection("users").doc(me.uid).get().then(function(s){
-    meProfile=s.exists?s.data():{uid:me.uid,username:(me.email||"User").split("@")[0],avatar:""};
+    meProfile=s.exists?s.data():{
+      uid:me.uid,
+      username:(me.email||"User").split("@")[0],
+      avatar:"",
+      avatarSet:false
+    };
     if(!s.exists){
-      return db.collection("users").doc(me.uid).set({uid:me.uid,username:meProfile.username,avatar:"",online:true,lastSeen:firebase.firestore.FieldValue.serverTimestamp()});
+      return db.collection("users").doc(me.uid).set({
+        uid:me.uid,
+        username:meProfile.username,
+        avatar:"",
+        avatarSet:false,
+        online:true,
+        lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+      });
     }
-  }).then(function(){if(cb)cb();}).catch(function(e){alert(errText(e));});
+  }).then(function(){if(cb)cb()}).catch(function(e){alert(errText(e))});
 }
 
 function setOnline(v){
   if(!me)return;
-  db.collection("users").doc(me.uid).update({online:v,lastSeen:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(){});
+  db.collection("users").doc(me.uid).update({
+    online:v,
+    lastSeen:firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(function(){});
 }
 function startOnlineHeartbeat(){
   if(onlineTimer)clearInterval(onlineTimer);
-  onlineTimer=setInterval(function(){setOnline(true);},25000);
+  onlineTimer=setInterval(function(){setOnline(true)},25000);
 }
-window.onbeforeunload=function(){setOnline(false);};
+window.onbeforeunload=function(){setOnline(false)};
 
 function listenUsers(){
   if(usersUnsub)usersUnsub();
   usersUnsub=db.collection("users").onSnapshot(function(s){
     usersCache=[];
-    s.forEach(function(d){usersCache.push(d.data());});
+    s.forEach(function(d){usersCache.push(d.data())});
     updateOnlineCount();
     if(currentScreen==="users")usersPage();
     if(currentScreen==="allusers")allUsersPage();
     if(currentScreen==="world")renderWorldOnlineList();
     if(currentScreen==="private")updatePrivateOnline();
-  },function(e){console.log(e);});
-}  },function(e){console.log(e);});
+  },function(e){console.log(e)});
 }
 function isReallyOnline(u){
-  if(!u)return false;
-  if(!u.online)return false;
+  if(!u||!u.online)return false;
   var ms=0;
-  try{if(u.lastSeen && u.lastSeen.toMillis)ms=u.lastSeen.toMillis();}catch(e){}
-  return !ms || (nowMs()-ms<70000);
+  try{if(u.lastSeen&&u.lastSeen.toMillis)ms=u.lastSeen.toMillis()}catch(e){}
+  return !ms||(nowMs()-ms<70000);
 }
 function updateOnlineCount(){
-  var n=0,i;
-  for(i=0;i<usersCache.length;i++)if(isReallyOnline(usersCache[i]))n++;
-  var el=$("liveCount"); if(el)el.innerHTML="Online: "+n;
-  var top=$("topUser"); if(top && meProfile)top.innerHTML="🟢 "+esc(meProfile.username);
+  var n=0;
+  for(var i=0;i<usersCache.length;i++)if(isReallyOnline(usersCache[i]))n++;
+  var el=$("liveCount");
+  if(el)el.innerHTML="Online: "+n;
 }
-
-function toggleSideMenu(){var m=$("sideMenu"),o=$("sideOverlay");if(m){m.className="sideMenu show";}if(o)o.className="sideOverlay show";}
-function closeSideMenu(){var m=$("sideMenu"),o=$("sideOverlay");if(m)m.className="sideMenu";if(o)o.className="sideOverlay";}
-function settingsPage(){
-  currentScreen="settings";
-  showScreen(
-    '<div class="card"><b>⚙ Settings</b></div>'+
-    '<div class="card settingsItem"><b>Profile</b><br><span class="time">DP change karne ke liye neeche button dabao.</span><button style="width:100%;margin-top:7px" onclick="changeDP()">Change DP</button></div>'+
-    '<div class="card settingsItem"><b>Notifications</b><br><span class="time">Private, mention aur group alerts.</span><button style="width:100%;margin-top:7px" onclick="toggleNotify()">Notifications ON/OFF</button></div>'+
-    '<div class="card settingsItem"><b>Account</b><br><span class="time">'+esc(meProfile?meProfile.username:"")+'</span><button style="width:100%;margin-top:7px;background:#3a1c27" onclick="logout()">Logout</button></div>'+
-    bottomBack(),"Settings"
-  );
+function findUserByUid(uid){
+  for(var i=0;i<usersCache.length;i++)if(usersCache[i].uid===uid)return usersCache[i];
+  return null;
 }
+function findUser(name){
+  for(var i=0;i<usersCache.length;i++)if(usersCache[i].username===name)return usersCache[i];
+  return null;
+}
+function pairId(a,b){return a<b?a+"_"+b:b+"_"+a}
 
-function homePage(){
+function toggleSideMenu(){
+  $("sideMenu").className="sideMenu show";
+  $("sideOverlay").className="sideOverlay show";
+}
+function closeSideMenu(){
+  $("sideMenu").className="sideMenu";
+  $("sideOverlay").className="sideOverlay";
+}
+function bottomBack(){
+  return '<button style="width:100%;margin-top:10px" onclick="homePage()">← Home</button>';
+}function homePage(){
   currentScreen="home";
+  var u=meProfile||{};
   showScreen(
+    '<div class="card"><div>'+avatarHTML(u.avatar,"avatar")+
+    ' <b>'+esc(u.username||"User")+'</b></div></div>'+
     '<div class="card">'+
-    '<button class="menuBtn" onclick="worldPage()"><b>🌍 World Chat</b><span>Text + mentions + online count</span></button>'+
-    '<button class="menuBtn" onclick="usersPage()"><b>🟢 Online Users</b><span>DP + username + private chat</span></button>'+
-    '<button class="menuBtn" onclick="allUsersPage()"><b>👥 All Users</b><span>All users • Direct private chat</span></button>'+
-    '<button class="menuBtn" onclick="privatePickerPage()"><b>🔒 Private Chat</b><span>WhatsApp style text + voice + video + reply</span></button>'+
-    '<button class="menuBtn" onclick="groupsPage()"><b>👨‍👩‍👧 Group Chat</b><span>Text + members list</span></button>'+
-    '<button class="menuBtn" onclick="myStatusPage()"><b>🟢 My Status</b><span>Text status only</span></button>'+
-    '<button class="menuBtn" onclick="friendsStatusPage()"><b>👀 Friends Status</b><span>Friends only</span></button>'+
-    '<button class="menuBtn" onclick="notificationsPage()"><b>🔔 Notifications</b><span id="homeBadge">Messages and mentions</span></button>'+
+    '<button class="menuBtn" onclick="myStatusPage()"><b>◉ Status</b><span>Apna status dekho aur post karo</span></button>'+
+    '<button class="menuBtn" onclick="privatePickerPage()"><b>🔒 Private Chat</b><span>Private message, voice aur video</span></button>'+
+    '<button class="menuBtn" onclick="worldPage()"><b>🌍 World Chat</b><span>Sab users ke saath chat</span></button>'+
+    '<button class="menuBtn" onclick="usersPage()"><b>👥 Users</b><span>Online aur offline users</span></button>'+
+    '<button class="menuBtn" onclick="groupsPage()"><b>👨‍👩‍👧 Groups</b><span>Group chat</span></button>'+
+    '<button class="menuBtn" onclick="notificationsPage()"><b>🔔 Notifications</b><span id="homeBadge">Checking...</span></button>'+
     '</div>'+
-    '<div class="notice">Chit Chat Plus • Digit/KaiOS friendly layout • AI disabled</div>',
+    bottomBack(),
     "Home"
   );
 }
 
-function bottomBack(){
-  return '<button onclick="homePage()" style="margin-top:8px">← Home</button>';
-}
-
-function worldPage(){
-  currentScreen="world";
-  showScreen(
-    '<div class="card"><span id="liveCount" class="countBox">Online: 0</span><span class="badge" style="float:right">TEXT ONLY</span><div class="clear"></div></div>'+
-    '<div class="card"><b>🟢 Online Users / Mention</b><div id="worldOnlineList" style="margin-top:7px"><div class="notice">Online users loading...</div></div></div>'+
-    '<div id="worldBox" class="chatBox"><div class="notice">Loading World Chat...</div></div>'+
-    '<div id="mentionList" class="mentionList hide"></div>'+
-    '<div id="worldReplyBar" class="replyBar"></div>'+
-    '<div class="inputRow"><input id="worldInput" placeholder="Write text... @username" onkeyup="worldTyping()"><button onclick="sendWorld()">Send</button></div>'+
-    bottomBack(),
-    "World Chat"
-  );
-  renderWorldOnlineList();
-  listenWorld();
-}
-function renderWorldOnlineList(){
-  var box=$("worldOnlineList"), count=$("liveCount");
-  if(!box)return;
-  var h="",n=0,i,u;
-  for(i=0;i<usersCache.length;i++){
-    u=usersCache[i];
-    if(!isReallyOnline(u))continue;
-    n++;
-    h+='<div class="userRow">'+avatarHTML(u.avatar,"avatar")+
-      '<span class="userInfo"><span class="userName">'+esc(u.username||"User")+'</span><br><span class="onlineDot">● Online</span></span>'+
-      (u.uid!==me.uid?'<button class="smallBtn" onclick="openPrivate(\''+esc(u.uid)+'\',\''+esc(u.username||"User")+'\')">Private</button>':'<span class="badge">You</span>')+
-      '</div>';
-  }
-  box.innerHTML=h||'<div class="notice">Abhi koi user online nahi.</div>';
-  if(count)count.innerHTML="Online: "+n;
-}
-function listenWorld(){
-  if(worldUnsub)worldUnsub();
-  worldUnsub=db.collection("worldMessages").orderBy("createdAt","desc").limit(15).onSnapshot(function(s){
-    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;a.push(x);});
-    a.reverse();
-    var h="",i;
-    for(i=0;i<a.length;i++)h+=renderMessage(a[i],"world");
-    $("worldBox").innerHTML=h||'<div class="notice">Abhi koi message nahi.</div>';
-    $("worldBox").scrollTop=$("worldBox").scrollHeight;
-    listenReactions("world","world",a);
-  },function(e){$("worldBox").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
-}
-function worldTyping(){
-  var v=$("worldInput").value;
-  var m=v.match(/@([A-Za-z0-9_]*)$/);
-  if(!m){$("mentionList").className="mentionList hide";return;}
-  var q=m[1].toLowerCase(),h="",i,u;
-  for(i=0;i<usersCache.length;i++){
-    u=usersCache[i];
-    if(!isReallyOnline(u)||u.uid===me.uid)continue;
-    if(u.username.toLowerCase().indexOf(q)!==0)continue;
-    h+='<div class="mentionItem" onclick="insertMention(\''+esc(u.username)+'\')"><img class="avatar" src="'+avatar(u.avatar)+'"> <b>'+esc(u.username)+'</b></div>';
-  }
-  $("mentionList").innerHTML=h||'<div class="mentionItem">No online user found.</div>';
-  $("mentionList").className="mentionList";
-}
-function insertMention(name){
-  var b=$("worldInput"),v=b.value;
-  v=v.replace(/@([A-Za-z0-9_]*)$/,"@"+name+" ");
-  b.value=v;$("mentionList").className="mentionList hide";b.focus();
-}
-function containsBadWord(t){
-  var bad=["fuck","bitch","chutiya","madarchod","bc","mc"];
-  var x=t.toLowerCase(),i;
-  for(i=0;i<bad.length;i++)if(x.indexOf(bad[i])>=0)return true;
-  return false;
-}
-function spamAllowed(){
-  var t=nowMs();
-  if(t-lastSendAt<1200){spamCount++;}else{spamCount=0;}
-  lastSendAt=t;
-  if(spamResetTimer)clearTimeout(spamResetTimer);
-  spamResetTimer=setTimeout(function(){spamCount=0;},10000);
-  if(spamCount>=4){
-    localStorage.setItem("ccpBanUntil",String(t+300000));
-    alert("Spam zyada hai. 5 minute temporary restriction.");
-    return false;
-  }
-  var b=parseInt(localStorage.getItem("ccpBanUntil")||"0",10);
-  if(b>t){alert("Temporary restriction active hai.");return false;}
-  return true;
-}
-function sendWorld(){
-  var b=$("worldInput"),t=b.value.replace(/^\s+|\s+$/g,"");
-  if(!t)return;
-  if(!spamAllowed())return;
-  if(containsBadWord(t)){abusiveCount++;alert("Ye message allowed nahi hai.");if(abusiveCount>=3)localStorage.setItem("ccpBanUntil",String(nowMs()+300000));return;}
-  db.collection("worldMessages").add({uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",text:t,createdAt:firebase.firestore.FieldValue.serverTimestamp(),reactions:[],replyTo:worldReply||null}).then(function(){
-    var mm=t.match(/@([A-Za-z0-9_]{3,24})/g),i,u;
-    b.value="";
-    clearWorldReply();
-    if(mm){
-      for(i=0;i<mm.length;i++){
-        u=findUser(mm[i].slice(1));
-        if(u&&u.uid!==me.uid)addNotification(u.uid,"mention",meProfile.username+" ne aap ko World Chat mein mention kiya.",u.uid);
-      }
-    }
-  }).catch(function(e){alert(errText(e));});
-}
-
-function startWorldReply(id){
-  db.collection("worldMessages").doc(id).get().then(function(s){
-    if(!s.exists)return;
-    var x=s.data();
-    worldReply={id:id,uid:x.uid,username:x.username||"User",text:x.text||""};
-    var bar=$("worldReplyBar");
-    if(bar){bar.innerHTML='<b>↩ Reply to '+esc(worldReply.username)+'</b>: '+msgText(worldReply.text)+'<button onclick="clearWorldReply()">×</button>';bar.className="replyBar show";}
-    var inp=$("worldInput");if(inp)inp.focus();
-  }).catch(function(e){alert(errText(e));});
-}
-function clearWorldReply(){worldReply=null;var bar=$("worldReplyBar");if(bar){bar.innerHTML="";bar.className="replyBar";}}
-function clearReply(){worldReply=null;chatReply=null;var a=$("worldReplyBar"),b=$("chatReplyBar");if(a){a.innerHTML="";a.className="replyBar";}if(b){b.innerHTML="";b.className="chatReply";}}
-
-function renderMessage(x,scope){
-  var own=x.uid===me.uid;
-  var body="";
-  if(x.voiceData) body='<audio controls src="'+esc(x.voiceData)+'"></audio>';
-  else if(x.videoData) body='<video class="mediaMsg" controls playsinline src="'+esc(x.videoData)+'"></video>';
-  else body=msgText(x.text||"");
-  var rq=x.replyTo?'<div class="replyBox"><b>↩ '+esc(x.replyTo.username||"User")+'</b><br>'+msgText(x.replyTo.text||"")+'</div>':'';
-  var target=scope.indexOf("private_")===0?"private":(scope.indexOf("group_")===0?"group":"world");
-  return '<div class="bubbleRow '+(own?'me':'')+'">'+
-    '<div class="bubble '+(own?'me':'them')+'" onclick="replyFromMessage(\''+esc(x.id)+'\',\''+esc(scope)+'\')">'+
-    '<div class="bubbleName">'+esc(x.username||"User")+'</div>'+rq+body+
-    '<div class="bubbleTime">'+tsTime(x.createdAt)+(own?' ✓✓':'')+'</div>'+
-    '<div class="reactRow"><button onclick="replyFromMessage(\''+esc(x.id)+'\',\''+esc(scope)+'\')">↩ Reply</button></div>'+
-    '</div></div>';
-}
-function replyFromMessage(id,scope){
-  var path=scope.indexOf("private_")===0?db.collection("chats").doc(scope.slice(8)).collection("messages"):scope.indexOf("group_")===0?db.collection("groups").doc(scope.slice(6)).collection("messages"):db.collection("worldMessages");
-  path.doc(id).get().then(function(s){if(!s.exists)return;var x=s.data();var obj={id:id,uid:x.uid,username:x.username||"User",text:x.text||""};
-    if(scope==="world")worldReply=obj;else chatReply=obj;
-    var idb=scope==="world"?"worldReplyBar":"chatReplyBar";var b=$(idb);
-    if(b){b.innerHTML='<b>↩ Reply to '+esc(obj.username)+'</b>: '+msgText(obj.text)+'<button onclick="clearReply()">×</button>';b.className=scope==="world"?"replyBar show":"chatReply show";}
-    var inp=$(scope==="world"?"worldInput":scope.indexOf("private_")===0?"privateInput":"groupInput");if(inp)inp.focus();
-  }).catch(function(e){alert(errText(e));});
-}
-function reactionButtons(){return "";}
-
-function reactTo(messageId,scope,emoji){
-  var id=messageId+"_"+me.uid;
-  db.collection("reactions").doc(id).set({messageId:messageId,scope:scope,uid:me.uid,emoji:emoji,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}).then(function(){});
-}
-function clearReactionListeners(){
-  var i;for(i=0;i<reactionUnsubs.length;i++)try{reactionUnsubs[i]();}catch(e){}
-  reactionUnsubs=[];
-}
-function listenReactions(scope,kind,msgs){
-  clearReactionListeners();
-  db.collection("reactions").where("scope","==",scope).onSnapshot(function(s){
-    var map={},i,d,x;
-    s.forEach(function(doc){x=doc.data();if(!map[x.messageId])map[x.messageId]=[];map[x.messageId].push(x.emoji);});
-    var nodes=document.getElementsByClassName("reactRow"),j;
-    for(j=0;j<nodes.length;j++){
-      var txt=nodes[j].innerHTML;
-      /* buttons stay visible; counts are intentionally lightweight */
-    }
-  },function(){});
-}
-
 function usersPage(){
   currentScreen="users";
-  var h='<div class="card"><b>Online Users</b></div>',i,u,n=0;
-  for(i=0;i<usersCache.length;i++){
-    u=usersCache[i];
-    if(!isReallyOnline(u))continue;n++;
-    if(u.uid===me.uid)continue;
-    h+=userRow(u,true);
-  }
-  showScreen(h||'<div class="notice">Koi aur user online nahi.</div>',"Online Users","Online: "+n);
+  var h='<div class="card"><button onclick="allUsersPage()">All Users</button> <button onclick="onlineUsersPage()">Online Users</button></div><div id="usersList"></div>';
+  showScreen(h,"Users");
+  renderUsers(false);
 }
 function allUsersPage(){
   currentScreen="allusers";
-  var h='<div class="card"><button style="width:100%" onclick="friendRequestsPage()">📨 Friend Requests</button></div>',i,u;
+  showScreen('<div id="usersList"></div>'+bottomBack(),"All Users");
+  renderUsers(false);
+}
+function onlineUsersPage(){
+  currentScreen="users";
+  showScreen('<div id="usersList"></div>'+bottomBack(),"Online Users");
+  renderUsers(true);
+}
+function renderUsers(onlineOnly){
+  var h="",i,u;
   for(i=0;i<usersCache.length;i++){
-    u=usersCache[i];if(u.uid===me.uid)continue;
-    h+=userRow(u,false);
+    u=usersCache[i];
+    if(u.uid===me.uid)continue;
+    if(onlineOnly&&!isReallyOnline(u))continue;
+    h+='<div class="userRow">'+
+      avatarHTML(u.avatar,"avatar")+
+      '<span class="userInfo"><b class="userName">'+esc(u.username)+'</b><br>'+
+      '<span class="'+(isReallyOnline(u)?"onlineDot":"offlineDot")+'">'+
+      (isReallyOnline(u)?"● Online":"● Offline")+
+      '</span></span>'+
+      '<button class="smallBtn" onclick="openPrivate(\''+esc(u.uid)+'\',\''+esc(u.username)+'\')">Private</button>'+
+      '</div>';
   }
-  showScreen(h||'<div class="notice">Abhi users nahi.</div>',"All Users");
-}
-function friendRequestsPage(){
-  showScreen('<div id="requestList"><div class="notice">Loading...</div></div><button onclick="allUsersPage()">← Users</button>',"Friend Requests");
-  db.collection("friendRequests").where("toUid","==",me.uid).where("status","==","pending").get().then(function(s){
-    var h="",i,d,x,u;
-    for(i=0;i<s.docs.length;i++){
-      d=s.docs[i];x=d.data();u=findUserByUid(x.fromUid);
-      h+='<div class="userRow"><img class="avatar" src="'+avatar(u&&u.avatar)+'"><span class="userInfo"><b>'+esc(u?u.username:x.fromUid)+'</b><br><span class="time">Friend request</span></span><button class="smallBtn" onclick="acceptFriend(\''+esc(d.id)+'\')">Accept</button></div>';
-    }
-    $("requestList").innerHTML=h||'<div class="notice">Koi pending request nahi.</div>';
-  }).catch(function(e){$("requestList").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
-}
-function findUserByUid(uid){
-  var i;for(i=0;i<usersCache.length;i++)if(usersCache[i].uid===uid)return usersCache[i];
-  return null;
-}
-function acceptFriend(id){
-  db.collection("friendRequests").doc(id).update({status:"accepted"}).then(function(){
-    alert("Friend accept ho gaya.");
-    friendRequestsPage();
-  }).catch(function(e){alert(errText(e));});
-}
-function userRow(u,onlineOnly){
-  var online=isReallyOnline(u);
-  return '<div class="userRow">'+avatarHTML(u.avatar,"avatar")+
-    '<span class="userInfo"><span class="userName">'+esc(u.username||"User")+'</span><br><span class="'+(online?"onlineDot":"offlineDot")+'">'+(online?"● Online":"● Offline")+'</span></span>'+
-    '<button class="smallBtn" onclick="openPrivate(\''+esc(u.uid)+'\',\''+esc(u.username||"User")+'\')">Private</button>'+
-    '<button class="smallBtn" onclick="sendFriend(\''+esc(u.uid)+'\')">Friend</button>'+
-    '</div>';
-}
-function findUser(name){
-  var i;for(i=0;i<usersCache.length;i++)if(usersCache[i].username.toLowerCase()===String(name).toLowerCase())return usersCache[i];
-  return null;
-}
-function pairId(a,b){return a<b?a+"_"+b:b+"_"+a;}
-function sendFriend(uid){
-  if(uid===me.uid)return;
-  var id=pairId(me.uid,uid);
-  db.collection("friendRequests").doc(id).get().then(function(s){
-    if(s.exists&&s.data().status==="accepted"){alert("Friend already hai.");return;}
-    return db.collection("friendRequests").doc(id).set({fromUid:me.uid,toUid:uid,status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-  }).then(function(){
-    addNotification(uid,"friend",meProfile.username+" ne aap ko friend request bheji.",id);
-    alert("Friend request bhej di.");
-  }).catch(function(e){alert(errText(e));});
-}
-
-function isFriend(uid,cb){
-  var id=pairId(me.uid,uid);
-  db.collection("friendRequests").doc(id).get().then(function(s){
-    cb(s.exists&&s.data().status==="accepted");
-  }).catch(function(){cb(false);});
+  $("usersList").innerHTML=h||'<div class="notice">Koi user nahi mila.</div>';
 }
 function openPrivate(uid,name){
-  if(uid===me.uid){alert("Apne aap se private chat nahi.");return;}
   currentPrivateUid=uid;
-  currentPrivateName=name||"User";
+  currentPrivateName=name;
   privatePage();
 }
 function privatePickerPage(){
   allUsersPage();
 }
+
 function privatePage(){
   currentScreen="private";
-  var u=findUser(currentPrivateName),av=u?u.avatar:"";
+  var u=findUserByUid(currentPrivateUid),av=u?u.avatar:"";
   showScreen(
-    '<div class="card"><button class="smallBtn" onclick="privatePickerPage()">←</button> '+avatarHTML(av,"avatar")+' <b>'+esc(currentPrivateName)+'</b><span id="privateOnline" class="time"></span><button class="smallBtn headerBtn" onclick="openPrivateSettings()">⋮</button><div class="clear"></div><div id="privateBlockInfo" class="time"></div></div>'+
+    '<div class="card"><button class="smallBtn" onclick="privatePickerPage()">←</button> '+
+    avatarHTML(av,"avatar")+
+    ' <b>'+esc(currentPrivateName)+'</b>'+
+    '<span id="privateOnline" class="time"></span>'+
+    '<button class="smallBtn headerBtn" onclick="openPrivateSettings()">⋮</button>'+
+    '<div class="clear"></div></div>'+
     '<div id="privateBox" class="waChat"><div class="notice">Loading...</div></div>'+
     '<div id="chatReplyBar" class="chatReply"></div>'+
-    '<div class="chatTools"><input id="privateInput" placeholder="Message..." onkeyup="if(event.keyCode===13)sendPrivate()"><button id="privateSendBtn" onclick="sendPrivate()">➤</button></div>'+
-    '<div class="chatTools"><button id="voiceBtn" onclick="toggleVoice()">🎙</button><button id="videoBtn" onclick="chooseVideo()">🎥</button></div>'+
+    '<div class="chatTools"><input id="privateInput" placeholder="Message..." onkeyup="if(event.keyCode===13)sendPrivate()"><button onclick="sendPrivate()">➤</button></div>'+
+    '<div class="chatTools"><button id="voiceBtn" onclick="toggleVoice()">🎙</button><button onclick="chooseVideo()">🎥</button></div>'+
     '<div id="voiceInfo" class="notice">Voice max 8 sec • Video short clip</div>'+
-    bottomBack(),"Private Chat");
-  listenPrivate();updatePrivateOnline();refreshPrivateBlockState();
+    bottomBack(),
+    "Private Chat"
+  );
+  listenPrivate();
+  updatePrivateOnline();
 }
-function chooseVideo(){var f=$("videoFile");if(f)f.click();}
+
+function chooseVideo(){
+  var f=$("videoFile");
+  if(f)f.click();
+}
 function sendVideoFile(input){
-  var f=input.files&&input.files[0];if(!f)return;
-  if(!/^video\//.test(f.type)){alert("Sirf video file allowed hai.");return;}
-  if(f.size>650000){alert("Video 650KB se chhoti rakho taake Firestore mein save ho sake.");input.value="";return;}
-  var r=new FileReader();r.onload=function(){sendVideoData(r.result);};r.readAsDataURL(f);input.value="";
+  var f=input.files&&input.files[0];
+  if(!f)return;
+  if(!/^video\//.test(f.type)){
+    alert("Sirf video file allowed hai.");
+    return;
+  }
+  if(f.size>650000){
+    alert("Video 650KB se chhoti rakho.");
+    input.value="";
+    return;
+  }
+  var r=new FileReader();
+  r.onload=function(){sendVideoData(r.result)};
+  r.readAsDataURL(f);
+  input.value="";
 }
 function sendVideoData(data){
-  checkPrivateBlocked(currentPrivateUid,function(blocked){
-    if(blocked){alert("Is private chat mein message/media bhejna block hai.");return;}
-    var cid=pairId(me.uid,currentPrivateUid);
-    db.collection("chats").doc(cid).collection("messages").add({uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",videoData:data,replyTo:chatReply||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){clearReply();$("voiceInfo").innerHTML="Video bhej di gayi.";addNotification(currentPrivateUid,"private",meProfile.username+" ne video bheji.",cid);}).catch(function(e){$("voiceInfo").innerHTML=esc(errText(e));});
+  var cid=pairId(me.uid,currentPrivateUid);
+  db.collection("chats").doc(cid).collection("messages").add({
+    uid:me.uid,
+    username:meProfile.username,
+    avatar:meProfile.avatar||"",
+    videoData:data,
+    replyTo:chatReply||null,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    clearReply();
+    $("voiceInfo").innerHTML="Video bhej di gayi.";
+    addNotification(currentPrivateUid,"private",meProfile.username+" ne video bheji.",cid);
+  }).catch(function(e){
+    $("voiceInfo").innerHTML=esc(errText(e));
   });
 }
 
 function updatePrivateOnline(){
   var u=findUser(currentPrivateName);
-  if($("privateOnline"))$("privateOnline").innerHTML=u?(isReallyOnline(u)?"🟢 Online":"⚪ Offline"):"";
+  if($("privateOnline"))
+    $("privateOnline").innerHTML=u?(isReallyOnline(u)?"🟢 Online":"⚪ Offline"):"";
 }
+
 function listenPrivate(){
   if(privateUnsub)privateUnsub();
-  clearReactionListeners();
   var cid=pairId(me.uid,currentPrivateUid);
-  privateUnsub=db.collection("chats").doc(cid).collection("messages").orderBy("createdAt","desc").limit(15).onSnapshot(function(s){
-    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;a.push(x);});a.reverse();
-    var h="",i;for(i=0;i<a.length;i++)h+=renderMessage(a[i],"private_"+cid);    $("privateBox").innerHTML=h||'<div class="notice">Abhi koi message nahi.</div>';
-    $("privateBox").scrollTop=$("privateBox").scrollHeight;
-    updatePrivateOnline();
-    markNotificationsRead(cid);
-  },function(e){$("privateBox").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
-  loadBlocked();
+
+  privateUnsub=db.collection("chats").doc(cid).collection("messages")
+    .orderBy("createdAt","desc").limit(15)
+    .onSnapshot(function(s){
+      var a=[];
+      s.forEach(function(d){
+        var x=d.data();
+        x.id=d.id;
+        a.push(x);
+      });
+      a.reverse();
+
+      var h="",i;
+      for(i=0;i<a.length;i++)h+=renderMessage(a[i],"private_"+cid);
+
+      $("privateBox").innerHTML=h||'<div class="notice">Abhi koi message nahi.</div>';
+      $("privateBox").scrollTop=$("privateBox").scrollHeight;
+      updatePrivateOnline();
+      markNotificationsRead(cid);
+    },function(e){
+      $("privateBox").innerHTML='<div class="err">'+esc(errText(e))+'</div>';
+    });
 }
+
 function sendPrivate(){
-  var b=$("privateInput"),t=b.value.replace(/^\s+|\s+$/g,"");
+  var b=$("privateInput");
+  var t=b.value.replace(/^\s+|\s+$/g,"");
   if(!t)return;
-  if(!spamAllowed())return;
-  if(containsBadWord(t)){alert("Ye message allowed nahi hai.");return;}
-  checkPrivateBlocked(currentPrivateUid,function(blocked){
-    if(blocked){alert("Is user ne block kiya hai ya aap ne is user ko block kiya hua hai.");return;}
-    var cid=pairId(me.uid,currentPrivateUid);
-    db.collection("chats").doc(cid).collection("messages").add({
-      uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",text:t,replyTo:chatReply||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function(){
-      b.value="";clearReply();
-      addNotification(currentPrivateUid,"private",meProfile.username+" ne aap ko private message bheja.",cid);
-    }).catch(function(e){alert(errText(e));});
+
+  var cid=pairId(me.uid,currentPrivateUid);
+
+  db.collection("chats").doc(cid).collection("messages").add({
+    uid:me.uid,
+    username:meProfile.username,
+    avatar:meProfile.avatar||"",
+    text:t,
+    replyTo:chatReply||null,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    b.value="";
+    clearReply();
+    addNotification(
+      currentPrivateUid,
+      "private",
+      meProfile.username+" ne aap ko private message bheja.",
+      cid
+    );
+  }).catch(function(e){
+    alert(errText(e));
   });
 }
 
 function toggleVoice(){
-  if(recording){stopVoice();return;}
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){
-    if(navigator.getUserMedia||navigator.mozGetUserMedia){
-      alert("Is Digit browser mein MediaRecorder support nahi mil raha. Voice button tabhi kaam karega jab browser recording support kare.");
-    }else{
-      alert("Is browser mein microphone recording available nahi hai.");
-    }
+  if(recording){
+    stopVoice();
     return;
   }
+
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){
+    alert("Is browser mein microphone recording available nahi hai.");
+    return;
+  }
+
   navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
     recordingStream=stream;
     var opt={audioBitsPerSecond:16000};
-    try{recording=new MediaRecorder(stream,opt);}catch(e){recording=new MediaRecorder(stream);}
+
+    try{
+      recording=new MediaRecorder(stream,opt);
+    }catch(e){
+      recording=new MediaRecorder(stream);
+    }
+
     var parts=[];
-    recording.ondataavailable=function(e){if(e.data&&e.data.size)parts.push(e.data);};
+
+    recording.ondataavailable=function(e){
+      if(e.data&&e.data.size)parts.push(e.data);
+    };
+
     recording.onstop=function(){
       var blob=new Blob(parts,{type:recording.mimeType||"audio/webm"});
-      stream.getTracks().forEach(function(t){try{t.stop();}catch(x){}});
-      recording=null;recordingStream=null;
-      if(blob.size>900000){alert("Voice bohat bari hai. Dobara chhoti recording karo.");return;}
+
+      stream.getTracks().forEach(function(t){
+        try{t.stop()}catch(x){}
+      });
+
+      recording=null;
+      recordingStream=null;
+
+      if(blob.size>900000){
+        alert("Voice bohat bari hai. Dobara chhoti recording karo.");
+        return;
+      }
+
       var r=new FileReader();
-      r.onload=function(){sendVoiceData(r.result);};
+      r.onload=function(){sendVoiceData(r.result)};
       r.readAsDataURL(blob);
     };
+
     recording.start();
-    $("voiceBtn").innerHTML="⏹ Stop Voice";
-    $("voiceInfo").innerHTML="Recording chal rahi hai... 8 sec mein khud stop ho jayegi.";
-    setTimeout(function(){if(recording)stopVoice();},8000);
-  }).catch(function(e){alert("Microphone permission nahi mili: "+e.message);});
+
+    if($("voiceBtn"))$("voiceBtn").innerHTML="⏹ Stop Voice";
+    if($("voiceInfo"))$("voiceInfo").innerHTML="Recording... 8 sec mein khud stop hogi.";
+
+    setTimeout(function(){
+      if(recording)stopVoice();
+    },8000);
+
+  }).catch(function(e){
+    alert("Microphone permission nahi mili: "+e.message);
+  });
 }
+
 function stopVoice(){
-  if(recording){try{recording.stop();}catch(e){}}
-  $("voiceBtn").innerHTML="🎙️ Hold/Record Voice (max 8 sec)";
-  $("voiceInfo").innerHTML="Voice save ho rahi hai...";
+  if(recording){
+    try{recording.stop()}catch(e){}
+  }
+  if($("voiceBtn"))$("voiceBtn").innerHTML="🎙";
+  if($("voiceInfo"))$("voiceInfo").innerHTML="Voice save ho rahi hai...";
 }
+
 function sendVoiceData(data){
-  checkPrivateBlocked(currentPrivateUid,function(blocked){
-    if(blocked){alert("Is private chat mein voice bhejna block hai.");return;}
-    var cid=pairId(me.uid,currentPrivateUid);
-    db.collection("chats").doc(cid).collection("messages").add({
-      uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",voiceData:data,replyTo:chatReply||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function(){
-      clearReply();
-      $("voiceInfo").innerHTML="Voice bhej di gayi.";
-      addNotification(currentPrivateUid,"private",meProfile.username+" ne voice message bheja.",cid);
-    }).catch(function(e){$("voiceInfo").innerHTML=esc(errText(e));});
+  var cid=pairId(me.uid,currentPrivateUid);
+
+  db.collection("chats").doc(cid).collection("messages").add({
+    uid:me.uid,
+    username:meProfile.username,
+    avatar:meProfile.avatar||"",
+    voiceData:data,
+    replyTo:chatReply||null,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    clearReply();
+    $("voiceInfo").innerHTML="Voice bhej di gayi.";
+    addNotification(
+      currentPrivateUid,
+      "private",
+      meProfile.username+" ne voice message bheji.",
+      cid
+    );
+  }).catch(function(e){
+    $("voiceInfo").innerHTML=esc(errText(e));
   });
 }
 
 function openPrivateSettings(){
   $("privateSettings").className="modal";
-  refreshPrivateBlockState();
 }
-function closePrivateSettings(){$("privateSettings").className="modal hide"}
-function checkPrivateBlocked(uid,cb){
-  if(!me||!uid){cb(false);return;}
-  db.collection("blocks").doc(me.uid+"_"+uid).get().then(function(a){
-    blockedByMe=a.exists;
-    return db.collection("blocks").doc(uid+"_"+me.uid).get();
-  }).then(function(b){
-    blockedMe=b.exists;
-    cb(blockedByMe||blockedMe);
-  }).catch(function(){
-    blockedByMe=false;blockedMe=false;cb(false);
-  });
-}
-function refreshPrivateBlockState(){
-  if(!currentPrivateUid)return;
-  checkPrivateBlocked(currentPrivateUid,function(blocked){
-    var btn=$("blockBtn"),info=$("privateBlockInfo");
-    if(btn)btn.innerHTML=blockedByMe?"Unblock User":"Block User";
-    if(info)info.innerHTML=blockedByMe?"🔴 Aap ne is user ko block kiya hai.":(blockedMe?"🔴 Is user ne aap ko block kiya hai.":"");
-    var disabled=blocked;
-    var sb=$("privateSendBtn"),vb=$("voiceBtn"),vid=$("videoBtn"),inp=$("privateInput");
-    if(sb)sb.disabled=disabled; if(vb)vb.disabled=disabled; if(vid)vid.disabled=disabled;
-    if(inp)inp.placeholder=disabled?"Chat blocked":"Message...";
-  });
+function closePrivateSettings(){
+  $("privateSettings").className="modal hide";
 }
 function toggleNotify(){
   notificationsEnabled=!notificationsEnabled;
   localStorage.setItem("ccpNotifications",notificationsEnabled?"1":"0");
   alert("Notifications "+(notificationsEnabled?"ON":"OFF"));
 }
-function loadBlocked(){
-  db.collection("blocks").where("uid","==",me.uid).get().then(function(s){
-    blockedCache={};s.forEach(function(d){blockedCache[d.data().blockedUid]=true;});
-  });
+function changeDP(){
+  $("dpFile").click();
 }
-function blockCurrent(){
-  var id=me.uid+"_"+currentPrivateUid;
-  if(blockedByMe){
-    db.collection("blocks").doc(id).delete().then(function(){
-      blockedByMe=false;closePrivateSettings();refreshPrivateBlockState();alert("User unblock ho gaya.");
-    }).catch(function(e){alert(errText(e));});
+
+function saveDPFile(input){
+  var f=input.files&&input.files[0];
+  if(!f)return;
+
+  if(!/^image\//.test(f.type)){
+    alert("Sirf image DP ke liye allowed hai.");
     return;
   }
-  db.collection("blocks").doc(id).set({uid:me.uid,blockedUid:currentPrivateUid,createdAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
-    blockedByMe=true;closePrivateSettings();refreshPrivateBlockState();alert("User block ho gaya.");
-  }).catch(function(e){alert(errText(e));});
-}
-function removeCurrentFriend(){
-  db.collection("friendRequests").doc(pairId(me.uid,currentPrivateUid)).delete().then(function(){
-    closePrivateSettings();alert("Friend permission remove ho gayi.");homePage();
-  });
-}
-function changeDP(){$("dpFile").click();}
-function saveDPFile(input){
-  var f=input.files&&input.files[0];if(!f)return;
-  if(!/^image\//.test(f.type)){alert("Sirf image DP ke liye allowed hai.");return;}
+
   var r=new FileReader();
+
   r.onload=function(){
     var img=new Image();
+
     img.onload=function(){
-      var c=document.createElement("canvas"),w=96,h=96;
-      c.width=w;c.height=h;
+      var c=document.createElement("canvas");
+      var w=96,h=96;
+      c.width=w;
+      c.height=h;
+
       var ctx=c.getContext("2d");
       ctx.drawImage(img,0,0,w,h);
+
       var data=c.toDataURL("image/jpeg",0.65);
-      db.collection("users").doc(me.uid).update({avatar:data}).then(function(){
-        meProfile.avatar=data;alert("DP update ho gayi.");
-      }).catch(function(e){alert(errText(e));});
+
+      db.collection("users").doc(me.uid).update({
+        avatar:data,
+        avatarSet:true
+      }).then(function(){
+        meProfile.avatar=data;
+        meProfile.avatarSet=true;
+        alert("DP update ho gayi.");
+      }).catch(function(e){
+        alert(errText(e));
+      });
     };
+
     img.src=r.result;
   };
+
   r.readAsDataURL(f);
+  }function renderMessage(x,key){
+  var mine=x.uid===me.uid;
+  var h='<div class="bubbleRow '+(mine?"me":"")+'"><div class="bubble '+(mine?"me":"them")+'">';
+
+  h+='<div class="bubbleName">'+esc(x.username||"User")+
+      '<span class="bubbleTime">'+tsTime(x.createdAt)+'</span></div>';
+
+  if(x.replyTo){
+    h+='<div class="replyBox">Reply: '+esc(x.replyTo.text||"Message")+'</div>';
+  }
+
+  if(x.text){
+    h+='<div>'+msgText(x.text)+'</div>';
+  }
+
+  if(x.videoData){
+    h+='<video class="mediaMsg" controls src="'+esc(x.videoData)+'"></video>';
+  }
+
+  if(x.voiceData){
+    h+='<audio controls src="'+esc(x.voiceData)+'"></audio>';
+  }
+
+  if(x.id){
+    h+='<div style="margin-top:5px"><button class="smallBtn" onclick="replyMessage(\''+
+      esc(x.id)+'\',\''+
+      esc(x.text||"Media message")+
+      '\')">↩ Reply</button></div>';
+  }
+
+  h+='</div></div>';
+  return h;
+}
+
+function replyMessage(id,text){
+  chatReply={id:id,text:text};
+  var b=$("chatReplyBar");
+
+  if(b){
+    b.className="chatReply show";
+    b.innerHTML="Replying: "+esc(text)+
+      ' <button onclick="clearReply()">×</button>';
+  }
+}
+
+function clearReply(){
+  chatReply=null;
+  worldReply=null;
+
+  var b=$("chatReplyBar");
+  if(b){
+    b.className="chatReply";
+    b.innerHTML="";
+  }
+
+  var w=$("worldReplyBar");
+  if(w){
+    w.className="replyBar";
+    w.innerHTML="";
+  }
+}
+
+function renderWorldOnlineList(){
+  var box=$("worldOnlineUsers");
+  if(!box)return;
+
+  var h="",i,u;
+
+  for(i=0;i<usersCache.length;i++){
+    u=usersCache[i];
+
+    if(u.uid===me.uid)continue;
+    if(!isReallyOnline(u))continue;
+
+    h+='<div class="userRow">'+
+      avatarHTML(u.avatar,"avatar")+
+      '<span class="userInfo"><b>'+esc(u.username)+'</b>'+
+      '<br><span class="onlineDot">● Online</span></span>'+
+      '<button class="smallBtn" onclick="openPrivate(\''+
+      esc(u.uid)+'\',\''+
+      esc(u.username)+
+      '\')">Private</button>'+
+      '</div>';
+  }
+
+  box.innerHTML=h||'<div class="notice">Abhi koi online user nahi.</div>';
+}
+
+function worldPage(){
+  currentScreen="world";
+
+  showScreen(
+    '<div class="card">'+
+      '<b>🌍 World Chat</b>'+
+      '<span id="liveCount" class="countBox headerBtn">Online: 0</span>'+
+      '<div class="clear"></div>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<b>Online Users</b>'+
+      '<div id="worldOnlineUsers"><div class="notice">Loading...</div></div>'+
+    '</div>'+
+
+    '<div id="worldBox" class="waChat"><div class="notice">Loading...</div></div>'+
+
+    '<div id="worldReplyBar" class="replyBar"></div>'+
+
+    '<div class="chatTools">'+
+      '<input id="worldInput" placeholder="Message...">'+
+      '<button onclick="sendWorld()">➤</button>'+
+    '</div>'+
+
+    bottomBack(),
+    "World Chat"
+  );
+
+  listenWorld();
+  renderWorldOnlineList();
+
+  var inp=$("worldInput");
+
+  if(inp){
+    inp.onkeyup=function(e){
+      if(e.keyCode===13)sendWorld();
+      else showMentionList();
+    };
+  }
+}
+
+function listenWorld(){
+  if(worldUnsub)worldUnsub();
+
+  worldUnsub=db.collection("worldMessages")
+    .orderBy("createdAt","desc")
+    .limit(25)
+    .onSnapshot(function(s){
+      var a=[];
+
+      s.forEach(function(d){
+        var x=d.data();
+        x.id=d.id;
+        a.push(x);
+      });
+
+      a.reverse();
+
+      var h="",i;
+
+      for(i=0;i<a.length;i++){
+        h+=renderWorldMessage(a[i]);
+      }
+
+      $("worldBox").innerHTML=
+        h||'<div class="notice">Abhi koi message nahi.</div>';
+
+      $("worldBox").scrollTop=$("worldBox").scrollHeight;
+    },function(e){
+      $("worldBox").innerHTML=
+        '<div class="err">'+esc(errText(e))+'</div>';
+    });
+}
+
+function renderWorldMessage(x){
+  var mine=x.uid===me.uid;
+
+  var h='<div class="msg '+(mine?"myMsg":"")+'">'+
+    '<div class="msgHead">'+
+    avatarHTML(x.avatar,"avatar")+
+    '<span class="userInfo"><b>'+esc(x.username||"User")+'</b>'+
+    '<span class="time">'+tsTime(x.createdAt)+'</span></span>'+
+    '</div>';
+
+  if(x.replyTo){
+    h+='<div class="replyBox">Reply: '+esc(x.replyTo.text||"Message")+'</div>';
+  }
+
+  h+='<div class="msgText">'+msgText(x.text||"")+'</div>';
+
+  h+='<button class="smallBtn" onclick="replyWorld(\''+
+      esc(x.id)+'\',\''+
+      esc(x.text||"Message")+
+      '\')">↩ Reply</button>';
+
+  h+='</div>';
+
+  return h;
+}
+
+function replyWorld(id,text){
+  worldReply={id:id,text:text};
+
+  var b=$("worldReplyBar");
+
+  if(b){
+    b.className="replyBar show";
+    b.innerHTML="Replying: "+esc(text)+
+      ' <button onclick="clearReply()">×</button>';
+  }
+}
+
+function sendWorld(){
+  var b=$("worldInput");
+  if(!b)return;
+
+  var t=b.value.replace(/^\s+|\s+$/g,"");
+  if(!t)return;
+
+  db.collection("worldMessages").add({
+    uid:me.uid,
+    username:meProfile.username,
+    avatar:meProfile.avatar||"",
+    text:t,
+    replyTo:worldReply||null,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    b.value="";
+    clearReply();
+
+    var m=t.match(/@([A-Za-z0-9_]{2,30})/g);
+
+    if(m){
+      for(var i=0;i<m.length;i++){
+        var n=m[i].substring(1);
+        var u=findUser(n);
+
+        if(u&&u.uid!==me.uid){
+          addNotification(
+            u.uid,
+            "mention",
+            meProfile.username+" ne World Chat mein aap ko mention kiya.",
+            "world"
+          );
+        }
+      }
+    }
+  }).catch(function(e){
+    alert(errText(e));
+  });
+}
+
+function showMentionList(){
+  var inp=$("worldInput");
+  if(!inp)return;
+
+  var v=inp.value;
+  var at=v.lastIndexOf("@");
+
+  if(at<0){
+    hideMentionList();
+    return;
+  }
+
+  var q=v.substring(at+1).toLowerCase();
+
+  if(!q){
+    hideMentionList();
+    return;
+  }
+
+  var arr=[],i,u;
+
+  for(i=0;i<usersCache.length;i++){
+    u=usersCache[i];
+
+    if(u.username&&u.username.toLowerCase().indexOf(q)===0){
+      arr.push(u);
+    }
+  }
+
+  if(!arr.length){
+    hideMentionList();
+    return;
+  }
+
+  var h='<div class="mentionList">';
+
+  for(i=0;i<arr.length&&i<8;i++){
+    u=arr[i];
+
+    h+='<div class="mentionItem" onclick="pickMention(\''+
+      esc(u.username)+
+      '\')">@'+esc(u.username)+'</div>';
+  }
+
+  h+='</div>';
+
+  var old=$("mentionBox");
+
+  if(!old){
+    old=document.createElement("div");
+    old.id="mentionBox";
+    inp.parentNode.appendChild(old);
+  }
+
+  old.innerHTML=h;
+}
+
+function pickMention(name){
+  var inp=$("worldInput");
+  if(!inp)return;
+
+  var v=inp.value;
+  var at=v.lastIndexOf("@");
+
+  if(at>=0){
+    inp.value=v.substring(0,at)+"@"+name+" ";
+  }
+
+  hideMentionList();
+  inp.focus();
+}
+
+function hideMentionList(){
+  var x=$("mentionBox");
+  if(x)x.innerHTML="";
+}
+
+function settingsPage(){
+  currentScreen="settings";
+
+  showScreen(
+    '<div class="settingsItem"><b>Account</b><br>'+
+    esc(meProfile.username||"User")+
+    '</div>'+
+
+    '<div class="settingsItem">'+
+    '<button style="width:100%" onclick="changeDP()">Change DP</button>'+
+    '</div>'+
+
+    '<div class="settingsItem">'+
+    '<button style="width:100%" onclick="toggleNotify()">Notifications ON/OFF</button>'+
+    '</div>'+
+
+    '<div class="settingsItem">'+
+    '<button style="width:100%;background:#3a1c27" onclick="logout()">Logout</button>'+
+    '</div>'+
+
+    bottomBack(),
+    "Settings"
+  );
+}
+
+function blockCurrent(){
+  if(!currentPrivateUid)return;
+
+  db.collection("blocks")
+    .doc(me.uid+"_"+currentPrivateUid)
+    .set({
+      uid:me.uid,
+      blockedUid:currentPrivateUid,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(function(){
+      closePrivateSettings();
+      alert("User block ho gaya.");
+    })
+    .catch(function(e){
+      alert(errText(e));
+    });
+}
+
+function loadBlocked(){
+  db.collection("blocks")
+    .where("uid","==",me.uid)
+    .get()
+    .then(function(s){
+      blockedCache={};
+
+      s.forEach(function(d){
+        blockedCache[d.data().blockedUid]=true;
+      });
+    });
+}
+
+function removeCurrentFriend(){
+  closePrivateSettings();
+  alert("Private chat remove option available hai.");
 }
 
 function groupsPage(){
   currentScreen="groups";
-  var h='<div class="card"><input id="groupName" placeholder="New group name"><button style="width:100%;margin-top:7px" onclick="createGroup()">Create Group</button></div>';
-  h+='<div id="groupList"><div class="notice">Groups loading...</div></div>';
-  h+=bottomBack();
+
+  var h=
+    '<div class="card">'+
+      '<input id="groupName" placeholder="New group name">'+
+      '<button style="width:100%;margin-top:7px" onclick="createGroup()">Create Group</button>'+
+    '</div>'+
+
+    '<div id="groupList"><div class="notice">Groups loading...</div></div>';
+
   showScreen(h,"Group Chat");
   listenGroups();
 }
+
 function listenGroups(){
-  db.collection("groups").orderBy("createdAt","desc").limit(20).onSnapshot(function(s){
-    var h="",i,g;
-    s.forEach(function(d){g=d.data();g.id=d.id;h+='<div class="card"><b>'+esc(g.name)+'</b><br><span class="time">'+(g.members?g.members.length:0)+' members</span><button class="smallBtn" style="float:right" onclick="openGroup(\''+esc(g.id)+'\',\''+esc(g.name)+'\')">Open</button><div class="clear"></div></div>';});
-    $("groupList").innerHTML=h||'<div class="notice">Abhi koi group nahi.</div>';
-  },function(e){$("groupList").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
+  db.collection("groups")
+    .orderBy("createdAt","desc")
+    .limit(20)
+    .onSnapshot(function(s){
+      var h="",g;
+
+      s.forEach(function(d){
+        g=d.data();
+        g.id=d.id;
+
+        h+='<div class="card">'+
+          '<b>'+esc(g.name)+'</b><br>'+
+          '<span class="time">'+(g.members?g.members.length:0)+' members</span>'+
+          '<button class="smallBtn" style="float:right" onclick="openGroup(\''+
+          esc(g.id)+'\',\''+
+          esc(g.name)+
+          '\')">Open</button>'+
+          '<div class="clear"></div>'+
+          '</div>';
+      });
+
+      $("groupList").innerHTML=
+        h||'<div class="notice">Abhi koi group nahi.</div>';
+
+    },function(e){
+      $("groupList").innerHTML=
+        '<div class="err">'+esc(errText(e))+'</div>';
+    });
 }
+
 function createGroup(){
-  var n=$("groupName").value.replace(/^\s+|\s+$/g,"");if(!n)return;
-  db.collection("groups").add({name:n,ownerUid:me.uid,members:[me.uid],createdAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){alert("Group ban gaya.");$("groupName").value="";}).catch(function(e){alert(errText(e));});
-}
-function openGroup(id,name){
-  currentGroupId=id;currentGroupName=name;groupPage();
-}
-function groupPage(){
-  currentScreen="group";
-  showScreen(
-    '<div class="card"><button class="smallBtn" onclick="groupsPage()">←</button> <b>'+esc(currentGroupName)+'</b><button class="smallBtn headerBtn" onclick="toggleMembers()">👥</button><div class="clear"></div><div id="memberBox" class="groupMemberBox"></div></div>'+
-    '<div id="groupBox" class="waChat"><div class="notice">Loading...</div></div>'+
-    '<div id="chatReplyBar" class="chatReply"></div>'+
-    '<div class="chatTools"><input id="groupInput" placeholder="Message..." onkeyup="if(event.keyCode===13)sendGroup()"><button onclick="sendGroup()">➤</button></div>'+
-    bottomBack(),"Group Chat");
-  listenGroup();
-}
-function listenGroup(){
-  if(groupUnsub)groupUnsub();
-  groupUnsub=db.collection("groups").doc(currentGroupId).collection("messages").orderBy("createdAt","desc").limit(15).onSnapshot(function(s){
-    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;a.push(x);});a.reverse();
-    var h="",i;for(i=0;i<a.length;i++)h+=renderMessage(a[i],"group_"+currentGroupId);
-    $("groupBox").innerHTML=h||'<div class="notice">Abhi koi message nahi.</div>';
-    $("groupBox").scrollTop=$("groupBox").scrollHeight;
-  },function(e){$("groupBox").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
-}
-function toggleMembers(){
-  var box=$("memberBox");
-  if(box.className.indexOf("show")>=0){box.className="groupMemberBox";return;}
-  db.collection("groups").doc(currentGroupId).get().then(function(s){
-    var g=s.data()||{},arr=g.members||[],h="",i,j,u;
-    for(i=0;i<arr.length;i++){
-      u=null;for(j=0;j<usersCache.length;j++)if(usersCache[j].uid===arr[i])u=usersCache[j];
-      h+='<div class="userRow"><img class="avatar" src="'+avatar(u&&u.avatar)+'"><span class="userInfo"><b>'+esc(u?u.username:arr[i])+'</b></span></div>';
-    }
-    h+='<button style="width:100%" onclick="addGroupMember()">➕ Add Member</button>';
-    box.innerHTML=h;box.className="groupMemberBox show";
+  var n=$("groupName").value.replace(/^\s+|\s+$/g,"");
+
+  if(!n)return;
+
+  db.collection("groups").add({
+    name:n,
+    ownerUid:me.uid,
+    members:[me.uid],
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    alert("Group ban gaya.");
+    $("groupName").value="";
+  }).catch(function(e){
+    alert(errText(e));
   });
 }
+
+function openGroup(id,name){
+  currentGroupId=id;
+  currentGroupName=name;
+  groupPage();
+}
+
+function groupPage(){
+  currentScreen="group";
+
+  showScreen(
+    '<div class="card">'+
+      '<button class="smallBtn" onclick="groupsPage()">←</button> '+
+      '<b>'+esc(currentGroupName)+'</b>'+
+      '<button class="smallBtn headerBtn" onclick="toggleMembers()">👥</button>'+
+      '<div class="clear"></div>'+
+      '<div id="memberBox" class="groupMemberBox"></div>'+
+    '</div>'+
+
+    '<div id="groupBox" class="waChat"><div class="notice">Loading...</div></div>'+
+
+    '<div id="chatReplyBar" class="chatReply"></div>'+
+
+    '<div class="chatTools">'+
+      '<input id="groupInput" placeholder="Message..." onkeyup="if(event.keyCode===13)sendGroup()">'+
+      '<button onclick="sendGroup()">➤</button>'+
+    '</div>'+
+
+    bottomBack(),
+    "Group Chat"
+  );
+
+  listenGroup();
+}
+
+function listenGroup(){
+  if(groupUnsub)groupUnsub();
+
+  groupUnsub=db.collection("groups")
+    .doc(currentGroupId)
+    .collection("messages")
+    .orderBy("createdAt","desc")
+    .limit(15)
+    .onSnapshot(function(s){
+      var a=[];
+
+      s.forEach(function(d){
+        var x=d.data();
+        x.id=d.id;
+        a.push(x);
+      });
+
+      a.reverse();
+
+      var h="",i;
+      for(i=0;i<a.length;i++)
+        h+=renderMessage(a[i],"group_"+currentGroupId);
+
+      $("groupBox").innerHTML=
+        h||'<div class="notice">Abhi koi message nahi.</div>';
+
+      $("groupBox").scrollTop=$("groupBox").scrollHeight;
+
+    },function(e){
+      $("groupBox").innerHTML=
+        '<div class="err">'+esc(errText(e))+'</div>';
+    });
+}
+
+function toggleMembers(){
+  var box=$("memberBox");
+
+  if(box.className.indexOf("show")>=0){
+    box.className="groupMemberBox";
+    return;
+  }
+
+  db.collection("groups").doc(currentGroupId).get().then(function(s){
+    var g=s.data()||{};
+    var arr=g.members||[];
+    var h="",i,j,u;
+
+    for(i=0;i<arr.length;i++){
+      u=null;
+
+      for(j=0;j<usersCache.length;j++)
+        if(usersCache[j].uid===arr[i])u=usersCache[j];
+
+      h+='<div class="userRow">'+
+        avatarHTML(u&&u.avatar,"avatar")+
+        '<span class="userInfo"><b>'+
+        esc(u?u.username:arr[i])+
+        '</b></span>'+
+        '</div>';
+    }
+
+    h+='<button style="width:100%" onclick="addGroupMember()">➕ Add Member</button>';
+
+    box.innerHTML=h;
+    box.className="groupMemberBox show";
+  });
+}
+
 function addGroupMember(){
   var h="",i,u;
+
   for(i=0;i<usersCache.length;i++){
-    u=usersCache[i];if(u.uid===me.uid)continue;
-    h+='<div class="userRow"><span class="userInfo"><b>'+esc(u.username)+'</b></span><button class="smallBtn" onclick="addMemberNow(\''+esc(u.uid)+'\')">Add</button></div>';
+    u=usersCache[i];
+
+    if(u.uid===me.uid)continue;
+
+    h+='<div class="userRow">'+
+      '<span class="userInfo"><b>'+
+      esc(u.username)+
+      '</b></span>'+
+      '<button class="smallBtn" onclick="addMemberNow(\''+
+      esc(u.uid)+
+      '\')">Add</button>'+
+      '</div>';
   }
+
   $("memberBox").innerHTML=h;
 }
+
 function addMemberNow(uid){
-  db.collection("groups").doc(currentGroupId).update({members:firebase.firestore.FieldValue.arrayUnion(uid)}).then(function(){alert("Member add ho gaya.");toggleMembers();}).catch(function(e){alert(errText(e));});
-}
-function sendGroup(){
-  var b=$("groupInput"),t=b.value.replace(/^\s+|\s+$/g,"");if(!t)return;
-  if(!spamAllowed())return;
-  if(containsBadWord(t)){alert("Ye message allowed nahi hai.");return;}
-  db.collection("groups").doc(currentGroupId).collection("messages").add({uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",text:t,replyTo:chatReply||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
-    b.value="";clearReply();
-    db.collection("groups").doc(currentGroupId).get().then(function(s){
-      var g=s.data()||{},arr=g.members||[],i;
-      for(i=0;i<arr.length;i++)if(arr[i]!==me.uid)addNotification(arr[i],"group",meProfile.username+" ne "+currentGroupName+" mein message bheja.",currentGroupId+"|"+currentGroupName);
+  db.collection("groups")
+    .doc(currentGroupId)
+    .update({
+      members:firebase.firestore.FieldValue.arrayUnion(uid)
+    })
+    .then(function(){
+      alert("Member add ho gaya.");
+      $("memberBox").className="groupMemberBox";
+    })
+    .catch(function(e){
+      alert(errText(e));
     });
-  }).catch(function(e){alert(errText(e));});
+}
+
+function sendGroup(){
+  var b=$("groupInput");
+  var t=b.value.replace(/^\s+|\s+$/g,"");
+
+  if(!t)return;
+
+  db.collection("groups")
+    .doc(currentGroupId)
+    .collection("messages")
+    .add({
+      uid:me.uid,
+      username:meProfile.username,
+      avatar:meProfile.avatar||"",
+      text:t,
+      replyTo:chatReply||null,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(function(){
+      b.value="";
+      clearReply();
+    })
+    .catch(function(e){
+      alert(errText(e));
+    });
 }
 
 function myStatusPage(){
   currentScreen="mystatus";
+
   showScreen(
-    '<div class="statusTop"><button onclick="myStatusPage()">◉ My Status</button><button onclick="privatePickerPage()">🔒 Private</button></div><div class="card"><b>My Status</b><textarea id="statusInput" maxlength="240" placeholder="Apna text status likho..."></textarea><button style="width:100%;margin-top:7px" onclick="postStatus()">Post Text Status</button></div>'+
-    '<div class="card"><button style="width:100%" onclick="friendsStatusPage()">Friends Status →</button></div>'+
-    '<div id="myStatusList"><div class="notice">Loading...</div></div>'+
-    bottomBack(),
+    '<div class="statusTop">'+
+      '<button onclick="myStatusPage()">◉ My Status</button>'+
+      '<button onclick="privatePickerPage()">🔒 Private</button>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<b>My Status</b>'+
+      '<textarea id="statusInput" maxlength="240" placeholder="Apna text status likho..."></textarea>'+
+      '<button style="width:100%;margin-top:7px" onclick="postStatus()">Post Text Status</button>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<button style="width:100%" onclick="friendsStatusPage()">Friends Status →</button>'+
+    '</div>'+
+
+    '<div id="myStatusList"><div class="notice">Loading...</div></div>',
+
     "My Status"
   );
+
   listenMyStatus();
 }
+
 function postStatus(){
-  var t=$("statusInput").value.replace(/^\s+|\s+$/g,"");if(!t)return;
-  db.collection("statuses").add({uid:me.uid,username:meProfile.username,avatar:meProfile.avatar||"",text:t,createdAt:firebase.firestore.FieldValue.serverTimestamp(),reactions:[]}).then(function(){$("statusInput").value="";alert("Status lag gaya.");}).catch(function(e){alert(errText(e));});
-}
-function listenMyStatus(){
-  db.collection("statuses").where("uid","==",me.uid).limit(20).onSnapshot(function(s){
-    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;a.push(x);});
-    a.sort(function(a,b){return timeVal(b.createdAt)-timeVal(a.createdAt);});
-    var h="",i;for(i=0;i<a.length;i++)h+=statusItem(a[i],true);
-    $("myStatusList").innerHTML=h||'<div class="notice">Abhi koi status nahi.</div>';
+  var t=$("statusInput").value.replace(/^\s+|\s+$/g,"");
+
+  if(!t)return;
+
+  db.collection("statuses").add({
+    uid:me.uid,
+    username:meProfile.username,
+    avatar:meProfile.avatar||"",
+    text:t,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    $("statusInput").value="";
+    alert("Status lag gaya.");
+  }).catch(function(e){
+    alert(errText(e));
   });
 }
-function timeVal(ts){try{if(ts&&ts.toMillis)return ts.toMillis();}catch(e){}return 0;}
+
+function listenMyStatus(){
+  db.collection("statuses")
+    .where("uid","==",me.uid)
+    .limit(20)
+    .onSnapshot(function(s){
+      var a=[];
+
+      s.forEach(function(d){
+        var x=d.data();
+        x.id=d.id;
+        a.push(x);
+      });
+
+      a.sort(function(a,b){
+        return timeVal(b.createdAt)-timeVal(a.createdAt);
+      });
+
+      var h="",i;
+
+      for(i=0;i<a.length;i++)
+        h+=statusItem(a[i],true);
+
+      $("myStatusList").innerHTML=
+        h||'<div class="notice">Abhi koi status nahi.</div>';
+    });
+}
+
+function timeVal(ts){
+  try{
+    if(ts&&ts.toMillis)return ts.toMillis();
+  }catch(e){}
+  return 0;
+}
+
 function friendsStatusPage(){
   currentScreen="friendsstatus";
-  showScreen('<div id="friendsStatusList"><div class="notice">Loading friends status...</div></div><button onclick="myStatusPage()">← My Status</button>'+bottomBack(),"Friends Status");
-  db.collection("friendRequests").where("status","==","accepted").get().then(function(s){
-    var ids=[],i,d,x;
-    s.forEach(function(doc){x=doc.data();if(x.fromUid===me.uid)ids.push(x.toUid);if(x.toUid===me.uid)ids.push(x.fromUid);});
-    ids=unique(ids);
-    if(!ids.length){$("friendsStatusList").innerHTML='<div class="notice">Abhi koi friend nahi.</div>';return;}
-    var all=[],pending=ids.length;
-    for(i=0;i<ids.length;i++){
-      (function(uid){
-        db.collection("statuses").where("uid","==",uid).limit(10).get().then(function(ss){
-          ss.forEach(function(doc){var z=doc.data();z.id=doc.id;all.push(z);});
-        }).then(function(){pending--;if(!pending)renderFriendStatuses(all);});
-      })(ids[i]);
-    }
-  }).catch(function(e){$("friendsStatusList").innerHTML='<div class="err">'+esc(errText(e))+'</div>';});
+
+  showScreen(
+    '<div id="friendsStatusList"><div class="notice">Loading friends status...</div></div>'+
+    '<button onclick="myStatusPage()">← My Status</button>',
+    "Friends Status"
+  );
+
+  db.collection("statuses")
+    .limit(30)
+    .get()
+    .then(function(s){
+      var a=[];
+
+      s.forEach(function(d){
+        var x=d.data();
+
+        if(x.uid!==me.uid){
+          x.id=d.id;
+          a.push(x);
+        }
+      });
+
+      renderFriendStatuses(a);
+    })
+    .catch(function(e){
+      $("friendsStatusList").innerHTML=
+        '<div class="err">'+esc(errText(e))+'</div>';
+    });
 }
-function unique(a){var o={},r=[],i;for(i=0;i<a.length;i++)if(!o[a[i]]){o[a[i]]=1;r.push(a[i]);}return r;}
+
 function statusItem(x,mine){
-  return '<div class="statusItem">'+avatarHTML(x.avatar,"avatar")+' <b>'+esc(x.username)+'</b><span class="time">'+tsTime(x.createdAt)+'</span><div style="margin-top:7px;line-height:1.4">'+msgText(x.text)+'</div><div class="reactRow"><button onclick="statusReact(\''+esc(x.id)+'\')">❤️ React</button>'+(mine?'<button onclick="deleteStatus(\''+esc(x.id)+'\')">Delete</button>':'')+'</div></div>';
+  return '<div class="statusItem">'+
+    avatarHTML(x.avatar,"avatar")+
+    ' <b>'+esc(x.username)+'</b>'+
+    '<span class="time">'+tsTime(x.createdAt)+'</span>'+
+    '<div style="margin-top:7px;line-height:1.4">'+
+    msgText(x.text)+
+    '</div>'+
+    '<div class="reactRow">'+
+    (mine?
+      '<button onclick="deleteStatus(\''+esc(x.id)+'\')">Delete</button>':
+      '<button onclick="statusReact(\''+esc(x.id)+'\')">❤️ React</button>')+
+    '</div>'+
+    '</div>';
 }
+
 function renderFriendStatuses(a){
-  a.sort(function(x,y){return timeVal(y.createdAt)-timeVal(x.createdAt);});
-  var h="",i;for(i=0;i<a.length;i++)h+=statusItem(a[i],false);
-  $("friendsStatusList").innerHTML=h||'<div class="notice">Friends ne abhi status nahi lagaya.</div>';
+  a.sort(function(x,y){
+    return timeVal(y.createdAt)-timeVal(x.createdAt);
+  });
+
+  var h="",i;
+
+  for(i=0;i<a.length;i++)
+    h+=statusItem(a[i],false);
+
+  $("friendsStatusList").innerHTML=
+    h||'<div class="notice">Friends ne abhi status nahi lagaya.</div>';
 }
+
 function statusReact(id){
-  db.collection("statusReactions").doc(id+"_"+me.uid).set({
-    statusId:id,uid:me.uid,emoji:"❤️",createdAt:firebase.firestore.FieldValue.serverTimestamp()
-  },{merge:true}).then(function(){alert("❤️ Reaction save ho gayi.");}).catch(function(e){alert(errText(e));});
+  db.collection("statusReactions")
+    .doc(id+"_"+me.uid)
+    .set({
+      statusId:id,
+      uid:me.uid,
+      emoji:"❤️",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true})
+    .then(function(){
+      alert("❤️ Reaction save ho gayi.");
+    })
+    .catch(function(e){
+      alert(errText(e));
+    });
 }
-function deleteStatus(id){db.collection("statuses").doc(id).delete().catch(function(e){alert(errText(e)}));}
+
+function deleteStatus(id){
+  db.collection("statuses").doc(id).delete()
+    .catch(function(e){alert(errText(e))});
+}
 
 function addNotification(toUid,type,text,target){
   if(!notificationsEnabled)return;
-  db.collection("notifications").add({toUid:toUid,fromUid:me.uid,fromUsername:meProfile.username,fromAvatar:meProfile.avatar||"",type:type,text:text,target:target||"",read:false,createdAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(){});
-}
-function listenNotifications(){
-  if(notifyUnsub)notifyUnsub();
-  notifyUnsub=db.collection("notifications").where("toUid","==",me.uid).onSnapshot(function(s){
-    var unread=0;s.forEach(function(d){if(!d.data().read)unread++;});
-    var b=$("homeBadge");if(b)b.innerHTML=unread?("Unread: "+unread):"No new alerts";
-  });
-}
-function notificationsPage(){
-  currentScreen="notifications";
-  showScreen('<div id="notifyList"><div class="notice">Loading...</div></div>'+bottomBack(),"Notifications");
-  db.collection("notifications").where("toUid","==",me.uid).limit(30).get().then(function(s){
-    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;a.push(x);});
-    a.sort(function(x,y){return timeVal(y.createdAt)-timeVal(x.createdAt);});
-    var h="",i;
-    for(i=0;i<a.length;i++)h+='<div class="userRow"><img class="avatar" src="'+avatar(a[i].fromAvatar)+'"><span class="userInfo"><b>'+esc(a[i].fromUsername)+'</b><br>'+esc(a[i].text)+'<span class="time">'+tsTime(a[i].createdAt)+'</span></span><button class="smallBtn" onclick="openNotification(\''+esc(a[i].type)+'\',\''+esc(a[i].target)+'\')">Open</button></div>';
-    $("notifyList").innerHTML=h||'<div class="notice">No notifications.</div>';
-  });
-}
-function markNotificationsRead(target){
-  if(!me)return;
-  db.collection("notifications").where("toUid","==",me.uid).get().then(function(s){
-    s.forEach(function(d){
-      var x=d.data();
-      if(!x.read && x.target===target)d.ref.update({read:true});
-    });
+
+  db.collection("notifications").add({
+    toUid:toUid,
+    fromUid:me.uid,
+    fromUsername:meProfile.username,
+    fromAvatar:meProfile.avatar||"",
+    type:type,
+    text:text,
+    target:target||"",
+    read:false,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp()
   }).catch(function(){});
 }
+
+function listenNotifications(){
+  if(notifyUnsub)notifyUnsub();
+
+  notifyUnsub=db.collection("notifications")
+    .where("toUid","==",me.uid)
+    .onSnapshot(function(s){
+      var unread=0;
+
+      s.forEach(function(d){
+        if(!d.data().read)unread++;
+      });
+
+      var b=$("homeBadge");
+
+      if(b)
+        b.innerHTML=unread?("Unread: "+unread):"No new alerts";
+    });
+}
+
+function notificationsPage(){
+  currentScreen="notifications";
+
+  showScreen(
+    '<div id="notifyList"><div class="notice">Loading...</div></div>',
+    "Notifications"
+  );
+
+  db.collection("notifications")
+    .where("toUid","==",me.uid)
+    .limit(30)
+    .get()
+    .then(function(s){
+      var a=[];
+
+      s.forEach(function(d){
+        var x=d.data();
+        x.id=d.id;
+        a.push(x);
+      });
+
+      a.sort(function(x,y){
+        return timeVal(y.createdAt)-timeVal(x.createdAt);
+      });
+
+      var h="",i;
+
+      for(i=0;i<a.length;i++){
+        h+='<div class="userRow">'+
+          avatarHTML(a[i].fromAvatar,"avatar")+
+          '<span class="userInfo">'+
+          '<b>'+esc(a[i].fromUsername)+'</b><br>'+
+          esc(a[i].text)+
+          '<span class="time">'+tsTime(a[i].createdAt)+'</span>'+
+          '</span>'+
+          '</div>';
+      }
+
+      $("notifyList").innerHTML=
+        h||'<div class="notice">No notifications.</div>';
+    });
+}
+
+function markNotificationsRead(target){
+  if(!me)return;
+
+  db.collection("notifications")
+    .where("toUid","==",me.uid)
+    .get()
+    .then(function(s){
+      s.forEach(function(d){
+        var x=d.data();
+
+        if(!x.read&&x.target===target)
+          d.ref.update({read:true});
+      });
+    })
+    .catch(function(){});
+}
+
 function openNotification(type,target){
   if(type==="private"){
-    var parts=String(target).split("_"),uid=parts[0]===me.uid?parts[1]:parts[0];
-    var u=findUserByUid(uid);if(u)openPrivate(u.uid,u.username);
-  }else if(type==="mention")worldPage();
-  else if(type==="group"){var x=String(target).split("|");openGroup(x[0],x[1]||"Group");}
-  else if(type==="friend")friendRequestsPage();
+    var parts=String(target).split("_");
+    var uid=parts[0]===me.uid?parts[1]:parts[0];
+    var u=findUserByUid(uid);
+
+    if(u)openPrivate(u.uid,u.username);
+  }else if(type==="mention"){
+    worldPage();
+  }else if(type==="group"){
+    var x=String(target).split("|");
+    openGroup(x[0],x[1]||"Group");
+  }
 }
 
 function logout(){
   setOnline(false);
-  if(worldUnsub)worldUnsub();if(privateUnsub)privateUnsub();if(groupUnsub)groupUnsub();
-  if(usersUnsub)usersUnsub();if(notifyUnsub)notifyUnsub();
+
+  if(worldUnsub)worldUnsub();
+  if(privateUnsub)privateUnsub();
+  if(groupUnsub)groupUnsub();
+  if(usersUnsub)usersUnsub();
+  if(notifyUnsub)notifyUnsub();
+
   auth.signOut();
 }
 </script>
