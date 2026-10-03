@@ -1,205 +1,957 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Your Chat</title><link rel="preconnect" href="https://www.gstatic.com"><link rel="preconnect" href="https://firestore.googleapis.com"><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;overflow:hidden;background:var(--bg);color:#111}button,input,textarea{font:inherit}.hide{display:none!important}:root{--bg:#eee9e1;--g:#087a68}#load{position:fixed;inset:0;background:#101a2d;color:#fff;z-index:99;display:flex;align-items:center;justify-content:center;text-align:center}.logo{font-size:48px}.spin{width:25px;height:25px;border:3px solid #ffffff44;border-top-color:#fff;border-radius:50%;margin:15px auto;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}#login{position:fixed;inset:0;background:#087867;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px}.box{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:380px;box-shadow:0 8px 28px #0005}.box h1{text-align:center;color:#087a68}.box p{text-align:center;color:#777}.box input,.modal input,.modal textarea{width:100%;padding:12px;margin:5px 0;border:2px solid #bbb;border-radius:10px}.btn{width:100%;padding:13px;margin-top:7px;border:0;border-radius:10px;font-weight:bold}.primary{background:#087a68;color:#fff}.secondary{background:#fff;color:#087a68;border:2px solid #087a68}.err{color:#b21f1f;text-align:center;font-size:12px;min-height:18px;margin-top:6px}#app{height:100%;display:flex;flex-direction:column}.tabs{height:50px;background:#087668;color:#fff;display:flex}.tab{flex:1;background:none;border:0;color:#fff;font-weight:bold;font-size:17px;border-bottom:4px solid transparent}.tab.active{border-bottom-color:#38ee9a}.screen{flex:1;overflow:auto}.keys{height:27px;flex:0 0 27px;background:#07695a;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 10px;font-size:12px}.main{margin:11px 16px 0;height:58px;border:0;border-radius:14px;color:#fff;font-size:18px;font-weight:bold;text-align:left;padding:0 20px}.worldBtn{background:#0b8a78}.groupBtn{background:#2378d5}.tag{padding:9px 18px 4px;color:#777;font-size:12px}.row{min-height:74px;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;gap:12px;padding:8px 18px}.name{font-weight:bold;font-size:17px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.av{width:48px;height:48px;flex:0 0 48px;border-radius:50%;object-fit:cover;background:#ccc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px}.dot{width:9px;height:9px;background:#18bb72;border-radius:50%}.badge{background:#e33c34;color:#fff;min-width:23px;height:23px;padding:0 6px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold}.sub{font-size:11px;color:#777;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.plus{position:fixed;right:18px;bottom:38px;width:56px;height:56px;border:0;border-radius:50%;background:#0b8a78;color:#fff;font-size:32px;z-index:20}.blue{width:calc(100% - 32px);margin:9px 16px;height:46px;border:0;border-radius:11px;background:#1976d2;color:#fff;font-weight:bold}.status{background:#fff;min-height:68px;padding:9px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ddd}.mine{background:#8ee1d4}.empty{text-align:center;color:#777;padding:35px 15px}#chat{position:fixed;inset:0;background:var(--bg);z-index:70;display:flex;flex-direction:column}.head{height:56px;flex:0 0 56px;background:var(--g);color:#fff;display:flex;align-items:center;gap:8px;padding:0 9px}.head.world{background:#1678ca}.head .av{width:38px;height:38px;flex-basis:38px}.title{font-weight:bold;font-size:18px;flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.back,.more{border:0;background:none;color:#fff;font-size:28px;width:34px}.online{background:#2999dc;padding:6px 9px;border-radius:16px;font-size:11px;font-weight:bold}.msgs{flex:1;min-height:0;overflow:auto;padding:10px 12px}.worldMsgs{background:#151b2c}.bubble{max-width:82%;float:left;clear:both;background:#fff;padding:8px 10px;border-radius:9px;margin:5px 0;font-size:17px;word-break:break-word;box-shadow:0 1px 2px #0001}.bubble.mine{float:right;background:#d6f4c4}.worldMsgs .bubble{font-size:16px}.worldMsgs .mine{background:#0b98dd;color:#fff}.who{font-weight:bold;color:#1b2e70;font-size:14px;margin-bottom:4px}.time{display:block;font-size:9px;text-align:right;color:#777;margin-top:4px}.worldMsgs .time{color:#ddd}.media{max-width:240px;max-height:230px;display:block;border-radius:7px;margin-top:5px}.voice{width:190px}.typing{height:20px;flex:0 0 20px;font-size:11px;padding:2px 12px}.typing i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#18a67c;margin-left:2px;animation:d 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes d{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}.compose{height:54px;flex:0 0 54px;background:#fff;display:flex;align-items:center;gap:6px;padding:6px 8px}.compose input{flex:1;min-width:0;height:43px;border:3px solid #42d994;border-radius:22px;background:#dcf8ed;padding:0 13px}.round{width:48px;height:48px;border:0;border-radius:50%;background:#0b8a78;color:#fff;font-size:28px}.send{width:42px;height:42px;border:0;border-radius:50%;background:#0b8a78;color:#fff}.menu{position:absolute;z-index:120;min-width:255px;left:7px;bottom:34px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 5px 14px #0005}.menu button,.settings button{width:100%;padding:12px;border:0;border-bottom:1px solid #e7e7e7;background:#fff;color:#111;text-align:center;font-size:16px}.menu .top,.settings button:first-child{background:#087668;color:#fff;font-weight:bold}.settings{position:absolute;z-index:120;left:6px;bottom:27px;width:262px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 5px 14px #0005}.modal{position:fixed;inset:0;background:#0008;z-index:150;display:flex;align-items:center;justify-content:center;padding:18px}.modal>.box{max-height:90%;overflow:auto}.mrow{display:flex;gap:7px;margin-top:8px}.mrow button{flex:1;padding:10px;border:0;border-radius:8px}.ok{background:#087a68;color:#fff}.no{background:#ddd}.themes{display:grid;grid-template-columns:1fr 1fr;gap:7px}.themes button{padding:9px;border:1px solid #bbb;border-radius:8px;background:#fff}.quickbar{position:absolute;left:8px;right:8px;bottom:60px;background:#fff;padding:7px;border-radius:12px;display:flex;gap:6px;z-index:125;box-shadow:0 4px 14px #0004}.quickbar button{flex:1;min-width:0;padding:9px 4px;border:0;border-radius:9px;background:#16a866;color:#fff;font-weight:bold;font-size:12px}.quickbar button:nth-child(2){background:#e83e8c}.quickbar button:nth-child(3){background:#7b4bd1}.quickbar button:nth-child(4){background:#119fc2}.quickbar button:nth-child(5){background:#e33c34}.editmark{font-size:9px;color:#777;margin-left:4px}.toast{position:fixed;z-index:200;left:8%;right:8%;bottom:38px;background:#222;color:#fff;padding:9px;text-align:center;border-radius:7px;font-size:12px;display:none}@media(max-width:380px){.row .name{font-size:15px}.bubble{font-size:15px}}</style></head><body>
-<div id="load"><div><div class="logo">🌎</div><b>LOADING CHATS...</b><div class="spin"></div></div></div>
-<div id="login" class="hide"><div class="box"><h1>YOUR CHAT</h1><p>Fast • Simple • Real-time</p><input id="user" placeholder="Username" autocomplete="username"><input id="pass" type="password" placeholder="Password" autocomplete="current-password"><button class="btn primary" id="loginBtn">Login</button><button class="btn secondary" id="signupBtn">Create Account</button><div id="err" class="err"></div></div></div>
-<div id="app" class="hide"><div class="tabs"><button id="chatTab" class="tab active">Chat</button><button id="statusTab" class="tab">Status</button></div><div id="screen" class="screen"></div><div class="keys"><span id="k1">Options</span><span id="k2">PVT Chat</span><span id="k3">Back</span></div></div><div id="chat" class="hide"></div><div id="modal" class="modal hide"></div><div id="toast" class="toast"></div><audio id="notifyRing" preload="auto" src="New_Iphone_18_Pro_Max_Sms_Ringtone___New_Iphone_Notification_Sound___Sms_Ringtone(256k).mp3"></audio>
-<input id="img" type="file" accept="image/*" class="hide"><input id="vid" type="file" accept="video/*" class="hide"><input id="aud" type="file" accept="audio/*" class="hide"><input id="dp" type="file" accept="image/*" class="hide"><input id="statusImg" type="file" accept="image/*" class="hide"><input id="statusVid" type="file" accept="video/*" class="hide">
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script><script>
-/* IIFE removed: inline onclick handlers need global functions */
-var FC={apiKey:'AIzaSyAEqeB2YXk_2A9gZ41WQ_fNiBKiGnzYGc0',authDomain:'chit-chat-plus-7382.firebaseapp.com',projectId:'chit-chat-plus-7382',storageBucket:'chit-chat-plus-7382.firebasestorage.app',messagingSenderId:'98837732974',appId:'1:98837732974:web:ff52d3868871c91518507f',measurementId:'G-T42H2N5Q0Z'},CLOUD='ptqrd8vc',PRESET='your_chat_upload';
-var db,auth,me=null,users=[],chats={},peer=null,cid=null,gid=null,mode='home',scr='home',reply=null,rec=null,chunks=[],chatSnapshotReady=false,lastUnread={},uUsers=null,uChats=null,uMsgs=null,uTyping=null,uWorld=null,uStatus=null,uGroups=null,spam=true,notice=true,loaded=false,authIn=false,started=false,lastSend=0,lastPrivId=null,DAY=86400;
-var themes=[['White Theme','#eee9e1','#087a68'],['Dark Theme','#111827','#0f766e'],['Ocean Blue','#e8f4ff','#1769aa'],['Sky Blue','#eef8ff','#1976d2'],['Midnight Blue','#10182a','#173c74'],['Emerald Green','#e9fff5','#0a8f66'],['Forest Green','#e8f4ea','#2d6a4f'],['Royal Purple','#f2eaff','#6f42c1'],['Lavender','#f5f0ff','#8d6bc8'],['Rose Pink','#fff0f4','#c94f7c'],['Sunset Orange','#fff2e7','#d86b1f'],['Golden Glow','#fff9df','#b58b00'],['Crimson Red','#fff0f0','#b42318'],['Aqua Wave','#e8ffff','#008b8b'],['Neon Night','#0f1820','#00b37a'],['Cyber Blue','#0c1630','#1e90ff'],['Galaxy','#161428','#7b61ff'],['Coffee Brown','#f3ece7','#795548'],['Silver Gray','#edf0f2','#607d8b'],['Cherry Blossom','#fff3f7','#e45b8c']];
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0878d1">
+<title>Your Chat</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="app.js"></script>
+</body>
+</html>*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
+body{background:#f4f7fb;color:#17212b;overflow:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+#app{width:100%;height:100%}
+
+.page{width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)}
+.top{height:52px;min-height:52px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px;padding:6px 8px}
+.title{font-weight:800;font-size:17px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back,.topBtn,.iconBtn{width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text)}
+.main{flex:1;overflow:auto;padding:9px}
+.wrap{width:100%;max-width:600px;margin:auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:10px;margin-bottom:9px}
+.logo{text-align:center;font-size:29px;font-weight:900;color:var(--accent);padding:22px 0 17px}
+.input{width:100%;height:42px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);padding:8px 10px;margin:4px 0;outline:none}
+.input:focus{border-color:var(--accent)}
+.btn{width:100%;min-height:42px;border:0;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;margin:4px 0;padding:8px}
+.btn.secondary{background:var(--panel);border:1px solid var(--line);color:var(--text)}
+.btn.danger{background:#d92f45}
+.btn.small{width:auto;min-height:34px;padding:5px 9px;font-size:11px}
+.menu{display:flex;flex-direction:column;gap:7px}
+.menuBtn{min-height:55px;width:100%;display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:9px;text-align:left}
+.menuIcon{width:28px;text-align:center;font-size:19px}
+.menuName{font-weight:800}
+.row{display:flex;align-items:center;gap:8px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#dce7ef;border:1px solid var(--line);flex:none}
+.avatar.small{width:30px;height:30px}
+.avatar.big{width:76px;height:76px}
+.userInfo{flex:1;min-width:0}
+.userName{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status{font-size:10px;color:var(--muted);margin-top:2px}
+.online{color:#149447}
+.offline{color:#7d8993}
+.userRow{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid var(--line)}
+.userRow:last-child{border-bottom:0}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:10px;background:#e33b49;color:#fff;font-size:10px;font-weight:900;padding:0 5px;margin-left:5px}
+.msgList{padding:8px 2px 82px;min-height:200px}
+.msg{display:flex;gap:5px;align-items:flex-end;max-width:90%;margin:7px 0}
+.msg.mine{margin-left:auto;flex-direction:row-reverse}
+.bubble{background:var(--bubble);border:1px solid var(--line);border-radius:13px;padding:7px 8px;min-width:48px;word-break:break-word}
+.msg.mine .bubble{background:var(--mine)}
+.sender{font-size:10px;color:var(--accent);font-weight:800;margin-bottom:3px}
+.msgText{white-space:pre-wrap;line-height:1.35}
+.meta{text-align:right;color:var(--muted);font-size:9px;margin-top:4px}
+.media{display:block;max-width:100%;max-height:260px;border-radius:8px;margin-top:5px}
+.audio{max-width:210px}
+.chatBottom{position:sticky;bottom:0;background:var(--panel);border-top:1px solid var(--line);padding:6px;z-index:5}
+.chatInput{display:flex;align-items:center;gap:4px}
+.chatInput .input{flex:1;margin:0}
+.typing{font-size:11px;color:var(--accent);min-height:17px;padding:2px}
+.dots span{display:inline-block;animation:dot .6s infinite alternate}
+.dots span:nth-child(2){animation-delay:.15s}
+.dots span:nth-child(3){animation-delay:.3s}
+@keyframes dot{to{transform:translateY(-4px)}}
+.reply{font-size:10px;background:var(--reply);border-left:3px solid var(--accent);padding:6px;border-radius:5px;margin-bottom:5px}
+.actions{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.actions button{font-size:9px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:6px;padding:4px 6px}
+.mentionBox{max-height:150px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);margin-bottom:5px}
+.notice{padding:9px;border-radius:8px;background:var(--panel);border:1px solid var(--line);font-size:11px}
+.blocked{color:#c51e35;border-color:#efb4bd}
+.empty{text-align:center;color:var(--muted);padding:25px 8px;font-size:12px}
+.settingsBtn{width:100%;padding:11px;text-align:left;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);margin:3px 0;font-weight:700}
+.themeList{max-height:65vh;overflow:auto;display:flex;flex-direction:column;gap:5px}
+.themeBtn{display:flex;align-items:center;gap:8px;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+.themeDot{width:18px;height:18px;border-radius:50%;background:var(--accent)}
+.statusCard{border:1px solid var(--line);border-radius:11px;padding:9px;margin:7px 0;background:var(--panel)}
+.statusActions{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.statusActions button{font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text)}
+.viewer{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--line)}
+.toast{position:fixed;left:7%;right:7%;bottom:14px;background:#17212b;color:#fff;padding:9px;border-radius:9px;text-align:center;font-size:11px;z-index:99}
+
+:root,.white{
+--bg:#f4f7fb;--panel:#fff;--text:#17212b;--muted:#71808c;--line:#dbe3ea;
+--accent:#0878d1;--bubble:#edf5fc;--mine:#d9efff;--reply:#edf7ff
+}
+.dark{--bg:#091018;--panel:#101a24;--text:#eef6ff;--muted:#91a0ad;--line:#253746;--accent:#32aaff;--bubble:#162735;--mine:#124564;--reply:#122b3d}
+.ocean{--accent:#0085ad;--bubble:#e1f7ff;--mine:#c9efff;--reply:#e6f9ff}
+.sky{--accent:#268bd0;--bubble:#e9f5ff;--mine:#d5edff;--reply:#e8f5ff}
+.midnight{--bg:#050a14;--panel:#0c1421;--text:#edf5ff;--muted:#899bb0;--line:#1c2d42;--accent:#5d9dff;--bubble:#112036;--mine:#173d68;--reply:#10253d}
+.emerald{--accent:#159b68;--bubble:#e6fff5;--mine:#cdf5e4;--reply:#e5fff4}
+.forest{--accent:#357b38;--bubble:#edf8ed;--mine:#d8efd8;--reply:#edf8ed}
+.purple{--accent:#7956d8;--bubble:#f0ebff;--mine:#e1d8ff;--reply:#f1ecff}
+.lavender{--accent:#8d78c8;--bubble:#f5f1ff;--mine:#e8e0ff;--reply:#f5f1ff}
+.rose{--accent:#d14e77;--bubble:#fff0f5;--mine:#ffdce8;--reply:#fff0f5}
+.sunset{--accent:#e06e31;--bubble:#fff1e8;--mine:#ffe0cc;--reply:#fff2e9}
+.gold{--accent:#b88700;--bubble:#fff8da;--mine:#ffedaf;--reply:#fff8dc}
+.crimson{--accent:#c72f43;--bubble:#fff0f2;--mine:#ffdce1;--reply:#fff0f2}
+.aqua{--accent:#008f9d;--bubble:#e5fbff;--mine:#cdf2f6;--reply:#e5fbff}
+.neon{--bg:#070817;--panel:#101329;--text:#f4f5ff;--muted:#9da5c8;--line:#292e55;--accent:#765dff;--bubble:#181d3a;--mine:#28336d;--reply:#191e40}
+.cyber{--bg:#071215;--panel:#0d1b1f;--text:#e9ffff;--muted:#8aa8ad;--line:#1c3d42;--accent:#00c9ef;--bubble:#11282c;--mine:#104b57;--reply:#102b30}
+.galaxy{--bg:#0d0818;--panel:#171024;--text:#f6edff;--muted:#a999b9;--line:#39275b;--accent:#a46cff;--bubble:#211636;--mine:#39236b;--reply:#21163a}
+.coffee{--bg:#f4eee8;--panel:#fffaf5;--text:#40291d;--muted:#826858;--line:#dfcdbd;--accent:#8a5a3b;--bubble:#f5e8dd;--mine:#ead5c5;--reply:#f5e9df}
+.silver{--bg:#eef0f2;--panel:#fff;--text:#26313a;--muted:#707c85;--line:#cdd4da;--accent:#65727d;--bubble:#e9edf0;--mine:#dce2e6;--reply:#e9edf0}
+.cherry{--bg:#fff6f8;--panel:#fff;--text:#4a2430;--muted:#8d6570;--line:#efd0d9;--accent:#d85a7b;--bubble:#fff0f4;--mine:#ffe0e9;--reply:#fff0f4}
+
+@media(max-width:390px){
+.main{padding:6px}
+.menuBtn{min-height:52px}
+.logo{font-size:26px}
+}var firebaseConfig={
+ apiKey:"AIzaSyAEqeB2YXk_2A9gZ41WQ_fNiBKiGnzYGc0",
+ authDomain:"chit-chat-plus-7382.firebaseapp.com",
+ projectId:"chit-chat-plus-7382",
+ storageBucket:"chit-chat-plus-7382.firebasestorage.app",
+ messagingSenderId:"98837732974",
+ appId:"1:98837732974:web:ff52d3868871c91518507f",
+ measurementId:"G-T42H2N5Q0Z"
+};
+
+firebase.initializeApp(firebaseConfig);
+var auth=firebase.auth(),db=firebase.firestore();
+
+var CLOUD="ptqrd8vc",PRESET="your_chat_upload";
+var me=null,peer=null,currentChat="",currentGroup=null;
+var page="",listeners=[],typingTimer=null,sending=false;
+var world=[],privateMsgs=[],groupMsgs=[],users={};
+var reply=null,selected=null,blocked=false;
+var notifyOn=localStorage.getItem("notify")!=="0";
+var soundOn=localStorage.getItem("sound")!=="0";
+
+var themeNames=[
+"White","Dark","Ocean Blue","Sky Blue","Midnight Blue",
+"Emerald Green","Forest Green","Royal Purple","Lavender","Rose Pink",
+"Sunset Orange","Golden Glow","Crimson Red","Aqua Wave","Neon Night",
+"Cyber Blue","Galaxy","Coffee Brown","Silver Gray","Cherry Blossom"
+];
+
+var themeClass={
+"White":"white","Dark":"dark","Ocean Blue":"ocean","Sky Blue":"sky",
+"Midnight Blue":"midnight","Emerald Green":"emerald","Forest Green":"forest",
+"Royal Purple":"purple","Lavender":"lavender","Rose Pink":"rose",
+"Sunset Orange":"sunset","Golden Glow":"gold","Crimson Red":"crimson",
+"Aqua Wave":"aqua","Neon Night":"neon","Cyber Blue":"cyber","Galaxy":"galaxy",
+"Coffee Brown":"coffee","Silver Gray":"silver","Cherry Blossom":"cherry"
+};
+
 function $(x){return document.getElementById(x)}
-function esc(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function toast(x){var t=$('toast');t.textContent=x;t.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(function(){t.style.display='none'},2400)}
-function avatar(u){u=u||{};return u.avatar?'<img class="av" src="'+esc(u.avatar)+'">':'<div class="av">'+esc((u.username||'?').charAt(0).toUpperCase())+'</div>'}
-function chatId(a,b){return[a,b].sort().join('_')}
-function email(n){return String(n).trim().toLowerCase().replace(/[^a-z0-9._-]/g,'')+'@yourchat.local'}
-function time(x){try{return x&&x.toDate?x.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):''}catch(e){return''}}
-function closeModal(){$('modal').classList.add('hide');$('modal').innerHTML=''}
-function modal(h){$('modal').innerHTML='<div class="box">'+h+'</div>';$('modal').classList.remove('hide')}
-function menus(){document.querySelectorAll('.menu,.settings,.quickbar').forEach(function(x){x.remove()})}
+function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
-function fe(e){var c=e&&e.code;return c==='auth/user-not-found'||c==='auth/wrong-password'||c==='auth/invalid-credential'||c==='auth/invalid-login-credentials'?'Wrong username or password':c==='auth/email-already-in-use'?'Username already exists. Please Login.':c==='auth/network-request-failed'?'Network error. Check internet.':c==='auth/weak-password'?'Password too weak':(e&&e.message)||'Error'}
-function prefs(){try{var p=JSON.parse(localStorage.getItem('yc_prefs')||'{}');if(p.theme)theme(p.theme);if(typeof p.spam==='boolean')spam=p.spam;if(typeof p.notice==='boolean')notice=p.notice}catch(e){}}
-function savePrefs(){try{localStorage.setItem('yc_prefs',JSON.stringify({theme:document.body.dataset.theme||'White Theme',spam:spam,notice:notice}))}catch(e){}}
-function theme(n){var t=themes.find(function(x){return x[0]===n})||themes[0];document.body.dataset.theme=t[0];document.documentElement.style.setProperty('--bg',t[1]);document.documentElement.style.setProperty('--g',t[2])}
-function toggleSpam(){spam=!spam;savePrefs();menus();settings()}
-function toggleNotice(){notice=!notice;savePrefs();menus();settings()}
-function spamOk(){if(!spam)return true;var n=Date.now();if(n-lastSend<1200){toast('Slow down (Spam Protection ON)');return false}lastSend=n;return true}
+function arr(x){return firebase.firestore.FieldValue.arrayUnion(x)}
+function rem(x){return firebase.firestore.FieldValue.arrayRemove(x)}
 
-/* ---------- INIT / AUTH ---------- */
-function init(){try{
-firebase.initializeApp(FC);db=firebase.firestore();
-try{db.settings({experimentalAutoDetectLongPolling:true,merge:true})}catch(e){try{db.settings({experimentalForceLongPolling:true,merge:true})}catch(e2){}}
-auth=firebase.auth();
+function toast(x){
+ var d=document.createElement("div");
+ d.className="toast";d.textContent=x;document.body.appendChild(d);
+ setTimeout(function(){d.remove()},2200)
+}
+
+function time(t){
+ if(!t||!t.toDate)return "";
+ var d=t.toDate(),h=d.getHours(),m=d.getMinutes();
+ return (h%12||12)+":"+(m<10?"0":"")+m+" "+(h>=12?"PM":"AM")
+}
+
+function online(u){
+ return !!(u&&u.online&&u.lastSeen&&u.lastSeen.toDate&&
+ Date.now()-u.lastSeen.toDate().getTime()<90000)
+}
+
+function avatar(u,small){
+ if(u&&u.avatar)return '<img class="avatar '+(small?"small":"")+'" src="'+esc(u.avatar)+'">';
+ return '<div class="avatar '+(small?"small":"")+'"></div>'
+}
+
+function dot(u){
+ return online(u)?'<span class="online">● Online</span>':'<span class="offline">● Offline</span>'
+}
+
+function clearListeners(){
+ listeners.forEach(function(x){try{x()}catch(e){}});
+ listeners=[]
+}
+
+function listen(q,fn){
+ var u=q.onSnapshot(fn,function(){toast("Connection error")});
+ listeners.push(u);return u
+}
+
+function stop(){
+ clearListeners();
+ if(typingTimer)clearTimeout(typingTimer);
+ typingTimer=null
+}
+
+function shell(title,body,back){
+ return '<div class="page"><div class="top">'+
+ (back?'<button class="back" onclick="back()">‹</button>':'')+
+ '<div class="title">'+esc(title)+'</div></div><div class="main">'+body+'</div></div>'
+}
+
+function goHome(){
+ stop();page="home";
+ $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
+ '<div class="logo">Your Chat</div>'+
+ '<div class="menu">'+
+ '<button class="menuBtn" onclick="worldPage()"><span class="menuIcon">🌍</span><span class="menuName">World Chat</span></button>'+
+ '<button class="menuBtn" onclick="onlinePage()"><span class="menuIcon">🟢</span><span class="menuName">Online Users</span></button>'+
+ '<button class="menuBtn" onclick="privatePage()"><span class="menuIcon">💬</span><span class="menuName">Private Chat</span></button>'+
+ '<button class="menuBtn" onclick="groupsPage()"><span class="menuIcon">👥</span><span class="menuName">Group Chat</span></button>'+
+ '<button class="menuBtn" onclick="allUsersPage()"><span class="menuIcon">👤</span><span class="menuName">All Users</span></button>'+
+ '</div></div></div></div>'
+}
+
+function loginPage(){
+ page="login";
+ $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
+ '<div class="logo">Your Chat</div><div class="card">'+
+ '<input id="loginUser" class="input" placeholder="Username">'+
+ '<input id="loginPass" class="input" type="password" placeholder="Password">'+
+ '<button class="btn" onclick="login()">Login</button>'+
+ '<button class="btn secondary" onclick="createPage()">Create Account</button>'+
+ '<div id="loginError" class="status"></div></div></div></div></div>'
+}
+
+function createPage(){
+ $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
+ '<div class="logo">Your Chat</div><div class="card">'+
+ '<input id="newUser" class="input" placeholder="Username">'+
+ '<input id="newPass" class="input" type="password" placeholder="Password">'+
+ '<button class="btn" onclick="createAccount()">Create Account</button>'+
+ '<button class="btn secondary" onclick="loginPage()">Back</button>'+
+ '<div id="createError" class="status"></div></div></div></div></div>'
+}
+
+function authEmail(name){
+ return "user_"+String(name).toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,35)+"@yourchat.local"
+}
+
+function login(){
+ var u=($("loginUser").value||"").trim(),p=$("loginPass").value||"";
+ if(!u||!p){$("loginError").textContent="Enter username and password.";return}
+ auth.signInWithEmailAndPassword(authEmail(u),p).catch(function(e){
+  $("loginError").textContent=e.message||"Login failed."
+ })
+}
+
+function createAccount(){
+ var u=($("newUser").value||"").trim(),p=$("newPass").value||"";
+ if(u.length<2){$("createError").textContent="Username is too short.";return}
+ if(p.length<6){$("createError").textContent="Password must be at least 6 characters.";return}
+ db.collection("users").where("usernameLower","==",u.toLowerCase()).limit(1).get().then(function(s){
+  if(!s.empty)throw new Error("Username already exists.");
+  return auth.createUserWithEmailAndPassword(authEmail(u),p)
+ }).then(function(c){
+  return db.collection("users").doc(c.user.uid).set({
+   uid:c.user.uid,username:u,usernameLower:u.toLowerCase(),
+   avatar:"",online:true,lastSeen:ts(),createdAt:ts()
+  })
+ }).catch(function(e){$("createError").textContent=e.message||"Create failed."})
+}
+
 auth.onAuthStateChanged(function(u){
-window.authDone=true;
-if(u){authIn=true;loadUser(u)}
-else{authIn=false;cleanup();me=null;started=false;if(loaded)showLogin()}
-},function(e){showLogin();$('err').textContent=fe(e)});
-}catch(e){loaded=true;showLogin();$('err').textContent='Firebase error: '+e.message}}
-function loadUser(u){
-me={uid:u.uid,username:(u.email||'').split('@')[0]||'User',avatar:''};
-if(loaded)start();
-db.collection('users').doc(u.uid).get().then(function(s){
-if(!me||me.uid!==u.uid)return;
-if(s.exists){me=Object.assign(me,s.data());me.uid=u.uid}
-else db.collection('users').doc(u.uid).set({uid:u.uid,username:me.username,avatar:''},{merge:true});
-if(started&&scr==='home'&&$('chat').classList.contains('hide'))home()
-}).catch(function(){})}
-function showLogin(){$('load').classList.add('hide');$('app').classList.add('hide');$('chat').classList.add('hide');closeModal();$('login').classList.remove('hide')}
-function cleanup(){[uUsers,uChats,uMsgs,uTyping,uWorld,uStatus,uGroups].forEach(function(f){if(f)try{f()}catch(e){}});uUsers=uChats=uMsgs=uTyping=uWorld=uStatus=uGroups=null;users=[];chats={};lastUnread={};chatSnapshotReady=false;peer=null;cid=null;gid=null}
-function start(){
-if(started||!me)return;started=true;
-var lp='';try{lp=localStorage.getItem('yc_lock')||''}catch(e){}
-$('load').classList.add('hide');$('login').classList.add('hide');$('app').classList.remove('hide');
-db.collection('users').doc(me.uid).set({uid:me.uid,online:true,lastSeen:ts()},{merge:true}).catch(function(){});
-listenUsers();listenChats();home();
-if(lp)unlock(lp)}
-function unlock(expected){window.lockExpected=expected;modal('<h3 style="text-align:center">Your Chat Locked</h3><p style="text-align:center">Enter your app lock password</p><input id="unlockPass" type="password" placeholder="Password"><div class="mrow"><button class="ok" onclick="checkUnlock()">Continue</button></div>');$('unlockPass').focus()}
-function checkUnlock(){if($('unlockPass').value===window.lockExpected){closeModal()}else toast('Wrong password')}
-function setOnline(v){try{if(me&&db&&started)db.collection('users').doc(me.uid).set({online:v,lastSeen:ts()},{merge:true})}catch(e){}}
-document.addEventListener('visibilitychange',function(){setOnline(document.visibilityState==='visible')});
-window.addEventListener('pagehide',function(){setOnline(false)});
+ if(!u){me=null;stop();loginPage();return}
+ db.collection("users").doc(u.uid).get().then(function(d){
+  if(!d.exists)throw new Error("Profile missing");
+  me=d.data();me.uid=u.uid;
+  return db.collection("users").doc(u.uid).set(
+   {online:true,lastSeen:ts()},{merge:true}
+  )
+ }).then(function(){
+  applyTheme();presence();goHome()
+ }).catch(function(){auth.signOut()})
+});
 
-/* ---------- LISTENERS ---------- */
-function listenUsers(){if(uUsers)uUsers();uUsers=db.collection('users').orderBy('username').onSnapshot(function(s){users=[];s.forEach(function(d){var x=d.data();if(x.uid!==me.uid)users.push(x)});if($('chat').classList.contains('hide')){if(scr==='home')home();else if(scr==='online')online()}},function(){toast('Firebase reconnecting…')})}
-function beep(){try{var C=window.AudioContext||window.webkitAudioContext,c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.12;o.start();setTimeout(function(){o.stop();c.close()},200)}catch(e){}}
-function playNotify(){if(!notice)return;var a=$('notifyRing');try{a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(beep)}catch(e){beep()}}
-function listenChats(){if(uChats)uChats();uChats=db.collection('chats').where('users','array-contains',me.uid).onSnapshot(function(s){var next={};s.forEach(function(d){var x=d.data()||{},n=Number((x.unread&&x.unread[me.uid])||0),old=Number(lastUnread[d.id]||0);next[d.id]=x;if(chatSnapshotReady&&notice&&n>old&&d.id!==cid){playNotify();var other=(x.users||[]).find(function(uid){return uid!==me.uid}),ou=users.find(function(u){return u.uid===other});toast('New message'+(ou?' from '+ou.username:''))}lastUnread[d.id]=n});chats=next;chatSnapshotReady=true;if(scr==='home'&&$('chat').classList.contains('hide'))home()},function(){toast('Firebase reconnecting…')})}
-function keys(a,b,c){$('k1').textContent=a;$('k2').textContent=b;$('k3').textContent=c}
-function unsubScr(){if(uStatus){uStatus();uStatus=null}if(uGroups){uGroups();uGroups=null}}
+function presence(){
+ clearInterval(window.ycPresence);
+ window.ycPresence=setInterval(function(){
+  if(me)db.collection("users").doc(me.uid).set(
+   {online:true,lastSeen:ts()},{merge:true}
+  ).catch(function(){})
+ },30000)
+}
 
-/* ---------- HOME ---------- */
-function home(){unsubScr();scr='home';mode='home';$('chatTab').classList.add('active');$('statusTab').classList.remove('active');keys('Options','PVT Chat','Back');
-$('screen').innerHTML='<button class="main worldBtn" onclick="world()">World Chat</button><button class="main groupBtn" onclick="groups()">Group Chat</button><div class="tag">Private Chats</div><div id="plist"></div><button class="plus" onclick="mainPlus()">+</button>';
-var a=users.slice().sort(function(x,y){var X=chats[chatId(me.uid,x.uid)]||{},Y=chats[chatId(me.uid,y.uid)]||{};return(Y.lastAt&&Y.lastAt.seconds||0)-(X.lastAt&&X.lastAt.seconds||0)});
-$('plist').innerHTML=a.map(function(u){var c=chats[chatId(me.uid,u.uid)]||{},n=(c.unread&&c.unread[me.uid])||0;return'<div class="row" onclick="privateBy(\''+esc(u.uid)+'\')" oncontextmenu="event.preventDefault();userRowMenu(\''+esc(u.uid)+'\');return false">'+avatar(u)+'<div class="name">'+esc(u.username)+(c.lastText?'<div class="sub">'+esc(c.lastText)+'</div>':'')+'</div>'+(u.online?'<span class="dot"></span>':'')+(n?'<span class="badge">'+Math.min(n,99)+'</span>':'')+'</div>'}).join('')||'<div class="empty">No users yet</div>'}
-function mainPlus(){menus();var m=document.createElement('div');m.className='menu';m.innerHTML='<button class="top" onclick="menus();world()">World Chat</button><button onclick="menus();groups()">Group Chat</button><button onclick="menus();online()">Online Users</button><button onclick="menus();allUsers()">All Users</button><button onclick="menus();statusList()">My Status</button><button onclick="menus();settings()">Settings</button>';document.body.appendChild(m)}
-function online(){unsubScr();scr='online';var a=users.filter(function(x){return x.online});keys('Options','PVT Chat','Back');$('screen').innerHTML='<div style="height:42px;background:#087668;color:#fff;text-align:center;padding:12px;font-weight:bold">Online Users ('+a.length+')</div>'+(a.map(function(u){return'<div class="row" onclick="privateBy(\''+esc(u.uid)+'\')">'+avatar(u)+'<div class="name">'+esc(u.username)+'</div><span class="dot"></span></div>'}).join('')||'<div class="empty">No one is online</div>')+'<button class="plus" onclick="home()">+</button>'}
-function allUsers(){unsubScr();scr='all';keys('Options','PVT Chat','Back');$('screen').innerHTML='<div class="tag">All Users</div><div style="padding:8px 16px"><input id="searchUsers" style="width:100%;height:42px;border:2px solid #aaa;border-radius:10px;padding:0 12px" placeholder="Search users" oninput="filterUsers()"></div><div id="allList">'+users.map(function(u){return'<div class="row" data-u="'+esc(u.username.toLowerCase())+'" onclick="privateBy(\''+esc(u.uid)+'\')">'+avatar(u)+'<div class="name">'+esc(u.username)+'</div>'+(u.online?'<span class="dot"></span>':'')+'</div>'}).join('')+'</div>'}
-function filterUsers(){var q=(($('searchUsers')||{}).value||'').toLowerCase();document.querySelectorAll('#allList .row').forEach(function(x){x.style.display=x.dataset.u.indexOf(q)>=0?'flex':'none'})}
-function userRowMenu(uid){menus();var m=document.createElement('div');m.className='menu';var q='\''+esc(uid)+'\'';m.innerHTML='<button class="top" onclick="menus();allUsers()">Search</button><button onclick="menus();profileOf('+q+')">View Profile</button><button onclick="menus();viewStatus('+q+')">View Status</button><button onclick="menus();statusList()">My Status</button><button onclick="menus();clearPrivateFor('+q+')">Clear Chat</button><button onclick="menus();blockFor('+q+')">Block / Unblock</button><button onclick="menus();settings()">Settings</button>';document.body.appendChild(m)}
-function clearPrivateFor(uid){var id=chatId(me.uid,uid),a=[];db.collection('chats').doc(id).collection('messages').limit(50).get().then(function(q){q.forEach(function(d){a.push(d.id)});try{localStorage.setItem('hide_'+id,JSON.stringify(a))}catch(e){}if(cid===id)listenPrivate();toast('Chat cleared for you')}).catch(function(e){toast(e.message)})}
-function clearPrivate(){if(peer)clearPrivateFor(peer.uid)}
-function blockFor(uid){var u=users.find(function(x){return x.uid===uid});if(u){peer=u;blockMenu()}}
-function privateBy(uid){var u=users.find(function(x){return x.uid===uid});if(u)privateChat(u)}
+function back(){
+ if(page==="privateChat")return privatePage();
+ if(page==="groupChat")return groupsPage();
+ if(page==="settings"||page==="blocked"||page==="themes")return privatePage();
+ if(page==="myStatus"||page==="friendsStatus")return privatePage();
+ goHome()
+}
 
-/* ---------- PRIVATE CHAT ---------- */
-function privateChat(u){mode='private';peer=u;cid=chatId(me.uid,u.uid);lastPrivId=null;markRead();keys('Options','Voice','Back');$('chat').className='';
-$('chat').innerHTML='<div class="head" style="justify-content:center;position:relative"><button class="back" style="position:absolute;left:4px" onclick="closeChat()">‹</button>'+avatar(u)+'<div class="title" style="flex:0 1 auto;text-align:center"><div>'+esc(u.username)+'</div><small style="font-weight:normal;opacity:.8">'+(u.online?'Online':'Offline')+'</small></div><button class="more" style="position:absolute;right:4px" onclick="privateMenu()">⋮</button></div><div id="pm" class="msgs"></div><div id="pt" class="typing"></div><div class="compose"><button class="round" onclick="attach()">+</button><input id="pi" placeholder="Type a message" oninput="typing(1)" onblur="typing(0)" onkeydown="if(event.key===\'Enter\'){sendPrivate();event.preventDefault()}"><button class="send" onclick="sendPrivate()">➤</button></div>';
-listenPrivate();listenTyping()}
-function markRead(){if(!cid)return;var z={};z[me.uid]=0;db.collection('chats').doc(cid).set({users:[me.uid,peer.uid],unread:z},{merge:true}).catch(function(){})}
-function closeChat(){typing(0);if(uMsgs){uMsgs();uMsgs=null}if(uTyping){uTyping();uTyping=null}if(uWorld){uWorld();uWorld=null}if(rec){try{rec.stop()}catch(e){}}menus();$('chat').classList.add('hide');$('chat').innerHTML='';peer=null;cid=null;gid=null;reply=null;if(scr==='home')home();else if(scr==='online')online()}
-function hidKey(){return mode==='world'?'world':mode==='group'?'g_'+gid:cid}
-function hidden(){try{return JSON.parse(localStorage.getItem('hide_'+hidKey())||'[]')}catch(e){return[]}}
-function deleteForMe(id){var a=hidden();if(a.indexOf(id)<0)a.push(id);try{localStorage.setItem('hide_'+hidKey(),JSON.stringify(a))}catch(e){}if(mode==='world')world();else if(mode==='group')groupChat(gid);else listenPrivate()}
-function renderMsg(x){var mine=x.uid===me.uid,b='';if(x.replyText)b+='<div style="background:#ddd;color:#222;border-left:4px solid #2684d8;padding:4px;font-size:11px">'+esc(x.replyText)+'</div>';if(x.text)b+='<div>'+esc(x.text)+'</div>';if(x.imageUrl)b+='<img class="media" src="'+esc(x.imageUrl)+'">';if(x.videoUrl)b+='<video class="media" controls preload="metadata" src="'+esc(x.videoUrl)+'"></video>';if(x.voiceUrl)b+='<audio class="voice" controls preload="none" src="'+esc(x.voiceUrl)+'"></audio>';if(x.reactions){var rr=[];Object.keys(x.reactions).forEach(function(k){if(x.reactions[k])rr.push(x.reactions[k])});if(rr.length)b+='<div style="margin-top:4px;font-size:12px">'+esc(rr.join(' '))+'</div>'}if(x.edited)b+='<span class="editmark">edited</span>';return'<div class="bubble '+(mine?'mine':'')+'" onclick="messageMenu(\''+esc(x.id)+'\')"><div class="who">'+esc(mine?'You':x.username||'')+'</div>'+b+'<span class="time">'+esc(time(x.createdAt))+'</span></div>'}
-function listenPrivate(){if(uMsgs)uMsgs();uMsgs=db.collection('chats').doc(cid).collection('messages').orderBy('createdAt','desc').limit(20).onSnapshot(function(s){var box=$('pm');if(!box)return;var a=[],h=hidden();s.forEach(function(d){if(h.indexOf(d.id)<0)a.push(Object.assign({id:d.id},d.data()))});if(s.docs.length){var t=s.docs[0];if(t.id!==lastPrivId){lastPrivId=t.id;if(t.data().uid!==me.uid)markRead()}}a.reverse();box.innerHTML=a.length?a.map(renderMsg).join(''):'<div class="empty">No messages</div>';box.scrollTop=box.scrollHeight},function(){var b=$('pm');if(b)b.innerHTML='<div class="empty">Firebase reconnecting…</div>'})}
-function blockedByPeer(){return peer?db.collection('blocks').doc(peer.uid+'_'+me.uid).get().then(function(s){return s.exists}).catch(function(){return false}):Promise.resolve(false)}
-function takeReply(d){if(reply){d.replyText=reply;reply=null;var i=$(mode==='private'?'pi':mode==='group'?'gi':'wi');if(i&&i.dataset.ph)i.placeholder=i.dataset.ph}return d}
-function bump(r,text){return db.runTransaction(function(tx){return tx.get(r).then(function(s){var q=s.exists?s.data():{},u=Object.assign({},q.unread||{});u[peer.uid]=Number(u[peer.uid]||0)+1;u[me.uid]=0;tx.set(r,{users:[me.uid,peer.uid],lastText:text,lastAt:ts(),unread:u},{merge:true})})})}
-function sendPrivate(){var i=$('pi'),v=i&&i.value.trim();if(!v||!peer||!spamOk())return;i.value='';typing(0);var p=peer,id=cid;
-blockedByPeer().then(function(b){if(b){toast(p.username+' has blocked you.');return}var r=db.collection('chats').doc(id),d=takeReply({uid:me.uid,toUid:p.uid,username:me.username,text:v,createdAt:ts()});return r.collection('messages').add(d).then(function(){return bump(r,v)})}).catch(function(e){toast(/offline|unavailable|network/i.test(e.message||'')?'Firebase reconnecting…':e.message)})}
-function sendMedia(o){if(!peer)return;var r=db.collection('chats').doc(cid);r.collection('messages').add(Object.assign({uid:me.uid,toUid:peer.uid,username:me.username,createdAt:ts()},o)).then(function(){return bump(r,o.imageUrl?'📷 Image':o.videoUrl?'🎥 Video':'🎤 Voice')}).catch(function(e){toast(e.message)})}
-function attach(){menus();var m=document.createElement('div');m.className='quickbar';m.innerHTML='<button onclick="menus();emojiMenu()">😊 Emoji</button><button onclick="menus();$(\'img\').click()">📷 Photo</button><button onclick="menus();$(\'vid\').click()">🎥 Video</button><button onclick="menus();$(\'aud\').click()">🎵 Music</button><button onclick="menus();voice()">🎤 Voice</button>';document.body.appendChild(m)}
-function emojiMenu(){var m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='7px';m.style.bottom='112px';m.style.display='flex';m.style.flexWrap='wrap';m.innerHTML=['😀','😂','😍','❤️','😢','😡','👍','🙏','🔥','🎉','🥰','😎'].map(function(e){return'<button style="width:25%" onclick="$(\'pi\').value+=\''+e+'\';menus()">'+e+'</button>'}).join('');document.body.appendChild(m)}
-function upload(f,kind,done){var url='https://api.cloudinary.com/v1_1/'+CLOUD+'/'+(kind==='image'?'image':'video')+'/upload',fd=new FormData();fd.append('file',f,f.name||('yourchat.'+(kind==='image'?'jpg':kind==='voice'?'webm':'mp4')));fd.append('upload_preset',PRESET);var x=new XMLHttpRequest();x.open('POST',url,true);x.timeout=180000;x.onload=function(){try{var j=JSON.parse(x.responseText||'{}');if(x.status>=200&&x.status<300&&j.secure_url)done(j.secure_url);else toast(j.error&&j.error.message||'Cloudinary error')}catch(e){toast('Upload response error')}};x.onerror=function(){toast('Cloudinary network error')};x.ontimeout=function(){toast('Upload timed out')};x.send(fd);toast('Uploading…')}
-function sendAny(o){if(mode==='group')sendGroupMedia(o);else if(mode==='private')sendMedia(o);else toast('Open a chat first')}
-function bindUp(id,kind,key){$(id).onchange=function(){var f=this.files[0];this.value='';if(f)upload(f,kind,function(u){var o={};o[key]=u;sendAny(o)})}}
-bindUp('img','image','imageUrl');bindUp('vid','video','videoUrl');bindUp('aud','voice','voiceUrl');
-function voice(){if(rec){rec.stop();return}if(mode!=='private'&&mode!=='group'){toast('Open a chat first');return}if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){$('aud').click();return}
-navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){chunks=[];var r;try{r=new MediaRecorder(st,{mimeType:'audio/webm;codecs=opus'})}catch(e){try{r=new MediaRecorder(st)}catch(e2){st.getTracks().forEach(function(t){t.stop()});toast('Voice not supported');return}}rec=r;
-r.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
-r.onstop=function(){rec=null;st.getTracks().forEach(function(t){t.stop()});var b=new Blob(chunks,{type:r.mimeType||'audio/webm'});if(b.size)upload(b,'voice',function(u){sendAny({voiceUrl:u})});else toast('Voice is empty')};
-r.start();toast('Recording… press Voice again to stop');setTimeout(function(){if(rec===r)try{r.stop()}catch(e){}},60000)}).catch(function(){toast('Microphone permission denied')})}
-function typing(on){if(!cid||!peer||!me)return;var r=db.collection('typing').doc(cid+'_'+me.uid);clearTimeout(window.ty);if(on){r.set({uid:me.uid,username:me.username,peerUid:peer.uid,at:ts()},{merge:true}).catch(function(){});window.ty=setTimeout(function(){typing(0)},2200)}else r.delete().catch(function(){})}
-function listenTyping(){if(uTyping)uTyping();uTyping=db.collection('typing').where('peerUid','==',me.uid).onSnapshot(function(s){var n='';s.forEach(function(d){var x=d.data();if(peer&&x.uid===peer.uid)n=x.username});var t=$('pt');if(t)t.innerHTML=n?'<b>'+esc(n)+'</b> is typing <i></i><i></i><i></i>':''},function(){})}
+function applyTheme(){
+ var n=localStorage.getItem("theme")||"White";
+ document.body.className=themeClass[n]||"white"
+}
 
-/* ---------- MESSAGE ACTIONS ---------- */
-function msgRef(id){return mode==='private'?db.collection('chats').doc(cid).collection('messages').doc(id):mode==='group'?db.collection('groups').doc(gid).collection('messages').doc(id):db.collection('worldMessages').doc(id)}
-function messageMenu(id){menus();msgRef(id).get().then(function(s){var x=s.data()||{},m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='auto';m.style.top='32%';m.style.bottom='auto';var q='\''+esc(id)+'\'',h='<button class="top" onclick="menus();replyMsg('+q+')">Reply</button>';if(x.uid===me.uid&&x.text)h+='<button onclick="menus();editMsg('+q+')">Edit</button>';h+='<button onclick="menus();infoMsg('+q+')">Info</button><button onclick="menus();deleteForMe('+q+')">Delete for Me</button><button onclick="menus();reactMsg('+q+')">React</button><button onclick="menus()">Close</button>';m.innerHTML=h;document.body.appendChild(m)}).catch(function(e){toast(e.message)})}
-function editMsg(id){var ref=msgRef(id);ref.get().then(function(s){var x=s.data()||{},v=prompt('Edit message',x.text||'');if(v===null)return;v=v.trim();if(!v)return toast('Message cannot be empty');ref.update({text:v,edited:true,editedAt:ts()}).then(function(){toast('Message edited')}).catch(function(e){toast(e.message)})})}
-function replyMsg(id){msgRef(id).get().then(function(s){var x=s.data()||{};reply=(x.username?x.username+': ':'')+(x.text||'media');var i=$(mode==='private'?'pi':mode==='group'?'gi':'wi');if(i){if(!i.dataset.ph)i.dataset.ph=i.placeholder;i.placeholder='Replying… '+(x.text||'').slice(0,20);i.focus()}toast('Reply selected')})}
-function infoMsg(id){msgRef(id).get().then(function(s){var x=s.data()||{},d=x.createdAt&&x.createdAt.toDate?x.createdAt.toDate().toLocaleString():'';modal('<h3>Message Info</h3><p>From: <b>'+esc(x.username||'')+'</b></p><p>Time: '+esc(d)+'</p>'+(x.edited?'<p>Edited</p>':'')+'<div class="mrow"><button class="ok" onclick="closeModal()">Close</button></div>')})}
-function reactMsg(id){var r=prompt('Reaction','❤️');if(!r)return;var z={};z[me.uid]=r;msgRef(id).set({reactions:z},{merge:true}).then(function(){toast('Reaction saved')}).catch(function(e){toast(e.message)})}
+function chooseTheme(n){
+ localStorage.setItem("theme",n);applyTheme();themesPage()
+}
 
-/* ---------- PROFILE / BLOCK ---------- */
-function privateMenu(){menus();var m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='auto';m.style.top='56px';m.style.bottom='auto';m.innerHTML='<button class="top" onclick="menus();profilePeer()">View Profile</button><button onclick="menus();statusPeer()">View Status</button><button onclick="menus();clearPrivate()">Clear Chat</button><button onclick="menus();blockMenu()">Block / Unblock</button><button onclick="menus()">Close</button>';document.body.appendChild(m)}
-function profile(u){var own=u.uid===me.uid;modal('<h3>'+esc(u.username)+'</h3>'+avatar(u)+'<p>Name is permanent.'+(own?' Only DP can be edited.':'')+'</p><div class="mrow"><button class="no" onclick="closeModal()">Close</button>'+(own?'<button class="ok" onclick="closeModal();$(\'dp\').click()">Edit DP</button>':'')+'</div>')}
-function profileMe(){profile(me)}function profilePeer(){if(peer)profile(peer)}function statusPeer(){if(peer)viewStatus(peer.uid)}function profileOf(uid){var u=users.find(function(x){return x.uid===uid});if(u)profile(u)}
-function blockMenu(){if(!peer)return;var r=db.collection('blocks').doc(me.uid+'_'+peer.uid);r.get().then(function(s){if(s.exists){r.delete().then(function(){toast('User unblocked')});return}modal('<h3>Block User</h3><p>'+esc(peer.username)+' will be blocked from private chat.</p><div class="mrow"><button class="no" onclick="closeModal()">Cancel</button><button class="ok" onclick="blockNow()">Block</button></div>')}).catch(function(e){toast(e.message)})}
-function blockNow(){if(!peer)return;db.collection('blocks').doc(me.uid+'_'+peer.uid).set({uid:me.uid,blockedUid:peer.uid,blockerUsername:me.username,blockedUsername:peer.username,createdAt:ts()},{merge:true}).then(function(){closeModal();toast('User blocked')}).catch(function(e){toast(e.message)})}
-$('dp').onchange=function(){var f=this.files[0];this.value='';if(f)upload(f,'image',function(u){me.avatar=u;db.collection('users').doc(me.uid).set({avatar:u},{merge:true});toast('DP updated')})};
+function worldPage(){
+ page="world";stop();
+ var b='<div class="wrap"><div class="card"><div class="between">'+
+ '<b>🌍 World Chat</b><span id="worldCount" class="status">0 online</span></div>'+
+ '<div id="worldTyping" class="typing"></div></div>'+
+ '<div id="worldMessages" class="msgList">Loading...</div>'+
+ '<div id="worldMention" class="mentionBox" style="display:none"></div>'+
+ '<div class="chatBottom"><div id="worldReply"></div><div class="chatInput">'+
+ '<button class="iconBtn" onclick="mentions()">@</button>'+
+ '<input id="worldInput" class="input" placeholder="Type a message" oninput="worldTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendWorld()}">'+
+ '<button class="iconBtn" onclick="sendWorld()">➤</button></div></div></div>';
+ $("app").innerHTML=shell("World Chat",b,true);
 
-/* ---------- WORLD ---------- */
-function world(){unsubScr();mode='world';reply=null;keys('Menu','SEND','Back');$('chat').className='';
-$('chat').innerHTML='<div class="head world"><button class="back" onclick="closeChat()">‹</button><div class="title">🌎 World Chat</div><span class="online">Online: '+(users.filter(function(x){return x.online}).length+1)+'</span><button class="more" onclick="worldMenu()">⋮</button></div><div id="wm" class="msgs worldMsgs"></div><div class="compose"><button class="round" onclick="mention()">@</button><input id="wi" placeholder="Type a message…" onkeydown="if(event.key===\'Enter\'){sendWorld();event.preventDefault()}"><button class="send" onclick="sendWorld()">➤</button></div>';
-if(uWorld)uWorld();uWorld=db.collection('worldMessages').orderBy('createdAt','desc').limit(20).onSnapshot(function(s){var box=$('wm');if(!box)return;var a=[],h=hidden();s.forEach(function(d){if(h.indexOf(d.id)<0)a.push(Object.assign({id:d.id},d.data()))});a.reverse();box.innerHTML=a.length?a.map(renderMsg).join(''):'<div class="empty" style="color:#fff">No messages</div>';box.scrollTop=box.scrollHeight},function(){var b=$('wm');if(b)b.innerHTML='<div class="empty" style="color:#fff">Firebase reconnecting…</div>'})}
-function sendWorld(){var i=$('wi'),v=i&&i.value.trim();if(!v||!spamOk())return;i.value='';db.collection('worldMessages').add(takeReply({uid:me.uid,username:me.username,text:v,createdAt:ts()})).catch(function(e){toast(e.message)})}
-function insMention(n){var i=$('wi');if(i){i.value+=' @'+n+' ';i.focus()}menus()}
-function mention(){menus();var m=document.createElement('div');m.className='menu';var on=users.filter(function(x){return x.online});m.innerHTML=on.map(function(u,k){return'<button data-n="'+esc(u.username)+'" onclick="insMention(this.dataset.n)">@'+esc(u.username)+'</button>'}).join('')||'<button onclick="menus()">No online users</button>';document.body.appendChild(m)}
-function worldMenu(){menus();var m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='auto';m.style.top='56px';m.style.bottom='auto';m.innerHTML='<button class="top" onclick="menus();showOnline()">Online Users</button><button onclick="menus();worldSearch()">Search</button><button onclick="menus();settings()">Settings</button><button onclick="menus()">Close</button>';document.body.appendChild(m)}
-function showOnline(){var a=users.filter(function(x){return x.online});modal('<h3>Online Users ('+(a.length+1)+')</h3><div class="row" style="padding:8px 0">'+avatar(me)+'<div class="name">'+esc(me.username)+' (you)</div></div>'+a.map(function(u){return'<div class="row" style="padding:8px 0">'+avatar(u)+'<div class="name">'+esc(u.username)+'</div><span class="dot"></span></div>'}).join('')+'<div class="mrow"><button class="ok" onclick="closeModal()">Close</button></div>')}
-function worldSearch(){modal('<h3>Search World Chat</h3><input id="ws" placeholder="Type text to search"><div class="mrow"><button class="no" onclick="closeModal()">Cancel</button><button class="ok" onclick="doSearch()">Search</button></div>')}
-function doSearch(){var q=($('ws').value||'').toLowerCase();db.collection('worldMessages').orderBy('createdAt','desc').limit(50).get().then(function(s){var a=[];s.forEach(function(d){var x=d.data();if(String(x.text||'').toLowerCase().indexOf(q)>=0)a.push(x)});modal('<h3>Search Results</h3>'+(a.map(function(x){return'<div style="padding:8px;border-bottom:1px solid #ddd"><b>'+esc(x.username)+'</b><div>'+esc(x.text)+'</div></div>'}).join('')||'<div class="empty">No matching message</div>')+'<div class="mrow"><button class="ok" onclick="closeModal()">Close</button></div>')}).catch(function(){toast('Search failed')})}
+ listen(db.collection("users"),function(s){
+  var n=0;window.ycWorldUsers=[];s.forEach(function(d){
+   var u=d.data();u.uid=d.id;users[d.id]=u;
+   if(online(u)){n++;window.ycWorldUsers.push(u)}
+  });
+  if($("worldCount"))$("worldCount").textContent=n+" online"
+ });
 
-/* ---------- GROUPS ---------- */
-function gSnap(s){var h='';s.forEach(function(d){var g=d.data(),mem=(g.members||[]).indexOf(me.uid)>=0;h+='<div class="row" onclick="'+(mem?'groupChat':'joinGroup')+'(\''+esc(d.id)+'\')">'+avatar({username:g.name})+'<div class="name">'+esc(g.name||'Group')+'<div class="sub">'+(g.members||[]).length+' members'+(mem?'':' • tap to join')+'</div></div></div>'});var l=$('groupsList');if(l)l.innerHTML=h||'<div class="empty">No groups yet</div>'}
-function groups(){unsubScr();scr='groups';mode='home';keys('Options','PVT Chat','Back');$('screen').innerHTML='<button class="blue" onclick="newGroup()">+ Create Group</button><div class="tag">Groups</div><div id="groupsList"><div class="empty">Loading groups…</div></div>';
-uGroups=db.collection('groups').limit(50).onSnapshot(gSnap,function(){uGroups=db.collection('groups').where('members','array-contains',me.uid).onSnapshot(gSnap,function(e){toast('Groups: '+e.message)})})}
-function joinGroup(id){db.collection('groups').doc(id).update({members:firebase.firestore.FieldValue.arrayUnion(me.uid)}).then(function(){groupChat(id)}).catch(function(e){toast(e.message)})}
-function newGroup(){modal('<h3>Create Group</h3><input id="gn" placeholder="Group name"><div class="mrow"><button class="no" onclick="closeModal()">Cancel</button><button class="ok" onclick="saveGroup()">Create</button></div>')}
-function saveGroup(){var n=$('gn').value.trim();if(!n)return toast('Enter group name');var r=db.collection('groups').doc();r.set({name:n,ownerUid:me.uid,members:[me.uid],createdAt:ts()}).then(function(){closeModal();groupChat(r.id)}).catch(function(e){toast(e.message)})}
-function groupChat(id){mode='group';gid=id;reply=null;db.collection('groups').doc(id).get().then(function(s){var g=s.data()||{};keys('Menu','SEND','Back');$('chat').className='';
-$('chat').innerHTML='<div class="head"><button class="back" onclick="closeChat()">‹</button><div class="title">'+esc(g.name||'Group Chat')+'</div><button class="more" onclick="groupMenu()">⋮</button></div><div id="gm" class="msgs"></div><div class="compose"><button class="round" onclick="groupAttach()">+</button><input id="gi" placeholder="Enter your message" onkeydown="if(event.key===\'Enter\'){sendGroup();event.preventDefault()}"><button class="send" onclick="sendGroup()">➤</button></div>';
-if(uMsgs)uMsgs();uMsgs=db.collection('groups').doc(id).collection('messages').orderBy('createdAt','desc').limit(20).onSnapshot(function(q){var box=$('gm');if(!box)return;var a=[],h=hidden();q.forEach(function(d){if(h.indexOf(d.id)<0)a.push(Object.assign({id:d.id},d.data()))});a.reverse();box.innerHTML=a.length?a.map(renderMsg).join(''):'<div class="empty">No messages</div>';box.scrollTop=box.scrollHeight},function(e){toast(e.message)})}).catch(function(e){toast(e.message)})}
-function sendGroup(){var i=$('gi'),v=i&&i.value.trim();if(!v||!spamOk())return;i.value='';db.collection('groups').doc(gid).collection('messages').add(takeReply({uid:me.uid,username:me.username,text:v,createdAt:ts()})).catch(function(e){toast(e.message)})}
-function groupAttach(){menus();var m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='auto';m.innerHTML='<button onclick="menus();$(\'img\').click()">📷 Image</button><button onclick="menus();$(\'vid\').click()">🎥 Video</button><button onclick="menus();voice()">🎤 Voice</button>';document.body.appendChild(m)}
-function sendGroupMedia(o){db.collection('groups').doc(gid).collection('messages').add(Object.assign({uid:me.uid,username:me.username,createdAt:ts()},o)).catch(function(e){toast(e.message)})}
-function groupMenu(){menus();var m=document.createElement('div');m.className='menu';m.style.right='7px';m.style.left='auto';m.style.top='56px';m.style.bottom='auto';m.innerHTML='<button class="top" onclick="menus();groupInfo()">Group Info</button><button onclick="menus();clearGroup()">Clear Chat</button><button onclick="menus();leaveGroup()">Leave Group</button><button onclick="menus();closeChat()">Back</button>';document.body.appendChild(m)}
-function groupInfo(){db.collection('groups').doc(gid).get().then(function(s){var g=s.data()||{};modal('<h3>Group Info</h3><p>Name: '+esc(g.name)+'</p><p>Members: '+((g.members||[]).length)+'</p><div class="mrow"><button class="ok" onclick="closeModal()">Close</button></div>')})}
-function clearGroup(){var a=[],id=gid;db.collection('groups').doc(id).collection('messages').limit(50).get().then(function(q){q.forEach(function(d){a.push(d.id)});try{localStorage.setItem('hide_g_'+id,JSON.stringify(a))}catch(e){}groupChat(id);toast('Group chat cleared for you')})}
-function leaveGroup(){var id=gid;db.collection('groups').doc(id).update({members:firebase.firestore.FieldValue.arrayRemove(me.uid)}).then(function(){toast('Left group');closeChat()}).catch(function(e){toast(e.message)})}
+ listen(db.collection("worldMessages").orderBy("createdAt","desc").limit(15),function(s){
+  world=[];s.forEach(function(d){var x=d.data();x.id=d.id;world.unshift(x)});
+  drawWorld()
+ });
 
-/* ---------- STATUS ---------- */
-function fresh(x){return x.createdAt&&x.createdAt.seconds?(Date.now()/1000-x.createdAt.seconds<DAY):true}
-function statusList(){unsubScr();scr='status';mode='home';$('statusTab').classList.add('active');$('chatTab').classList.remove('active');keys('Options','PVT Chat','Back');
-$('screen').innerHTML='<div class="tag">My Status</div><div class="status mine" onclick="viewStatus(\''+esc(me.uid)+'\')">'+avatar(me)+'<div><b>My Status</b><div class="sub">Tap to view • use + to add</div></div></div><button class="blue" onclick="addStatus()">+ Add Status</button><div class="tag">Recent Status</div><div id="statusList"><div class="empty">Loading statuses…</div></div>';
-uStatus=db.collection('statuses').orderBy('createdAt','desc').limit(40).onSnapshot(function(s){var m={};s.forEach(function(d){var x=d.data();if(x.uid!==me.uid&&fresh(x)&&!m[x.uid])m[x.uid]=Object.assign({id:d.id},x)});var l=$('statusList');if(l)l.innerHTML=Object.keys(m).map(function(k){var x=m[k],u=users.find(function(a){return a.uid===k})||x;return'<div class="status" onclick="viewStatus(\''+esc(k)+'\')">'+avatar(u)+'<div><b>'+esc(u.username||x.username)+'</b><div class="sub">'+esc(x.kind||'status')+' • '+esc(time(x.createdAt))+'</div></div></div>'}).join('')||'<div class="empty">No recent status</div>'},function(e){var l=$('statusList');if(l)l.innerHTML='<div class="empty">Status: '+esc(e.message)+'</div>'})}
-function addStatus(){modal('<h3>Add Status</h3><textarea id="st" rows="4" placeholder="Write a status"></textarea><div class="mrow"><button class="no" onclick="closeModal()">Cancel</button><button class="ok" onclick="postStatus()">Post Text</button></div><div class="mrow"><button class="ok" onclick="closeModal();$(\'statusImg\').click()">Photo Status</button><button class="ok" onclick="closeModal();$(\'statusVid\').click()">Video Status</button></div>')}
-function addSt(o){return db.collection('statuses').add(Object.assign({uid:me.uid,username:me.username,avatar:me.avatar||'',createdAt:ts()},o)).then(function(){toast('Status posted');if(scr==='status')statusList()}).catch(function(e){toast(e.message)})}
-function postStatus(){var v=$('st').value.trim();if(!v)return toast('Write something');addSt({kind:'text',text:v}).then(closeModal)}
-$('statusImg').onchange=function(){var f=this.files[0];this.value='';if(f)upload(f,'image',function(u){addSt({kind:'photo',imageUrl:u})})};
-$('statusVid').onchange=function(){var f=this.files[0];this.value='';if(f)upload(f,'video',function(u){addSt({kind:'video',videoUrl:u})})};
-function viewStatus(uid){db.collection('statuses').where('uid','==',uid).limit(30).get().then(function(s){var a=s.docs.map(function(d){return Object.assign({id:d.id},d.data())}).filter(fresh).sort(function(x,y){return(y.createdAt&&y.createdAt.seconds||0)-(x.createdAt&&x.createdAt.seconds||0)});if(!a.length)return toast('No status');var x=a[0],c=x.text?'<div style="font-size:22px">'+esc(x.text)+'</div>':x.imageUrl?'<img src="'+esc(x.imageUrl)+'" style="max-width:100%">':'<video controls src="'+esc(x.videoUrl||'')+'" style="max-width:100%"></video>';modal('<h3>'+esc(x.username||'Status')+'</h3><div style="background:#111;color:#fff;padding:15px;min-height:220px">'+c+'</div><div class="mrow"><button class="ok" onclick="statusReact(\''+esc(x.id)+'\');closeModal()">React</button>'+(uid===me.uid?'<button class="no" onclick="delStatus(\''+esc(x.id)+'\')">Delete</button>':'')+'<button class="no" onclick="closeModal()">Close</button></div>')}).catch(function(e){toast(e.message)})}
-function delStatus(id){db.collection('statuses').doc(id).delete().then(function(){closeModal();toast('Status deleted')}).catch(function(e){toast(e.message)})}
-function statusReact(id){var r=prompt('Reaction','❤️');if(!r)return;db.collection('statusReactions').doc(id+'_'+me.uid).set({statusId:id,uid:me.uid,reaction:r,createdAt:ts()},{merge:true}).then(function(){toast('Reaction saved')}).catch(function(e){toast(e.message)})}
+ listen(db.collection("typing").where("roomId","==","world"),function(s){
+  var n="";s.forEach(function(d){
+   var x=d.data();if(x.uid!==me.uid&&x.typing)n=x.username
+  });
+  $("worldTyping").innerHTML=n?
+  esc(n)+" is typing <span class=\"dots\"><span>•</span><span>•</span><span>•</span></span>":""
+ })
+}
 
-/* ---------- SETTINGS ---------- */
-function settings(){menus();var m=document.createElement('div');m.className='settings';m.innerHTML='<button onclick="menus();profileMe()">Edit Profile</button><button onclick="menus();lockMenu()">App Lock</button><button onclick="toggleSpam()">Spam Protection ['+(spam?'ON':'OFF')+']</button><button onclick="menus();themeMenu()">Change Chat BG</button><button onclick="toggleNotice()">Notifications ['+(notice?'ON':'OFF')+']</button><button onclick="menus();blockedList()">Blocked Users</button><button onclick="logout()">Logout</button>';document.body.appendChild(m)}
-function lockMenu(){var has=false;try{has=!!localStorage.getItem('yc_lock')}catch(e){}modal('<h3>App Lock</h3><input id="lockPass" type="password" placeholder="4+ character password"><div class="mrow"><button class="no" onclick="closeModal()">Cancel</button>'+(has?'<button class="no" onclick="removeLock()">Remove</button>':'')+'<button class="ok" onclick="setLock()">Save</button></div>')}
-function setLock(){var p=$('lockPass').value;if(p.length<4)return toast('Use 4+ characters');try{localStorage.setItem('yc_lock',p)}catch(e){}closeModal();toast('App Lock enabled')}
-function removeLock(){try{localStorage.removeItem('yc_lock')}catch(e){}closeModal();toast('App Lock removed')}
-function themeMenu(){modal('<h3>Change Chat BG</h3><div class="themes">'+themes.map(function(t){return'<button data-t="'+esc(t[0])+'" onclick="theme(this.dataset.t);savePrefs();closeModal();toast(this.dataset.t+\' applied\')">'+esc(t[0])+'</button>'}).join('')+'</div>')}
-function blockedList(){db.collection('blocks').where('uid','==',me.uid).get().then(function(s){var a=[];s.forEach(function(d){var x=d.data();a.push(users.find(function(z){return z.uid===x.blockedUid})||{username:x.blockedUsername||'User',uid:x.blockedUid})});var rows=a.map(function(u){return'<div style="padding:8px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center"><span>'+esc(u.username)+'</span><button class="no" data-uid="'+esc(u.uid)+'" onclick="unblockUser(this.dataset.uid)">Unblock</button></div>'}).join('');modal('<h3>Blocked Users</h3>'+(rows||'<div class="empty">No blocked users</div>')+'<div class="mrow"><button class="ok" onclick="closeModal()">Close</button></div>')}).catch(function(){toast('Could not load blocked users')})}
-function unblockUser(uid){db.collection('blocks').doc(me.uid+'_'+uid).delete().then(function(){toast('User unblocked');blockedList()}).catch(function(e){toast(e.message)})}
-function logout(){menus();var u=me&&me.uid,p=u?db.collection('users').doc(u).set({online:false,lastSeen:ts()},{merge:true}).catch(function(){}):Promise.resolve();p.then(function(){closeChat();return auth.signOut()})}
+function drawWorld(){
+ var h="";
+ world.forEach(function(x){h+=messageHTML(x,"world")});
+ $("worldMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
+ $("worldReply").innerHTML=reply?
+ '<div class="reply">Replying to: '+esc(reply.text)+
+ ' <button class="btn small secondary" onclick="reply=null;drawWorld()">Cancel</button></div>':""
+}
 
-/* ---------- BUTTONS ---------- */
-$('chatTab').onclick=function(){home()};
-$('statusTab').onclick=function(){statusList()};
-$('k1').onclick=function(){if(!$('chat').classList.contains('hide')){if(mode==='private')privateMenu();else if(mode==='world')worldMenu();else if(mode==='group')groupMenu()}else settings()};
-$('k2').onclick=function(){if(!$('chat').classList.contains('hide')){if(mode==='private')voice();else if(mode==='world')sendWorld();else if(mode==='group')sendGroup()}else if(scr==='status')addStatus();else online()};
-$('k3').onclick=function(){if(!$('chat').classList.contains('hide'))closeChat();else home()};
-$('loginBtn').onclick=function(){var n=$('user').value.trim(),p=$('pass').value;if(!n||!p){$('err').textContent='Enter username and password';return}$('err').textContent='Connecting…';auth.signInWithEmailAndPassword(email(n),p).catch(function(e){$('err').textContent=fe(e)})};
-$('signupBtn').onclick=function(){var n=$('user').value.trim(),p=$('pass').value;if(n.length<3||p.length<6){$('err').textContent='Username 3+ chars, password 6+ chars';return}$('err').textContent='Creating account…';auth.createUserWithEmailAndPassword(email(n),p).then(function(c){if(me&&me.uid===c.user.uid)me.username=n;return db.collection('users').doc(c.user.uid).set({uid:c.user.uid,username:n,avatar:'',online:true,createdAt:ts()},{merge:true})}).catch(function(e){$('err').textContent=fe(e)})};
-$('pass').addEventListener('keydown',function(e){if(e.key==='Enter')$('loginBtn').click()});
-window.addEventListener('online',function(){if(db)db.enableNetwork().catch(function(){});if(me&&started)toast('Back online')});
-window.addEventListener('offline',function(){toast('Internet connection lost')});
+function messageHTML(x,type){
+ var u=users[x.uid]||{username:x.username,avatar:x.avatar};
+ var own=x.uid===me.uid,h="";
+ if(x.replyText)h+='<div class="reply">'+esc(x.replyText)+'</div>';
+ if(x.text)h+='<div class="msgText">'+esc(x.text)+'</div>';
+ if(x.imageUrl)h+='<img class="media" loading="lazy" src="'+esc(x.imageUrl)+'">';
+ if(x.videoUrl)h+='<video class="media" controls preload="metadata" src="'+esc(x.videoUrl)+'"></video>';
+ if(x.voiceUrl)h+='<audio class="audio" controls src="'+esc(x.voiceUrl)+'"></audio>';
+ var a="";
+ if(type!=="world")a=
+ '<div class="actions">'+
+ '<button onclick="event.stopPropagation();selectMsg(\''+x.id+'\',\''+type+'\')">Options</button></div>';
+ return '<div class="msg '+(own?"mine":"")+'">'+avatar(u,true)+
+ '<div class="bubble"><div class="sender">'+esc(u.username||"User")+
+ '</div>'+h+'<div class="meta">'+esc(time(x.createdAt))+
+ (x.edited?" • edited":"")+
+ (type==="private"&&own?" • "+(x.seenBy&&x.seenBy.indexOf(peer.uid)>-1?"✓✓":"✓✓"):"")+
+ '</div>'+a+'</div></div>'
+}
 
-/* loading screen: exactly 2 seconds */
-setTimeout(function(){loaded=true;if(authIn&&me)start();else if(window.authDone&&!authIn)showLogin()},2000);
-prefs();init();
-</script></body></html>
+function sendWorld(){
+ if(sending)return;
+ var i=$("worldInput"),t=(i.value||"").trim();
+ if(!t&&!reply)return;
+ sending=true;
+ var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};
+ if(reply){d.replyTo=reply.id;d.replyText=reply.text}
+ db.collection("worldMessages").add(d).then(function(){
+  i.value="";reply=null;worldTyping(false)
+ }).catch(function(){toast("Message failed")}).then(function(){sending=false})
+}
+
+function worldTyping(v){
+ db.collection("typing").doc(me.uid+"_world").set({
+  uid:me.uid,username:me.username,roomId:"world",typing:!!v,updatedAt:ts()
+ },{merge:true}).catch(function(){});
+ if(typingTimer)clearTimeout(typingTimer);
+ if(v)typingTimer=setTimeout(function(){worldTyping(false)},1500)
+}
+
+function mentions(){
+ var b=$("worldMention");
+ b.style.display=b.style.display==="none"?"block":"none";
+ if(b.style.display==="block"){
+  var h="";
+  (window.ycWorldUsers||[]).forEach(function(u){
+   if(u.uid!==me.uid)h+='<div class="userRow" onclick="mentionUser(\''+u.uid+'\')">'+
+   avatar(u,true)+'<b>'+esc(u.username)+'</b></div>'
+  });
+  b.innerHTML=h||'<div class="empty">No online users.</div>'
+ }
+}
+
+function mentionUser(id){
+ var u=users[id];if(!u)return;
+ $("worldInput").value+=($("worldInput").value?" ":"")+"@"+u.username+" ";
+ $("worldMention").style.display="none";$("worldInput").focus()
+}
+
+function onlinePage(){
+ page="online";stop();
+ var b='<div class="wrap"><div class="card"><input id="onlineSearch" class="input" placeholder="Search username" oninput="drawOnline()"><div id="onlineList">Loading...</div></div></div>';
+ $("app").innerHTML=shell("Online Users",b,true);
+ listen(db.collection("users"),function(s){
+  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
+  drawOnline()
+ })
+}
+
+function drawOnline(){
+ var q=(($("onlineSearch")&&$("onlineSearch").value)||"").toLowerCase(),h="";
+ Object.keys(users).forEach(function(id){
+  var u=users[id];
+  if(id===me.uid||!online(u))return;
+  if(q&&String(u.username||"").toLowerCase().indexOf(q)<0)return;
+  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
+  '<div class="userInfo"><div class="userName">'+esc(u.username)+'</div>'+
+  '<div class="status online">● Online</div></div></div>'
+ });
+ $("onlineList").innerHTML=h||'<div class="empty">No online users.</div>'
+}
+
+function allUsersPage(){
+ page="all";stop();
+ var b='<div class="wrap"><div class="card"><input id="allSearch" class="input" placeholder="Search username or Easy ID" oninput="drawAll()"><div id="allList">Loading...</div></div></div>';
+ $("app").innerHTML=shell("All Users",b,true);
+ listen(db.collection("users"),function(s){
+  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
+  drawAll()
+ })
+}
+
+function drawAll(){
+ var q=(($("allSearch")&&$("allSearch").value)||"").toLowerCase(),h="";
+ Object.keys(users).forEach(function(id){
+  if(id===me.uid)return;
+  var u=users[id],easy=(u.easyId||id.slice(0,8)).toLowerCase();
+  if(q&&String(u.username||"").toLowerCase().indexOf(q)<0&&easy.indexOf(q)<0)return;
+  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
+  '<div class="userInfo"><div class="userName">'+esc(u.username)+'</div>'+
+  '<div class="status">Easy ID: '+esc(easy)+' • '+(online(u)?"Online":"Offline")+
+  '</div></div></div>'
+ });
+ $("allList").innerHTML=h||'<div class="empty">No users found.</div>'
+}
+
+function privatePage(){
+ page="private";stop();
+ var b='<div class="wrap"><div class="card">'+
+ '<input id="privateSearch" class="input" placeholder="Search username or Easy ID" oninput="privateSearch()">'+
+ '<div id="privateResults"></div>'+
+ '<button class="menuBtn" onclick="myStatusPage()"><span class="menuIcon">🟣</span><span class="menuName">My Status</span></button>'+
+ '<button class="menuBtn" onclick="friendsStatusPage()"><span class="menuIcon">🟢</span><span class="menuName">Status</span></button>'+
+ '</div><div class="card"><b>Private Chats</b><div id="privateList">Loading...</div></div></div>';
+ $("app").innerHTML=shell("Private Chat",b,true);
+
+ listen(db.collection("users"),function(s){
+  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
+  privateSearch()
+ });
+
+ listen(db.collection("chats").where("participants","array-contains",me.uid),function(s){
+  var h="";
+  s.forEach(function(d){
+   var c=d.data(),p=c.participants||[],id=p[0]===me.uid?p[1]:p[0],u=users[id]||{};
+   var n=Number((c.unreadCounts||{})[me.uid]||0);
+   h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
+   '<div class="userInfo"><div class="userName">'+esc(u.username||"User")+
+   (n?'<span class="badge">'+(n>99?"99+":n)+'</span>':"")+
+   '</div><div class="status">'+dot(u)+' • '+esc(c.lastMessage||"")+
+   '</div></div><span class="status">'+esc(time(c.lastMessageAt))+'</span></div>'
+  });
+  $("privateList").innerHTML=h||'<div class="empty">No private chats yet.</div>'
+ })
+}
+
+function privateSearch(){
+ var q=(($("privateSearch")&&$("privateSearch").value)||"").toLowerCase(),b=$("privateResults");
+ if(!q){b.innerHTML="";return}
+ var h="";
+ Object.keys(users).forEach(function(id){
+  if(id===me.uid)return;
+  var u=users[id],easy=(u.easyId||id.slice(0,8)).toLowerCase();
+  if(String(u.username||"").toLowerCase().indexOf(q)<0&&easy.indexOf(q)<0)return;
+  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
+  '<div class="userInfo"><b>'+esc(u.username)+'</b><div class="status">Easy ID: '+esc(easy)+'</div></div></div>'
+ });
+ b.innerHTML=h||'<div class="empty">No user found.</div>'
+}
+
+function openPrivate(id){
+ db.collection("users").doc(id).get().then(function(d){
+  if(!d.exists)return;
+  peer=d.data();peer.uid=id;currentChat=chatKey(me.uid,id);
+  privateChatPage()
+ })
+}
+
+function chatKey(a,b){return [a,b].sort().join("_")}
+
+function privateChatPage(){
+ page="privateChat";stop();reply=null;selected=null;blocked=false;
+ var b='<div class="wrap"><div class="card"><div class="row">'+avatar(peer)+
+ '<div class="userInfo"><b>'+esc(peer.username)+'</b><div class="status">'+dot(peer)+'</div></div>'+
+ '<button class="topBtn" onclick="settingsPage()">⋮</button></div>'+
+ '<div id="blockNotice"></div><div id="privateTyping" class="typing"></div></div>'+
+ '<div id="privateMessages" class="msgList">Loading...</div>'+
+ '<div class="chatBottom"><div id="privateReply"></div><div class="chatInput">'+
+ '<button class="iconBtn" onclick="privateImage()">🖼</button>'+
+ '<button class="iconBtn" onclick="privateVideo()">🎥</button>'+
+ '<button class="iconBtn" onclick="voice()">🎙</button>'+
+ '<input id="privateInput" class="input" placeholder="Type a message" oninput="privateTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendPrivate()}">'+
+ '<button class="iconBtn" onclick="sendPrivate()">➤</button></div></div></div>';
+ $("app").innerHTML=shell(peer.username,b,true);
+ checkBlock();listenPrivate()
+}
+
+function checkBlock(){
+ Promise.all([
+  db.collection("blocks").doc(me.uid+"_"+peer.uid).get(),
+  db.collection("blocks").doc(peer.uid+"_"+me.uid).get()
+ ]).then(function(r){
+  blocked=r[1].exists;
+  if(r[0].exists)blocked=true;
+  $("blockNotice").innerHTML=blocked?
+  '<div class="notice blocked">'+
+  (r[1].exists?esc(peer.username)+" has blocked you.":"You blocked "+esc(peer.username)+
+  '. <button class="btn small secondary" onclick="unblockPeer()">Unblock</button>')+
+  '</div>':"";
+  if($("privateInput"))$("privateInput").disabled=blocked
+ })
+}
+
+function listenPrivate(){
+ var c=db.collection("chats").doc(currentChat);
+ var reset={};reset["unreadCounts."+me.uid]=0;c.set(reset,{merge:true});
+ listen(c.collection("messages").orderBy("createdAt","desc").limit(15),function(s){
+  privateMsgs=[];s.forEach(function(d){
+   var x=d.data();x.id=d.id;privateMsgs.unshift(x);
+   if(x.uid!==me.uid&&(x.seenBy||[]).indexOf(me.uid)<0)
+    d.ref.update({seenBy:firebase.firestore.FieldValue.arrayUnion(me.uid)}).catch(function(){})
+  });
+  drawPrivate()
+ });
+ listen(db.collection("typing").where("roomId","==",currentChat),function(s){
+  var n="";s.forEach(function(d){var x=d.data();if(x.uid!==me.uid&&x.typing)n=x.username});
+  $("privateTyping").innerHTML=n?esc(n)+" is typing <span class=\"dots\"><span>•</span><span>•</span><span>•</span></span>":""
+ })
+}
+
+function drawPrivate(){
+ var h="";privateMsgs.forEach(function(x){h+=messageHTML(x,"private")});
+ $("privateMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
+ $("privateReply").innerHTML=reply?
+ '<div class="reply">Replying to: '+esc(reply.text)+
+ ' <button class="btn small secondary" onclick="reply=null;drawPrivate()">Cancel</button></div>':""
+}
+
+function privateTyping(v){
+ if(blocked)return;
+ db.collection("typing").doc(me.uid+"_"+currentChat).set({
+  uid:me.uid,username:me.username,roomId:currentChat,typing:!!v,updatedAt:ts()
+ },{merge:true}).catch(function(){});
+ if(typingTimer)clearTimeout(typingTimer);
+ if(v)typingTimer=setTimeout(function(){privateTyping(false)},1500)
+}
+
+function sendPrivate(){
+ if(sending||blocked)return;
+ var i=$("privateInput"),t=(i.value||"").trim();
+ if(!t&&!reply)return;
+ sending=true;
+ var d={uid:me.uid,toUid:peer.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts(),seenBy:[]};
+ if(reply){d.replyTo=reply.id;d.replyText=reply.text}
+ var c=db.collection("chats").doc(currentChat),u={
+  participants:[me.uid,peer.uid],lastMessage:t||"[media]",lastMessageAt:ts()
+ };
+ u["unreadCounts."+peer.uid]=firebase.firestore.FieldValue.increment(1);
+ c.collection("messages").add(d).then(function(){return c.set(u,{merge:true})})
+ .then(function(){i.value="";reply=null;privateTyping(false)})
+ .catch(function(){toast("Message failed")})
+ .then(function(){sending=false})
+}
+
+function selectMsg(id,type){
+ selected=id;
+ var x=(type==="private"?privateMsgs:groupMsgs).find(function(a){return a.id===id});
+ if(!x)return;
+ var c=prompt("1 Reply\n2 React\n3 Edit\n4 Delete\n5 Back","1");
+ if(c==="1"){reply={id:id,text:x.text||"[media]"};type==="private"?drawPrivate():drawGroup()}
+ else if(c==="2")reactMessage(id,type)
+ else if(c==="3")editMessage(id,type)
+ else if(c==="4")deleteMessage(id,type)
+ else selected=null
+}
+
+function reactMessage(id,type){
+ var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
+ var r=prompt("Reaction","❤️");if(!r)return;
+ col.update({reactions:arr({uid:me.uid,reaction:r})}).then(function(){selected=null})
+}
+
+function editMessage(id,type){
+ var a=type==="private"?privateMsgs:groupMsgs,x=a.find(function(z){return z.id===id});
+ if(!x||x.uid!==me.uid||!x.text){toast("Only your text message can be edited.");return}
+ var n=prompt("Edit message",x.text);if(n===null)return;n=n.trim();if(!n)return;
+ var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
+ col.update({text:n,edited:true}).then(function(){selected=null})
+}
+
+function deleteMessage(id,type){
+ var a=type==="private"?privateMsgs:groupMsgs,x=a.find(function(z){return z.id===id});
+ if(!x||x.uid!==me.uid){toast("You can delete only your message.");return}
+ if(!confirm("Delete this message?"))return;
+ var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
+ col.delete().then(function(){selected=null})
+}
+
+function upload(file,kind,done){
+ var resource=kind==="image"?"image":"video";
+ var url="https://api.cloudinary.com/v1_1/"+CLOUD+"/"+resource+"/upload";
+ var fd=new FormData();fd.append("file",file);fd.append("upload_preset",PRESET);
+ var x=new XMLHttpRequest();x.open("POST",url,true);x.timeout=120000;
+ x.onload=function(){
+  try{var r=JSON.parse(x.responseText||"{}");if(r.secure_url)done(r.secure_url);else toast("Upload failed")}
+  catch(e){toast("Upload failed")}
+ };
+ x.onerror=function(){toast("Upload network error")};
+ x.ontimeout=function(){toast("Upload timed out")};
+ x.send(fd)
+}
+
+function privateImage(){
+ if(blocked)return;
+ var i=document.createElement("input");i.type="file";i.accept="image/*";
+ i.onchange=function(){var f=i.files[0];if(f)upload(f,"image",function(u){sendMedia("image",u)})};i.click()
+}
+
+function privateVideo(){
+ if(blocked)return;
+ var i=document.createElement("input");i.type="file";i.accept="video/*";
+ i.onchange=function(){var f=i.files[0];if(f)upload(f,"video",function(u){sendMedia("video",u)})};i.click()
+}
+
+function sendMedia(type,url){
+ var d={uid:me.uid,toUid:peer.uid,username:me.username,avatar:me.avatar||"",createdAt:ts(),seenBy:[]};
+ if(type==="image")d.imageUrl=url;
+ if(type==="video")d.videoUrl=url;
+ if(type==="audio")d.voiceUrl=url;
+ var c=db.collection("chats").doc(currentChat),u={participants:[me.uid,peer.uid],lastMessage:"["+type+"]",lastMessageAt:ts()};
+ u["unreadCounts."+peer.uid]=firebase.firestore.FieldValue.increment(1);
+ c.collection("messages").add(d).then(function(){return c.set(u,{merge:true})})
+}
+
+function voice(){
+ if(blocked)return;
+ if(window.rec){window.rec.stop();return}
+ if(!navigator.mediaDevices||!window.MediaRecorder){
+  var i=document.createElement("input");i.type="file";i.accept="audio/*";
+  i.onchange=function(){var f=i.files[0];if(f)upload(f,"audio",function(u){sendMedia("audio",u)})};i.click();return
+ }
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+  window.recStream=stream;window.recChunks=[];
+  var opt={};try{if(MediaRecorder.isTypeSupported("audio/webm;codecs=opus"))opt={mimeType:"audio/webm;codecs=opus"}}catch(e){}
+  window.rec=new MediaRecorder(stream,opt);
+  window.rec.ondataavailable=function(e){if(e.data&&e.data.size)window.recChunks.push(e.data)};
+  window.rec.onstop=function(){
+   stream.getTracks().forEach(function(t){t.stop()});
+   var mime=window.rec.mimeType||"audio/webm";
+   var blob=new Blob(window.recChunks,{type:mime});
+   window.rec=null;
+   upload(blob,"audio",function(u){sendMedia("audio",u)})
+  };
+  window.rec.start();
+  toast("Recording... tap 🎙 again to stop")
+ }).catch(function(){toast("Microphone permission denied")})
+}
+
+function groupsPage(){
+ page="groups";stop();
+ var b='<div class="wrap"><button class="btn" onclick="createGroup()">Create Group</button>'+
+ '<div class="card"><div id="groupsList">Loading...</div></div></div>';
+ $("app").innerHTML=shell("Group Chat",b,true);
+ listen(db.collection("groups"),function(s){
+  var h="";s.forEach(function(d){
+   var g=d.data();g.id=d.id;
+   if((g.members||[]).indexOf(me.uid)<0)return;
+   h+='<div class="userRow" onclick="openGroup(\''+g.id+'\')">'+
+   '<div class="avatar"></div><div class="userInfo"><b>'+esc(g.name)+'</b>'+
+   '<div class="status">'+g.members.length+' members</div></div></div>'
+  });
+  $("groupsList").innerHTML=h||'<div class="empty">No groups yet.</div>'
+ })
+}
+
+function createGroup(){
+ var n=prompt("Group name");if(!n)return;
+ db.collection("groups").add({name:n,ownerUid:me.uid,members:[me.uid],createdAt:ts()})
+ .then(function(d){openGroup(d.id)})
+}
+
+function openGroup(id){
+ db.collection("groups").doc(id).get().then(function(d){
+  if(!d.exists)return;
+  currentGroup=d.data();currentGroup.id=id;groupChatPage()
+ })
+}
+
+function groupChatPage(){
+ page="groupChat";stop();reply=null;
+ var g=currentGroup,admin=g.ownerUid===me.uid;
+ var b='<div class="wrap"><div class="card"><div class="row">'+
+ '<div class="userInfo"><b>'+esc(g.name)+'</b><div class="status">'+g.members.length+' members</div></div>'+
+ '<button class="topBtn" onclick="groupMembers()">⋮</button></div>'+
+ (admin?'<button class="btn small" onclick="groupAdd()">Add Member</button>':"")+
+ '<div id="groupTyping" class="typing"></div></div>'+
+ '<div id="groupMessages" class="msgList">Loading...</div>'+
+ '<div class="chatBottom"><div id="groupReply"></div><div class="chatInput">'+
+ '<button class="iconBtn" onclick="groupImage()">🖼</button>'+
+ '<input id="groupInput" class="input" placeholder="Type a message" oninput="groupTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendGroup()}">'+
+ '<button class="iconBtn" onclick="sendGroup()">➤</button></div></div></div>';
+ $("app").innerHTML=shell(g.name,b,true);
+
+ listen(db.collection("users"),function(s){
+  s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u})
+ });
+ listen(db.collection("groups").doc(g.id).collection("messages").orderBy("createdAt","desc").limit(15),function(s){
+  groupMsgs=[];s.forEach(function(d){var x=d.data();x.id=d.id;groupMsgs.unshift(x)});
+  drawGroup()
+ })
+}
+
+function drawGroup(){
+ var h="";groupMsgs.forEach(function(x){h+=messageHTML(x,"group")});
+ $("groupMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
+ $("groupReply").innerHTML=reply?
+ '<div class="reply">Replying to: '+esc(reply.text)+
+ ' <button class="btn small secondary" onclick="reply=null;drawGroup()">Cancel</button></div>':""
+}
+
+function groupTyping(v){
+ if(!currentGroup)return;
+ db.collection("typing").doc(me.uid+"_group_"+currentGroup.id).set({
+  uid:me.uid,username:me.username,roomId:"group_"+currentGroup.id,typing:!!v,updatedAt:ts()
+ },{merge:true}).catch(function(){});
+ if(typingTimer)clearTimeout(typingTimer);
+ if(v)typingTimer=setTimeout(function(){groupTyping(false)},1500)
+}
+
+function sendGroup(){
+ if(sending)return;
+ var i=$("groupInput"),t=(i.value||"").trim();
+ if(!t&&!reply)return;
+ sending=true;
+ var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};
+ if(reply){d.replyTo=reply.id;d.replyText=reply.text}
+ db.collection("groups").doc(currentGroup.id).collection("messages").add(d)
+ .then(function(){i.value="";reply=null;groupTyping(false)})
+ .catch(function(){toast("Message failed")})
+ .then(function(){sending=false})
+}
+
+function groupImage(){
+ var i=document.createElement("input");i.type="file";i.accept="image/*";
+ i.onchange=function(){var f=i.files[0];if(f)upload(f,"image",function(u){
+  db.collection("groups").doc(currentGroup.id).collection("messages").add({
+   uid:me.uid,username:me.username,avatar:me.avatar||"",imageUrl:u,createdAt:ts()
+  })
+ })};i.click()
+}
+
+function groupMembers(){
+ var h="Members:\n\n";
+ currentGroup.members.forEach(function(id){
+  var u=users[id]||{};h+=(u.username||"User")+(id===currentGroup.ownerUid?" (Admin)":"")+"\n"
+ });
+ alert(h)
+}
+
+function groupAdd(){
+ if(currentGroup.ownerUid!==me.uid)return;
+ var n=prompt("Username to add");if(!n)return;
+ db.collection("users").where("usernameLower","==",n.toLowerCase()).limit(1).get().then(function(s){
+  if(s.empty){toast("User not found");return}
+  var id=s.docs[0].id;
+  if(currentGroup.members.indexOf(id)>-1){toast("Already a member");return}
+  db.collection("groups").doc(currentGroup.id).update({members:arr(id)})
+ })
+}
+
+function myStatusPage(){
+ page="myStatus";stop();
+ var b='<div class="wrap"><div class="card">'+
+ '<button class="btn" onclick="textStatus()">Text</button>'+
+ '<button class="btn secondary" onclick="statusFile(\'image\')">Image</button>'+
+ '<button class="btn secondary" onclick="statusFile(\'video\')">Video</button>'+
+ '</div><div id="myStatuses">Loading...</div></div>';
+ $("app").innerHTML=shell("My Status",b,true);
+ listen(db.collection("statuses").where("uid","==",me.uid),function(s){
+  var h="";s.forEach(function(d){
+   var x=d.data();x.id=d.id;
+   if(x.createdAt&&x.createdAt.toDate&&(Date.now()-x.createdAt.toDate().getTime()>86400000))return;
+   h+=statusHTML(x,true)
+  });
+  $("myStatuses").innerHTML=h||'<div class="empty">No status yet.</div>'
+ })
+}
+
+function textStatus(){
+ var t=prompt("Write status");if(!t)return;
+ db.collection("statuses").add({uid:me.uid,username:me.username,type:"text",text:t,createdAt:ts()})
+}
+
+function statusFile(type){
+ var i=document.createElement("input");i.type="file";i.accept=type+"/*";
+ i.onchange=function(){var f=i.files[0];if(!f)return;
+  upload(f,type,function(u){
+   var d={uid:me.uid,username:me.username,type:type,createdAt:ts()};
+   d[type+"Url"]=u;db.collection("statuses").add(d)
+  })
+ };i.click()
+}
+
+function statusHTML(x,own){
+ var c=x.text?'<div class="msgText">'+esc(x.text)+'</div>':"";
+ if(x.imageUrl)c+='<img class="media" src="'+esc(x.imageUrl)+'">';
+ if(x.videoUrl)c+='<video class="media" controls src="'+esc(x.videoUrl)+'"></video>';
+ return '<div class="statusCard"><div class="between"><b>'+esc(x.username)+'</b><span class="status">'+esc(time(x.createdAt))+'</span></div>'+
+ c+'<div class="statusActions">'+
+ '<button onclick="reactStatus(\''+x.id+'\',\''+x.uid+'\')">❤️ React</button>'+
+ (own?'<button onclick="deleteStatus(\''+x.id+'\')">Delete</button>':
+ '<button onclick="viewStatus(\''+x.id+'\',\''+x.uid+'\')">View</button>')+
+ '</div></div>'
+}
+
+function friendsStatusPage(){
+ page="friendsStatus";stop();
+ var b='<div class="wrap"><div id="friendStatuses">Loading...</div></div>';
+ $("app").innerHTML=shell("Status",b,true);
+ listen(db.collection("statuses"),function(s){
+  var h="";s.forEach(function(d){
+   var x=d.data();x.id=d.id;
+   if(x.uid===me.uid)return;
+   if(x.createdAt&&x.createdAt.toDate&&(Date.now()-x.createdAt.toDate().getTime()>86400000))return;
+   h+=statusHTML(x,false)
+  });
+  $("friendStatuses").innerHTML=h||'<div class="empty">No statuses.</div>'
+ })
+}
+
+function reactStatus(id,owner){
+ db.collection("statusReactions").doc(id+"_"+me.uid).set({
+  statusId:id,uid:me.uid,reaction:"❤️",createdAt:ts()
+ })
+}
+
+function viewStatus(id,owner){
+ db.collection("statusViews").doc(id+"_"+me.uid).set({
+  statusId:id,uid:me.uid,createdAt:ts()
+ },{merge:true}).then(function(){
+  toast("Status viewed")
+ })
+}
+
+function deleteStatus(id){
+ if(confirm("Delete this status?"))db.collection("statuses").doc(id).delete()
+}
+
+function settingsPage(){
+ page="settings";stop();
+ var b='<div class="wrap"><div class="card">'+
+ '<button class="settingsBtn" onclick="changeDP()">Change DP</button>'+
+ '<button class="settingsBtn" onclick="toggleNotify()">Notifications: '+(notifyOn?"ON":"OFF")+'</button>'+
+ '<button class="settingsBtn" onclick="toggleSound()">Notification Sound: '+(soundOn?"ON":"OFF")+'</button>'+
+ '<button class="settingsBtn" onclick="toggleBlock()">Block / Unblock</button>'+
+ '<button class="settingsBtn" onclick="blockedPage()">Blocked Users</button>'+
+ '<button class="settingsBtn" onclick="themesPage()">Themes</button>'+
+ '<button class="settingsBtn" onclick="logout()">Logout</button>'+
+ '</div></div>';
+ $("app").innerHTML=shell("Settings",b,true)
+}
+
+function changeDP(){
+ var i=document.createElement("input");i.type="file";i.accept="image/*";
+ i.onchange=function(){var f=i.files[0];if(!f)return;upload(f,"image",function(u){
+  db.collection("users").doc(me.uid).update({avatar:u}).then(function(){me.avatar=u;toast("DP changed")})
+ })};i.click()
+}
+
+function toggleNotify(){
+ notifyOn=!notifyOn;localStorage.setItem("notify",notifyOn?"1":"0");settingsPage()
+}
+
+function toggleSound(){
+ soundOn=!soundOn;localStorage.setItem("sound",soundOn?"1":"0");settingsPage()
+}
+
+function toggleBlock(){
+ if(!peer)return;
+ var id=me.uid+"_"+peer.uid;
+ db.collection("blocks").doc(id).get().then(function(d){
+  if(d.exists)return db.collection("blocks").doc(id).delete().then(checkBlock);
+  return db.collection("blocks").doc(id).set({
+   uid:me.uid,blockedUid:peer.uid,createdAt:ts()
+  }).then(checkBlock)
+ })
+}
+
+function unblockPeer(){
+ if(peer)db.collection("blocks").doc(me.uid+"_"+peer.uid).delete().then(checkBlock)
+}
+
+function blockedPage(){
+ page="blocked";stop();
+ $("app").innerHTML=shell("Blocked Users",'<div class="wrap"><div id="blockedList" class="card">Loading...</div></div>',true);
+ listen(db.collection("blocks").where("uid","==",me.uid),function(s){
+  var h="";
+  s.forEach(function(d){
+   var x=d.data(),u=users[x.blockedUid]||{};
+   h+='<div class="userRow"><div class="userInfo"><b>'+esc(u.username||"User")+
+   '</b></div><button class="btn small" onclick="unblockId(\''+x.blockedUid+'\')">Unblock</button></div>'
+  });
+  $("blockedList").innerHTML=h||'<div class="empty">No blocked users.</div>'
+ })
+}
+
+function unblockId(id){
+ db.collection("blocks").doc(me.uid+"_"+id).delete()
+}
+
+function themesPage(){
+ page="themes";stop();
+ var h='<div class="themeList">';
+ themeNames.forEach(function(n){
+  h+='<button class="themeBtn" onclick="chooseTheme(\''+n+'\')"><span class="themeDot"></span>'+n+'</button>'
+ });
+ h+='</div>';
+ $("app").innerHTML=shell("Themes",'<div class="wrap"><div class="card">'+h+'</div></div>',true)
+}
+
+function logout(){
+ if(me)db.collection("users").doc(me.uid).set({online:false,lastSeen:ts()},{merge:true});
+ stop();auth.signOut()
+}
