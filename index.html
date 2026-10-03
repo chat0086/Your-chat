@@ -3,120 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0878d1">
+<meta name="theme-color" content="#050b16">
 <title>Your Chat</title>
-<link rel="stylesheet" href="style.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#030813;color:#eef8ff;font-family:Arial,sans-serif}
+body{overflow:hidden}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.hide{display:none!important}
+#app{width:100%;height:100%;overflow:hidden}
+.page{width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% -10%,#10395a 0,#071728 35%,#02060d 100%)}
+.wrap{width:100%;max-width:560px;margin:auto;padding:14px}
+.authPage{width:100%;height:100%;overflow:auto;background:radial-gradient(circle at 50% -10%,#10395a 0,#071728 35%,#02060d 100%)}
+.authBox{width:100%;max-width:420px;margin:auto;padding:14px}
+.authSub{text-align:center;font-size:12px;color:#8faac0;margin-bottom:14px}
+.logo{text-align:center;font-size:30px;font-weight:900;letter-spacing:.4px;color:#4bd2ff;text-shadow:0 0 16px rgba(73,207,255,.5);margin:18px 0 22px}
+.card{background:rgba(6,20,36,.96);border:1px solid #174a70;border-radius:18px;padding:14px;margin:8px 0;box-shadow:0 0 24px rgba(0,174,255,.08)}
+.input{width:100%;padding:13px 14px;margin:6px 0;background:#061221;color:#fff;border:1px solid #245274;border-radius:12px;outline:0}
+.input:focus{border-color:#2bc8ff;box-shadow:0 0 10px rgba(43,200,255,.15)}
+.btn{width:100%;padding:13px 14px;margin:6px 0;background:linear-gradient(135deg,#0a426b,#0785ba);border:1px solid #25bfff;border-radius:12px;color:#fff;font-weight:800}
+.btn.secondary{background:#091827;border-color:#245277}
+.btn.danger{background:#451827;border-color:#a33a50}
+.btn.small{width:auto;padding:7px 10px;font-size:11px;margin:0}
+.row{display:flex;align-items:center;gap:9px}
+.top{height:56px;display:flex;align-items:center;gap:9px;padding:8px 10px;background:rgba(5,16,29,.98);border-bottom:1px solid #16476c}
+.back{width:40px;height:40px;border-radius:50%;background:#091b2e;border:1px solid #285a7d;color:#fff;font-size:23px;flex:none}
+.topTitle{flex:1;font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topAction{padding:7px 10px;border-radius:10px;background:#091b2e;border:1px solid #285a7d;color:#fff;font-size:12px}
+.main{height:calc(100% - 56px);overflow:auto;padding-bottom:18px}
+.menuBtn{display:block;width:100%;text-align:left;padding:13px;margin:5px 0;background:#081a2d;border:1px solid #19496c;border-radius:13px;color:#fff;font-weight:800}
+.menuBtn:hover{border-color:#2ac6ff}
+.homeGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.homeBtn{min-height:100px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:12px;background:#081a2d;border:1px solid #19496c;border-radius:15px;color:#fff;font-size:25px}
+.homeBtn span{font-size:14px;font-weight:900;color:#dff7ff}
+.userRow{display:flex;align-items:center;gap:9px;padding:10px;border-bottom:1px solid #15364f;background:transparent;border-left:0;border-right:0;border-top:0;color:#fff;width:100%;text-align:left}
+.userInfo{flex:1;min-width:0}
+.small{font-size:11px;color:#7595ab;margin-top:3px}
+.online{color:#38e58a}
+.offline{color:#7595ab}
+.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#0b2942;border:1px solid #286182;display:flex;align-items:center;justify-content:center;color:#8ddfff;font-weight:900;flex:none}
+.msgList{padding:10px;min-height:100px;max-height:58vh;overflow:auto}
+.msg{margin:7px 0;max-width:86%;padding:9px 10px;border-radius:13px;background:#09233a;border:1px solid #1c5277;word-break:break-word}
+.msg.mine{margin-left:auto;background:#075273;border-color:#1994c6}
+.msgUser{display:flex;align-items:center;gap:6px}
+.msgUser .avatar{width:26px;height:26px;font-size:11px}
+.msghead{font-size:11px;color:#74c9ea;font-weight:800}
+.msgDots,.chatDots{background:transparent;border:0;color:#fff;font-size:18px}
+.reply{border-left:3px solid #2ac6ff;background:#071827;padding:7px;border-radius:8px;margin:6px 0;font-size:11px}
+.media{max-width:100%;border-radius:10px;margin-top:4px}
+.meta{font-size:9px;color:#7192a7;text-align:right;margin-top:4px}
+.readTick{color:#42bfff}
+.deliveredTick{color:#a8c1d3}
+.mention{color:#4bd2ff;font-weight:800}
+.messageMenu{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.messageMenu button{padding:6px 8px;border-radius:9px;background:#071525;border:1px solid #245277;color:#fff;font-size:11px}
+.bottom{padding:8px;background:#061221;border-top:1px solid #19425f}
+.compose{display:flex;gap:5px;align-items:center}
+.compose .input{flex:1;margin:0}
+.icon{width:40px;height:40px;border-radius:10px;background:#091a2d;border:1px solid #245277;color:#fff;flex:none}
+.send{background:#087eaf;border-color:#27c4ff}
+.mediaMenu{display:flex;gap:6px;margin-bottom:6px}
+.mediaMenu button{padding:7px 10px;border-radius:9px;background:#071525;border:1px solid #245277;color:#fff;font-size:12px}
+.voicePreview{font-size:12px;color:#9dc5dd}
+.typing{font-size:11px;color:#7edcff;min-height:14px;margin:4px 10px}
+.notice{padding:10px;border:1px solid #194667;background:#07192b;color:#9dc5dd;border-radius:10px;font-size:12px;margin:8px 0;min-height:10px}
+.empty{text-align:center;color:#718ba2;padding:28px 10px;font-size:13px}
+.toast{position:fixed;left:5%;right:5%;bottom:18px;background:#0a2339;border:1px solid #29c5ff;color:#fff;padding:10px;border-radius:12px;text-align:center;z-index:999}
+.adminBadge{background:#087eaf;color:#fff;border-radius:20px;padding:2px 7px;font-size:10px;font-weight:800}
+.worldWrap{width:100%;max-width:560px;margin:auto;padding:10px}
+.worldHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:12px;color:#7edcff}
+.smallBtn{padding:7px 10px;border-radius:10px;background:#091b2e;border:1px solid #285a7d;color:#fff;font-size:11px}
+.statusUser{display:flex;align-items:center;gap:9px}
+.statusViewer{padding:14px}
+.statusText{font-size:22px;font-weight:800;text-align:center;padding:40px 10px;background:#09233a;border-radius:14px}
+.statusFull{width:100%;max-height:60vh;object-fit:contain;border-radius:14px}
+.statusControls{display:flex;gap:6px;margin-top:8px}
+.profileCard{display:flex;align-items:center;gap:9px}
+body[data-theme=white] .page{background:#f2f6fa}
+body[data-theme=dark] .page{background:#000}
+body[data-theme=ocean] .page{background:#06324f}
+body[data-theme=sky] .page{background:#134e7a}
+body[data-theme=midnight] .page{background:#050b2a}
+body[data-theme=emerald] .page{background:#064d3a}
+body[data-theme=forest] .page{background:#0f3317}
+body[data-theme=purple] .page{background:#2a0f4d}
+body[data-theme=lavender] .page{background:#3b2f63}
+body[data-theme=rose] .page{background:#5a1630}
+body[data-theme=sunset] .page{background:#5a2a0b}
+body[data-theme=gold] .page{background:#4d3a06}
+body[data-theme=crimson] .page{background:#4d0a14}
+body[data-theme=aqua] .page{background:#07505a}
+body[data-theme=neon] .page{background:#10002b}
+body[data-theme=cyber] .page{background:#001a4d}
+body[data-theme=galaxy] .page{background:radial-gradient(circle,#2b1055,#05010f)}
+body[data-theme=coffee] .page{background:#3b2414}
+body[data-theme=silver] .page{background:#3a4048}
+body[data-theme=cherry] .page{background:#5a2038}
+@media(max-width:390px){
+.homeGrid{grid-template-columns:1fr}
+.homeBtn{min-height:80px}
+}
+</style>
 </head>
 <body>
 <div id="app"></div>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="app.js"></script>
-</body>
-</html>*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
-body{background:#f4f7fb;color:#17212b;overflow:hidden}
-button,input{font:inherit}
-button{cursor:pointer}
-#app{width:100%;height:100%}
-
-.page{width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg)}
-.top{height:52px;min-height:52px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px;padding:6px 8px}
-.title{font-weight:800;font-size:17px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.back,.topBtn,.iconBtn{width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text)}
-.main{flex:1;overflow:auto;padding:9px}
-.wrap{width:100%;max-width:600px;margin:auto}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:10px;margin-bottom:9px}
-.logo{text-align:center;font-size:29px;font-weight:900;color:var(--accent);padding:22px 0 17px}
-.input{width:100%;height:42px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);padding:8px 10px;margin:4px 0;outline:none}
-.input:focus{border-color:var(--accent)}
-.btn{width:100%;min-height:42px;border:0;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;margin:4px 0;padding:8px}
-.btn.secondary{background:var(--panel);border:1px solid var(--line);color:var(--text)}
-.btn.danger{background:#d92f45}
-.btn.small{width:auto;min-height:34px;padding:5px 9px;font-size:11px}
-.menu{display:flex;flex-direction:column;gap:7px}
-.menuBtn{min-height:55px;width:100%;display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:9px;text-align:left}
-.menuIcon{width:28px;text-align:center;font-size:19px}
-.menuName{font-weight:800}
-.row{display:flex;align-items:center;gap:8px}
-.between{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#dce7ef;border:1px solid var(--line);flex:none}
-.avatar.small{width:30px;height:30px}
-.avatar.big{width:76px;height:76px}
-.userInfo{flex:1;min-width:0}
-.userName{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.status{font-size:10px;color:var(--muted);margin-top:2px}
-.online{color:#149447}
-.offline{color:#7d8993}
-.userRow{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid var(--line)}
-.userRow:last-child{border-bottom:0}
-.badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:10px;background:#e33b49;color:#fff;font-size:10px;font-weight:900;padding:0 5px;margin-left:5px}
-.msgList{padding:8px 2px 82px;min-height:200px}
-.msg{display:flex;gap:5px;align-items:flex-end;max-width:90%;margin:7px 0}
-.msg.mine{margin-left:auto;flex-direction:row-reverse}
-.bubble{background:var(--bubble);border:1px solid var(--line);border-radius:13px;padding:7px 8px;min-width:48px;word-break:break-word}
-.msg.mine .bubble{background:var(--mine)}
-.sender{font-size:10px;color:var(--accent);font-weight:800;margin-bottom:3px}
-.msgText{white-space:pre-wrap;line-height:1.35}
-.meta{text-align:right;color:var(--muted);font-size:9px;margin-top:4px}
-.media{display:block;max-width:100%;max-height:260px;border-radius:8px;margin-top:5px}
-.audio{max-width:210px}
-.chatBottom{position:sticky;bottom:0;background:var(--panel);border-top:1px solid var(--line);padding:6px;z-index:5}
-.chatInput{display:flex;align-items:center;gap:4px}
-.chatInput .input{flex:1;margin:0}
-.typing{font-size:11px;color:var(--accent);min-height:17px;padding:2px}
-.dots span{display:inline-block;animation:dot .6s infinite alternate}
-.dots span:nth-child(2){animation-delay:.15s}
-.dots span:nth-child(3){animation-delay:.3s}
-@keyframes dot{to{transform:translateY(-4px)}}
-.reply{font-size:10px;background:var(--reply);border-left:3px solid var(--accent);padding:6px;border-radius:5px;margin-bottom:5px}
-.actions{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
-.actions button{font-size:9px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:6px;padding:4px 6px}
-.mentionBox{max-height:150px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);margin-bottom:5px}
-.notice{padding:9px;border-radius:8px;background:var(--panel);border:1px solid var(--line);font-size:11px}
-.blocked{color:#c51e35;border-color:#efb4bd}
-.empty{text-align:center;color:var(--muted);padding:25px 8px;font-size:12px}
-.settingsBtn{width:100%;padding:11px;text-align:left;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);margin:3px 0;font-weight:700}
-.themeList{max-height:65vh;overflow:auto;display:flex;flex-direction:column;gap:5px}
-.themeBtn{display:flex;align-items:center;gap:8px;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
-.themeDot{width:18px;height:18px;border-radius:50%;background:var(--accent)}
-.statusCard{border:1px solid var(--line);border-radius:11px;padding:9px;margin:7px 0;background:var(--panel)}
-.statusActions{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
-.statusActions button{font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text)}
-.viewer{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--line)}
-.toast{position:fixed;left:7%;right:7%;bottom:14px;background:#17212b;color:#fff;padding:9px;border-radius:9px;text-align:center;font-size:11px;z-index:99}
-
-:root,.white{
---bg:#f4f7fb;--panel:#fff;--text:#17212b;--muted:#71808c;--line:#dbe3ea;
---accent:#0878d1;--bubble:#edf5fc;--mine:#d9efff;--reply:#edf7ff
-}
-.dark{--bg:#091018;--panel:#101a24;--text:#eef6ff;--muted:#91a0ad;--line:#253746;--accent:#32aaff;--bubble:#162735;--mine:#124564;--reply:#122b3d}
-.ocean{--accent:#0085ad;--bubble:#e1f7ff;--mine:#c9efff;--reply:#e6f9ff}
-.sky{--accent:#268bd0;--bubble:#e9f5ff;--mine:#d5edff;--reply:#e8f5ff}
-.midnight{--bg:#050a14;--panel:#0c1421;--text:#edf5ff;--muted:#899bb0;--line:#1c2d42;--accent:#5d9dff;--bubble:#112036;--mine:#173d68;--reply:#10253d}
-.emerald{--accent:#159b68;--bubble:#e6fff5;--mine:#cdf5e4;--reply:#e5fff4}
-.forest{--accent:#357b38;--bubble:#edf8ed;--mine:#d8efd8;--reply:#edf8ed}
-.purple{--accent:#7956d8;--bubble:#f0ebff;--mine:#e1d8ff;--reply:#f1ecff}
-.lavender{--accent:#8d78c8;--bubble:#f5f1ff;--mine:#e8e0ff;--reply:#f5f1ff}
-.rose{--accent:#d14e77;--bubble:#fff0f5;--mine:#ffdce8;--reply:#fff0f5}
-.sunset{--accent:#e06e31;--bubble:#fff1e8;--mine:#ffe0cc;--reply:#fff2e9}
-.gold{--accent:#b88700;--bubble:#fff8da;--mine:#ffedaf;--reply:#fff8dc}
-.crimson{--accent:#c72f43;--bubble:#fff0f2;--mine:#ffdce1;--reply:#fff0f2}
-.aqua{--accent:#008f9d;--bubble:#e5fbff;--mine:#cdf2f6;--reply:#e5fbff}
-.neon{--bg:#070817;--panel:#101329;--text:#f4f5ff;--muted:#9da5c8;--line:#292e55;--accent:#765dff;--bubble:#181d3a;--mine:#28336d;--reply:#191e40}
-.cyber{--bg:#071215;--panel:#0d1b1f;--text:#e9ffff;--muted:#8aa8ad;--line:#1c3d42;--accent:#00c9ef;--bubble:#11282c;--mine:#104b57;--reply:#102b30}
-.galaxy{--bg:#0d0818;--panel:#171024;--text:#f6edff;--muted:#a999b9;--line:#39275b;--accent:#a46cff;--bubble:#211636;--mine:#39236b;--reply:#21163a}
-.coffee{--bg:#f4eee8;--panel:#fffaf5;--text:#40291d;--muted:#826858;--line:#dfcdbd;--accent:#8a5a3b;--bubble:#f5e8dd;--mine:#ead5c5;--reply:#f5e9df}
-.silver{--bg:#eef0f2;--panel:#fff;--text:#26313a;--muted:#707c85;--line:#cdd4da;--accent:#65727d;--bubble:#e9edf0;--mine:#dce2e6;--reply:#e9edf0}
-.cherry{--bg:#fff6f8;--panel:#fff;--text:#4a2430;--muted:#8d6570;--line:#efd0d9;--accent:#d85a7b;--bubble:#fff0f4;--mine:#ffe0e9;--reply:#fff0f4}
-
-@media(max-width:390px){
-.main{padding:6px}
-.menuBtn{min-height:52px}
-.logo{font-size:26px}
-}var firebaseConfig={
+<script>
+var firebaseConfig={
  apiKey:"AIzaSyAEqeB2YXk_2A9gZ41WQ_fNiBKiGnzYGc0",
  authDomain:"chit-chat-plus-7382.firebaseapp.com",
  projectId:"chit-chat-plus-7382",
@@ -125,833 +121,934 @@ button{cursor:pointer}
  appId:"1:98837732974:web:ff52d3868871c91518507f",
  measurementId:"G-T42H2N5Q0Z"
 };
-
 firebase.initializeApp(firebaseConfig);
-var auth=firebase.auth(),db=firebase.firestore();
+var auth=firebase.auth();
+var db=firebase.firestore();
 
-var CLOUD="ptqrd8vc",PRESET="your_chat_upload";
-var me=null,peer=null,currentChat="",currentGroup=null;
-var page="",listeners=[],typingTimer=null,sending=false;
-var world=[],privateMsgs=[],groupMsgs=[],users={};
-var reply=null,selected=null,blocked=false;
-var notifyOn=localStorage.getItem("notify")!=="0";
-var soundOn=localStorage.getItem("sound")!=="0";
+var CLOUD_NAME="ptqrd8vc";
+var CLOUD_PRESET="your_chat_upload";
 
-var themeNames=[
-"White","Dark","Ocean Blue","Sky Blue","Midnight Blue",
-"Emerald Green","Forest Green","Royal Purple","Lavender","Rose Pink",
-"Sunset Orange","Golden Glow","Crimson Red","Aqua Wave","Neon Night",
-"Cyber Blue","Galaxy","Coffee Brown","Silver Gray","Cherry Blossom"
-];
+var me=null,users={},page="",peer=null,chatId=null,groupId=null,groupName="",reply=null,typingState={},listenStops=[];
+var sendingWorld=false,sendingPrivate=false,sendingGroup=false;
+var recording=null,recStream=null,recChunks=[],recSeconds=0,recInterval=null,currentPrivateTheme="";
+var worldUnsub=null,privateUnsub=null,groupUnsub=null,usersUnsub=null,notifyUnsub=null;
 
-var themeClass={
-"White":"white","Dark":"dark","Ocean Blue":"ocean","Sky Blue":"sky",
-"Midnight Blue":"midnight","Emerald Green":"emerald","Forest Green":"forest",
-"Royal Purple":"purple","Lavender":"lavender","Rose Pink":"rose",
-"Sunset Orange":"sunset","Golden Glow":"gold","Crimson Red":"crimson",
-"Aqua Wave":"aqua","Neon Night":"neon","Cyber Blue":"cyber","Galaxy":"galaxy",
-"Coffee Brown":"coffee","Silver Gray":"silver","Cherry Blossom":"cherry"
-};
-
-function $(x){return document.getElementById(x)}
-function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function $(id){return document.getElementById(id)}
+function esc(v){
+ return String(v==null?"":v)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#39;");
+}
 function ts(){return firebase.firestore.FieldValue.serverTimestamp()}
-function arr(x){return firebase.firestore.FieldValue.arrayUnion(x)}
-function rem(x){return firebase.firestore.FieldValue.arrayRemove(x)}
-
-function toast(x){
- var d=document.createElement("div");
- d.className="toast";d.textContent=x;document.body.appendChild(d);
- setTimeout(function(){d.remove()},2200)
-}
-
+function nowTs(){return ts()}
+function au(v){return firebase.firestore.FieldValue.arrayUnion(v)}
 function time(t){
- if(!t||!t.toDate)return "";
- var d=t.toDate(),h=d.getHours(),m=d.getMinutes();
- return (h%12||12)+":"+(m<10?"0":"")+m+" "+(h>=12?"PM":"AM")
+ if(!t)return "";
+ var d=t.toDate?t.toDate():new Date(t);
+ if(isNaN(d.getTime()))return "";
+ return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
 }
-
+function cid(a,b){return [a,b].sort().join("_")}
 function online(u){
- return !!(u&&u.online&&u.lastSeen&&u.lastSeen.toDate&&
- Date.now()-u.lastSeen.toDate().getTime()<90000)
+ if(!u||u.online!==true)return false;
+ var t=u.lastSeen;
+ if(t&&t.toMillis)return Date.now()-t.toMillis()<90000;
+ return true;
 }
-
-function avatar(u,small){
- if(u&&u.avatar)return '<img class="avatar '+(small?"small":"")+'" src="'+esc(u.avatar)+'">';
- return '<div class="avatar '+(small?"small":"")+'"></div>'
+function lastSeen(t){
+ var s=time(t);
+ return s?"Last seen "+s:"Offline";
 }
-
-function dot(u){
- return online(u)?'<span class="online">● Online</span>':'<span class="offline">● Offline</span>'
+function av(u){
+ if(u&&u.avatar)return '<img class="avatar" src="'+esc(u.avatar)+'">';
+ return '<div class="avatar">'+esc((u&&u.username?u.username:"U").charAt(0).toUpperCase())+'</div>';
 }
-
-function clearListeners(){
- listeners.forEach(function(x){try{x()}catch(e){}});
- listeners=[]
+function toast(t){
+ var x=document.createElement("div");
+ x.className="toast";
+ x.textContent=t;
+ document.body.appendChild(x);
+ setTimeout(function(){x.remove()},2500);
 }
-
-function listen(q,fn){
- var u=q.onSnapshot(fn,function(){toast("Connection error")});
- listeners.push(u);return u
-}
-
-function stop(){
- clearListeners();
- if(typingTimer)clearTimeout(typingTimer);
- typingTimer=null
-}
-
-function shell(title,body,back){
+function mount(h){document.getElementById("app").innerHTML=h}
+function shell(title,body,back,extra){
  return '<div class="page"><div class="top">'+
- (back?'<button class="back" onclick="back()">‹</button>':'')+
- '<div class="title">'+esc(title)+'</div></div><div class="main">'+body+'</div></div>'
+ (back?'<button class="back" onclick="goBack()">‹</button>':'')+
+ '<div class="topTitle">'+esc(title)+'</div>'+(extra||"")+
+ '</div><div class="main">'+body+'</div></div>';
 }
-
-function goHome(){
- stop();page="home";
- $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
- '<div class="logo">Your Chat</div>'+
- '<div class="menu">'+
- '<button class="menuBtn" onclick="worldPage()"><span class="menuIcon">🌍</span><span class="menuName">World Chat</span></button>'+
- '<button class="menuBtn" onclick="onlinePage()"><span class="menuIcon">🟢</span><span class="menuName">Online Users</span></button>'+
- '<button class="menuBtn" onclick="privatePage()"><span class="menuIcon">💬</span><span class="menuName">Private Chat</span></button>'+
- '<button class="menuBtn" onclick="groupsPage()"><span class="menuIcon">👥</span><span class="menuName">Group Chat</span></button>'+
- '<button class="menuBtn" onclick="allUsersPage()"><span class="menuIcon">👤</span><span class="menuName">All Users</span></button>'+
- '</div></div></div></div>'
+function goBack(){
+ stop();
+ if(page==="home")return;
+ if(page==="privateChat")showPrivate();
+ else if(page==="groupChat")showGroups();
+ else homePage();
 }
-
-function loginPage(){
- page="login";
- $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
- '<div class="logo">Your Chat</div><div class="card">'+
- '<input id="loginUser" class="input" placeholder="Username">'+
- '<input id="loginPass" class="input" type="password" placeholder="Password">'+
- '<button class="btn" onclick="login()">Login</button>'+
- '<button class="btn secondary" onclick="createPage()">Create Account</button>'+
- '<div id="loginError" class="status"></div></div></div></div></div>'
+function listen(q,cb){
+ var u=q.onSnapshot(cb,function(e){});
+ listenStops.push(u);
+ return u;
 }
-
-function createPage(){
- $("app").innerHTML='<div class="page"><div class="main"><div class="wrap">'+
- '<div class="logo">Your Chat</div><div class="card">'+
- '<input id="newUser" class="input" placeholder="Username">'+
- '<input id="newPass" class="input" type="password" placeholder="Password">'+
- '<button class="btn" onclick="createAccount()">Create Account</button>'+
- '<button class="btn secondary" onclick="loginPage()">Back</button>'+
- '<div id="createError" class="status"></div></div></div></div></div>'
+function trimMessages(col){
+ return col.orderBy("createdAt","desc").get().then(function(s){
+  var arr=[];
+  s.forEach(function(d){arr.push(d)});
+  if(arr.length>15){
+   var batch=db.batch();
+   arr.slice(15).forEach(function(d){batch.delete(d.ref)});
+   return batch.commit();
+  }
+ }).catch(function(){});
 }
-
-function authEmail(name){
- return "user_"+String(name).toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,35)+"@yourchat.local"
+function worldRepeatCheck(t){
+ var key=String(t||"").trim().toLowerCase(),s={};
+ try{s=JSON.parse(localStorage.getItem("yc_world_repeat")||"{}")}catch(e){}
+ if(s.text!==key)return {count:0,key:key};
+ return {count:Number(s.count)||0,key:key};
 }
-
-function login(){
- var u=($("loginUser").value||"").trim(),p=$("loginPass").value||"";
- if(!u||!p){$("loginError").textContent="Enter username and password.";return}
- auth.signInWithEmailAndPassword(authEmail(u),p).catch(function(e){
-  $("loginError").textContent=e.message||"Login failed."
- })
+function worldRepeatSuccess(t){var s=worldRepeatCheck(t);s.count++;localStorage.setItem("yc_world_repeat",JSON.stringify({text:s.key,count:s.count}))}
+function sendWorld(){if(sendingWorld)return;var i=$("wi");if(!i)return;var t=i.value.trim();if(!t&&!reply)return;var r=worldRepeatCheck(t);if(t&&r.count>=10){toast("Please don't send the same message again.");return}sendingWorld=true;var b=$("wsend");if(b)b.disabled=true;var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};if(reply){d.replyText=reply.text;d.replyTo=reply.id}db.collection("worldMessages").add(d).then(function(){if(t)worldRepeatSuccess(t);i.value="";reply=null;if($("wr"))$("wr").innerHTML="";setTyping("world",false);return trimMessages(db.collection("worldMessages"))}).then(function(){scrollBottom("wm")}).catch(function(e){toast(e.message||"Message send error.")}).then(function(){sendingWorld=false;if(b)b.disabled=false})}
+function highlightText(t){return esc(t).replace(/@([a-zA-Z0-9_]+)/g,'<span class="mention">@$1</span>')}
+function message(x,room){var own=x.uid===me.uid,u=users[x.uid]||{username:x.username||"User",avatar:x.avatar||""},c=x.text?'<div>'+highlightText(x.text)+'</div>':"";if(x.imageUrl)c+='<img class="media" src="'+esc(x.imageUrl)+'">';if(x.videoUrl)c+='<video class="media" controls src="'+esc(x.videoUrl)+'"></video>';if(x.voiceUrl)c+='<audio class="media" controls src="'+esc(x.voiceUrl)+'"></audio>';var r=x.replyText?'<div class="reply">Reply: '+esc(x.replyText)+'</div>':"",key=room+"_"+x.id,ticks="";if(room==="private"&&own){var rd=(x.seenBy||[]).indexOf(peer.uid)>-1;ticks='<span class="'+(rd?"readTick":"deliveredTick")+'">✓✓</span> '+(rd?"Read":"Delivered");}return '<div class="msg '+(own?"mine":"")+'"><div class="msgUser">'+av(u)+'<div class="userInfo"><div class="msghead">'+esc(u.username)+'</div></div><button class="msgDots" onclick="toggleMessageMenu(\''+key+'\')">⋮</button></div>'+r+c+'<div class="meta">'+time(x.createdAt)+' '+(x.edited?"• edited ":"")+ticks+'</div><div id="mm_'+String(key).replace(/[^a-zA-Z0-9_]/g,"_")+'" class="messageMenu hide"><button onclick="replyTo(\''+room+'\',\''+x.id+'\')">↩ Reply</button>'+(own?'<button onclick="editMessage(\''+room+'\',\''+x.id+'\')">✎ Edit</button><button onclick="deleteMessage(\''+room+'\',\''+x.id+'\')">🗑 Delete</button>':"")+(room!=="world"?'<button onclick="reactMessage(\''+room+'\',\''+x.id+'\')">❤️ React</button>':"")+'</div></div>'}
+function toggleMessageMenu(key){var id="mm_"+String(key).replace(/[^a-zA-Z0-9_]/g,"_"),x=$(id);if(x)x.classList.toggle("hide")}
+function drawMessages(a,r,id){if(!$(id))return;var h="";a.forEach(function(x){h+=message(x,r)});$(id).innerHTML=h||'<div class="empty">No messages yet.</div>'}
+function scrollBottom(id){setTimeout(function(){var x=$(id);if(x)x.scrollTop=x.scrollHeight},30)}
+function replyTo(r,id){var a=r==="world"?window.world:r==="private"?window.pm:window.gm,x=a.find(function(z){return z.id===id});if(!x)return;reply={id:id,text:x.text||"[media]"};if(r==="world"&&$("wr"))$("wr").innerHTML='<div class="reply">Replying: '+esc(reply.text)+' <button class="btn secondary small" onclick="cancelReply()">Cancel</button></div>';if(r==="private"&&$("pr"))$("pr").innerHTML='<div class="reply">Replying: '+esc(reply.text)+' <button class="btn secondary small" onclick="cancelReply()">Cancel</button></div>';if(r==="group"&&$("gr"))$("gr").innerHTML='<div class="reply">Replying: '+esc(reply.text)+' <button class="btn secondary small" onclick="cancelReply()">Cancel</button></div>'}
+function cancelReply(){reply=null;["wr","pr","gr"].forEach(function(id){if($(id))$(id).innerHTML=""})}
+function ref(r,id){return r==="world"?db.collection("worldMessages").doc(id):r==="private"?db.collection("chats").doc(chatId).collection("messages").doc(id):db.collection("groups").doc(groupId).collection("messages").doc(id)}
+function editMessage(r,id){var a=r==="world"?window.world:r==="private"?window.pm:window.gm,x=a.find(function(z){return z.id===id});if(!x||x.uid!==me.uid)return;var n=prompt("Edit message",x.text||"");if(n===null||!n.trim())return;ref(r,id).update({text:n.trim(),edited:true})}
+function deleteMessage(r,id){var a=r==="world"?window.world:r==="private"?window.pm:window.gm,x=a.find(function(z){return z.id===id});if(!x||x.uid!==me.uid)return;if(!confirm("Delete message?"))return;ref(r,id).delete()}
+function reactMessage(r,id){var v=prompt("Reaction","❤️");if(!v)return;ref(r,id).update({reactions:au({uid:me.uid,reaction:v})})}
+function privateTop(){return '<button class="topAction" onclick="privateThemes()">🎨 Theme</button>'}
+function showPrivate(){stop();page="private";mount(shell("Private Chat",'<div class="wrap"><input id="ps" class="input" placeholder="Search user" oninput="searchUsers()"><div class="card"><button class="menuBtn" onclick="myStatus()">My Status</button><button class="menuBtn" onclick="statusPage(\'friends\')">Friend Status</button><button class="menuBtn" onclick="statusPage(\'other\')">Other Status</button><button class="menuBtn" onclick="showGroups()">Group Chat</button></div><div class="card"><b>Private Chats</b><div id="pc">Loading...</div></div><div id="sr"></div></div>',true));listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id});drawChats()});listen(db.collection("chats").where("participants","array-contains",me.uid),function(s){window.chats=[];s.forEach(function(d){var x=d.data();x.id=d.id;window.chats.push(x)});drawChats()})}
+function drawChats(){if(!$("pc"))return;var h="";(window.chats||[]).sort(function(a,b){return (b.lastMessageAt&&b.lastMessageAt.toMillis?b.lastMessageAt.toMillis():0)-(a.lastMessageAt&&a.lastMessageAt.toMillis? a.lastMessageAt.toMillis():0)}).forEach(function(c){var o=c.participants[0]===me.uid?c.participants[1]:c.participants[0],u=users[o]||{},un=Number((c.unreadCounts&&c.unreadCounts[me.uid])||0);h+='<div class="userRow" tabindex="0"><button class="back" onclick="openPrivate(\''+o+'\')">›</button>'+av(u)+'<div class="userInfo" onclick="openPrivate(\''+o+'\')"><b>'+esc(u.username||"User")+'</b><div class="small '+(online(u)?"online":"offline")+'">'+(online(u)?"● Online":lastSeen(u.lastSeen))+' • '+esc(c.lastMessage||"")+'</div></div><span class="small">'+time(c.lastMessageAt)+'</span>'+(un>0?'<span class="adminBadge">'+un+'</span>':"")+'<button class="chatDots" onclick="privateIdMenu(\''+o+'\');return false">⋮</button></div>'});$("pc").innerHTML=h||'<div class="empty">No private chats.</div>'}
+function removePrivateID(uid){var id=cid(me.uid,uid);if(!confirm("Remove this ID?"))return;db.collection("chats").doc(id).delete().then(function(){toast("ID removed.");if(page==="private")drawChats()})}
+function clearPrivateChat(uid){var id=cid(me.uid,uid);if(!confirm("Clear this chat?"))return;localStorage.setItem("yc_clear_"+id,String(Date.now()));toast("Chat cleared.");if(chatId===id&&$("pm")){window.pm=[];drawMessages([],"private","pm")}}
+function blockPrivateID(uid){db.collection("blocks").doc(me.uid+"_"+uid).set({uid:me.uid,blockedUid:uid,createdAt:ts()}).then(function(){toast("User blocked.")})}
+function searchUsers(){var q=(($("ps")&&$("ps").value)||"").trim().toLowerCase();if(!q){$("sr").innerHTML="";return}var a=[];Object.keys(users).forEach(function(id){if(id!==me.uid&&(users[id].username||"").toLowerCase().indexOf(q)>-1)a.push(users[id])});var h='<div class="card">';a.slice(0,20).forEach(function(u){h+='<div class="userRow" tabindex="0" onclick="openPrivate(\''+u.uid+'\')">'+av(u)+'<div class="userInfo"><b>'+esc(u.username)+'</b><div class="small '+(online(u)?"online":"offline")+'">'+(online(u)?"● Online":lastSeen(u.lastSeen))+'</div></div></div>'});h+='</div>';$("sr").innerHTML=a.length?h:'<div class="card empty">No users found.</div>'}
+function openPrivate(id){db.collection("users").doc(id).get().then(function(d){if(!d.exists){toast("User not found.");return}peer=d.data();peer.uid=id;chatId=cid(me.uid,id);currentPrivateTheme=localStorage.getItem("yc_private_theme_"+chatId)||"";showPrivateChat()})}
+function checkBlocks(uid){return Promise.all([db.collection("blocks").doc(me.uid+"_"+uid).get(),db.collection("blocks").doc(uid+"_"+me.uid).get()]).then(function(a){return a[0].exists||a[1].exists})}
+function showPrivateChat(){stop();page="privateChat";var resetUnread={};resetUnread["unreadCounts."+me.uid]=0;db.collection("chats").doc(chatId).update(resetUnread).catch(function(){});var clearAt=parseInt(localStorage.getItem("yc_clear_"+chatId)||"0",10);mount(shell(peer.username,'<div class="wrap"><div class="card row">'+av(peer)+'<div class="userInfo"><b>'+esc(peer.username)+'</b><div class="small '+(online(peer)?"online":"offline")+'">'+(online(peer)?"● Online":lastSeen(peer.lastSeen))+'</div></div><button class="chatDots" onclick="privateIdMenu(\''+peer.uid+'\')">⋮</button></div><div id="pt" class="typing"></div><div id="pm" class="msgList">Loading...</div><div class="bottom"><div id="pr"></div><div id="voicePreview" class="voicePreview hide"></div><div id="mediaMenu" class="mediaMenu hide"><button onclick="closeMediaMenu();uploadMedia(\'image\')">🖼 Image</button><button onclick="closeMediaMenu();uploadMedia(\'video\')">🎥 Video</button><button onclick="closeMediaMenu();startVoiceRecording(\'private\')">🎙 Voice</button></div><div class="compose"><button class="icon" onclick="toggleMediaMenu()">＋</button><input id="pi" class="input" placeholder="Message" oninput="privateTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendPrivate()}"><button id="psend" class="icon send" onclick="sendPrivate()">➤</button></div></div></div>',true,privateTop()));applyTheme(currentPrivateTheme||localStorage.getItem("yc_theme")||"");listen(db.collection("chats").doc(chatId).collection("messages").orderBy("createdAt","asc"),function(s){window.pm=[];s.forEach(function(d){var x=d.data();x.id=d.id;var created=x.createdAt&&x.createdAt.toMillis?x.createdAt.toMillis():0;if(clearAt&&created&&created<=clearAt)return;window.pm.push(x);if(x.uid!==me.uid&&(x.seenBy||[]).indexOf(me.uid)<0)d.ref.update({seenBy:au(me.uid)}).catch(function(){})});window.pm=window.pm.slice(-12);drawMessages(window.pm,"private","pm");scrollBottom("pm")});listen(db.collection("typing").where("roomId","==",chatId),function(s){var z="";s.forEach(function(d){var x=d.data();if(x.uid!==me.uid&&x.typing&&x.updatedAt&&x.updatedAt.toMillis&&Date.now()-x.updatedAt.toMillis()<8000)z=peer.username+" is typing…"});if($("pt"))$("pt").textContent=z});trimMessages(db.collection("chats").doc(chatId).collection("messages"))}
+function setTyping(roomId,v){if(!me)return;var key=roomId;if(v){clearTimeout(typingState[key]&&typingState[key].timer);if(typingState[key]&&typingState[key].active){typingState[key].timer=setTimeout(function(){setTyping(roomId,false)},4500);return}typingState[key]={active:true,timer:setTimeout(function(){setTyping(roomId,false)},4500)};db.collection("typing").doc(me.uid+"_"+roomId).set({uid:me.uid,username:me.username,roomId:roomId,typing:true,updatedAt:nowTs()},{merge:true}).catch(function(){})}else{if(typingState[key]){typingState[key].active=false;clearTimeout(typingState[key].timer)}db.collection("typing").doc(me.uid+"_"+roomId).set({uid:me.uid,username:me.username,roomId:roomId,typing:false,updatedAt:nowTs()},{merge:true}).catch(function(){})}}
+function privateTyping(v){setTyping(chatId,v)}
+function savePrivateMessage(d,preview){
+  var ref=db.collection("chats").doc(chatId),now=ts();
+  return ref.set({participants:[me.uid,peer.uid],lastMessage:preview||d.text||"[media]",lastMessageAt:now},{merge:true})
+    .then(function(){return ref.collection("messages").add(d)})
+    .then(function(){var uc={};uc[peer.uid]=firebase.firestore.FieldValue.increment(1);var u={participants:[me.uid,peer.uid],lastMessage:preview||d.text||"[media]",lastMessageAt:ts(),unreadCounts:uc};return ref.set(u,{merge:true})});
 }
-
-function createAccount(){
- var u=($("newUser").value||"").trim(),p=$("newPass").value||"";
- if(u.length<2){$("createError").textContent="Username is too short.";return}
- if(p.length<6){$("createError").textContent="Password must be at least 6 characters.";return}
- db.collection("users").where("usernameLower","==",u.toLowerCase()).limit(1).get().then(function(s){
-  if(!s.empty)throw new Error("Username already exists.");
-  return auth.createUserWithEmailAndPassword(authEmail(u),p)
- }).then(function(c){
-  return db.collection("users").doc(c.user.uid).set({
-   uid:c.user.uid,username:u,usernameLower:u.toLowerCase(),
-   avatar:"",online:true,lastSeen:ts(),createdAt:ts()
-  })
- }).catch(function(e){$("createError").textContent=e.message||"Create failed."})
-}
-
-auth.onAuthStateChanged(function(u){
- if(!u){me=null;stop();loginPage();return}
- db.collection("users").doc(u.uid).get().then(function(d){
-  if(!d.exists)throw new Error("Profile missing");
-  me=d.data();me.uid=u.uid;
-  return db.collection("users").doc(u.uid).set(
-   {online:true,lastSeen:ts()},{merge:true}
-  )
- }).then(function(){
-  applyTheme();presence();goHome()
- }).catch(function(){auth.signOut()})
-});
-
-function presence(){
- clearInterval(window.ycPresence);
- window.ycPresence=setInterval(function(){
-  if(me)db.collection("users").doc(me.uid).set(
-   {online:true,lastSeen:ts()},{merge:true}
-  ).catch(function(){})
- },30000)
-}
-
-function back(){
- if(page==="privateChat")return privatePage();
- if(page==="groupChat")return groupsPage();
- if(page==="settings"||page==="blocked"||page==="themes")return privatePage();
- if(page==="myStatus"||page==="friendsStatus")return privatePage();
- goHome()
-}
-
-function applyTheme(){
- var n=localStorage.getItem("theme")||"White";
- document.body.className=themeClass[n]||"white"
-}
-
-function chooseTheme(n){
- localStorage.setItem("theme",n);applyTheme();themesPage()
-}
-
-function worldPage(){
- page="world";stop();
- var b='<div class="wrap"><div class="card"><div class="between">'+
- '<b>🌍 World Chat</b><span id="worldCount" class="status">0 online</span></div>'+
- '<div id="worldTyping" class="typing"></div></div>'+
- '<div id="worldMessages" class="msgList">Loading...</div>'+
- '<div id="worldMention" class="mentionBox" style="display:none"></div>'+
- '<div class="chatBottom"><div id="worldReply"></div><div class="chatInput">'+
- '<button class="iconBtn" onclick="mentions()">@</button>'+
- '<input id="worldInput" class="input" placeholder="Type a message" oninput="worldTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendWorld()}">'+
- '<button class="iconBtn" onclick="sendWorld()">➤</button></div></div></div>';
- $("app").innerHTML=shell("World Chat",b,true);
-
- listen(db.collection("users"),function(s){
-  var n=0;window.ycWorldUsers=[];s.forEach(function(d){
-   var u=d.data();u.uid=d.id;users[d.id]=u;
-   if(online(u)){n++;window.ycWorldUsers.push(u)}
-  });
-  if($("worldCount"))$("worldCount").textContent=n+" online"
- });
-
- listen(db.collection("worldMessages").orderBy("createdAt","desc").limit(15),function(s){
-  world=[];s.forEach(function(d){var x=d.data();x.id=d.id;world.unshift(x)});
-  drawWorld()
- });
-
- listen(db.collection("typing").where("roomId","==","world"),function(s){
-  var n="";s.forEach(function(d){
-   var x=d.data();if(x.uid!==me.uid&&x.typing)n=x.username
-  });
-  $("worldTyping").innerHTML=n?
-  esc(n)+" is typing <span class=\"dots\"><span>•</span><span>•</span><span>•</span></span>":""
- })
-}
-
-function drawWorld(){
- var h="";
- world.forEach(function(x){h+=messageHTML(x,"world")});
- $("worldMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
- $("worldReply").innerHTML=reply?
- '<div class="reply">Replying to: '+esc(reply.text)+
- ' <button class="btn small secondary" onclick="reply=null;drawWorld()">Cancel</button></div>':""
-}
-
-function messageHTML(x,type){
- var u=users[x.uid]||{username:x.username,avatar:x.avatar};
- var own=x.uid===me.uid,h="";
- if(x.replyText)h+='<div class="reply">'+esc(x.replyText)+'</div>';
- if(x.text)h+='<div class="msgText">'+esc(x.text)+'</div>';
- if(x.imageUrl)h+='<img class="media" loading="lazy" src="'+esc(x.imageUrl)+'">';
- if(x.videoUrl)h+='<video class="media" controls preload="metadata" src="'+esc(x.videoUrl)+'"></video>';
- if(x.voiceUrl)h+='<audio class="audio" controls src="'+esc(x.voiceUrl)+'"></audio>';
- var a="";
- if(type!=="world")a=
- '<div class="actions">'+
- '<button onclick="event.stopPropagation();selectMsg(\''+x.id+'\',\''+type+'\')">Options</button></div>';
- return '<div class="msg '+(own?"mine":"")+'">'+avatar(u,true)+
- '<div class="bubble"><div class="sender">'+esc(u.username||"User")+
- '</div>'+h+'<div class="meta">'+esc(time(x.createdAt))+
- (x.edited?" • edited":"")+
- (type==="private"&&own?" • "+(x.seenBy&&x.seenBy.indexOf(peer.uid)>-1?"✓✓":"✓✓"):"")+
- '</div>'+a+'</div></div>'
-}
-
-function sendWorld(){
- if(sending)return;
- var i=$("worldInput"),t=(i.value||"").trim();
- if(!t&&!reply)return;
- sending=true;
- var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};
- if(reply){d.replyTo=reply.id;d.replyText=reply.text}
- db.collection("worldMessages").add(d).then(function(){
-  i.value="";reply=null;worldTyping(false)
- }).catch(function(){toast("Message failed")}).then(function(){sending=false})
-}
-
-function worldTyping(v){
- db.collection("typing").doc(me.uid+"_world").set({
-  uid:me.uid,username:me.username,roomId:"world",typing:!!v,updatedAt:ts()
- },{merge:true}).catch(function(){});
- if(typingTimer)clearTimeout(typingTimer);
- if(v)typingTimer=setTimeout(function(){worldTyping(false)},1500)
-}
-
-function mentions(){
- var b=$("worldMention");
- b.style.display=b.style.display==="none"?"block":"none";
- if(b.style.display==="block"){
-  var h="";
-  (window.ycWorldUsers||[]).forEach(function(u){
-   if(u.uid!==me.uid)h+='<div class="userRow" onclick="mentionUser(\''+u.uid+'\')">'+
-   avatar(u,true)+'<b>'+esc(u.username)+'</b></div>'
-  });
-  b.innerHTML=h||'<div class="empty">No online users.</div>'
- }
-}
-
-function mentionUser(id){
- var u=users[id];if(!u)return;
- $("worldInput").value+=($("worldInput").value?" ":"")+"@"+u.username+" ";
- $("worldMention").style.display="none";$("worldInput").focus()
-}
-
-function onlinePage(){
- page="online";stop();
- var b='<div class="wrap"><div class="card"><input id="onlineSearch" class="input" placeholder="Search username" oninput="drawOnline()"><div id="onlineList">Loading...</div></div></div>';
- $("app").innerHTML=shell("Online Users",b,true);
- listen(db.collection("users"),function(s){
-  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
-  drawOnline()
- })
-}
-
-function drawOnline(){
- var q=(($("onlineSearch")&&$("onlineSearch").value)||"").toLowerCase(),h="";
- Object.keys(users).forEach(function(id){
-  var u=users[id];
-  if(id===me.uid||!online(u))return;
-  if(q&&String(u.username||"").toLowerCase().indexOf(q)<0)return;
-  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
-  '<div class="userInfo"><div class="userName">'+esc(u.username)+'</div>'+
-  '<div class="status online">● Online</div></div></div>'
- });
- $("onlineList").innerHTML=h||'<div class="empty">No online users.</div>'
-}
-
-function allUsersPage(){
- page="all";stop();
- var b='<div class="wrap"><div class="card"><input id="allSearch" class="input" placeholder="Search username or Easy ID" oninput="drawAll()"><div id="allList">Loading...</div></div></div>';
- $("app").innerHTML=shell("All Users",b,true);
- listen(db.collection("users"),function(s){
-  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
-  drawAll()
- })
-}
-
-function drawAll(){
- var q=(($("allSearch")&&$("allSearch").value)||"").toLowerCase(),h="";
- Object.keys(users).forEach(function(id){
-  if(id===me.uid)return;
-  var u=users[id],easy=(u.easyId||id.slice(0,8)).toLowerCase();
-  if(q&&String(u.username||"").toLowerCase().indexOf(q)<0&&easy.indexOf(q)<0)return;
-  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
-  '<div class="userInfo"><div class="userName">'+esc(u.username)+'</div>'+
-  '<div class="status">Easy ID: '+esc(easy)+' • '+(online(u)?"Online":"Offline")+
-  '</div></div></div>'
- });
- $("allList").innerHTML=h||'<div class="empty">No users found.</div>'
-}
-
-function privatePage(){
- page="private";stop();
- var b='<div class="wrap"><div class="card">'+
- '<input id="privateSearch" class="input" placeholder="Search username or Easy ID" oninput="privateSearch()">'+
- '<div id="privateResults"></div>'+
- '<button class="menuBtn" onclick="myStatusPage()"><span class="menuIcon">🟣</span><span class="menuName">My Status</span></button>'+
- '<button class="menuBtn" onclick="friendsStatusPage()"><span class="menuIcon">🟢</span><span class="menuName">Status</span></button>'+
- '</div><div class="card"><b>Private Chats</b><div id="privateList">Loading...</div></div></div>';
- $("app").innerHTML=shell("Private Chat",b,true);
-
- listen(db.collection("users"),function(s){
-  users={};s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u});
-  privateSearch()
- });
-
- listen(db.collection("chats").where("participants","array-contains",me.uid),function(s){
-  var h="";
-  s.forEach(function(d){
-   var c=d.data(),p=c.participants||[],id=p[0]===me.uid?p[1]:p[0],u=users[id]||{};
-   var n=Number((c.unreadCounts||{})[me.uid]||0);
-   h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
-   '<div class="userInfo"><div class="userName">'+esc(u.username||"User")+
-   (n?'<span class="badge">'+(n>99?"99+":n)+'</span>':"")+
-   '</div><div class="status">'+dot(u)+' • '+esc(c.lastMessage||"")+
-   '</div></div><span class="status">'+esc(time(c.lastMessageAt))+'</span></div>'
-  });
-  $("privateList").innerHTML=h||'<div class="empty">No private chats yet.</div>'
- })
-}
-
-function privateSearch(){
- var q=(($("privateSearch")&&$("privateSearch").value)||"").toLowerCase(),b=$("privateResults");
- if(!q){b.innerHTML="";return}
- var h="";
- Object.keys(users).forEach(function(id){
-  if(id===me.uid)return;
-  var u=users[id],easy=(u.easyId||id.slice(0,8)).toLowerCase();
-  if(String(u.username||"").toLowerCase().indexOf(q)<0&&easy.indexOf(q)<0)return;
-  h+='<div class="userRow" onclick="openPrivate(\''+id+'\')">'+avatar(u)+
-  '<div class="userInfo"><b>'+esc(u.username)+'</b><div class="status">Easy ID: '+esc(easy)+'</div></div></div>'
- });
- b.innerHTML=h||'<div class="empty">No user found.</div>'
-}
-
-function openPrivate(id){
- db.collection("users").doc(id).get().then(function(d){
-  if(!d.exists)return;
-  peer=d.data();peer.uid=id;currentChat=chatKey(me.uid,id);
-  privateChatPage()
- })
-}
-
-function chatKey(a,b){return [a,b].sort().join("_")}
-
-function privateChatPage(){
- page="privateChat";stop();reply=null;selected=null;blocked=false;
- var b='<div class="wrap"><div class="card"><div class="row">'+avatar(peer)+
- '<div class="userInfo"><b>'+esc(peer.username)+'</b><div class="status">'+dot(peer)+'</div></div>'+
- '<button class="topBtn" onclick="settingsPage()">⋮</button></div>'+
- '<div id="blockNotice"></div><div id="privateTyping" class="typing"></div></div>'+
- '<div id="privateMessages" class="msgList">Loading...</div>'+
- '<div class="chatBottom"><div id="privateReply"></div><div class="chatInput">'+
- '<button class="iconBtn" onclick="privateImage()">🖼</button>'+
- '<button class="iconBtn" onclick="privateVideo()">🎥</button>'+
- '<button class="iconBtn" onclick="voice()">🎙</button>'+
- '<input id="privateInput" class="input" placeholder="Type a message" oninput="privateTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendPrivate()}">'+
- '<button class="iconBtn" onclick="sendPrivate()">➤</button></div></div></div>';
- $("app").innerHTML=shell(peer.username,b,true);
- checkBlock();listenPrivate()
-}
-
-function checkBlock(){
- Promise.all([
-  db.collection("blocks").doc(me.uid+"_"+peer.uid).get(),
-  db.collection("blocks").doc(peer.uid+"_"+me.uid).get()
- ]).then(function(r){
-  blocked=r[1].exists;
-  if(r[0].exists)blocked=true;
-  $("blockNotice").innerHTML=blocked?
-  '<div class="notice blocked">'+
-  (r[1].exists?esc(peer.username)+" has blocked you.":"You blocked "+esc(peer.username)+
-  '. <button class="btn small secondary" onclick="unblockPeer()">Unblock</button>')+
-  '</div>':"";
-  if($("privateInput"))$("privateInput").disabled=blocked
- })
-}
-
-function listenPrivate(){
- var c=db.collection("chats").doc(currentChat);
- var reset={};reset["unreadCounts."+me.uid]=0;c.set(reset,{merge:true});
- listen(c.collection("messages").orderBy("createdAt","desc").limit(15),function(s){
-  privateMsgs=[];s.forEach(function(d){
-   var x=d.data();x.id=d.id;privateMsgs.unshift(x);
-   if(x.uid!==me.uid&&(x.seenBy||[]).indexOf(me.uid)<0)
-    d.ref.update({seenBy:firebase.firestore.FieldValue.arrayUnion(me.uid)}).catch(function(){})
-  });
-  drawPrivate()
- });
- listen(db.collection("typing").where("roomId","==",currentChat),function(s){
-  var n="";s.forEach(function(d){var x=d.data();if(x.uid!==me.uid&&x.typing)n=x.username});
-  $("privateTyping").innerHTML=n?esc(n)+" is typing <span class=\"dots\"><span>•</span><span>•</span><span>•</span></span>":""
- })
-}
-
-function drawPrivate(){
- var h="";privateMsgs.forEach(function(x){h+=messageHTML(x,"private")});
- $("privateMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
- $("privateReply").innerHTML=reply?
- '<div class="reply">Replying to: '+esc(reply.text)+
- ' <button class="btn small secondary" onclick="reply=null;drawPrivate()">Cancel</button></div>':""
-}
-
-function privateTyping(v){
- if(blocked)return;
- db.collection("typing").doc(me.uid+"_"+currentChat).set({
-  uid:me.uid,username:me.username,roomId:currentChat,typing:!!v,updatedAt:ts()
- },{merge:true}).catch(function(){});
- if(typingTimer)clearTimeout(typingTimer);
- if(v)typingTimer=setTimeout(function(){privateTyping(false)},1500)
-}
-
 function sendPrivate(){
- if(sending||blocked)return;
- var i=$("privateInput"),t=(i.value||"").trim();
- if(!t&&!reply)return;
- sending=true;
- var d={uid:me.uid,toUid:peer.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts(),seenBy:[]};
- if(reply){d.replyTo=reply.id;d.replyText=reply.text}
- var c=db.collection("chats").doc(currentChat),u={
-  participants:[me.uid,peer.uid],lastMessage:t||"[media]",lastMessageAt:ts()
- };
- u["unreadCounts."+peer.uid]=firebase.firestore.FieldValue.increment(1);
- c.collection("messages").add(d).then(function(){return c.set(u,{merge:true})})
- .then(function(){i.value="";reply=null;privateTyping(false)})
- .catch(function(){toast("Message failed")})
- .then(function(){sending=false})
+  if(sendingPrivate)return;
+  var input=$("pi");
+  if(!input)return;
+  var t=input.value.trim();
+  if(!t&&!reply)return;
+  sendingPrivate=true;
+  var b=$("psend");
+  if(b)b.disabled=true;
+  var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts(),seenBy:[]};
+  if(reply){d.replyText=reply.text||"";d.replyTo=reply.id||""}
+  checkBlocks(peer.uid).then(function(blocked){
+    if(blocked){throw new Error("This private chat is blocked.")}
+    return savePrivateMessage(d,t||"[message]");
+  }).then(function(){
+    return trimMessages(db.collection("chats").doc(chatId).collection("messages"));
+  }).then(function(){
+    return notify(peer.uid,"private","New private message from "+me.username);
+  }).then(function(){
+    input.value="";reply=null;if($("pr"))$("pr").innerHTML="";privateTyping(false);scrollBottom("pm");
+  }).catch(function(e){toast(e.message||"Message could not be saved. Check Firebase connection.")})
+  .then(function(){sendingPrivate=false;if(b)b.disabled=false});
 }
-
-function selectMsg(id,type){
- selected=id;
- var x=(type==="private"?privateMsgs:groupMsgs).find(function(a){return a.id===id});
- if(!x)return;
- var c=prompt("1 Reply\n2 React\n3 Edit\n4 Delete\n5 Back","1");
- if(c==="1"){reply={id:id,text:x.text||"[media]"};type==="private"?drawPrivate():drawGroup()}
- else if(c==="2")reactMessage(id,type)
- else if(c==="3")editMessage(id,type)
- else if(c==="4")deleteMessage(id,type)
- else selected=null
+function toggleMediaMenu(){var x=$("mediaMenu");if(x)x.classList.toggle("hide")}function closeMediaMenu(){var x=$("mediaMenu");if(x)x.classList.add("hide")}
+function uploadMedia(type){
+  var i=document.createElement("input");i.type="file";i.accept=type+"/*";
+  i.onchange=function(){
+    var f=i.files&&i.files[0];if(!f)return;
+    if(type==="image"&&f.size>15*1024*1024){toast("Image must be under 15MB.");return}
+    if(type==="video"&&f.size>80*1024*1024){toast("Video must be under 80MB.");return}
+    toast("Uploading "+type+"...");
+    upload(f,function(u){
+      checkBlocks(peer.uid).then(function(blocked){
+        if(blocked)throw new Error("This private chat is blocked.");
+        var d={uid:me.uid,username:me.username,avatar:me.avatar||"",createdAt:ts(),seenBy:[]};
+        if(type==="image")d.imageUrl=u;else d.videoUrl=u;
+        return savePrivateMessage(d,"["+type+"]");
+      }).then(function(){
+        return trimMessages(db.collection("chats").doc(chatId).collection("messages"));
+      }).then(function(){return notify(peer.uid,"private","New private "+type+" message")})
+      .then(function(){scrollBottom("pm");toast(type+" sent.")})
+      .catch(function(e){toast(e.message||"Media message could not be saved.")});
+    },function(e){toast("Upload failed: "+e)},type);
+  };i.click();
 }
-
-function reactMessage(id,type){
- var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
- var r=prompt("Reaction","❤️");if(!r)return;
- col.update({reactions:arr({uid:me.uid,reaction:r})}).then(function(){selected=null})
+function upload(file,ok,fail,kind){if(!file){fail("No file selected.");return}if(file.size>100*1024*1024){fail("File must be under 100MB.");return}var resource=kind==="image"?"image":(kind==="video"||kind==="voice"||kind==="audio"?"video":"auto"),url="https://api.cloudinary.com/v1_1/"+CLOUD_NAME+"/"+resource+"/upload",f=new FormData();f.append("file",file);f.append("upload_preset",CLOUD_PRESET);var x=new XMLHttpRequest();x.open("POST",url,true);x.timeout=120000;x.onload=function(){try{var r=JSON.parse(x.responseText);if(x.status>=200&&x.status<300){ok(r.secure_url)}else{fail(r.error&&r.error.message||"Cloudinary upload failed.")}}catch(e){fail("Invalid Cloudinary response.")}};x.onerror=function(){fail("Network error.")};x.ontimeout=function(){fail("Upload timed out.")};x.send(f)}
+function startVoiceRecording(room){
+  if(recording){stopVoiceRecording();return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast("Voice recording is not supported.");return}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    recStream=stream;recChunks=[];recSeconds=0;
+    var opts=null;
+    try{if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported("audio/webm;codecs=opus"))opts={mimeType:"audio/webm;codecs=opus"}}catch(e){}
+    try{recording=opts?new MediaRecorder(stream,opts):new MediaRecorder(stream)}catch(e){recording=new MediaRecorder(stream)}
+    recording.ondataavailable=function(e){if(e.data&&e.data.size)recChunks.push(e.data)};
+    recording.onstop=function(){
+      clearInterval(recInterval);recInterval=null;
+      stream.getTracks().forEach(function(t){try{t.stop()}catch(e){}});
+      recStream=null;
+      var mime=recording&&recording.mimeType||"audio/webm";
+      var blob=new Blob(recChunks,{type:mime});
+      recording=null;
+      if(!blob.size){toast("No voice recorded.");return}
+      var ext=mime.indexOf("ogg")>-1?"ogg":"webm";
+      var file;
+      try{file=new File([blob],"voice."+ext,{type:mime})}catch(e){file=blob}
+      toast("Uploading voice...");
+      upload(file,function(url){
+        if(room==="private"){
+          var d={uid:me.uid,username:me.username,avatar:me.avatar||"",createdAt:ts(),seenBy:[],voiceUrl:url};
+          checkBlocks(peer.uid).then(function(blocked){if(blocked)throw new Error("This private chat is blocked.");return savePrivateMessage(d,"[voice]")}).then(function(){return trimMessages(db.collection("chats").doc(chatId).collection("messages"))}).then(function(){return notify(peer.uid,"private","New private voice message")}).then(function(){toast("Voice sent.");scrollBottom("pm")}).catch(function(e){toast(e.message||"Voice send failed.")});
+        }
+      },function(e){toast("Voice upload failed: "+e)},"voice");
+    };
+    recording.start();
+    recInterval=setInterval(function(){
+      recSeconds++;
+      if(recSeconds>=120)stopVoiceRecording();
+    },1000);
+    toast("Recording started. Tap Voice again to stop.");
+  }).catch(function(){toast("Microphone permission denied.")});
 }
-
-function editMessage(id,type){
- var a=type==="private"?privateMsgs:groupMsgs,x=a.find(function(z){return z.id===id});
- if(!x||x.uid!==me.uid||!x.text){toast("Only your text message can be edited.");return}
- var n=prompt("Edit message",x.text);if(n===null)return;n=n.trim();if(!n)return;
- var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
- col.update({text:n,edited:true}).then(function(){selected=null})
+function stopVoiceRecording(){if(recording){try{recording.stop()}catch(e){}}clearInterval(recInterval);recInterval=null}
+function privateIdMenu(uid){
+  var u=users[uid]||peer||{};
+  var choice=prompt("1 View Profile\n2 Remove ID\n3 Clear Chat\n4 Block User\n5 Unblock User");
+  if(choice==="1")viewProfile(uid);
+  else if(choice==="2")removePrivateID(uid);
+  else if(choice==="3")clearPrivateChat(uid);
+  else if(choice==="4")blockPrivateID(uid);
+  else if(choice==="5")db.collection("blocks").doc(me.uid+"_"+uid).delete().then(function(){toast("User unblocked.")});
 }
-
-function deleteMessage(id,type){
- var a=type==="private"?privateMsgs:groupMsgs,x=a.find(function(z){return z.id===id});
- if(!x||x.uid!==me.uid){toast("You can delete only your message.");return}
- if(!confirm("Delete this message?"))return;
- var col=type==="private"?db.collection("chats").doc(currentChat).collection("messages").doc(id):db.collection("groups").doc(currentGroup.id).collection("messages").doc(id);
- col.delete().then(function(){selected=null})
+function viewProfile(uid){db.collection("users").doc(uid).get().then(function(d){if(!d.exists)return;var u=d.data();alert((u.username||"User")+"\nEasy ID: "+(u.easyId||u.uid||uid)+"\nStatus: "+(u.bio||""))})}
+function privateThemes(){
+  var themes=[
+    ["White Theme","white"],
+    ["Dark Theme","dark"],
+    ["Ocean Blue","ocean"],
+    ["Sky Blue","sky"],
+    ["Midnight Blue","midnight"],
+    ["Emerald Green","emerald"],
+    ["Forest Green","forest"],
+    ["Royal Purple","purple"],
+    ["Lavender","lavender"],
+    ["Rose Pink","rose"],
+    ["Sunset Orange","sunset"],
+    ["Golden Glow","gold"],
+    ["Crimson Red","crimson"],
+    ["Aqua Wave","aqua"],
+    ["Neon Night","neon"],
+    ["Cyber Blue","cyber"],
+    ["Galaxy","galaxy"],
+    ["Coffee Brown","coffee"],
+    ["Silver Gray","silver"],
+    ["Cherry Blossom","cherry"]
+  ];
+  var choice=prompt("Choose Theme (1-20):\n"+themes.map(function(x,i){return(i+1)+". "+x[0]}).join("\n"));
+  var n=parseInt(choice,10);
+  if(!n||n<1||n>20)return;
+  currentPrivateTheme=themes[n-1][1];
+  localStorage.setItem("yc_private_theme_"+chatId,currentPrivateTheme);
+  applyTheme(currentPrivateTheme);
 }
-
-function upload(file,kind,done){
- var resource=kind==="image"?"image":"video";
- var url="https://api.cloudinary.com/v1_1/"+CLOUD+"/"+resource+"/upload";
- var fd=new FormData();fd.append("file",file);fd.append("upload_preset",PRESET);
- var x=new XMLHttpRequest();x.open("POST",url,true);x.timeout=120000;
- x.onload=function(){
-  try{var r=JSON.parse(x.responseText||"{}");if(r.secure_url)done(r.secure_url);else toast("Upload failed")}
-  catch(e){toast("Upload failed")}
- };
- x.onerror=function(){toast("Upload network error")};
- x.ontimeout=function(){toast("Upload timed out")};
- x.send(fd)
+function myStatus(){statusPage("mine")}
+function statusPage(mode){
+  stop();page="status";
+  var title=mode==="mine"?"My Status":"Status";
+  mount(shell(title,'<div class="wrap"><div class="card"><button class="menuBtn" onclick="createStatus(\'text\')">📝 Text Status</button><button class="menuBtn" onclick="createStatus(\'image\')">🖼 Photo Status</button><button class="menuBtn" onclick="createStatus(\'video\')">🎥 Video Status</button></div><div id="statusList">Loading...</div></div>',true));
+  listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id});if(window.statusData)drawStatus(window.statusData,mode)});
+  listen(db.collection("statuses").orderBy("createdAt","desc"),function(s){var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;var tm=x.createdAt&&x.createdAt.toMillis?x.createdAt.toMillis():0;if(Date.now()-tm<86400000&&(!x.expiresAt||x.expiresAt.toMillis()>Date.now()))a.push(x)});window.statusData=a;drawStatus(a,mode)});
 }
-
-function privateImage(){
- if(blocked)return;
- var i=document.createElement("input");i.type="file";i.accept="image/*";
- i.onchange=function(){var f=i.files[0];if(f)upload(f,"image",function(u){sendMedia("image",u)})};i.click()
+function drawStatus(a,mode){
+  var groups={};
+  a.forEach(function(x){if(mode==="mine"&&x.uid!==me.uid)return;if(mode!=="mine"&&x.uid===me.uid)return;(groups[x.uid]||(groups[x.uid]=[])).push(x)});
+  var h="";
+  Object.keys(groups).forEach(function(uid){var u=users[uid]||{};h+='<div class="card statusUser" onclick="openStatusUser(\''+uid+'\')">'+av(u)+'<div class="userInfo"><b>'+esc(u.username||"User")+'</b><div class="small">'+time(groups[uid][0].createdAt)+'</div></div></div>'});
+  if($("statusList"))$("statusList").innerHTML=h||'<div class="card empty">No status available.</div>';
 }
-
-function privateVideo(){
- if(blocked)return;
- var i=document.createElement("input");i.type="file";i.accept="video/*";
- i.onchange=function(){var f=i.files[0];if(f)upload(f,"video",function(u){sendMedia("video",u)})};i.click()
+function createStatus(type){
+  if(type==="text"){var t=prompt("Write your status");if(!t)return;saveStatus({type:"text",text:t});return}
+  var i=document.createElement("input");i.type="file";i.accept=type==="image"?"image/*":"video/*";i.onchange=function(){var f=i.files&&i.files[0];if(!f)return;toast("Uploading status...");upload(f,function(url){saveStatus({type:type,url:url})},function(e){toast("Upload failed: "+e)},type)};i.click();
 }
-
-function sendMedia(type,url){
- var d={uid:me.uid,toUid:peer.uid,username:me.username,avatar:me.avatar||"",createdAt:ts(),seenBy:[]};
- if(type==="image")d.imageUrl=url;
- if(type==="video")d.videoUrl=url;
- if(type==="audio")d.voiceUrl=url;
- var c=db.collection("chats").doc(currentChat),u={participants:[me.uid,peer.uid],lastMessage:"["+type+"]",lastMessageAt:ts()};
- u["unreadCounts."+peer.uid]=firebase.firestore.FieldValue.increment(1);
- c.collection("messages").add(d).then(function(){return c.set(u,{merge:true})})
-}
-
-function voice(){
- if(blocked)return;
- if(window.rec){window.rec.stop();return}
- if(!navigator.mediaDevices||!window.MediaRecorder){
-  var i=document.createElement("input");i.type="file";i.accept="audio/*";
-  i.onchange=function(){var f=i.files[0];if(f)upload(f,"audio",function(u){sendMedia("audio",u)})};i.click();return
- }
- navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-  window.recStream=stream;window.recChunks=[];
-  var opt={};try{if(MediaRecorder.isTypeSupported("audio/webm;codecs=opus"))opt={mimeType:"audio/webm;codecs=opus"}}catch(e){}
-  window.rec=new MediaRecorder(stream,opt);
-  window.rec.ondataavailable=function(e){if(e.data&&e.data.size)window.recChunks.push(e.data)};
-  window.rec.onstop=function(){
-   stream.getTracks().forEach(function(t){t.stop()});
-   var mime=window.rec.mimeType||"audio/webm";
-   var blob=new Blob(window.recChunks,{type:mime});
-   window.rec=null;
-   upload(blob,"audio",function(u){sendMedia("audio",u)})
-  };
-  window.rec.start();
-  toast("Recording... tap 🎙 again to stop")
- }).catch(function(){toast("Microphone permission denied")})
-}
-
-function groupsPage(){
- page="groups";stop();
- var b='<div class="wrap"><button class="btn" onclick="createGroup()">Create Group</button>'+
- '<div class="card"><div id="groupsList">Loading...</div></div></div>';
- $("app").innerHTML=shell("Group Chat",b,true);
- listen(db.collection("groups"),function(s){
-  var h="";s.forEach(function(d){
-   var g=d.data();g.id=d.id;
-   if((g.members||[]).indexOf(me.uid)<0)return;
-   h+='<div class="userRow" onclick="openGroup(\''+g.id+'\')">'+
-   '<div class="avatar"></div><div class="userInfo"><b>'+esc(g.name)+'</b>'+
-   '<div class="status">'+g.members.length+' members</div></div></div>'
+function saveStatus(d){d.uid=me.uid;d.username=me.username;d.avatar=me.avatar||"";d.createdAt=ts();d.expiresAt=firebase.firestore.Timestamp.fromMillis(Date.now()+86400000);db.collection("statuses").add(d).then(function(){toast("Status posted.")}).catch(function(e){toast(e.message||"Status failed.")})}
+function openStatusUser(uid){
+  db.collection("statuses").where("uid","==",uid).orderBy("createdAt","desc").get().then(function(s){
+    var a=[];s.forEach(function(d){var x=d.data();x.id=d.id;var tm=x.createdAt&&x.createdAt.toMillis?x.createdAt.toMillis():0;if(Date.now()-tm<86400000)a.push(x)});
+    if(!a.length){toast("Status expired.");return}
+    var u=users[uid]||{},i=0;
+    function show(){
+      var x=a[i],body=x.type==="text"?'<div class="statusText">'+esc(x.text||"")+'</div>':x.type==="image"?'<img class="statusFull" src="'+esc(x.url)+'">':'<video class="statusFull" controls autoplay src="'+esc(x.url)+'"></video>';
+      mount(shell(u.username, '<div class="statusViewer">'+body+'<div class="statusControls"><button class="btn" onclick="statusReact(\''+x.id+'\')">❤️ React</button><button class="btn" onclick="statusViews(\''+x.id+'\')">👁 Views</button><button class="btn" onclick="statusBack()">Back</button></div></div>',true));
+      if(uid!==me.uid)db.collection("statusViews").doc(x.id+"_"+me.uid).set({statusId:x.id,uid:me.uid,username:me.username,avatar:me.avatar||"",createdAt:ts()},{merge:true}).catch(function(){});
+    }
+    window.statusBack=function(){statusPage("other")};
+    window.statusNext=function(){i=(i+1)%a.length;show()};
+    show();
   });
-  $("groupsList").innerHTML=h||'<div class="empty">No groups yet.</div>'
- })
 }
-
+function statusReact(id){var v=prompt("Reaction","❤️");if(!v)return;db.collection("statusReactions").doc(id+"_"+me.uid).set({statusId:id,uid:me.uid,username:me.username,reaction:v,createdAt:ts()},{merge:true}).then(function(){toast("Reaction added.")})}
+function statusViews(id){db.collection("statusViews").where("statusId","==",id).get().then(function(s){var h="";s.forEach(function(d){var x=d.data();h+=(x.username||"User")+" • "+time(x.createdAt)+"\n"});alert(h||"No views yet.")})}
+function statusBack(){showPrivate()}
+function applyTheme(name){
+  document.body.setAttribute("data-theme",name||"");
+}
+function showGroups(){
+  stop();page="groups";
+  mount(shell("Group Chat",'<div class="wrap"><button class="btn primary" onclick="createGroup()">＋ Create Group</button><input id="gsearch" class="input" placeholder="Search groups or users" oninput="groupSearch()"><div id="groupResults"></div><div id="groupList">Loading...</div></div>',true));
+  listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id})});
+  listen(db.collection("groups").where("members","array-contains",me.uid),function(s){window.groups=[];s.forEach(function(d){var x=d.data();x.id=d.id;window.groups.push(x)});drawGroups()});
+}
+function drawGroups(){
+  var h="";(window.groups||[]).forEach(function(g){h+='<div class="card userRow" onclick="openGroup(\''+g.id+'\')"><div class="userInfo"><b>'+esc(g.name||"Group")+'</b><div class="small">'+(g.members||[]).length+' members</div></div></div>'});
+  if($("groupList"))$("groupList").innerHTML=h||'<div class="card empty">No groups yet.</div>';
+}
 function createGroup(){
- var n=prompt("Group name");if(!n)return;
- db.collection("groups").add({name:n,ownerUid:me.uid,members:[me.uid],createdAt:ts()})
- .then(function(d){openGroup(d.id)})
+  var name=prompt("Group name");if(!name||!name.trim())return;
+  db.collection("groups").add({name:name.trim(),ownerUid:me.uid,members:[me.uid],createdAt:ts()}).then(function(){toast("Group created.");showGroups()}).catch(function(e){toast(e.message||"Could not create group.")});
 }
-
-function openGroup(id){
- db.collection("groups").doc(id).get().then(function(d){
-  if(!d.exists)return;
-  currentGroup=d.data();currentGroup.id=id;groupChatPage()
- })
+function groupSearch(){
+  var q=(($("gsearch")&&$("gsearch").value)||"").trim().toLowerCase(),box=$("groupResults");
+  if(!box)return;if(!q){box.innerHTML="";return}
+  var h='<div class="card"><b>Add users to a group</b>';
+  Object.keys(users).forEach(function(id){var u=users[id];if(id!==me.uid&&(u.username||"").toLowerCase().indexOf(q)>-1)h+='<div class="userRow"><button class="btn small" onclick="addSearchUser(\''+id+'\')">＋</button>'+av(u)+'<div class="userInfo"><b>'+esc(u.username)+'</b></div></div>'});
+  h+='</div>';box.innerHTML=h;
 }
-
-function groupChatPage(){
- page="groupChat";stop();reply=null;
- var g=currentGroup,admin=g.ownerUid===me.uid;
- var b='<div class="wrap"><div class="card"><div class="row">'+
- '<div class="userInfo"><b>'+esc(g.name)+'</b><div class="status">'+g.members.length+' members</div></div>'+
- '<button class="topBtn" onclick="groupMembers()">⋮</button></div>'+
- (admin?'<button class="btn small" onclick="groupAdd()">Add Member</button>':"")+
- '<div id="groupTyping" class="typing"></div></div>'+
- '<div id="groupMessages" class="msgList">Loading...</div>'+
- '<div class="chatBottom"><div id="groupReply"></div><div class="chatInput">'+
- '<button class="iconBtn" onclick="groupImage()">🖼</button>'+
- '<input id="groupInput" class="input" placeholder="Type a message" oninput="groupTyping(true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendGroup()}">'+
- '<button class="iconBtn" onclick="sendGroup()">➤</button></div></div></div>';
- $("app").innerHTML=shell(g.name,b,true);
-
- listen(db.collection("users"),function(s){
-  s.forEach(function(d){var u=d.data();u.uid=d.id;users[d.id]=u})
- });
- listen(db.collection("groups").doc(g.id).collection("messages").orderBy("createdAt","desc").limit(15),function(s){
-  groupMsgs=[];s.forEach(function(d){var x=d.data();x.id=d.id;groupMsgs.unshift(x)});
-  drawGroup()
- })
+function addSearchUser(uid){if(!groupId){toast("Open a group first.");return}db.collection("groups").doc(groupId).update({members:firebase.firestore.FieldValue.arrayUnion(uid)}).then(function(){toast("User added.");openGroup(groupId,groupName)})}
+function openGroup(id,name){
+  groupId=id;groupName=name||"Group";stop();page="groupChat";
+  db.collection("groups").doc(id).get().then(function(ds){
+    if(!ds.exists)return;var g=ds.data();groupName=g.name||name||"Group";
+    mount(shell(groupName,'<div class="wrap"><div class="card row"><b>'+esc(groupName)+'</b><button class="chatDots" onclick="groupMembers()">⋮</button></div><div id="gm" class="msgList">Loading...</div><div class="bottom"><div id="gr"></div><div id="groupMedia" class="mediaMenu hide"><button onclick="closeGroupMedia();groupImage()">🖼 Image</button></div><div class="compose"><button class="icon" onclick="toggleGroupMedia()">＋</button><input id="gi" class="input" placeholder="Message" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendGroup()}"><button class="icon send" onclick="sendGroup()">➤</button></div></div></div>',true));
+    listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id});if(window.gm)drawMessages(window.gm,"group","gm")});
+    listen(db.collection("groups").doc(id).collection("messages").orderBy("createdAt","asc"),function(s){window.gm=[];s.forEach(function(d){var x=d.data();x.id=d.id;window.gm.push(x)});window.gm=window.gm.slice(-12);drawMessages(window.gm,"group","gm");scrollBottom("gm")});trimMessages(db.collection("groups").doc(id).collection("messages"));
+  });
 }
-
-function drawGroup(){
- var h="";groupMsgs.forEach(function(x){h+=messageHTML(x,"group")});
- $("groupMessages").innerHTML=h||'<div class="empty">No messages yet.</div>';
- $("groupReply").innerHTML=reply?
- '<div class="reply">Replying to: '+esc(reply.text)+
- ' <button class="btn small secondary" onclick="reply=null;drawGroup()">Cancel</button></div>':""
-}
-
-function groupTyping(v){
- if(!currentGroup)return;
- db.collection("typing").doc(me.uid+"_group_"+currentGroup.id).set({
-  uid:me.uid,username:me.username,roomId:"group_"+currentGroup.id,typing:!!v,updatedAt:ts()
- },{merge:true}).catch(function(){});
- if(typingTimer)clearTimeout(typingTimer);
- if(v)typingTimer=setTimeout(function(){groupTyping(false)},1500)
-}
-
 function sendGroup(){
- if(sending)return;
- var i=$("groupInput"),t=(i.value||"").trim();
- if(!t&&!reply)return;
- sending=true;
- var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};
- if(reply){d.replyTo=reply.id;d.replyText=reply.text}
- db.collection("groups").doc(currentGroup.id).collection("messages").add(d)
- .then(function(){i.value="";reply=null;groupTyping(false)})
- .catch(function(){toast("Message failed")})
- .then(function(){sending=false})
+  if(sendingGroup)return;var i=$("gi");if(!i)return;var t=i.value.trim();if(!t&&!reply)return;
+  sendingGroup=true;var d={uid:me.uid,username:me.username,avatar:me.avatar||"",text:t,createdAt:ts()};if(reply){d.replyText=reply.text;d.replyTo=reply.id}
+  db.collection("groups").doc(groupId).collection("messages").add(d).then(function(){i.value="";reply=null;if($("gr"))$("gr").innerHTML="";return trimMessages(db.collection("groups").doc(groupId).collection("messages"))}).then(function(){scrollBottom("gm")}).catch(function(e){toast(e.message||"Group message failed.")}).then(function(){sendingGroup=false});
 }
-
+function toggleGroupMedia(){var x=$("groupMedia");if(x)x.classList.toggle("hide")}function closeGroupMedia(){var x=$("groupMedia");if(x)x.classList.add("hide")}
 function groupImage(){
- var i=document.createElement("input");i.type="file";i.accept="image/*";
- i.onchange=function(){var f=i.files[0];if(f)upload(f,"image",function(u){
-  db.collection("groups").doc(currentGroup.id).collection("messages").add({
-   uid:me.uid,username:me.username,avatar:me.avatar||"",imageUrl:u,createdAt:ts()
-  })
- })};i.click()
+  var i=document.createElement("input");i.type="file";i.accept="image/*";i.onchange=function(){var f=i.files&&i.files[0];if(!f)return;if(f.size>15*1024*1024){toast("Image must be under 15MB.");return}toast("Uploading image...");upload(f,function(url){var d={uid:me.uid,username:me.username,avatar:me.avatar||"",createdAt:ts(),imageUrl:url};db.collection("groups").doc(groupId).collection("messages").add(d).then(function(){return trimMessages(db.collection("groups").doc(groupId).collection("messages"))}).then(function(){toast("Image sent.");scrollBottom("gm")})},function(e){toast("Upload failed: "+e)},"image")};i.click();
 }
-
 function groupMembers(){
- var h="Members:\n\n";
- currentGroup.members.forEach(function(id){
-  var u=users[id]||{};h+=(u.username||"User")+(id===currentGroup.ownerUid?" (Admin)":"")+"\n"
- });
- alert(h)
+  db.collection("groups").doc(groupId).get().then(function(d){if(!d.exists)return;var g=d.data(),h="Group Members:\n";(g.members||[]).forEach(function(uid){var u=users[uid]||{};h+=(u.username||"User")+(uid===g.ownerUid?" (Admin)":"")+"\n"});alert(h)});
 }
-
-function groupAdd(){
- if(currentGroup.ownerUid!==me.uid)return;
- var n=prompt("Username to add");if(!n)return;
- db.collection("users").where("usernameLower","==",n.toLowerCase()).limit(1).get().then(function(s){
-  if(s.empty){toast("User not found");return}
-  var id=s.docs[0].id;
-  if(currentGroup.members.indexOf(id)>-1){toast("Already a member");return}
-  db.collection("groups").doc(currentGroup.id).update({members:arr(id)})
- })
-}
-
-function myStatusPage(){
- page="myStatus";stop();
- var b='<div class="wrap"><div class="card">'+
- '<button class="btn" onclick="textStatus()">Text</button>'+
- '<button class="btn secondary" onclick="statusFile(\'image\')">Image</button>'+
- '<button class="btn secondary" onclick="statusFile(\'video\')">Video</button>'+
- '</div><div id="myStatuses">Loading...</div></div>';
- $("app").innerHTML=shell("My Status",b,true);
- listen(db.collection("statuses").where("uid","==",me.uid),function(s){
-  var h="";s.forEach(function(d){
-   var x=d.data();x.id=d.id;
-   if(x.createdAt&&x.createdAt.toDate&&(Date.now()-x.createdAt.toDate().getTime()>86400000))return;
-   h+=statusHTML(x,true)
+function groupRemoveMember(uid){
+  db.collection("groups").doc(groupId).get().then(function(d){
+    if(!d.exists)return;
+    var g=d.data();
+    if(g.ownerUid!==me.uid){toast("Only group admin can remove members.");return}
+    if(uid===me.uid){toast("Admin cannot remove himself.");return}
+    db.collection("groups").doc(groupId).update({
+      members:firebase.firestore.FieldValue.arrayRemove(uid)
+    }).then(function(){
+      toast("Member removed.");
+      groupMembers();
+    }).catch(function(e){toast(e.message||"Could not remove member.")});
   });
-  $("myStatuses").innerHTML=h||'<div class="empty">No status yet.</div>'
- })
 }
 
-function textStatus(){
- var t=prompt("Write status");if(!t)return;
- db.collection("statuses").add({uid:me.uid,username:me.username,type:"text",text:t,createdAt:ts()})
-}
-
-function statusFile(type){
- var i=document.createElement("input");i.type="file";i.accept=type+"/*";
- i.onchange=function(){var f=i.files[0];if(!f)return;
-  upload(f,type,function(u){
-   var d={uid:me.uid,username:me.username,type:type,createdAt:ts()};
-   d[type+"Url"]=u;db.collection("statuses").add(d)
-  })
- };i.click()
-}
-
-function statusHTML(x,own){
- var c=x.text?'<div class="msgText">'+esc(x.text)+'</div>':"";
- if(x.imageUrl)c+='<img class="media" src="'+esc(x.imageUrl)+'">';
- if(x.videoUrl)c+='<video class="media" controls src="'+esc(x.videoUrl)+'"></video>';
- return '<div class="statusCard"><div class="between"><b>'+esc(x.username)+'</b><span class="status">'+esc(time(x.createdAt))+'</span></div>'+
- c+'<div class="statusActions">'+
- '<button onclick="reactStatus(\''+x.id+'\',\''+x.uid+'\')">❤️ React</button>'+
- (own?'<button onclick="deleteStatus(\''+x.id+'\')">Delete</button>':
- '<button onclick="viewStatus(\''+x.id+'\',\''+x.uid+'\')">View</button>')+
- '</div></div>'
-}
-
-function friendsStatusPage(){
- page="friendsStatus";stop();
- var b='<div class="wrap"><div id="friendStatuses">Loading...</div></div>';
- $("app").innerHTML=shell("Status",b,true);
- listen(db.collection("statuses"),function(s){
-  var h="";s.forEach(function(d){
-   var x=d.data();x.id=d.id;
-   if(x.uid===me.uid)return;
-   if(x.createdAt&&x.createdAt.toDate&&(Date.now()-x.createdAt.toDate().getTime()>86400000))return;
-   h+=statusHTML(x,false)
+function showBlockedUsers(){
+  stop();
+  page="blocked";
+  mount(shell("Blocked Users",'<div class="wrap"><div id="blockedList">Loading...</div></div>',true));
+  listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id})});
+  db.collection("blocks").where("uid","==",me.uid).get().then(function(s){
+    var h="";
+    s.forEach(function(d){
+      var x=d.data(),u=users[x.blockedUid]||{};
+      h+='<div class="userRow">'+av(u)+'<div class="userInfo"><b>'+esc(u.username||"User")+'</b><div class="small">Blocked</div></div><button class="btn small" onclick="unblockUser(\''+x.blockedUid+'\')">Unblock</button></div>';
+    });
+    $("blockedList").innerHTML=h||'<div class="card empty">No blocked users.</div>';
+  }).catch(function(e){
+    $("blockedList").innerHTML='<div class="card empty">'+esc(e.message||"Could not load blocked users.")+'</div>';
   });
-  $("friendStatuses").innerHTML=h||'<div class="empty">No statuses.</div>'
- })
 }
 
-function reactStatus(id,owner){
- db.collection("statusReactions").doc(id+"_"+me.uid).set({
-  statusId:id,uid:me.uid,reaction:"❤️",createdAt:ts()
- })
-}
-
-function viewStatus(id,owner){
- db.collection("statusViews").doc(id+"_"+me.uid).set({
-  statusId:id,uid:me.uid,createdAt:ts()
- },{merge:true}).then(function(){
-  toast("Status viewed")
- })
-}
-
-function deleteStatus(id){
- if(confirm("Delete this status?"))db.collection("statuses").doc(id).delete()
+function unblockUser(uid){
+  db.collection("blocks").doc(me.uid+"_"+uid).delete().then(function(){
+    toast("User unblocked.");
+    showBlockedUsers();
+  }).catch(function(e){toast(e.message||"Unblock failed.")});
 }
 
 function settingsPage(){
- page="settings";stop();
- var b='<div class="wrap"><div class="card">'+
- '<button class="settingsBtn" onclick="changeDP()">Change DP</button>'+
- '<button class="settingsBtn" onclick="toggleNotify()">Notifications: '+(notifyOn?"ON":"OFF")+'</button>'+
- '<button class="settingsBtn" onclick="toggleSound()">Notification Sound: '+(soundOn?"ON":"OFF")+'</button>'+
- '<button class="settingsBtn" onclick="toggleBlock()">Block / Unblock</button>'+
- '<button class="settingsBtn" onclick="blockedPage()">Blocked Users</button>'+
- '<button class="settingsBtn" onclick="themesPage()">Themes</button>'+
- '<button class="settingsBtn" onclick="logout()">Logout</button>'+
- '</div></div>';
- $("app").innerHTML=shell("Settings",b,true)
+  stop();
+  page="settings";
+  mount(shell("Settings",'<div class="wrap">'+
+    '<div class="card profileCard">'+
+      av(me)+
+      '<div class="userInfo"><b>'+esc(me.username||"User")+'</b><div class="small">Easy ID: '+esc(me.easyId||"")+'</div></div>'+
+    '</div>'+
+    '<div class="card">'+
+      '<button class="menuBtn" onclick="viewProfile(me.uid)">👤 View Profile</button>'+
+      '<button class="menuBtn" onclick="changeDP()">🖼 Change DP</button>'+
+      '<button class="menuBtn" onclick="notificationSettings()">🔔 Notifications</button>'+
+      '<button class="menuBtn" onclick="showBlockedUsers()">🚫 Blocked Users</button>'+
+      '<button class="menuBtn" onclick="themePage()">🎨 Themes</button>'+
+      '<button class="menuBtn" onclick="logout()">🚪 Logout</button>'+
+    '</div>'+
+  '</div>',true));
 }
 
 function changeDP(){
- var i=document.createElement("input");i.type="file";i.accept="image/*";
- i.onchange=function(){var f=i.files[0];if(!f)return;upload(f,"image",function(u){
-  db.collection("users").doc(me.uid).update({avatar:u}).then(function(){me.avatar=u;toast("DP changed")})
- })};i.click()
+  var i=document.createElement("input");
+  i.type="file";
+  i.accept="image/*";
+  i.onchange=function(){
+    var f=i.files&&i.files[0];
+    if(!f)return;
+    if(f.size>10*1024*1024){
+      toast("Image must be under 10MB.");
+      return;
+    }
+    toast("Uploading DP...");
+    upload(f,function(url){
+      db.collection("users").doc(me.uid).update({
+        avatar:url
+      }).then(function(){
+        me.avatar=url;
+        if(users[me.uid])users[me.uid].avatar=url;
+        toast("DP updated.");
+        settingsPage();
+      }).catch(function(e){toast(e.message||"DP update failed.")});
+    },function(e){toast("Upload failed: "+e)},"image");
+  };
+  i.click();
 }
 
-function toggleNotify(){
- notifyOn=!notifyOn;localStorage.setItem("notify",notifyOn?"1":"0");settingsPage()
+function notificationSettings(){
+  var current=localStorage.getItem("yc_notifications")!=="off";
+  var choice=prompt("Notifications:\n1 ON\n2 OFF\nCurrent: "+(current?"ON":"OFF"));
+  if(choice==="1"){
+    localStorage.setItem("yc_notifications","on");
+    toast("Notifications ON.");
+  }else if(choice==="2"){
+    localStorage.setItem("yc_notifications","off");
+    toast("Notifications OFF.");
+  }
 }
 
-function toggleSound(){
- soundOn=!soundOn;localStorage.setItem("sound",soundOn?"1":"0");settingsPage()
-}
+function themePage(){
+  var themes=[
+    ["White Theme","white"],
+    ["Dark Theme","dark"],
+    ["Ocean Blue","ocean"],
+    ["Sky Blue","sky"],
+    ["Midnight Blue","midnight"],
+    ["Emerald Green","emerald"],
+    ["Forest Green","forest"],
+    ["Royal Purple","purple"],
+    ["Lavender","lavender"],
+    ["Rose Pink","rose"],
+    ["Sunset Orange","sunset"],
+    ["Golden Glow","gold"],
+    ["Crimson Red","crimson"],
+    ["Aqua Wave","aqua"],
+    ["Neon Night","neon"],
+    ["Cyber Blue","cyber"],
+    ["Galaxy","galaxy"],
+    ["Coffee Brown","coffee"],
+    ["Silver Gray","silver"],
+    ["Cherry Blossom","cherry"]
+  ];
 
-function toggleBlock(){
- if(!peer)return;
- var id=me.uid+"_"+peer.uid;
- db.collection("blocks").doc(id).get().then(function(d){
-  if(d.exists)return db.collection("blocks").doc(id).delete().then(checkBlock);
-  return db.collection("blocks").doc(id).set({
-   uid:me.uid,blockedUid:peer.uid,createdAt:ts()
-  }).then(checkBlock)
- })
-}
-
-function unblockPeer(){
- if(peer)db.collection("blocks").doc(me.uid+"_"+peer.uid).delete().then(checkBlock)
-}
-
-function blockedPage(){
- page="blocked";stop();
- $("app").innerHTML=shell("Blocked Users",'<div class="wrap"><div id="blockedList" class="card">Loading...</div></div>',true);
- listen(db.collection("blocks").where("uid","==",me.uid),function(s){
-  var h="";
-  s.forEach(function(d){
-   var x=d.data(),u=users[x.blockedUid]||{};
-   h+='<div class="userRow"><div class="userInfo"><b>'+esc(u.username||"User")+
-   '</b></div><button class="btn small" onclick="unblockId(\''+x.blockedUid+'\')">Unblock</button></div>'
+  var h='<div class="wrap"><div class="card"><b>Select Theme</b>';
+  themes.forEach(function(x,i){
+    h+='<button class="menuBtn" onclick="selectTheme(\''+x[1]+'\')">'+(i+1)+'. '+x[0]+'</button>';
   });
-  $("blockedList").innerHTML=h||'<div class="empty">No blocked users.</div>'
- })
+  h+='</div></div>';
+
+  mount(shell("Themes",h,true));
 }
 
-function unblockId(id){
- db.collection("blocks").doc(me.uid+"_"+id).delete()
+function selectTheme(name){
+  localStorage.setItem("yc_theme",name);
+  applyTheme(name);
+  toast("Theme changed.");
 }
 
-function themesPage(){
- page="themes";stop();
- var h='<div class="themeList">';
- themeNames.forEach(function(n){
-  h+='<button class="themeBtn" onclick="chooseTheme(\''+n+'\')"><span class="themeDot"></span>'+n+'</button>'
- });
- h+='</div>';
- $("app").innerHTML=shell("Themes",'<div class="wrap"><div class="card">'+h+'</div></div>',true)
+function loadSavedTheme(){
+  var t=localStorage.getItem("yc_theme")||"";
+  applyTheme(t);
+}
+
+function notificationAllowed(){
+  return localStorage.getItem("yc_notifications")!=="off";
+}
+
+function notify(uid,type,text,target){
+  if(!notificationAllowed())return Promise.resolve();
+  if(!uid||uid===me.uid)return Promise.resolve();
+  return db.collection("notifications").add({
+    toUid:uid,
+    fromUid:me.uid,
+    fromUsername:me.username,
+    fromAvatar:me.avatar||"",
+    type:type||"message",
+    text:text||"",
+    target:target||"",
+    read:false,
+    createdAt:ts()
+  }).catch(function(){});
+}
+
+function notificationListener(){
+  if(!me)return;
+  if(window.notificationUnsub)window.notificationUnsub();
+  window.notificationUnsub=db.collection("notifications")
+    .where("toUid","==",me.uid)
+    .where("read","==",false)
+    .onSnapshot(function(s){
+      if(!s.empty&&notificationAllowed()){
+        playNotificationSound();
+      }
+    },function(){});
+}
+
+function playNotificationSound(){
+  if(!notificationAllowed())return;
+  try{
+    var a=document.getElementById("notificationAudio");
+    if(a){
+      a.currentTime=0;
+      var p=a.play();
+      if(p&&p.catch)p.catch(function(){});
+      return;
+    }
+
+    var C=window.AudioContext||window.webkitAudioContext;
+    if(!C)return;
+    var c=new C(),o=c.createOscillator(),g=c.createGain();
+    o.frequency.value=880;
+    o.type="sine";
+    g.gain.value=.08;
+    o.connect(g);
+    g.connect(c.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.25);
+    o.stop(c.currentTime+.25);
+  }catch(e){}
+}
+
+function addNotificationAudio(){
+  if(document.getElementById("notificationAudio"))return;
+  var a=document.createElement("audio");
+  a.id="notificationAudio";
+  a.preload="auto";
+  a.src="New_Iphone_18_Pro_Max_Sms_Ringtone___New_Iphone_Notification_Sound___Sms_Ringtone(256k).mp3";
+  document.body.appendChild(a);
+}
+
+function allUsersPage(){
+  stop();
+  page="allUsers";
+  mount(shell("All Users",'<div class="wrap"><input id="allSearch" class="input" placeholder="Search username or Easy ID" oninput="drawAllUsers()"><div id="allUsersList">Loading...</div></div>',true));
+  listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id});drawAllUsers()});
+}
+
+function drawAllUsers(){
+  var box=$("allUsersList");
+  if(!box)return;
+  var q=(($("allSearch")&&$("allSearch").value)||"").trim().toLowerCase();
+  var a=[];
+  Object.keys(users).forEach(function(id){
+    if(id===me.uid)return;
+    var u=users[id]||{};
+    var un=(u.username||"").toLowerCase();
+    var ei=(u.easyId||"").toLowerCase();
+    if(!q||un.indexOf(q)>-1||ei.indexOf(q)>-1)a.push(u);
+  });
+
+  a.sort(function(x,y){
+    return String(x.username||"").localeCompare(String(y.username||""));
+  });
+
+  var h="";
+  a.forEach(function(u){
+    h+='<div class="userRow" onclick="openPrivate(\''+u.uid+'\')">'+
+      av(u)+
+      '<div class="userInfo"><b>'+esc(u.username||"User")+'</b>'+
+      '<div class="small">Easy ID: '+esc(u.easyId||"")+' • '+(online(u)?"Online":"Offline")+'</div></div>'+
+      '</div>';
+  });
+
+  box.innerHTML=h||'<div class="card empty">No users found.</div>';
+}
+
+function onlineUsersPage(){
+  stop();
+  page="online";
+  mount(shell("Online Users",'<div class="wrap"><div id="onlineList">Loading...</div></div>',true));
+  listen(db.collection("users"),function(s){users={};s.forEach(function(d){users[d.id]=d.data();users[d.id].uid=d.id});drawOnlineUsers()});
+}
+
+function drawOnlineUsers(){
+  var box=$("onlineList");
+  if(!box)return;
+
+  var a=[];
+  Object.keys(users).forEach(function(id){
+    if(id===me.uid)return;
+    if(online(users[id]))a.push(users[id]);
+  });
+
+  a.sort(function(x,y){
+    return String(x.username||"").localeCompare(String(y.username||""));
+  });
+
+  var h="";
+  a.forEach(function(u){
+    h+='<div class="userRow" onclick="openPrivate(\''+u.uid+'\')">'+
+      av(u)+
+      '<div class="userInfo"><b>'+esc(u.username||"User")+'</b>'+
+      '<div class="small online">● Online</div></div>'+
+      '</div>';
+  });
+
+  box.innerHTML=h||'<div class="card empty">No other users are online.</div>';
+}
+
+function homePage(){
+  stop();
+  page="home";
+
+  mount(shell("YOUR CHAT",'<div class="wrap homeGrid">'+
+    '<button class="homeBtn" onclick="worldPage()">🌍<span>World Chat</span></button>'+
+    '<button class="homeBtn" onclick="onlineUsersPage()">🟢<span>Online Users</span></button>'+
+    '<button class="homeBtn" onclick="showPrivate()">💬<span>Private Chat</span></button>'+
+    '<button class="homeBtn" onclick="showGroups()">👥<span>Group Chat</span></button>'+
+    '<button class="homeBtn" onclick="allUsersPage()">👤<span>All Users</span></button>'+
+    '<button class="homeBtn" onclick="statusPage(\'other\')">⭕<span>Status</span></button>'+
+    '<button class="homeBtn" onclick="settingsPage()">⚙️<span>Settings</span></button>'+
+  '</div>',false));
+
+  loadSavedTheme();
+  addNotificationAudio();
+  notificationListener();
+}
+
+function worldPage(){
+  stop();
+  page="world";
+
+  mount(shell("World Chat",'<div class="worldWrap">'+
+    '<div class="worldHeader"><button class="smallBtn" onclick="worldMenu()">☰ Menu</button><span id="worldOnline">Online: 0</span><button class="smallBtn" onclick="worldOptions()">Options</button></div>'+
+    '<div id="wm" class="msgList">Loading...</div>'+
+    '<div id="wr"></div>'+
+    '<div class="compose"><input id="wi" class="input" placeholder="Message" oninput="setTyping(\'world\',true)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();sendWorld()}"><button id="wsend" class="icon send" onclick="sendWorld()">➤</button></div>'+
+  '</div>',true));
+
+  listen(db.collection("worldMessages").orderBy("createdAt","asc"),function(s){
+    window.world=[];
+    s.forEach(function(d){
+      var x=d.data();x.id=d.id;window.world.push(x);
+    });
+    window.world=window.world.slice(-15);
+    drawMessages(window.world,"world","wm");
+    scrollBottom("wm");
+  });
+
+  listen(db.collection("users"),function(s){
+    users={};
+    s.forEach(function(d){
+      users[d.id]=d.data();
+      users[d.id].uid=d.id;
+    });
+    updateWorldOnline();
+  });
+
+  updateWorldOnline();
+}
+
+function updateWorldOnline(){
+  var c=0;
+  Object.keys(users).forEach(function(id){
+    if(online(users[id]))c++;
+  });
+  var x=$("worldOnline");
+  if(x)x.textContent="Online: "+c;
+}
+
+function worldMenu(){
+  var choice=prompt("World Chat Menu:\n1 Online Users\n2 Mention User\n3 All Users\n4 Back");
+  if(choice==="1")onlineUsersPage();
+  else if(choice==="2")showWorldMentions();
+  else if(choice==="3")allUsersPage();
+}
+
+function showWorldMentions(){
+  var box=$("wm");
+  if(!box)return;
+
+  var h='<div class="card"><b>Select user to mention</b>';
+  Object.keys(users).forEach(function(id){
+    if(id===me.uid)return;
+    var u=users[id];
+    h+='<button class="userRow" onclick="mentionUser(\''+esc(u.username)+'\')">'+av(u)+'<span class="userInfo">@'+esc(u.username)+'</span></button>';
+  });
+  h+='<button class="btn secondary" onclick="worldPage()">Back</button></div>';
+
+  box.innerHTML=h;
+}
+
+function mentionUser(username){
+  var i=$("wi");
+  var val=i?i.value:"";
+  worldPage();
+  var n=$("wi");
+  if(n){
+    n.value=val+(val?" ":"")+"@"+username+" ";
+    n.focus();
+  }
+}
+
+function worldOptions(){
+  var choice=prompt("World Chat Options:\n1 Back");
+  if(choice==="1")worldPage();
+}
+
+function startAppAfterLogin(){
+  setOnline(true);
+  setTimeout(function(){
+    homePage();
+  },1000);
+}
+
+loadSavedTheme();
+addNotificationAudio();
+
+function boot(){
+  if(window.appBooted)return;
+  window.appBooted=true;
+
+  auth.onAuthStateChanged(function(user){
+    if(user){
+      db.collection("users").doc(user.uid).get().then(function(d){
+        if(!d.exists){
+          auth.signOut();
+          return;
+        }
+
+        me=d.data();
+        me.uid=user.uid;
+
+        if(!me.username){
+          me.username=user.email ? user.email.split("@")[0] : "User";
+        }
+
+        users[me.uid]=me;
+        setOnline(true);
+        clearInterval(window.ycPresence);
+        window.ycPresence=setInterval(function(){
+          if(me)setOnline(true);
+        },30000);
+        loadSavedTheme();
+        addNotificationAudio();
+
+        setTimeout(function(){
+          homePage();
+        },1000);
+      }).catch(function(){
+        auth.signOut();
+      });
+    }else{
+      me=null;
+      page="login";
+      loginPage();
+    }
+  });
+}
+
+function loginPage(){
+  stop();
+
+  mount('<div class="authPage">'+
+    '<div class="authBox">'+
+      '<div class="logo">YOUR CHAT</div>'+
+      '<div class="authSub">Connect • Chat • Share</div>'+
+      '<input id="loginUser" class="input" placeholder="Username" autocomplete="username">'+
+      '<input id="loginPass" class="input" type="password" placeholder="Password" autocomplete="current-password">'+
+      '<button class="btn primary" onclick="doLogin()">Login</button>'+
+      '<button class="btn secondary" onclick="createAccountPage()">Create Account</button>'+
+      '<div id="authMsg" class="notice"></div>'+
+    '</div>'+
+  '</div>');
+}
+
+function createAccountPage(){
+  stop();
+
+  mount('<div class="authPage">'+
+    '<div class="authBox">'+
+      '<div class="logo">YOUR CHAT</div>'+
+      '<div class="authSub">Create your account</div>'+
+      '<input id="newUser" class="input" placeholder="Username">'+
+      '<input id="newPass" class="input" type="password" placeholder="Password">'+
+      '<button class="btn primary" onclick="doCreateAccount()">Create Account</button>'+
+      '<button class="btn secondary" onclick="loginPage()">Back to Login</button>'+
+      '<div id="authMsg" class="notice"></div>'+
+    '</div>'+
+  '</div>');
+}
+
+function usernameEmail(name){
+  return String(name).trim().toLowerCase()+"@yourchat.local";
+}
+
+function validUsername(name){
+  return /^[A-Za-z0-9_]{3,24}$/.test(name);
+}
+
+function doCreateAccount(){
+  var n=($("newUser")&&$("newUser").value||"").trim();
+  var p=($("newPass")&&$("newPass").value||"");
+
+  if(!validUsername(n)){
+    toast("Username must be 3-24 letters, numbers or _.");
+    return;
+  }
+
+  if(p.length<6){
+    toast("Password must be at least 6 characters.");
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(usernameEmail(n),p)
+    .then(function(c){
+      var easy="YC"+String(Math.floor(100000+Math.random()*900000));
+
+      return db.collection("users").doc(c.user.uid).set({
+        uid:c.user.uid,
+        username:n,
+        easyId:easy,
+        avatar:"",
+        bio:"",
+        online:true,
+        lastSeen:ts(),
+        createdAt:ts()
+      });
+    })
+    .then(function(){
+      toast("Account created.");
+    })
+    .catch(function(e){
+      toast(e.message||"Account creation failed.");
+    });
+}
+
+function doLogin(){
+  var n=($("loginUser")&&$("loginUser").value||"").trim();
+  var p=($("loginPass")&&$("loginPass").value||"");
+
+  if(!n||!p){
+    toast("Enter username and password.");
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(usernameEmail(n),p)
+    .then(function(){
+      toast("Login successful.");
+    })
+    .catch(function(e){
+      toast(e.message||"Login failed.");
+    });
+}
+
+function setOnline(v){
+  if(!me)return;
+
+  return db.collection("users").doc(me.uid).set({
+    online:!!v,
+    lastSeen:ts()
+  },{merge:true}).catch(function(){});
+}
+
+function stop(){
+  try{
+    listenStops.forEach(function(x){try{x()}catch(e){}});
+    listenStops=[];
+    if(worldUnsub)worldUnsub();
+    if(privateUnsub)privateUnsub();
+    if(groupUnsub)groupUnsub();
+    if(usersUnsub)usersUnsub();
+    if(notifyUnsub)notifyUnsub();
+    if(window.notificationUnsub)window.notificationUnsub();
+  }catch(e){}
+
+  worldUnsub=null;
+  privateUnsub=null;
+  groupUnsub=null;
+  usersUnsub=null;
+  notifyUnsub=null;
+
+  if(recInterval){
+    clearInterval(recInterval);
+    recInterval=null;
+  }
+
+  if(recording){
+    try{recording.stop()}catch(e){}
+  }
+
+  if(recStream){
+    try{
+      recStream.getTracks().forEach(function(t){t.stop()});
+    }catch(e){}
+  }
+
+  recording=null;
+  recStream=null;
 }
 
 function logout(){
- if(me)db.collection("users").doc(me.uid).set({online:false,lastSeen:ts()},{merge:true});
- stop();auth.signOut()
+  if(!me)return;
+
+  clearInterval(window.ycPresence);
+  setOnline(false).then(function(){
+    stop();
+    auth.signOut().then(function(){
+      me=null;
+      peer=null;
+      chatId=null;
+      groupId=null;
+      groupName="";
+      page="login";
+      loginPage();
+    });
+  });
 }
+
+window.addEventListener("beforeunload",function(){
+  try{
+    if(me)setOnline(false);
+  }catch(e){}
+});
+
+window.addEventListener("online",function(){
+  if(me)setOnline(true);
+});
+
+window.addEventListener("offline",function(){
+  if(me)setOnline(false);
+});
+
+boot();
+
+</script>
+</body>
+</html>
